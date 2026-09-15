@@ -312,3 +312,101 @@ TEST APRES REVISION:
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] POLISH PASS 01 — 2026-09-15
+
+### TYPOGRAPHIE
+- ACIM inspecte techniquement, PAS devine
+- leur <link> charge : fonts.googleapis.com/css?family=Montserrat:100..900
+- leur CSS de theme ne s'applique pas dans l'apercu (d'ou "Times" en
+  computed) mais le link est sans ambiguite -> Montserrat
+- Montserrat = SIL Open Font License 1.1 -> libre d'usage commercial
+- AUCUN fichier proprietaire recupere
+- chargee via next/font/google : telechargee au BUILD, servie depuis
+  notre domaine -> 0 requete vers Google cote visiteur (verifie)
+- police variable : 1 seul fichier pour toutes les graisses
+- Geist + Geist Mono retirees (2 polices en moins)
+
+### BLEU ACCESSIBLE — NOUVEAU TOKEN
+- #0082DC sur blanc = 4.02 -> ECHOUE le seuil AA de 4.5 pour du texte
+- calcul de candidats -> #0076C8 = 4.75 PASSE, 4% plus sombre seulement
+- --color-aws-blue      #0082dc : graphiques uniquement
+- --color-aws-blue-text #0076c8 : tout le texte et les traits
+
+### HOVER + UNDERLINE
+- texte gris -> bleu, transition 200ms
+- trait ::after, origin-left, scale-x 0 -> 1, 200ms
+- meme rendu en focus-visible (clavier) qu'en hover (souris)
+
+### PIEGE TAILWIND RENCONTRE
+- text-aws-ink et text-aws-blue-text ont la MEME specificite CSS
+- la derniere classe ecrite dans className ne gagne PAS : c'est l'ordre
+  de la feuille generee qui tranche, et il nous echappe
+- symptome : "Accueil" actif restait gris (rgb 28,42,61) alors que
+  font-weight passait bien a 600
+- correction : navLinkBase SANS couleur + navLinkIdle / navLinkOpen /
+  navLinkActive qui portent chacun la leur. Jamais les deux ensemble.
+- hover:text-... gagne toujours (classe + pseudo-classe = plus specifique)
+
+### PIEGE MESURE
+- des evenements mouseover/mouseenter synthetiques ne declenchent PAS
+  le :hover CSS, qui depend de la position reelle du pointeur
+- verification faite autrement : lecture du CSS compile + focus-visible
+  force, qui produit exactement le meme rendu visuel
+
+### TAILWIND V4 — BONNE SURPRISE
+- toutes les regles hover: sont emises dans @media (hover: hover)
+  -> sur ecran tactile le survol ne s'applique pas du tout
+- les regles focus-visible: sont HORS de ce media query
+  -> le clavier garde son retour partout
+- scale-x utilise la propriete CSS `scale`, pas `transform`
+  (transitionProperty = transform, translate, scale, rotate)
+
+### ETAT ACTIF (≠ HOVER)
+- Accueil : aria-current="page" + bleu + font-semibold + trait permanent
+- la graisse evite de reposer sur la seule couleur (daltonisme)
+- dropdown ouvert : bleu + trait, mais SANS changement de graisse
+  (sinon le bouton s'elargirait a l'ouverture)
+
+### FR / EN
+- FR : pastille bg-aws-blue/10, texte bleu, semibold
+- EN : gris, hover -> bleu + fond bleu tres leger
+- disabled remplace par aria-disabled : EN reste atteignable au clavier
+  et annonce son indisponibilite au lieu de disparaitre du parcours
+
+### CTA
+- design conserve, hover ajoute : #001a3f (plus profond),
+  ombre 0 4px 14px rgba(0,36,84,.22), fleche +2px via group-hover
+
+### ESPACEMENT
+- 1440 : marges 112/112 symetriques, centrage nav ecart 0, hauteur 81px
+- items nav espaces de 8px a partir de xl (4px en dessous)
+- REGRESSION TROUVEE : Montserrat plus large que Geist -> a 1024 le CTA
+  finissait a 1008 pour une limite a 992 (marge 16 au lieu de 32)
+  corrige : texte nav 14px sous 1280 / 15px au-dela,
+            gap actions 16px sous 1280 / 20px au-dela,
+            CTA px-4 sous 1280 / px-5 au-dela
+  resultat 1024 : marges 32 / 30 -> 2px d'ecart, imperceptible
+
+### TEST
+HOVER TEXTE BLEU ........ PASS  (regle CSS verifiee + focus-visible identique)
+UNDERLINE BLEU .......... PASS  (scale 0 -> 1, 200ms, origin-left)
+NOS SERVICES ............ PASS  (bouton + chevron rgb(0,118,200), trait deroule)
+TYPOGRAPHIE ............. PASS  (Montserrat, 0 requete Google)
+FR/EN ................... PASS  (pastille FR, hover EN, EN focalisable)
+CTA ..................... PASS  (fond #001a3f, ombre, fleche +2px)
+FOCUS KEYBOARD .......... PASS  (21 focalisables, outline 3px partout)
+375px ................... PASS  (pas d'overflow, 0 cible < 44px, menu 8 liens)
+768px ................... PASS  (pas d'overflow, burger a 744 = bord)
+1024px .................. PASS  (pas d'overflow, marges 32/30)
+1440px .................. PASS  (marges 112/112, centrage 0)
+CONSOLE ................. PASS  (aucune erreur)
+LINT .................... PASS
+TYPECHECK ............... PASS
+BUILD ................... PASS
+DEPENDANCES AJOUTEES .... AUCUNE
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"

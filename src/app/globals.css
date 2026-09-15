@@ -10,7 +10,8 @@
 @theme {
   --color-aws-navy: #002454;      /* contraste 15.21 sur blanc — texte et CTA */
   --color-aws-navy-soft: #003c78; /* contraste 10.95 — survol, titres secondaires */
-  --color-aws-blue: #0082dc;      /* contraste 4.02 — accents graphiques UNIQUEMENT */
+  --color-aws-blue: #0082dc;      /* contraste 4.02 — graphiques UNIQUEMENT, jamais du texte */
+  --color-aws-blue-text: #0076c8; /* contraste 4.75 — le meme bleu, calibre pour passer AA sur du texte */
   --color-aws-ink: #1c2a3d;       /* gris-bleu pour la navigation courante */
   --color-aws-line: #e6ecf4;      /* filets et separateurs tres discrets */
 }
@@ -23,14 +24,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  /* Le template ecrivait Arial ici, ce qui annulait la police Geist
-     chargee dans layout.tsx. On utilise bien la variable de la police. */
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
 }

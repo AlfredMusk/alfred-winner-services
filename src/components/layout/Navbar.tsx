@@ -22,10 +22,45 @@ const LINKS = [
 
 /* Styles partages. Extraits en constantes pour eviter de repeter
    quinze classes Tailwind a chaque lien. */
-const navLink =
-  "rounded-lg px-3 py-2 text-[0.9375rem] text-aws-ink transition-colors " +
-  "hover:text-aws-navy focus-visible:outline-2 focus-visible:outline-offset-2 " +
-  "focus-visible:outline-aws-blue motion-reduce:transition-none";
+/* Lien de navigation desktop.
+
+   relative        : le lien devient le repere de positionnement. Sans lui,
+                     le trait se placerait par rapport a toute la page.
+   after:content-[''] : cree un pseudo-element ::after, une "fausse" boite
+                     que le CSS dessine sans qu'elle existe dans le HTML.
+   after:absolute  : ce trait est retire du flux et colle au lien.
+   inset-x-3       : left et right a 12px, soit la largeur du texte seul.
+   origin-left     : transform-origin: left. Le trait grandit DEPUIS la gauche.
+   scale-x-0 -> 100: il se deroule horizontalement au lieu d'apparaitre d'un coup.
+   focus-visible   : meme rendu au clavier qu'a la souris — le survol ne doit
+                     jamais etre le seul indicateur. */
+const navLinkBase =
+  /* Montserrat est plus large que la police du template : a 1024px la
+     navigation debordait de sa marge. On descend a 14px entre 1024 et
+     1279, on revient a 15px a partir de 1280 ou la place ne manque plus. */
+  "relative rounded-md px-3 py-2 text-[0.875rem] font-medium xl:text-[0.9375rem] " +
+  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  "after:absolute after:inset-x-3 after:bottom-1 after:h-[2px] after:rounded-full " +
+  "after:bg-aws-blue-text after:origin-left after:scale-x-0 after:content-[''] " +
+  "after:transition-transform after:duration-200 " +
+  "hover:after:scale-x-100 focus-visible:after:scale-x-100 " +
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
+  "motion-reduce:transition-none motion-reduce:after:transition-none";
+
+/* ATTENTION, piege Tailwind : la derniere classe ecrite ne gagne PAS.
+   text-aws-ink et text-aws-blue-text ont la MEME specificite CSS, c'est
+   l'ordre dans la feuille generee qui tranche — et il nous echappe.
+   On ne met donc jamais les deux ensemble : on choisit selon l'etat.
+   (hover:text-... gagne toujours, lui : classe + pseudo-classe.)
+
+   ACTIF n'est PAS HOVER :
+   HOVER = "ce que la souris survole", transitoire, le trait se deroule.
+   ACTIF = "ou je me trouve", permanent, le trait est deja deroule.
+   La graisse change en plus : l'etat actif ne doit pas reposer sur la
+   seule couleur, sinon il disparait pour un daltonien. */
+const navLinkIdle = "text-aws-ink";
+const navLinkOpen = "text-aws-blue-text after:scale-x-100";
+const navLinkActive = "text-aws-blue-text font-semibold after:scale-x-100";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue";
@@ -128,8 +163,12 @@ export default function Navbar() {
 
           {/* ---------- CENTRE : navigation (desktop) ---------- */}
           {/* hidden = display:none ; lg:flex = redevient flex a partir de 1024px */}
-          <nav aria-label="Navigation principale" className="col-start-2 hidden items-center gap-1 justify-self-center lg:flex">
-            <a href="#top" className={navLink}>Accueil</a>
+          <nav aria-label="Navigation principale" className="col-start-2 hidden items-center gap-1 justify-self-center lg:flex xl:gap-2">
+            {/* aria-current="page" dit a un lecteur d'ecran "vous etes ici".
+                La couleur seule ne suffirait pas. */}
+            <a href="#top" aria-current="page" className={`${navLinkBase} ${navLinkActive}`}>
+              Accueil
+            </a>
 
             <div
               ref={servicesRef}
@@ -150,7 +189,13 @@ export default function Navbar() {
                   pinnedRef.current = !willClose;
                   setServicesOpen(!willClose);
                 }}
-                className={`${navLink} inline-flex items-center gap-1.5`}
+                className={
+                  `${navLinkBase} inline-flex items-center gap-1.5 ` +
+                  /* Dropdown ouvert : etat bleu, mais SANS changer la graisse,
+                     sinon le bouton s'elargirait a l'ouverture. Le chevron
+                     suit tout seul, il est dessine en stroke="currentColor". */
+                  (servicesOpen ? navLinkOpen : navLinkIdle)
+                }
               >
                 Nos services
                 <svg
@@ -192,20 +237,27 @@ export default function Navbar() {
             </div>
 
             {LINKS.map((l) => (
-              <a key={l.href} href={l.href} className={navLink}>{l.label}</a>
+              <a key={l.href} href={l.href} className={`${navLinkBase} ${navLinkIdle}`}>{l.label}</a>
             ))}
           </nav>
 
           {/* ---------- DROITE : langue + CTA (desktop) + bouton (mobile) ---------- */}
           <div className="col-start-3 flex items-center justify-self-end">
-            <div className="hidden shrink-0 items-center gap-5 lg:flex">
+            <div className="hidden shrink-0 items-center gap-4 lg:flex xl:gap-5">
               <LangSwitch />
               <a
                 href="#contact"
-                className={`inline-flex items-center gap-2 rounded-full bg-aws-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-aws-navy-soft motion-reduce:transition-none ${focusRing}`}
+                className={`group inline-flex items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all xl:px-5 duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none ${focusRing}`}
               >
                 Parlons de votre projet
-                <span aria-hidden="true">→</span>
+                {/* group-hover : l'enfant reagit au survol du PARENT.
+                    translate-x-0.5 = 2px, juste assez pour se remarquer. */}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                >
+                  →
+                </span>
               </a>
             </div>
 
@@ -237,7 +289,14 @@ export default function Navbar() {
         <nav aria-label="Navigation mobile" className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
           <ul className="flex flex-col">
             <li>
-              <a href="#top" className={mobileLink} onClick={() => setMobileOpen(false)}>Accueil</a>
+              <a
+                href="#top"
+                aria-current="page"
+                className={`${mobileLink} font-semibold text-aws-blue-text`}  /* actif */
+                onClick={() => setMobileOpen(false)}
+              >
+                Accueil
+              </a>
             </li>
             <li>
               <span className="block px-1 pb-1 pt-4 text-xs font-semibold uppercase tracking-wider text-aws-ink/50">
@@ -246,7 +305,7 @@ export default function Navbar() {
               <ul className="flex flex-col border-l border-aws-line pl-3">
                 {SERVICES.map((s) => (
                   <li key={s.href}>
-                    <a href={s.href} className={mobileLink} onClick={() => setMobileOpen(false)}>
+                    <a href={s.href} className={`${mobileLink} ${navLinkIdle}`} onClick={() => setMobileOpen(false)}>
                       <span className="mr-2 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
                         {s.num}
                       </span>
@@ -258,7 +317,7 @@ export default function Navbar() {
             </li>
             {LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={mobileLink} onClick={() => setMobileOpen(false)}>{l.label}</a>
+                <a href={l.href} className={`${mobileLink} ${navLinkIdle}`} onClick={() => setMobileOpen(false)}>{l.label}</a>
               </li>
             ))}
           </ul>
@@ -268,10 +327,15 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMobileOpen(false)}
-              className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-aws-navy px-5 py-3 text-sm font-semibold text-white ${focusRing}`}
+              className={`group inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-aws-navy px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] motion-reduce:transition-none ${focusRing}`}
             >
               Parlons de votre projet
-              <span aria-hidden="true">→</span>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+              >
+                →
+              </span>
             </a>
           </div>
         </nav>
@@ -281,22 +345,31 @@ export default function Navbar() {
 }
 
 const mobileLink =
-  "flex min-h-11 items-center rounded-lg px-1 text-[0.9375rem] text-aws-ink " +
-  "hover:text-aws-navy focus-visible:outline-2 focus-visible:outline-offset-2 " +
-  "focus-visible:outline-aws-blue";
+  "flex min-h-11 items-center rounded-lg px-1 text-[0.9375rem] font-medium " +
+  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
+  "motion-reduce:transition-none";
 
-/* FR / EN visuel uniquement : l'anglais n'existe pas encore.
-   Le bouton est desactive plutot que de simuler un lien qui ne mene nulle part. */
+/* FR / EN : interface visuelle uniquement, l'i18n n'existe pas encore.
+   EN porte aria-disabled plutot que disabled : il reste atteignable au
+   clavier et annonce sa propre indisponibilite, au lieu de disparaitre
+   silencieusement du parcours. Quand l'anglais sera reellement en place,
+   il suffira d'echanger les deux styles. */
 function LangSwitch() {
+  const langBase =
+    "rounded-md px-2 py-1 text-[0.8125rem] transition-colors duration-200 " +
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
+    "motion-reduce:transition-none";
   return (
-    <div className="flex items-center gap-1.5 text-sm">
-      <span aria-current="true" className="font-semibold text-aws-navy">FR</span>
-      <span aria-hidden="true" className="text-aws-line">|</span>
+    <div className="flex items-center gap-0.5">
+      <span aria-current="true" className={`${langBase} bg-aws-blue/10 font-semibold text-aws-blue-text`}>
+        FR
+      </span>
       <button
         type="button"
-        disabled
+        aria-disabled="true"
         title="Version anglaise à venir"
-        className="cursor-not-allowed text-aws-ink/35"
+        className={`${langBase} cursor-default font-medium text-aws-ink/45 hover:bg-aws-blue/8 hover:text-aws-blue-text`}
       >
         EN
       </button>

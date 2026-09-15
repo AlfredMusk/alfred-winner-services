@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/* Montserrat : meme famille que la reference ACIM, sous licence
+   SIL Open Font License 1.1, donc libre d'usage commercial.
+   next/font la telecharge AU BUILD et la sert depuis notre domaine :
+   aucune requete vers Google cote visiteur.
+   Pas de "weight" precise : Montserrat existe en police variable,
+   un seul fichier couvre toutes les graisses. */
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 /* Metadonnees provisoires : a valider en phase SEO, rien d'invente ici. */
@@ -26,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
        et pour les moteurs de recherche. Le template livrait "en". */
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />
