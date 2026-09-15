@@ -141,7 +141,7 @@ export default function Navbar({ locale, dict }: Props) {
                 align-items vaut "stretch" par defaut, et l'image du
                 mot-symbole etait etiree a la largeur de la signature,
                 donc deformee. */}
-            <span className="flex flex-col items-start gap-[3px]">
+            <span className="flex flex-col items-start gap-[2px]">
               <Image
                 src="/images/brand/aws-wordmark.png"
                 alt=""
@@ -154,13 +154,19 @@ export default function Navbar({ locale, dict }: Props) {
                   decouvre APRES le logo et ne le concurrence jamais.
                   Masquee sous 1280px : elle mesure environ 2x la largeur du
                   mot-symbole et comprimerait la navigation. */}
-              {/* aria-hidden : la signature est une typographie de marque,
-                  pas une information de navigation. Sans cela, le lien
-                  s'annoncait "INVESTIR CONSTRUIRE INNOVER Alfred Winner
-                  Services accueil". Le texte sr-only suffit a le nommer. */}
+              {/* MICRO-SIGNATURE. La meme phrase sert d'eyebrow dans le Hero
+                  juste en dessous : ici elle doit donc rester derriere.
+                  On la rend discrete par l'ECHELLE (7.5px au lieu de 9) et un
+                  interlettrage plus large, PAS par une opacite plus faible :
+                  #5b6b82 est deja a 5.43 de contraste, l'affaiblir la ferait
+                  passer sous le seuil. Hierarchie obtenue :
+                  signature 7.5px < eyebrow Hero 11px < H1 58px.
+
+                  aria-hidden : c'est une typographie de marque, pas une
+                  information de navigation. */}
               <span
                 aria-hidden="true"
-                className="hidden text-[0.5625rem] font-medium uppercase leading-none tracking-[0.13em] text-aws-muted xl:block"
+                className="hidden text-[0.46875rem] font-medium uppercase leading-none tracking-[0.2em] text-aws-muted xl:block"
               >
                 {dict.signature}
               </span>

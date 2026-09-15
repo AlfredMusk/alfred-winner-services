@@ -28,6 +28,24 @@
   --color-aws-blue-text: #0076c8; /* contraste 4.75 — le meme bleu, calibre pour passer AA sur du texte */
   --color-aws-ink: #1c2a3d;       /* gris-bleu pour la navigation courante */
   --color-aws-line: #e6ecf4;      /* filets et separateurs tres discrets */
+  --color-aws-deep: #0a3d6e;      /* BLEU HERO. Contraste 11.02 sur blanc ET
+                                     avec du texte blanc : un seul token sert de
+                                     couleur de titre et de fond de bouton.
+                                     Situe entre le navy #002454 de la navbar et
+                                     le bleu interactif #0076c8 : meme famille,
+                                     profondeur intermediaire assumee. */
+  /* HERO — bleus preleves DANS L'EMBLEME du logo, par frequence de pixels :
+     #0050a0 (2007 px) est le bleu dominant, #004080 (1543 px) sa version
+     profonde. Le fond retenu se place entre les deux. Blanc dessus : 10.21
+     (AAA). Le logo n'est pas recolore, c'est lui qui donne la palette. */
+  --color-aws-hero: #00417e;
+  /* Amplitude legerement elargie pour donner de la profondeur au grand
+     aplat, mais les deux valeurs restent dans la famille du logo et
+     l'ecart se ressent avant de se remarquer. Blanc dessus : 9.2 en haut,
+     12.4 en bas — AAA des deux cotes. */
+  --color-aws-hero-haut: #004a85;
+  --color-aws-hero-bas: #00305a;
+
   --color-aws-muted: #5b6b82;     /* contraste 5.43 — signature de marque.
                                      ink a 50/60% d'opacite tombait a 3.02 / 4.04 :
                                      un texte de 9px exige PLUS de contraste qu'un

@@ -796,3 +796,302 @@ NEXT:
 - le Hero sera concu separement : message, storytelling, couleurs,
   photographies africaines reelles, composition, CTA, responsive
   seront decides AVANT tout codage
+
+---
+
+## [HERO] PHASE 2 — 2026-09-15 — EN ATTENTE DE VALIDATION VISUELLE
+
+HERO
+- 2 imgs fournies par l'utilisateur, jamais remplacees
+  public/images/hero/finance-markets.jpg   (1448x1086, 4:3)
+  public/images/hero/real-estate.jpg       (1536x864, 16:9)
+- bleu choisi #0a3d6e (token --color-aws-deep)
+- rotation native React + CSS, 0 librairie
+- controls 2 indicateurs cliquables
+- FR/EN
+- a11y
+- reduced motion
+- QA 375 -> 1440
+- lint PASS / typecheck PASS / build PASS
+- PAS DE COMMIT : attente validation visuelle
+
+### CHOIX DU BLEU — FONDE SUR MESURE
+Analyse des 2 photos (canvas) :
+  finance    : luminance moyenne 91  (sombre), noirs + highlight froid #e0e0ff
+  immobilier : luminance moyenne 139 (claire), gris + ocres chauds #806060
+=> luminances OPPOSEES : la couleur doit tenir face aux deux
+=> ocres chauds : un cyan froid jurerait, un bleu profond joue la
+   complementarite bleu/orange
+=> seul accord commun : highlight froid #e0e0ff -> direction froide mais douce
+
+Candidats testes entre #002454 (navy navbar) et #0076c8 (bleu interactif).
+RETENU #0a3d6e :
+  - contraste 11.02 sur blanc ET avec du texte blanc -> un seul token sert
+    de couleur de titre et de fond de bouton (AAA dans les deux sens)
+  - profondeur intermediaire dans la famille existante : lu comme voulu
+  - garde une chroma bleue visible, contrairement a #002454 qui tire au noir
+
+### ARCHITECTURE
+src/components/sections/Hero.tsx       SERVER component (texte, CTA)
+src/components/sections/HeroMedia.tsx  CLIENT component (rotation seule)
+=> frontiere deliberee : le texte n'envoie aucun JS au navigateur
+
+### TRAITEMENT DES IMAGES
+- cadre commun aspect 4/3
+  finance   : 4:3 natif -> AUCUN recadrage, et c'est l'image above-the-fold
+  immobilier: 16:9 -> object-position 78% 50% pour conserver l'ouvrier au
+              gilet jaune (x 1250-1420 sur 1536) que le centrage coupait
+- next/image fill + sizes + priority sur la 1re slide
+- servi en WebP : 391 Ko source -> 39 Ko en w=828, 26.7 Ko en w=640 (-90%)
+
+### ROTATION
+- 6500ms, transform + opacity uniquement (GPU friendly)
+- easing cubic-bezier(.32,.72,0,1), 900ms
+- contre-translation interne 3.5% : la photo bouge moins vite que son cadre
+  -> sensation editoriale, pas un simple glissement
+- pause au survol ET au focus clavier (onFocusCapture)
+- swipe tactile (seuil 48px)
+- setTimeout relance a chaque index : cliquer une vignette redemarre le compte
+
+### CORRECTIONS FAITES EN COURS DE ROUTE
+1. eyebrow a text-aws-deep/65 -> contraste 4.08, ECHEC pour du 11px
+   (mesure par echantillonnage de pixel : Tailwind v4 rend les opacites en
+   oklab(), un simple parse de nombres donne un faux resultat)
+   corrige en /75 -> 5.37
+2. a 768/820 le cadre atteignait 772x579 et ecrasait la composition
+   corrige : plafond max-w-[34rem] en colonne unique, meme mesure que le
+   paragraphe -> 544x408
+
+### FAUSSE ALERTE — A RETENIR
+J'ai d'abord conclu que la pause ne fonctionnait pas. C'etait MON TEST :
+  - .click() focalise deja le bouton, donc le .focus() suivant ne declenchait
+    aucun evenement focusin
+  - l'etat de survol fuitait d'une etape a l'autre
+Verifie ensuite par lecture directe de la fibre React : apres 9s de survol
+l'index ne bouge pas, et la rotation reprend 7.2s apres le depart du curseur.
+AUCUN BUG.
+
+### QA REELLE (localhost:3100)
+largeur  colonnes        cadre      H1           overflow
+375      1 x 343         343x257    34px/3 lig   non
+430      1 x 398         398x299    34px/2 lig   non
+768      1 x 720         544x408    42px/2 lig   non
+820      1 x 772         544x408    42px/2 lig   non
+1024     1 x 976         544x408    42px/2 lig   non
+1280     596/540         540x405    56px/3 lig   non
+1440     638/578         578x433    56px/3 lig   non
+- image jamais deformee (remplit exactement son cadre aux 7 largeurs)
+- aucun chevauchement contenu/media
+- indicateurs 44px partout
+- scrollWidth = clientWidth partout
+
+### FONCTIONNEL VERIFIE
+- rotation auto : avance apres 7.2s sans interaction
+- commande manuelle : les 2 sens, aria-current suit
+- noms accessibles : "Afficher 01 — BOURSE & FINANCE" / "02 — IMMOBILIER"
+- pause survol 9s : index inchange ; reprise 7.2s apres depart
+- clavier : CTA principal #expertises, CTA secondaire #contact, indicateurs,
+  tous en focus-visible outlineStyle solid
+- 1 seul h1 ; section nommee par aria-labelledby, cible existante
+- label non annonce automatiquement (pas de region live)
+- reduced-motion : regle @media emise, 9 classes motion-reduce dans le Hero,
+  hook branche sur matchMedia. NON verifiable a l'execution : l'outil ne sait
+  pas emuler le reglage systeme.
+
+### NAVBAR NON-REGRESSION
+logo / signature / 7 liens / dropdown + items / FR-EN / CTA / burger /
+hauteur 81px : tout identique, en FR comme en EN.
+
+NEXT:
+- VALIDATION VISUELLE UTILISATEUR
+- puis commit "feat: add aws hero section"
+
+---
+
+## [HERO] REFINE — BLOC BLEU — 2026-09-15 — ATTENTE VALIDATION
+
+HERO refine
+- full blue #00417e, pleine largeur, colle sous navbar (0px)
+- bleu preleve DANS l'embleme du logo (#0050a0 dominant 2007px,
+  #004080 profond 1543px) -> fond entre les deux, blanc dessus 10.21 AAA
+- degrade ton sur ton imperceptible #00457f -> #00365e
+- typo blanche : h1 60px, eyebrow blanc/75 (6.42), para blanc/85 (7.80)
+- labels 01/02 SUPPRIMES
+- 2 imgs rotation, devoilement par transformations seules
+- photo a fond perdu jusqu'au bord droit, pleine hauteur, radius gauche
+- CTA blanc plein / CTA contour blanc
+- indicateur minimal 2 traits sur la photo, sans libelle
+- autoplay 7s, 14s apres clic manuel
+- pause survol + focus
+- swipe tactile
+- FR/EN
+- responsive 375 -> 1440
+- reduced motion
+- navbar no regression (diff VIDE)
+- lint pass
+- tsc pass
+- build pass
+- PAS DE COMMIT
+
+ROTATION — comment
+  cadre translate 100% -> 0, image interne -100% -> 0
+  la photo ne bouge pas, son cadre la decouvre
+  le plan sortant reste immobile dessous (memoire "sortant")
+  transformations seules, pas de clip-path ni de width
+
+QA
+  375  16/16  343x257  h1 36/4lig  sect 929   ok
+  430  16/16  398x299  h1 36/3lig  sect 905   ok
+  768  24/24  544x408  h1 44/3lig  sect 1004  ok
+  820  24/24  544x408  h1 44/3lig  sect 1004  ok
+  1024 24/24  544x408  h1 44/3lig  sect 1004  ok
+  1280 32/32  613x653  h1 60/3lig  sect 653   photo au bord  ok
+  1440 72/72  690x653  h1 60/3lig  sect 653   photo au bord  ok
+  padding gauche Hero = marge navbar a chaque largeur
+  0 overflow partout, image jamais deformee, indicateurs 44px
+
+CORRECTIONS EN ROUTE
+- cadre sans fond -> trou dans le bleu avant peinture de l'image
+  corrige par bg #00325a
+
+---
+
+## [HERO] PREMIUM REFINE — 2026-09-15 — ATTENTE VALIDATION
+
+HERO premium refine
+- blue kept #00417e
+- logo tagline reduced 9px -> 7.5px, tracking 0.13em -> 0.2em, gap 3 -> 2
+- hero eyebrow kept 11px
+- media smaller 690x653 -> 490x367 (47.9% -> 34% viewport)
+- blue negative space autour de la photo
+- 2 img rotation refined (devoilement conserve)
+- sector labels removed (deja fait, confirme)
+- contact CTA only navbar
+- expertise CTA -> #expertises
+- projects secondary LINK (pas un bouton) -> #projets
+- responsive QA 375 -> 1440
+- a11y
+- navbar no regression (2 lignes : gap + classe signature)
+- lint PASS
+- tsc PASS
+- build PASS
+- PAS DE COMMIT
+
+MESURES ACIM (prises a 1440 dans le navigateur)
+  media 570x429, 39.6% du viewport, ratio 4:3, radius 0
+  colonne texte 550px (38%), titre 38px, eyebrow 10px
+  hero ~577px de haut
+AWS APRES REFINE
+  media 490x367, 34% du viewport, ratio 4:3, radius 20px
+  colonne texte 750px (52%), h1 58px, eyebrow 11px
+  hero 615px de haut
+=> media legerement plus petit qu'ACIM, h1 nettement plus dominant.
+   C'est voulu : le brief demande le H1 protagoniste.
+
+HIERARCHIE OBTENUE
+  signature navbar 7.5px  <  eyebrow hero 11px  <  h1 58px
+  contraste signature 5.43 INCHANGE : reduite par l'echelle, pas par
+  l'opacite — l'affaiblir serait passe sous le seuil AA.
+
+ARCHITECTURE CTA (plus aucun doublon)
+  COMPRENDRE -> hero principal, bouton blanc plein -> #expertises
+  PROUVER    -> hero secondaire, LIEN editorial    -> #projets
+  CONTACTER  -> navbar, et elle seule              -> #contact
+
+SUPPRESSIONS (moins d'elements, pas plus)
+  - voile sombre sur la photo : l'indicateur est passe SOUS l'image,
+    sur le bleu, il n'a plus besoin d'etre rendu lisible par-dessus
+  - fond perdu et pleine hauteur : la photo redevient un objet borne
+
+QA
+  375  media 343x257 91.5%  h1 36  sig masquee  ok
+  430  media 398x299 92.6%  h1 36  sig masquee  ok
+  768  media 544x408 70.8%  h1 44  sig masquee  ok
+  820  media 544x408 66.3%  h1 44  sig masquee  ok
+  1024 media 544x408 53.1%  h1 44  sig masquee  ok
+  1280 media 435x326 34.0%  h1 58  sig 7.5px    ok
+  1440 media 490x367 34.0%  h1 58  sig 7.5px    ok
+  0 overflow, texte aligne sur le logo partout, hero colle sous navbar (0px)
+  navbar 81px / 65px inchangee, lockup 48px inchange
+
+---
+
+## [HERO] SPATIAL REFINE — 2026-09-15 — ATTENTE VALIDATION
+
+HERO spatial refine
+- ACIM measured (1440, chargement reussi)
+- AWS measured avant/apres
+- inner container recalibrated
+- text/media closer : vide 137px -> 64px
+- gap fixed 56 -> 64
+- media size maintained 490 -> 480 (pas reduit davantage)
+- blue depth refined
+- CTA group refined (2 pastilles, meme hauteur)
+- 2-img rotation inchangee
+- responsive
+- a11y
+- navbar safe (2 lignes de code, signature seule)
+- lint PASS
+- tsc PASS
+- build PASS
+- PAS DE COMMIT
+
+DIAGNOSTIC MESURE (1440, avant correction)
+  colonne texte declaree   750px
+  texte reellement occupe  669px
+  -> 81px de vide DANS la colonne
+  + 56px de gap
+  = 137px de separation visuelle
+  Le desert ne venait PAS du gap mais d'une colonne en 1fr, donc plus
+  large que son contenu. Le H1 (17ch / 58px) s'etalait sur 669px et
+  imposait cette largeur.
+
+CORRECTION STRUCTURELLE
+  colonnes dimensionnees sur leur CONTENU :
+    texte  33rem (528)
+    media  clamp(20rem, 34vw, 30rem)
+  gap 64
+  desk:justify-center -> la PAIRE est centree, l'espace libre passe a
+  l'exterieur au lieu de s'ouvrir au milieu
+  H1 ramene a 15ch / 52px : il ne dicte plus la composition
+
+RESULTAT 1440
+  vide visuel 64px (= le gap, 0 gaspille)
+  texte 528 / gap 64 / media 480 -> paire 1072, marges 184/184
+  ratios de la paire : texte 49.3% / gap 6.0% / media 44.8%
+  (cible demandee 48-52 / 5-8 / 38-44 : atteinte)
+  hauteur section 596 (etait 615)
+
+REFERENCE ACIM (1440, mesuree)
+  bloc texte 550 (38.2% viewport), media 570x429 (39.6%), titre 38px
+  AWS apres : texte 528 (36.7%), media 480 (33.3%), h1 52px
+  densite comparable, h1 plus dominant (voulu)
+  NOTE HONNETE : leur CSS de theme ne se charge plus dans mon navigateur,
+  je n'ai PAS pu remesurer leurs offsets ni leur gap a 1280.
+  Je m'appuie sur les largeurs capturees lors d'un chargement reussi.
+
+EN PILE (768 / 820 / 1024)
+  texte et media partagent la MEME mesure 34rem et sont CENTRES
+  avant : 24 a gauche / 456 a droite -> apres : 240/240 a 1024
+  justify-items-center ne suffisait pas (w-full fixe la boite au debut
+  de la cellule) -> mx-auto
+
+CTA
+  les deux sont maintenant des pastilles de meme hauteur (48px)
+  principal : blanc plein, texte bleu
+  secondaire : contour blanc 35%
+  le lien nu precedent etait trop isole
+
+FOND
+  amplitude elargie #004a85 -> #00305a (etait #00457f -> #00365e)
+  meme famille logo, blanc dessus AAA des deux cotes
+
+QA
+  375  16/16   media 343 91.5%  h1 36  ok
+  430  16/16   media 398 92.6%  h1 36  ok
+  768  112/112 media 544 70.8%  h1 44  ok  centre
+  820  138/138 media 544 66.3%  h1 44  ok  centre
+  1024 240/240 media 544 53.1%  h1 44  ok  centre
+  1280 126/126 media 435 34.0%  h1 52  ok  2 colonnes, vide 64
+  1440 184/184 media 480 33.3%  h1 52  ok  2 colonnes, vide 64
+  0 overflow, symetrique partout, navbar 81/65 inchangee

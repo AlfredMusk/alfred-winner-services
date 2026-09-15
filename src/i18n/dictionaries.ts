@@ -40,8 +40,36 @@ const fr = {
       switchToEn: "Afficher le site en anglais",
     },
   },
-  scaffold:
-    "Zone de contenu — les sections du site seront construites ici, une par une, après validation de la navbar.",
+  hero: {
+    eyebrow: "INVESTIR · CONSTRUIRE · INNOVER",
+    titre: "Nous transformons les opportunités en valeur.",
+    paragraphe:
+      "Alfred Winner Services réunit finance, immobilier et technologies numériques pour concevoir, développer et accompagner des projets créateurs de valeur en Côte d'Ivoire et au-delà.",
+    ctaPrincipal: "Découvrir nos expertises",
+    /* Le contact appartient au CTA de la navbar. Ici le role est de
+       PROUVER, pas de convertir : on ne duplique plus la meme action. */
+    ctaSecondaire: "Voir nos projets",
+    slides: [
+      {
+        num: "01",
+        label: "BOURSE & FINANCE",
+        src: "/images/hero/finance-markets.jpg",
+        alt: "Analyse des marchés financiers depuis un bureau donnant sur Abidjan",
+        position: "50% 50%",
+      },
+      {
+        num: "02",
+        label: "IMMOBILIER",
+        src: "/images/hero/real-estate.jpg",
+        alt: "Ouvriers sur un chantier de construction dans un quartier d'affaires",
+        position: "78% 50%",
+      },
+    ],
+    a11y: {
+      media: "Univers Alfred Winner Services",
+      choisir: "Afficher",
+    },
+  },
 };
 
 /* Le type est deduit du francais : oublier une cle en anglais devient une
@@ -79,13 +107,41 @@ const en: Dictionary = {
       switchToEn: "View the site in English",
     },
   },
-  scaffold:
-    "Content area — the site sections will be built here, one at a time, once the navbar is approved.",
+  hero: {
+    eyebrow: "INVEST · BUILD · INNOVATE",
+    titre: "We turn opportunities into value.",
+    paragraphe:
+      "Alfred Winner Services brings together finance, real estate and digital technologies to design, develop and support value-creating projects in Côte d'Ivoire and beyond.",
+    ctaPrincipal: "Explore our expertise",
+    ctaSecondaire: "View our projects",
+    slides: [
+      {
+        num: "01",
+        label: "FINANCE & MARKETS",
+        src: "/images/hero/finance-markets.jpg",
+        alt: "Financial markets analysis from an office overlooking Abidjan",
+        position: "50% 50%",
+      },
+      {
+        num: "02",
+        label: "REAL ESTATE",
+        src: "/images/hero/real-estate.jpg",
+        alt: "Workers on a construction site in a business district",
+        position: "78% 50%",
+      },
+    ],
+    a11y: {
+      media: "Alfred Winner Services business areas",
+      choisir: "Show",
+    },
+  },
 };
 
 const dictionaries = { fr, en } as const;
 
 export type NavbarDictionary = Dictionary["navbar"];
+export type HeroDictionary = Dictionary["hero"];
+export type HeroSlide = HeroDictionary["slides"][number];
 
 export const hasLocale = (value: string): value is Locale =>
   (locales as readonly string[]).includes(value);
