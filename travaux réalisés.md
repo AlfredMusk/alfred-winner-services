@@ -158,3 +158,38 @@ ARCHITECTURE HOME - VERDICT:
 
 NEXT:
 - PHASE 2 CONTENU (textes reels, aucune invention)
+
+---
+
+## [NAVBAR] — BLOQUE EN ATTENTE DU LOGO HORIZONTAL — 2026-09-15
+
+DONE:
+- logo deplace: logo.png -> public/images/brand/logo.png (git mv, 990339 octets intacts)
+- servi OK: http://localhost:3100/images/brand/logo.png -> 200
+- logo analyse au pixel (canvas)
+
+MESURES LOGO OFFICIEL (1448x1086, sans alpha, fond rgb 254,254,254):
+- embleme circulaire : y 38 -> 692   (654 px)
+- mot-symbole AWS    : y 702 -> 928  (226 px)
+- baseline           : y 958 -> 1000 (42 px)
+- boite de contenu   : x 138 -> 1308, y 38 -> 1000
+
+BLOCAGE PROUVE:
+- lockup VERTICAL, ratio 4:3 -> inutilisable en navbar horizontale
+- a 48px de haut (navbar 72px), facteur 0.044
+  -> baseline = 1.9px = illisible
+- baseline lisible (9px) exigerait logo 233px -> navbar 260px -> exclu
+
+DECISION UTILISATEUR:
+- fournir une version HORIZONTALE du logo
+- NE PAS decouper l'embleme
+- NE PAS utiliser de faux logo temporaire
+- NAVBAR NON CONSTRUITE, en attente
+
+VERIFIE:
+- aucune version horizontale sur la machine
+- ~/Downloads/logo.png = meme fichier (990339 octets)
+
+NEXT:
+- reception du logo horizontal (SVG de preference)
+- puis construction navbar
