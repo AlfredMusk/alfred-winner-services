@@ -117,8 +117,14 @@ export default function Navbar({ locale, dict }: Props) {
         <div className="flex h-16 items-center justify-between gap-6 desk:h-20 desk:gap-8">
 
           {/* ---------- ZONE 1 : marque ---------- */}
+          {/* aria-label explicite plutot qu'un span sr-only : le lien ne
+              contient que des images decoratives et la signature masquee aux
+              lecteurs d'ecran. Sans lui, son nom accessible dependait du
+              calcul par le texte descendant — un lien-logo doit etre nomme
+              sans ambiguite. */}
           <Link
             href={`/${locale}`}
+            aria-label={dict.a11y.brandHome}
             className={`flex shrink-0 items-center gap-2 rounded-lg ${focusRing}`}
           >
             <Image
@@ -129,15 +135,36 @@ export default function Navbar({ locale, dict }: Props) {
               priority
               className="h-9 w-auto desk:h-11 xl:h-12"
             />
-            <Image
-              src="/images/brand/aws-wordmark.png"
-              alt=""
-              width={472}
-              height={120}
-              priority
-              className="h-5 w-auto desk:h-6 xl:h-7"
-            />
-            <span className="sr-only">{dict.a11y.brandHome}</span>
+            {/* Le mot-symbole et la signature forment une colonne : la
+                signature appartient au LOCKUP, pas a la navbar. */}
+            {/* items-start est INDISPENSABLE : dans une colonne flex,
+                align-items vaut "stretch" par defaut, et l'image du
+                mot-symbole etait etiree a la largeur de la signature,
+                donc deformee. */}
+            <span className="flex flex-col items-start gap-[3px]">
+              <Image
+                src="/images/brand/aws-wordmark.png"
+                alt=""
+                width={472}
+                height={120}
+                priority
+                className="h-5 w-auto desk:h-6 xl:h-7"
+              />
+              {/* Micro-typographie : petite, espacee, desaturee. Elle se
+                  decouvre APRES le logo et ne le concurrence jamais.
+                  Masquee sous 1280px : elle mesure environ 2x la largeur du
+                  mot-symbole et comprimerait la navigation. */}
+              {/* aria-hidden : la signature est une typographie de marque,
+                  pas une information de navigation. Sans cela, le lien
+                  s'annoncait "INVESTIR CONSTRUIRE INNOVER Alfred Winner
+                  Services accueil". Le texte sr-only suffit a le nommer. */}
+              <span
+                aria-hidden="true"
+                className="hidden text-[0.5625rem] font-medium uppercase leading-none tracking-[0.13em] text-aws-muted xl:block"
+              >
+                {dict.signature}
+              </span>
+            </span>
           </Link>
 
           {/* ---------- ZONE 2 : navigation ---------- */}

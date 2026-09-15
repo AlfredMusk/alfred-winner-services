@@ -27,6 +27,9 @@ const fr = {
       { num: "03", label: "Software & IA", hash: "software-ia" },
     ],
     cta: "Parlons de votre projet",
+    /* Signature de marque, sous le mot-symbole AWS.
+       Les trois univers : Bourse/Finance, Immobilier, Software & IA. */
+    signature: "INVESTIR · CONSTRUIRE · INNOVER",
     a11y: {
       brandHome: "Alfred Winner Services — accueil",
       mainNav: "Navigation principale",
@@ -65,6 +68,7 @@ const en: Dictionary = {
       { num: "03", label: "Software & AI", hash: "software-ia" },
     ],
     cta: "Let's discuss your project",
+    signature: "INVEST · BUILD · INNOVATE",
     a11y: {
       brandHome: "Alfred Winner Services — home",
       mainNav: "Main navigation",

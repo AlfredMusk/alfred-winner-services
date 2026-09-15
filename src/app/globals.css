@@ -28,6 +28,10 @@
   --color-aws-blue-text: #0076c8; /* contraste 4.75 — le meme bleu, calibre pour passer AA sur du texte */
   --color-aws-ink: #1c2a3d;       /* gris-bleu pour la navigation courante */
   --color-aws-line: #e6ecf4;      /* filets et separateurs tres discrets */
+  --color-aws-muted: #5b6b82;     /* contraste 5.43 — signature de marque.
+                                     ink a 50/60% d'opacite tombait a 3.02 / 4.04 :
+                                     un texte de 9px exige PLUS de contraste qu'un
+                                     texte courant, pas moins. */
 }
 
 :root {

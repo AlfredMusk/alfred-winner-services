@@ -708,3 +708,91 @@ BUILD ........... PASS
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] SIGNATURE DE MARQUE — 2026-09-15
+
+NAVBAR
++ brand signature
++ INVESTIR · CONSTRUIRE · INNOVER  (fr)
++ INVEST · BUILD · INNOVATE        (en)
++ desktop a partir de 1280
++ responsive hide mobile et tablette
++ QA
++ no regression
+
+### PLACEMENT
+- dans le LOCKUP, sous le mot-symbole AWS, pas sous la navbar
+- embleme a gauche / colonne [mot-symbole + signature] a droite
+
+### TYPOGRAPHIE
+- 9px, graisse 500, uppercase, tracking 0.13em, leading-none
+- couleur #5b6b82 (nouveau token --color-aws-muted)
+- separateurs "·" fins
+
+### CONTRASTE — RESULTAT CONTRE-INTUITIF
+Le reflexe "discret = opacite faible" ECHOUE :
+  ink a 50% -> 3.02   ECHEC
+  ink a 60% -> 4.04   ECHEC
+  ink a 70% -> 5.49   ok
+Un texte de 9px exige PLUS de contraste qu'un texte courant, pas moins.
+Retenu : #5b6b82 = 5.43, discret a l'oeil et conforme AA.
+
+### BUG TROUVE ET CORRIGE — IMAGE ETIREE
+En passant le mot-symbole et la signature en colonne flex, l'image du
+mot-symbole est passee de 110px a 197px de large : dans une colonne flex,
+align-items vaut "stretch" par defaut, et l'image s'etirait a la largeur
+de la signature (plus large qu'elle). Ratio casse : 3.93 -> 7.04.
+CORRIGE par items-start. Ratio verifie a 3.93 sur les 7 largeurs.
+
+### ACCESSIBILITE — DEUX CORRECTIONS
+1. la signature s'ajoutait au nom du lien :
+   "INVESTIR · CONSTRUIRE · INNOVER Alfred Winner Services — accueil"
+   -> aria-hidden="true" sur la signature (typo de marque, pas navigation)
+2. l'arbre d'accessibilite montrait ensuite le lien SANS NOM
+   (le span sr-only etait vu comme un noeud separe)
+   -> aria-label explicite sur le lien-logo, span sr-only retire
+   Verifie : link "Alfred Winner Services — accueil"
+
+### DECISION RESPONSIVE (par la mesure, pas par principe)
+375 / 430 / 768 / 820 / 1024 -> MASQUEE
+  ces largeurs sont en burger ; la signature fait 197px contre un
+  mot-symbole de 74px a cette echelle (rapport 2.66) : la place existe
+  mais le lockup serait desequilibre
+1100 -> MASQUEE : la signature coute ~88px et la nav n'a que +66 de marge
+1280 / 1440 -> VISIBLE : marge nav +109 et +189, largement suffisant
+
+### AUCUNE MICRO-CORRECTION NECESSAIRE
+hauteur navbar inchangee : 65px mobile / 81px desktop
+le lockup reste pilote par l'embleme (48px) > colonne texte (40px)
+alignement vertical, spacing interne : inchanges
+
+### QA
+375 ..... PASS  signature masquee, 16/16, pas d'overflow
+430 ..... PASS  signature masquee
+768 ..... PASS  signature masquee, aucune compression
+820 ..... PASS  signature masquee
+1024 .... PASS  signature masquee, burger
+1280 .... PASS  signature visible, marge nav +109
+1440 .... PASS  signature visible, marge nav +189
+LOGO .......... PASS  ratio mot-symbole 3.93 partout
+NAVIGATION .... PASS  7 liens inchanges
+FR/EN ......... PASS  signature suit la langue
+DROPDOWN ...... PASS  centrage 0px, Echap, bouton+chevron bleus
+CTA ........... PASS  inchange
+HAMBURGER ..... PASS  inchange
+KEYBOARD ...... PASS  outlineStyle solid, focus bleu
+A11Y TREE ..... PASS  9 elements interactifs, tous nommes
+CONSOLE ....... PASS  onglet neuf : 19 ressources, 0 echec
+NO OVERFLOW ... PASS  sur les 7 largeurs
+LINT .......... PASS
+TYPECHECK ..... PASS
+BUILD ......... PASS
+DEPENDANCES ... AUCUNE
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE DEFINITIVEMENT"
+- le Hero sera concu separement : message, storytelling, couleurs,
+  photographies africaines reelles, composition, CTA, responsive
+  seront decides AVANT tout codage
