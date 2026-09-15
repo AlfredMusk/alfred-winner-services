@@ -193,3 +193,67 @@ VERIFIE:
 NEXT:
 - reception du logo horizontal (SVG de preference)
 - puis construction navbar
+
+---
+
+## [NAVBAR] — PRETE POUR REVUE UTILISATEUR — 2026-09-15
+
+DONE:
+- symbole navbar SVG cree (611 octets) : anneau + fleche ascendante
+- logo officiel PRESERVE intact (public/images/brand/logo.png, 990339 octets)
+- mot "AWS" en vrai texte HTML, pas en image
+- tokens de marque dans globals.css (couleurs extraites du logo)
+- navbar desktop : marque / navigation / FR|EN / CTA
+- dropdown "Nos services" avec 01 02 03
+- menu mobile React (useState), burger 44x44
+- sticky + ombre discrete au scroll
+- page.tsx = echafaudage neutre temporaire (PAS le Hero)
+
+DECISION LOGO:
+- wordmark en HTML et non en paths SVG
+- raisons : herite de la typo du site, net a tout zoom,
+  selectionnable, lu par les lecteurs d'ecran
+- convertible en fichier unique fige si demande
+
+CORRECTIONS FAITES EN COURS DE ROUTE:
+1. globals.css imposait font-family Arial -> annulait Geist chargee
+   dans layout.tsx. Corrige en var(--font-geist-sans).
+2. bloc prefers-color-scheme dark du template retire :
+   sinon page noire sous navbar blanche. Site volontairement clair.
+3. lang="en" -> lang="fr" dans layout.tsx (a11y + SEO)
+4. justify-between ne centrait pas la nav (ecart 92px) car les blocs
+   lateraux ont des largeurs differentes -> grid 1fr auto 1fr
+5. BUG survol/clic : onMouseEnter ouvrait, puis le clic togglait et
+   refermait aussitot. Corrige avec useRef (pinnedRef) qui memorise
+   si le menu a ete ouvert par un clic, sans provoquer de re-rendu.
+6. BUG grid : nav en display:none sur mobile libere sa cellule, le
+   groupe droit s'y placait automatiquement -> burger au MILIEU de
+   l'ecran. Corrige par placement explicite col-start-1/2/3.
+7. DEBORDEMENT a 1024px : grid 1fr auto 1fr force les 2 colonnes
+   laterales a la largeur de la plus large (280px pour langue+CTA
+   contre 103px pour la marque) = 1062px requis pour 960 dispo.
+   Corrige : flex justify-between sous 1280px, grid a partir de xl.
+
+TEST:
+- 375  OK  pas d'overflow, burger 44x44 colle a droite, menu 8 liens,
+            aucune cible tactile < 44px
+- 768  OK  pas d'overflow, burger a droite (744 = bord attendu)
+- 1024 OK  pas d'overflow, CTA finit a 992 = limite exacte
+           nav decalee de 93px du centre (compromis assume)
+- 1440 OK  pas d'overflow, centrage nav ecart 0
+- clavier OK  Tab -> Entree ouvre -> Tab atteint les items -> Echap ferme
+- focus OK    anneau 3px sur tous les elements focalisables
+- bouton EN desactive : non focalisable (correct)
+- console OK  aucune erreur
+- typecheck OK / lint OK / build OK
+- aucune dependance ajoutee
+- aucun console.log
+- motion-reduce present (5 occurrences)
+
+CONNU / NORMAL:
+- h1 absent : il appartiendra au Hero, pas encore construit
+- liens en ancres (#projets, #contact...) : sections pas encore creees
+- EN desactive : i18n pas encore en place
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"

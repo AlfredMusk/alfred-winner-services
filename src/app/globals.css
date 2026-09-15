@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
+/* --------------------------------------------------------------
+   TOKENS DE MARQUE AWS
+   Dans Tailwind v4, tout token declare ici genere automatiquement
+   les classes correspondantes : --color-aws-navy produit
+   text-aws-navy, bg-aws-navy, border-aws-navy, etc.
+   Couleurs extraites du logo officiel, pas inventees.
+   -------------------------------------------------------------- */
+@theme {
+  --color-aws-navy: #002454;      /* contraste 15.21 sur blanc — texte et CTA */
+  --color-aws-navy-soft: #003c78; /* contraste 10.95 — survol, titres secondaires */
+  --color-aws-blue: #0082dc;      /* contraste 4.02 — accents graphiques UNIQUEMENT */
+  --color-aws-ink: #1c2a3d;       /* gris-bleu pour la navigation courante */
+  --color-aws-line: #e6ecf4;      /* filets et separateurs tres discrets */
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1c2a3d;
 }
 
 @theme inline {
@@ -12,15 +27,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Le template ecrivait Arial ici, ce qui annulait la police Geist
+     chargee dans layout.tsx. On utilise bien la variable de la police. */
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }

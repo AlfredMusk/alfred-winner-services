@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Alfred Winner Services">
+  <!-- Anneau ouvert : reprend le cercle du logo officiel. Ouverture en haut a droite. -->
+  <path d="M32.5 9.3A17 17 0 1 0 40.4 28.4"
+        stroke="#002454" stroke-width="5" stroke-linecap="round"/>
+  <!-- Fleche ascendante : part de l'interieur, sort par l'ouverture. -->
+  <path d="M15 33 37 11"
+        stroke="#0082DC" stroke-width="5" stroke-linecap="round"/>
+  <path d="M27 11h10v10"
+        stroke="#0082DC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
