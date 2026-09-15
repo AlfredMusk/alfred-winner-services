@@ -102,19 +102,27 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between gap-6 lg:h-20 xl:grid xl:grid-cols-[1fr_auto_1fr]">
 
           {/* ---------- GAUCHE : marque ---------- */}
-          <a href="#top" className={`col-start-1 flex shrink-0 items-center gap-2.5 justify-self-start rounded-lg ${focusRing}`}>
+          <a href="#top" className={`col-start-1 flex shrink-0 items-center gap-2 justify-self-start rounded-lg ${focusRing}`}>
+            {/* Embleme et mot-symbole DECOUPES dans le logo officiel.
+                Aucune reinterpretation : ce sont les pixels d'origine.
+                Le lockup vertical d'origine est reassemble a l'horizontale. */}
             <Image
-              src="/images/brand/aws-symbol.svg"
+              src="/images/brand/aws-emblem.png"
               alt=""
-              width={40}
-              height={40}
+              width={240}
+              height={226}
               priority
-              className="h-8 w-8 lg:h-10 lg:w-10"
+              className="h-9 w-auto lg:h-11"
             />
-            <span className="text-[1.375rem] font-bold leading-none tracking-tight text-aws-navy lg:text-2xl">
-              AWS
-            </span>
-            {/* Texte reserve aux lecteurs d'ecran : "AWS" seul est ambigu a l'oral. */}
+            <Image
+              src="/images/brand/aws-wordmark.png"
+              alt=""
+              width={472}
+              height={120}
+              priority
+              className="h-5 w-auto lg:h-6"
+            />
+            {/* Le logo est une image : ce texte donne au lien son nom accessible. */}
             <span className="sr-only">Alfred Winner Services — accueil</span>
           </a>
 

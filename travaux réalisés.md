@@ -257,3 +257,58 @@ CONNU / NORMAL:
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] REVISION LOGO — FIDELITE AU LOGO OFFICIEL — 2026-09-15
+
+DEMANDE UTILISATEUR:
+- le logo navbar doit ressembler TEXTUELLEMENT au logo officiel
+- le symbole abstrait (anneau + fleche) s'eloignait trop de l'identite
+
+FAIT:
+- aws-symbol.svg SUPPRIME (symbole abstrait, abandonne)
+- 2 decoupes faites DANS le fichier officiel avec sips
+  -> aucune reinterpretation, ce sont les pixels d'origine
+
+MESURES (canvas, sur logo.png 1448x1086):
+- embleme    : x 394->1087, y 38->690   (694 x 653, ratio 1.063)
+- mot AWS    : x 265->1180, y 704->927  (916 x 224, ratio 4.09)
+- baseline   : x 137->1309, y 960->1001 (non utilisee en navbar)
+
+DECOUPES:
+- aws-emblem.png   : sips -c 665 706 --cropOffset 32 388  puis -Z 240
+                     -> 240x226, 70403 octets
+- aws-wordmark.png : sips -c 236 928 --cropOffset 698 259 puis resampleHeight 120
+                     -> 472x120, 68447 octets
+- logo.png officiel INTACT : 990339 octets
+
+PIEGE RENCONTRE:
+- 1er essai en carre 700x700 mordait sur le haut des lettres AWS
+- l'embleme est plus LARGE (694) que HAUT (653) : un carre qui
+  l'englobe deborde forcement sur le mot-symbole en dessous
+- corrige : decoupe rectangulaire au plus juste + 6px de marge
+
+COMPOSITION NAVBAR:
+- lockup vertical d'origine reassemble a l'HORIZONTALE
+- embleme h-9 (36px) mobile / h-11 (44px) desktop
+- mot-symbole h-5 (20px) mobile / h-6 (24px) desktop
+- marque totale : 149px de large en desktop
+- nom accessible du lien porte par un span sr-only
+
+VERIFIE:
+- fond des decoupes rgb(254,254,254) vs navbar rgb(255,255,255)
+  -> ecart 1/255, aucun rectangle visible
+- densite servie 3.14x (120x113 pour 38x36 affiches) -> net sur Retina
+- next/image optimise bien (service via /_next/image)
+
+TEST APRES REVISION:
+- 375  OK  burger a 359 = bord exact, pas d'overflow
+- 768  OK  burger a 744 = bord exact, pas d'overflow
+- 1024 OK  marque finit 181 / nav demarre 216 -> pas de chevauchement
+           CTA finit a 992 = limite exacte, pas d'overflow
+- 1440 OK  centrage nav ecart 0, pas d'overflow
+- dropdown OK / console OK / typecheck OK / lint OK / build OK
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"
