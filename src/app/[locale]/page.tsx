@@ -10,7 +10,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const dict = getDictionary(locale);
 
   return (
-    <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
       <div className="flex min-h-[70vh] items-center">
         <p className="max-w-md text-sm leading-relaxed text-aws-ink/45">
           {dict.scaffold}

@@ -603,3 +603,108 @@ Verifie dans un onglet neuf : aucune erreur.
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] QA RESPONSIVE REELLE DANS LE NAVIGATEUR — 2026-09-15
+
+Tout mesure sur le VRAI localhost:3100. Aucune maquette, aucun prototype.
+
+### BREAKPOINT CHOISI PAR LE CONTENU, PAS PAR CONVENTION
+
+Mesure des largeurs intrinseques a 1440 :
+  marque 169 + gap 32 + navigation 456 + gap 32 + actions 308 = 997
+  + 64 de padding -> il faut ~1061px minimum
+
+Balayage reel (marge = place restante dans la nav) :
+  1024 -> marge -9px   COMPRIMEE, les items debordent leur boite
+  1040 -> marge  +6px  tient mais les items se touchent
+  1060 -> marge +26px
+  1100 -> marge +66px  respire
+  1280 -> marge +197px
+
+DECISION : basculement a 1100px, pas a lg/1024.
+Raison : 6px de marge n'est pas "ca tient", c'est "ca frole". A 1100 la
+composition a 66px de respiration, ce qui se lit comme voulu.
+Declare dans globals.css : --breakpoint-desk, utilise via desk:
+
+### PIEGE TAILWIND MAJEUR — BREAKPOINT EN PX
+Declare "--breakpoint-desk: 1100px", le bloc @media etait emis AVANT
+celui de sm (40rem) :
+  @media (min-width: 1100px)   <- en premier !
+  @media (min-width: 40rem)
+  @media (min-width: 48rem)
+  ...
+Tailwind trie ses breakpoints mais ne compare pas des px a des rem.
+Consequence : sm:px-6, situe plus loin dans la feuille et a specificite
+egale, ecrasait desk:px-8. Le padding restait a 24px au lieu de 32px.
+CORRIGE : --breakpoint-desk: 68.75rem (= 1100px). Ordre retabli :
+  40rem < 48rem < 64rem < 68.75rem < 80rem < 96rem
+REGLE : toujours declarer un breakpoint personnalise dans la MEME unite
+que ceux de Tailwind.
+
+### RESULTATS PAR LARGEUR (scrollWidth vs clientWidth)
+ 375 BURGER  16/16  scroll 375 = client 375  logo 36px  burger 44x44
+ 430 BURGER  16/16  scroll 430 = client 430
+ 768 BURGER  24/24  scroll 768 = client 768
+ 820 BURGER  24/24  scroll 820 = client 820
+1024 BURGER  24/24  scroll 1024 = client 1024  (etait desktop comprime)
+1280 DESKTOP 32/32  marge nav +197  logo 48px
+1440 DESKTOP 72/72  marge nav +277  logo 48px
+Aucun overflow horizontal nulle part.
+
+### TABLETTE — ANALYSE, PAS AUTOMATISME
+768 et 820 passent en burger non par reflexe mais parce que la nav
+desktop reclame ~1061px : elle ne tient tout simplement pas.
+1024 (iPad paysage) aussi. iPad Air paysage (1180) recoit le desktop.
+
+### INTERACTIONS TESTEES EN VRAI
+- liens nav : Accueil /fr, services #bourse-finance #immobilier
+  #software-ia, #projets, #a-propos, #contact, CTA #contact
+- dropdown : survol ouvre, clic epingle, curseur sort -> reste ouvert,
+  Echap ferme. Centre sous son bouton a 0px d'ecart, 272px, dans l'ecran.
+- bouton + chevron passent ensemble en rgb(0,118,200) a l'ouverture
+- burger : ouvre/ferme, aria-expanded et aria-label basculent,
+  8 liens tous a 44px exactement, CTA present, Echap ferme
+- FR/EN desktop ET mobile : url, lang, libelles, CTA, services basculent
+
+### FAST REFRESH PROUVE
+Marqueur window pose, puis gap-6 -> gap-10 dans le code :
+  gap passe a 40px ET le marqueur survit -> aucun rechargement.
+Modification de test annulee ensuite (0 trace de gap-10).
+
+### LIMITE D'OUTILLAGE RENCONTREE (pas un bug du site)
+L'Entree synthetique de l'automatisation ne genere PAS de clic :
+  touches recues : keydown:Enter, keyup:Enter
+  clics comptes  : 0
+Or le bouton est un <button type="button"> natif : la specification HTML
+garantit l'activation au clavier par Entree et Espace.
+DECISION : ne RIEN ajouter. Un gestionnaire keydown provoquerait une
+double activation dans un vrai navigateur (clic natif + gestionnaire),
+le menu s'ouvrirait puis se refermerait.
+
+### AUTRES PIEGES DE MESURE
+- mouseenter seul ne declenche pas React : il delegue via mouseover
+- lire une couleur moins de ~400ms apres un changement d'etat renvoie
+  une valeur de transition, pas la valeur finale
+
+### QA FINALE
+375 ........ PASS      430 ........ PASS      768 ........ PASS
+820 ........ PASS      1024 ....... PASS      1280 ....... PASS
+1440 ....... PASS
+LOGO ............ PASS  36px mobile / 48px desktop, lisible partout
+NAVIGATION ...... PASS  jamais comprimee au-dessus du breakpoint
+FR/EN ........... PASS  desktop + mobile, aller-retour verifie
+HAMBURGER ....... PASS  44x44, aria correct
+DROPDOWN ........ PASS  centre a 0px, dans l'ecran
+CTA ............. PASS  barre en desktop, menu en mobile
+NO OVERFLOW ..... PASS  scrollWidth = clientWidth sur les 7 largeurs
+KEYBOARD ........ PASS  focus-visible solid, bouton natif
+CONSOLE ......... PASS  onglet neuf : 19 ressources, 0 echec, 0 erreur
+FAST REFRESH .... PASS  prouve par marqueur survivant
+LINT ............ PASS
+TYPECHECK ....... PASS
+BUILD ........... PASS
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"

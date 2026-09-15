@@ -102,7 +102,7 @@ export default function Navbar({ locale, dict }: Props) {
     >
       {/* Container centre : max-width + padding-inline. Les trois zones
           vivent dans CE cadre, elles ne sont jamais poussees par des marges. */}
-      <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         {/* Une seule ligne flex, trois zones :
             - marque   : shrink-0, garde sa largeur naturelle
             - nav      : flex-1, absorbe TOUT l'espace libre et centre son
@@ -114,7 +114,7 @@ export default function Navbar({ locale, dict }: Props) {
             est alors en display:none, donc retiree du flux, et plus rien ne
             pousse le groupe d'actions vers la droite. En desktop il n'a aucun
             effet, le flex-1 ayant deja absorbe tout l'espace libre. */}
-        <div className="flex h-16 items-center justify-between gap-6 lg:h-20 lg:gap-8">
+        <div className="flex h-16 items-center justify-between gap-6 desk:h-20 desk:gap-8">
 
           {/* ---------- ZONE 1 : marque ---------- */}
           <Link
@@ -127,7 +127,7 @@ export default function Navbar({ locale, dict }: Props) {
               width={240}
               height={226}
               priority
-              className="h-9 w-auto lg:h-11 xl:h-12"
+              className="h-9 w-auto desk:h-11 xl:h-12"
             />
             <Image
               src="/images/brand/aws-wordmark.png"
@@ -135,7 +135,7 @@ export default function Navbar({ locale, dict }: Props) {
               width={472}
               height={120}
               priority
-              className="h-5 w-auto lg:h-6 xl:h-7"
+              className="h-5 w-auto desk:h-6 xl:h-7"
             />
             <span className="sr-only">{dict.a11y.brandHome}</span>
           </Link>
@@ -143,7 +143,7 @@ export default function Navbar({ locale, dict }: Props) {
           {/* ---------- ZONE 2 : navigation ---------- */}
           <nav
             aria-label={dict.a11y.mainNav}
-            className="hidden flex-1 items-center justify-center gap-0.5 lg:flex xl:gap-1"
+            className="hidden flex-1 items-center justify-center gap-0.5 desk:flex xl:gap-1"
           >
             <NavHome locale={locale} label={dict.nav.home} />
 
@@ -228,12 +228,12 @@ export default function Navbar({ locale, dict }: Props) {
           </nav>
 
           {/* ---------- ZONE 3 : langues + CTA + burger ---------- */}
-          <div className="flex shrink-0 items-center gap-3 sm:gap-4 lg:gap-5">
+          <div className="flex shrink-0 items-center gap-3 sm:gap-4 desk:gap-5">
             <LangSwitch locale={locale} dict={dict} />
 
             <a
               href="#contact"
-              className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none lg:inline-flex xl:px-5 ${focusRing}`}
+              className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none desk:inline-flex xl:px-5 ${focusRing}`}
             >
               {dict.cta}
               <span
@@ -251,7 +251,7 @@ export default function Navbar({ locale, dict }: Props) {
               aria-controls="mobile-menu"
               aria-label={mobileOpen ? dict.a11y.closeMenu : dict.a11y.openMenu}
               onClick={() => setMobileOpen((v) => !v)}
-              className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-aws-navy lg:hidden ${focusRing}`}
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-aws-navy desk:hidden ${focusRing}`}
             >
               <svg
                 aria-hidden="true"
@@ -277,7 +277,7 @@ export default function Navbar({ locale, dict }: Props) {
       <div
         id="mobile-menu"
         hidden={!mobileOpen}
-        className="border-t border-aws-line bg-white lg:hidden"
+        className="border-t border-aws-line bg-white desk:hidden"
       >
         <nav
           aria-label={dict.a11y.mobileNav}

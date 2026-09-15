@@ -8,6 +8,20 @@
    Couleurs extraites du logo officiel, pas inventees.
    -------------------------------------------------------------- */
 @theme {
+  /* Breakpoint SUR MESURE, deduit du contenu et non d'une convention.
+     Mesure reelle : la navigation desktop reclame 456px, la marque 169px,
+     les actions 308px, plus 2 gaps de 32px et 64px de padding.
+     -> a 1024px elle est comprimee de 9px
+     -> a 1040px il ne reste que 6px de marge : les items se touchent
+     -> a 1100px il reste 66px : la composition respire
+     En dessous de 1100px, on passe au menu burger.
+
+     EN REM, PAS EN PX. Tailwind trie les breakpoints pour ordonner ses
+     media queries, mais il ne compare pas des px a des rem : declare en
+     "1100px", ce bloc etait emis AVANT celui de sm (40rem), et sm:px-6
+     ecrasait donc desk:px-8 a specificite egale. 1100 / 16 = 68.75rem. */
+  --breakpoint-desk: 68.75rem;
+
   --color-aws-navy: #002454;      /* contraste 15.21 sur blanc — texte et CTA */
   --color-aws-navy-soft: #003c78; /* contraste 10.95 — survol, titres secondaires */
   --color-aws-blue: #0082dc;      /* contraste 4.02 — graphiques UNIQUEMENT, jamais du texte */
