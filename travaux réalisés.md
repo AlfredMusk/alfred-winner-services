@@ -496,3 +496,110 @@ DEPENDANCES ......... AUCUNE
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] COMPOSITION + I18N REEL — 2026-09-15
+
+### LECTURE DOC OBLIGATOIRE (AGENTS.md) — 2 RUPTURES NEXT 16
+Source : node_modules/next/dist/docs/
+
+1. middleware.ts N'EXISTE PLUS. Le fichier s'appelle proxy.ts et exporte
+   `export function proxy(request)`. Cite : "Starting with Next.js 16,
+   Middleware is now called Proxy". Ecrit de memoire, le fichier n'aurait
+   simplement jamais ete execute.
+2. params est une Promise : `const { locale } = await params`.
+   Helpers globaux PageProps<'/[locale]'> et LayoutProps<'/[locale]'>.
+
+### ARCHITECTURE I18N — URL EXPLICITE
+- src/app/[locale]/layout.tsx  html lang + Navbar + generateStaticParams
+- src/app/[locale]/page.tsx    echafaudage (PAS le Hero)
+- src/i18n/dictionaries.ts     un dictionnaire par langue
+- src/proxy.ts                 redirige toute URL sans prefixe vers /fr
+- src/app/layout.tsx et page.tsx SUPPRIMES
+- AUCUNE dependance ajoutee
+
+Comment ca marche :
+  visiteur -> /projets
+  proxy    -> redirige 307 vers /fr/projets
+  [locale] -> capte "fr", charge le dictionnaire fr
+  Navbar   -> recoit locale + dict, aucun texte en dur
+Ajouter une langue = 1 entree dans dictionaries.ts. Rien d'autre.
+
+Build : /fr et /en sont SSG (prerendus statiques). Proxy actif.
+
+### PIEGE TYPESCRIPT RENCONTRE
+- "as const" sur le dictionnaire fr figeait les valeurs en types LITTERAUX
+- TypeScript exigeait donc le mot "Accueil" en anglais aussi
+  (Type '"Home"' is not assignable to type '"Accueil"')
+- corrige : pas de as const -> on verifie la STRUCTURE, pas le contenu
+- bonus conserve : oublier une cle en anglais reste une erreur de compilation
+
+### PIEGE CACHE
+- .next/types/validator.ts referencait encore src/app/page.tsx supprime
+- purge de .next/types puis rebuild
+
+### COMPOSITION — 3 ZONES, UNE SEULE GRILLE
+- container centre max-w-[1360px] + padding-inline
+- ligne flex : marque shrink-0 / nav flex-1 justify-center / actions shrink-0
+- flex-1 absorbe l'espace libre ET centre la nav dedans
+- RESULTAT : ecart marque -> nav passe de 217px a 32px
+  (identique a l'ecart nav -> actions : les 3 zones respirent du meme gap)
+- aucune marge arbitraire, aucun push manuel
+
+### BUG COMPOSITION TROUVE ET CORRIGE
+- en mobile la nav flex-1 est en display:none donc RETIREE du flux
+- plus rien ne poussait les actions a droite -> burger a 281px au lieu de 359
+- meme famille de bug que l'auto-placement grid precedent
+- corrige par justify-between : sans effet en desktop (flex-1 a deja tout
+  absorbe), decisif en mobile
+
+### TYPOGRAPHIE
+- Montserrat conservee (conclusions ACIM reutilisees, pas de nouvelle
+  recherche : leur CSS donne Montserrat 13px noir, survol couleur seule)
+- nav : 14px / 15px a partir de xl, weight 500, tracking -0.01em
+- Montserrat est large : -0.01em la rend plus nette sans la tasser
+
+### ETAT ACTIF DEVENU CALME (demande explicite)
+- avant : Accueil bleu en permanence
+- apres : navy #002454 + font-semibold, PAS de bleu
+- le bleu est desormais reserve au survol et au focus
+- aria-current="page" conserve
+
+### LOGO
+- embleme 36 -> 44 -> 48px (gagne en presence sur desktop)
+- mot-symbole 20 -> 24 -> 28px
+- marque totale 169px. Non redessine.
+
+### FR . EN REELLEMENT FONCTIONNEL
+- usePathname() -> on retire le prefixe et on le remplace par l'autre
+  -> le visiteur reste sur LA MEME page en changeant de langue
+- les roles s'inversent tout seuls selon la langue active
+- visible aussi sur mobile, dans la barre du haut
+- vrais liens Link, focalisables, avec aria-current et hrefLang
+
+### TEST
+DESKTOP 1440 ........ PASS  marges 72/72, ecart zones 32, pas d'overflow
+DESKTOP 1280 ........ PASS  marges 32/32, ecart zones 32
+1024 ................ PASS  marges 32/32, nav desktop + CTA, pas de chevauchement
+768 ................. PASS  marges 24/24, burger, langues visibles
+375 ................. PASS  marges 16/16, burger, 0 cible < 44px
+HOVER BLUE .......... PASS  rgb(0,118,200), couleur seule
+NO UNDERLINES ....... PASS  aucun ::after
+DROPDOWN ............ PASS  centre sous le bouton, survol bleu
+FR -> EN ............ PASS  url, lang, nav, CTA, services basculent
+EN -> FR ............ PASS  idem, roles du switcher inverses
+CTA ................. PASS  inchange, hover #001a3f + fleche +2px
+KEYBOARD ............ PASS  vraies touches Tab, outlineStyle solid, bleu
+NO OVERFLOW ......... PASS  sur les 5 largeurs
+CONSOLE ............. PASS  onglet neuf : 19 ressources, 0 echec, 0 erreur
+LINT ................ PASS
+TYPECHECK ........... PASS
+BUILD ............... PASS
+
+Note : les erreurs 404 vues en cours de route etaient l'historique de
+session (suppression de src/app/page.tsx pendant que le serveur tournait).
+Verifie dans un onglet neuf : aucune erreur.
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"

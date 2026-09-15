@@ -1,70 +1,65 @@
-// 'use client' : ce composant utilise useState / useEffect, donc il doit
-// s'executer dans le navigateur. Par defaut, tout composant Next.js App Router
-// est un Server Component et n'a acces ni a l'etat ni aux evenements.
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { Locale, NavbarDictionary } from "@/i18n/dictionaries";
+import { locales } from "@/i18n/dictionaries";
 
-/* Les donnees de navigation sont sorties du JSX : une seule source de verite,
-   reutilisee par le menu desktop ET le menu mobile. */
-const SERVICES = [
-  { num: "01", label: "Bourse & Finance", href: "#bourse-finance" },
-  { num: "02", label: "Immobilier", href: "#immobilier" },
-  { num: "03", label: "Software & IA", href: "#software-ia" },
-];
+/* ------------------------------------------------------------------
+   STYLES
 
-const LINKS = [
-  { label: "Projets", href: "#projets" },
-  { label: "À propos", href: "#a-propos" },
-  { label: "Contact", href: "#contact" },
-];
+   Typographie calee sur la reference ACIM (relevee dans leur CSS :
+   Montserrat, quasi noir, aucun letter-spacing, survol = couleur seule).
+   On resserre legerement le tracking : Montserrat est large, -0.01em
+   la rend plus nette sans la tasser.
 
-/* Styles partages. Extraits en constantes pour eviter de repeter
-   quinze classes Tailwind a chaque lien. */
-/* Lien de navigation desktop.
+   Aucun underline nulle part : ni au repos, ni au survol, ni en actif.
+   ------------------------------------------------------------------ */
 
-   Typographie calee sur la reference ACIM, relevee dans leur CSS :
-   Montserrat, 13px, quasi noir, aucun letter-spacing, et un survol
-   qui ne change QUE la couleur. On garde 13px jusqu'a 1279 et on
-   passe a 14px au-dela, ou la place ne manque plus.
-
-   Plus aucun underline : ni au repos, ni au survol, ni en actif.
-   Le focus clavier, lui, conserve son propre indicateur — le survol
-   concerne la souris et ne doit jamais servir de seul repere. */
 const navLinkBase =
-  "rounded-md px-3 py-2 text-[0.8125rem] font-medium xl:text-[0.875rem] " +
+  "rounded-md px-3 py-2 text-[0.875rem] font-medium tracking-[-0.01em] xl:text-[0.9375rem] " +
   "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
   "motion-reduce:transition-none";
 
-/* Piege Tailwind : la derniere classe ecrite ne gagne PAS. text-aws-navy et
-   text-aws-blue-text ont la meme specificite, c'est l'ordre de la feuille
-   generee qui tranche. On ne les empile donc jamais : une couleur par etat.
-   (hover:text-... gagne toujours : classe + pseudo-classe.)
+/* Piege Tailwind : deux classes de couleur ont la MEME specificite, c'est
+   l'ordre de la feuille generee qui tranche, pas l'ordre ecrit. On ne les
+   empile donc jamais — une couleur par etat.
 
-   ACTIF n'est PAS HOVER :
-   HOVER = "ce que la souris survole", transitoire.
-   ACTIF = "ou je me trouve", permanent, et marque aussi par la graisse
-   pour ne pas dependre de la seule couleur. */
-const navLinkIdle = "text-aws-navy";
+   ACTIF reste volontairement CALME : navy un peu plus dense et graisse
+   superieure, pas de bleu permanent. Le bleu est reserve au survol. */
+const navLinkIdle = "text-aws-ink";
+const navLinkActive = "text-aws-navy font-semibold";
 const navLinkOpen = "text-aws-blue-text";
-const navLinkActive = "text-aws-blue-text font-semibold";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue";
 
-export default function Navbar() {
+const mobileLink =
+  "flex min-h-11 items-center rounded-lg px-1 text-[0.9375rem] font-medium text-aws-ink " +
+  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  `${focusRing} motion-reduce:transition-none`;
+
+type Props = { locale: Locale; dict: NavbarDictionary };
+
+export default function Navbar({ locale, dict }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
-  /* useRef plutot que useState : "le menu a-t-il ete ouvert par un clic ?"
-     ne doit PAS declencher de re-rendu, c'est une simple memoire interne.
-     Sans cela, survoler puis cliquer refermait le menu aussitot. */
+  /* useRef et non useState : "le menu a-t-il ete ouvert par un clic ?"
+     ne doit pas provoquer de re-rendu. Sans cela, survoler puis cliquer
+     refermait le menu aussitot. */
   const pinnedRef = useRef(false);
 
-  /* Ombre discrete uniquement une fois la page defilee. */
+  const links = [
+    { label: dict.nav.projects, href: "#projets" },
+    { label: dict.nav.about, href: "#a-propos" },
+    { label: dict.nav.contact, href: "#contact" },
+  ];
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -72,7 +67,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Echap ferme le dropdown et le menu mobile : attendu au clavier. */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -85,7 +79,6 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  /* Un clic hors du dropdown le referme. */
   useEffect(() => {
     if (!servicesOpen) return;
     const onDown = (e: MouseEvent) => {
@@ -107,36 +100,34 @@ export default function Navbar() {
           : "border-b border-transparent")
       }
     >
-      {/* max-w-7xl + mx-auto = container centre ; px-* = respiration laterale */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Deux strategies de layout selon la largeur disponible :
+      {/* Container centre : max-width + padding-inline. Les trois zones
+          vivent dans CE cadre, elles ne sont jamais poussees par des marges. */}
+      <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
+        {/* Une seule ligne flex, trois zones :
+            - marque   : shrink-0, garde sa largeur naturelle
+            - nav      : flex-1, absorbe TOUT l'espace libre et centre son
+                         contenu dedans. C'est ce qui rapproche la nav du
+                         logo : l'espace n'est plus reparti aux extremites.
+            - actions  : shrink-0, colle a droite
+            gap gere la respiration entre zones, aucune marge arbitraire. */}
+        {/* justify-between est indispensable EN MOBILE : la nav en flex-1
+            est alors en display:none, donc retiree du flux, et plus rien ne
+            pousse le groupe d'actions vers la droite. En desktop il n'a aucun
+            effet, le flex-1 ayant deja absorbe tout l'espace libre. */}
+        <div className="flex h-16 items-center justify-between gap-6 lg:h-20 lg:gap-8">
 
-            - jusqu'a 1279px : flex + justify-between. Chaque bloc prend sa
-              largeur naturelle et ils sont pousses aux extremites. La nav
-              n'est pas parfaitement centree, mais tout tient.
-
-            - a partir de 1280px (xl) : grid-cols-[1fr_auto_1fr]. Les deux
-              colonnes laterales recoivent la MEME part de l'espace restant,
-              donc la colonne du milieu tombe exactement au centre de l'ecran.
-
-            Pourquoi pas la grille partout ? Parce qu'elle force les deux cotes
-            a la largeur du plus large : la marque fait 103px mais le groupe
-            langue+CTA en fait 280. A 1024px cela demandait 1062px pour 960
-            disponibles — le CTA sortait de l'ecran. */}
-        <div className="flex h-16 items-center justify-between gap-6 lg:h-20 xl:grid xl:grid-cols-[1fr_auto_1fr]">
-
-          {/* ---------- GAUCHE : marque ---------- */}
-          <a href="#top" className={`col-start-1 flex shrink-0 items-center gap-2 justify-self-start rounded-lg ${focusRing}`}>
-            {/* Embleme et mot-symbole DECOUPES dans le logo officiel.
-                Aucune reinterpretation : ce sont les pixels d'origine.
-                Le lockup vertical d'origine est reassemble a l'horizontale. */}
+          {/* ---------- ZONE 1 : marque ---------- */}
+          <Link
+            href={`/${locale}`}
+            className={`flex shrink-0 items-center gap-2 rounded-lg ${focusRing}`}
+          >
             <Image
               src="/images/brand/aws-emblem.png"
               alt=""
               width={240}
               height={226}
               priority
-              className="h-9 w-auto lg:h-11"
+              className="h-9 w-auto lg:h-11 xl:h-12"
             />
             <Image
               src="/images/brand/aws-wordmark.png"
@@ -144,28 +135,23 @@ export default function Navbar() {
               width={472}
               height={120}
               priority
-              className="h-5 w-auto lg:h-6"
+              className="h-5 w-auto lg:h-6 xl:h-7"
             />
-            {/* Le logo est une image : ce texte donne au lien son nom accessible. */}
-            <span className="sr-only">Alfred Winner Services — accueil</span>
-          </a>
+            <span className="sr-only">{dict.a11y.brandHome}</span>
+          </Link>
 
-          {/* ---------- CENTRE : navigation (desktop) ---------- */}
-          {/* hidden = display:none ; lg:flex = redevient flex a partir de 1024px */}
-          <nav aria-label="Navigation principale" className="col-start-2 hidden items-center gap-1 justify-self-center lg:flex xl:gap-2">
-            {/* aria-current="page" dit a un lecteur d'ecran "vous etes ici".
-                La couleur seule ne suffirait pas. */}
-            <a href="#top" aria-current="page" className={`${navLinkBase} ${navLinkActive}`}>
-              Accueil
-            </a>
+          {/* ---------- ZONE 2 : navigation ---------- */}
+          <nav
+            aria-label={dict.a11y.mainNav}
+            className="hidden flex-1 items-center justify-center gap-0.5 lg:flex xl:gap-1"
+          >
+            <NavHome locale={locale} label={dict.nav.home} />
 
             <div
               ref={servicesRef}
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => {
-                /* On ne referme au survol que si l'utilisateur n'a pas
-                   explicitement "epingle" le menu par un clic. */
                 if (!pinnedRef.current) setServicesOpen(false);
               }}
             >
@@ -180,13 +166,12 @@ export default function Navbar() {
                 }}
                 className={
                   `${navLinkBase} inline-flex items-center gap-1.5 ` +
-                  /* Dropdown ouvert : etat bleu, mais SANS changer la graisse,
-                     sinon le bouton s'elargirait a l'ouverture. Le chevron
-                     suit tout seul, il est dessine en stroke="currentColor". */
                   (servicesOpen ? navLinkOpen : navLinkIdle)
                 }
               >
-                Nos services
+                {dict.nav.services}
+                {/* stroke="currentColor" : le chevron herite de la couleur
+                    du texte, il devient donc bleu en meme temps que lui. */}
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 10 6"
@@ -195,26 +180,36 @@ export default function Navbar() {
                     (servicesOpen ? "rotate-180" : "")
                   }
                 >
-                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5"
-                        fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M1 1l4 4 4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
 
-              {/* pt-3 sert de pont : sans lui, le curseur quitte la zone
+              {/* pt-3 fait le pont : sans lui le curseur quitte la zone
                   entre le bouton et le panneau, et le menu clignote. */}
-              <div id="services-menu" hidden={!servicesOpen} className="absolute left-0 top-full pt-3">
-                <ul className="w-64 rounded-xl border border-aws-line bg-white p-2 shadow-lg shadow-aws-navy/5">
-                  {SERVICES.map((s) => (
-                    <li key={s.href}>
+              <div
+                id="services-menu"
+                hidden={!servicesOpen}
+                className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+              >
+                <ul className="w-[17rem] rounded-xl border border-aws-line bg-white p-2 shadow-[0_8px_28px_rgba(0,36,84,0.10)]">
+                  {dict.services.map((s) => (
+                    <li key={s.hash}>
                       <a
-                        href={s.href}
+                        href={`#${s.hash}`}
                         onClick={() => {
                           pinnedRef.current = false;
                           setServicesOpen(false);
                         }}
-                        className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
+                        className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
                       >
-                        <span className="text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
+                        <span className="w-4 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
                           {s.num}
                         </span>
                         {s.label}
@@ -225,43 +220,48 @@ export default function Navbar() {
               </div>
             </div>
 
-            {LINKS.map((l) => (
-              <a key={l.href} href={l.href} className={`${navLinkBase} ${navLinkIdle}`}>{l.label}</a>
+            {links.map((l) => (
+              <a key={l.href} href={l.href} className={`${navLinkBase} ${navLinkIdle}`}>
+                {l.label}
+              </a>
             ))}
           </nav>
 
-          {/* ---------- DROITE : langue + CTA (desktop) + bouton (mobile) ---------- */}
-          <div className="col-start-3 flex items-center justify-self-end">
-            <div className="hidden shrink-0 items-center gap-4 lg:flex xl:gap-5">
-              <LangSwitch />
-              <a
-                href="#contact"
-                className={`group inline-flex items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all xl:px-5 duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none ${focusRing}`}
-              >
-                Parlons de votre projet
-                {/* group-hover : l'enfant reagit au survol du PARENT.
-                    translate-x-0.5 = 2px, juste assez pour se remarquer. */}
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
-                >
-                  →
-                </span>
-              </a>
-            </div>
+          {/* ---------- ZONE 3 : langues + CTA + burger ---------- */}
+          <div className="flex shrink-0 items-center gap-3 sm:gap-4 lg:gap-5">
+            <LangSwitch locale={locale} dict={dict} />
 
-            {/* ---------- Bouton menu (mobile) ---------- */}
-            {/* h-11 w-11 = 44x44px, la cible tactile minimale recommandee */}
+            <a
+              href="#contact"
+              className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none lg:inline-flex xl:px-5 ${focusRing}`}
+            >
+              {dict.cta}
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+              >
+                →
+              </span>
+            </a>
+
+            {/* h-11 w-11 = 44x44px, cible tactile minimale recommandee */}
             <button
               type="button"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
-              aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-label={mobileOpen ? dict.a11y.closeMenu : dict.a11y.openMenu}
               onClick={() => setMobileOpen((v) => !v)}
               className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-aws-navy lg:hidden ${focusRing}`}
             >
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none"
-                   stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+              >
                 {mobileOpen ? (
                   <path d="M6 6l12 12M18 6L6 18" />
                 ) : (
@@ -274,27 +274,38 @@ export default function Navbar() {
       </div>
 
       {/* ---------- Panneau mobile ---------- */}
-      <div id="mobile-menu" hidden={!mobileOpen} className="border-t border-aws-line bg-white lg:hidden">
-        <nav aria-label="Navigation mobile" className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+      <div
+        id="mobile-menu"
+        hidden={!mobileOpen}
+        className="border-t border-aws-line bg-white lg:hidden"
+      >
+        <nav
+          aria-label={dict.a11y.mobileNav}
+          className="mx-auto max-w-[1360px] px-4 py-4 sm:px-6"
+        >
           <ul className="flex flex-col">
             <li>
-              <a
-                href="#top"
+              <Link
+                href={`/${locale}`}
                 aria-current="page"
-                className={`${mobileLink} font-semibold text-aws-blue-text`}  /* actif */
+                className={`${mobileLink} font-semibold`}
                 onClick={() => setMobileOpen(false)}
               >
-                Accueil
-              </a>
+                {dict.nav.home}
+              </Link>
             </li>
             <li>
               <span className="block px-1 pb-1 pt-4 text-xs font-semibold uppercase tracking-wider text-aws-ink/50">
-                Nos services
+                {dict.nav.services}
               </span>
               <ul className="flex flex-col border-l border-aws-line pl-3">
-                {SERVICES.map((s) => (
-                  <li key={s.href}>
-                    <a href={s.href} className={`${mobileLink} ${navLinkIdle}`} onClick={() => setMobileOpen(false)}>
+                {dict.services.map((s) => (
+                  <li key={s.hash}>
+                    <a
+                      href={`#${s.hash}`}
+                      className={mobileLink}
+                      onClick={() => setMobileOpen(false)}
+                    >
                       <span className="mr-2 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
                         {s.num}
                       </span>
@@ -304,61 +315,85 @@ export default function Navbar() {
                 ))}
               </ul>
             </li>
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={`${mobileLink} ${navLinkIdle}`} onClick={() => setMobileOpen(false)}>{l.label}</a>
+                <a href={l.href} className={mobileLink} onClick={() => setMobileOpen(false)}>
+                  {l.label}
+                </a>
               </li>
             ))}
           </ul>
 
-          <div className="mt-5 flex items-center justify-between gap-4 border-t border-aws-line pt-5">
-            <LangSwitch />
-            <a
-              href="#contact"
-              onClick={() => setMobileOpen(false)}
-              className={`group inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-aws-navy px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] motion-reduce:transition-none ${focusRing}`}
+          <a
+            href="#contact"
+            onClick={() => setMobileOpen(false)}
+            className={`group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-aws-navy px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] motion-reduce:transition-none ${focusRing}`}
+          >
+            {dict.cta}
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
             >
-              Parlons de votre projet
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
-              >
-                →
-              </span>
-            </a>
-          </div>
+              →
+            </span>
+          </a>
         </nav>
       </div>
     </header>
   );
 }
 
-const mobileLink =
-  "flex min-h-11 items-center rounded-lg px-1 text-[0.9375rem] font-medium " +
-  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
-  "motion-reduce:transition-none";
+/* "Accueil" est la page courante : aria-current le dit aux lecteurs
+   d'ecran, et le style reste sobre — navy dense + graisse, pas de bleu. */
+function NavHome({ locale, label }: { locale: Locale; label: string }) {
+  return (
+    <Link
+      href={`/${locale}`}
+      aria-current="page"
+      className={`${navLinkBase} ${navLinkActive}`}
+    >
+      {label}
+    </Link>
+  );
+}
 
-/* FR / EN : interface visuelle uniquement, l'i18n n'existe pas encore.
-   EN porte aria-disabled plutot que disabled : il reste atteignable au
-   clavier et annonce sa propre indisponibilite, au lieu de disparaitre
-   silencieusement du parcours. Quand l'anglais sera reellement en place,
-   il suffira d'echanger les deux styles. */
-function LangSwitch() {
-  /* Le jour ou l'anglais existera, il suffira d'echanger les deux classes :
-     actif = font-semibold text-aws-blue-text, inactif = text-aws-ink/55. */
+/* ------------------------------------------------------------------
+   FR · EN — reellement fonctionnel
+
+   usePathname() donne le chemin courant, ex "/fr" ou "/fr/projets".
+   On retire le prefixe de langue puis on le remplace par l'autre :
+   le visiteur reste donc sur LA MEME page en changeant de langue.
+   ------------------------------------------------------------------ */
+function LangSwitch({ locale, dict }: { locale: Locale; dict: NavbarDictionary }) {
+  const pathname = usePathname() ?? `/${locale}`;
+  const sansLangue = pathname.replace(/^\/(fr|en)(?=\/|$)/, "");
+  const hrefPour = (l: Locale) => `/${l}${sansLangue}`;
+
   const actif = "font-semibold text-aws-blue-text";
   const inactif =
-    "font-normal text-aws-ink/55 transition-colors duration-200 hover:text-aws-blue-text " +
-    "focus-visible:text-aws-blue-text focus-visible:outline-2 focus-visible:outline-offset-2 " +
-    "focus-visible:outline-aws-blue motion-reduce:transition-none";
+    "font-medium text-aws-ink/60 transition-colors duration-200 hover:text-aws-blue-text " +
+    `focus-visible:text-aws-blue-text ${focusRing} motion-reduce:transition-none`;
+
   return (
     <div className="flex items-center gap-1.5 text-[0.8125rem]">
-      <span aria-current="true" className={actif}>FR</span>
-      <span aria-hidden="true" className="select-none text-aws-ink/20">|</span>
-      <button type="button" aria-disabled="true" title="Version anglaise à venir" className={`cursor-default ${inactif}`}>
-        EN
-      </button>
+      {locales.map((l, i) => (
+        <span key={l} className="flex items-center gap-1.5">
+          {i > 0 && (
+            <span aria-hidden="true" className="select-none text-aws-ink/25">
+              ·
+            </span>
+          )}
+          <Link
+            href={hrefPour(l)}
+            hrefLang={l}
+            aria-current={l === locale ? "true" : undefined}
+            aria-label={l === "fr" ? dict.a11y.switchToFr : dict.a11y.switchToEn}
+            className={`rounded px-0.5 ${l === locale ? actif : inactif}`}
+          >
+            {l.toUpperCase()}
+          </Link>
+        </span>
+      ))}
     </div>
   );
 }
