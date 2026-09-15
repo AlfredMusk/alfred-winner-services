@@ -24,43 +24,32 @@ const LINKS = [
    quinze classes Tailwind a chaque lien. */
 /* Lien de navigation desktop.
 
-   relative        : le lien devient le repere de positionnement. Sans lui,
-                     le trait se placerait par rapport a toute la page.
-   after:content-[''] : cree un pseudo-element ::after, une "fausse" boite
-                     que le CSS dessine sans qu'elle existe dans le HTML.
-   after:absolute  : ce trait est retire du flux et colle au lien.
-   inset-x-3       : left et right a 12px, soit la largeur du texte seul.
-   origin-left     : transform-origin: left. Le trait grandit DEPUIS la gauche.
-   scale-x-0 -> 100: il se deroule horizontalement au lieu d'apparaitre d'un coup.
-   focus-visible   : meme rendu au clavier qu'a la souris — le survol ne doit
-                     jamais etre le seul indicateur. */
-const navLinkBase =
-  /* Montserrat est plus large que la police du template : a 1024px la
-     navigation debordait de sa marge. On descend a 14px entre 1024 et
-     1279, on revient a 15px a partir de 1280 ou la place ne manque plus. */
-  "relative rounded-md px-3 py-2 text-[0.875rem] font-medium xl:text-[0.9375rem] " +
-  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
-  "after:absolute after:inset-x-3 after:bottom-1 after:h-[2px] after:rounded-full " +
-  "after:bg-aws-blue-text after:origin-left after:scale-x-0 after:content-[''] " +
-  "after:transition-transform after:duration-200 " +
-  "hover:after:scale-x-100 focus-visible:after:scale-x-100 " +
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
-  "motion-reduce:transition-none motion-reduce:after:transition-none";
+   Typographie calee sur la reference ACIM, relevee dans leur CSS :
+   Montserrat, 13px, quasi noir, aucun letter-spacing, et un survol
+   qui ne change QUE la couleur. On garde 13px jusqu'a 1279 et on
+   passe a 14px au-dela, ou la place ne manque plus.
 
-/* ATTENTION, piege Tailwind : la derniere classe ecrite ne gagne PAS.
-   text-aws-ink et text-aws-blue-text ont la MEME specificite CSS, c'est
-   l'ordre dans la feuille generee qui tranche — et il nous echappe.
-   On ne met donc jamais les deux ensemble : on choisit selon l'etat.
-   (hover:text-... gagne toujours, lui : classe + pseudo-classe.)
+   Plus aucun underline : ni au repos, ni au survol, ni en actif.
+   Le focus clavier, lui, conserve son propre indicateur — le survol
+   concerne la souris et ne doit jamais servir de seul repere. */
+const navLinkBase =
+  "rounded-md px-3 py-2 text-[0.8125rem] font-medium xl:text-[0.875rem] " +
+  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
+  "motion-reduce:transition-none";
+
+/* Piege Tailwind : la derniere classe ecrite ne gagne PAS. text-aws-navy et
+   text-aws-blue-text ont la meme specificite, c'est l'ordre de la feuille
+   generee qui tranche. On ne les empile donc jamais : une couleur par etat.
+   (hover:text-... gagne toujours : classe + pseudo-classe.)
 
    ACTIF n'est PAS HOVER :
-   HOVER = "ce que la souris survole", transitoire, le trait se deroule.
-   ACTIF = "ou je me trouve", permanent, le trait est deja deroule.
-   La graisse change en plus : l'etat actif ne doit pas reposer sur la
-   seule couleur, sinon il disparait pour un daltonien. */
-const navLinkIdle = "text-aws-ink";
-const navLinkOpen = "text-aws-blue-text after:scale-x-100";
-const navLinkActive = "text-aws-blue-text font-semibold after:scale-x-100";
+   HOVER = "ce que la souris survole", transitoire.
+   ACTIF = "ou je me trouve", permanent, et marque aussi par la graisse
+   pour ne pas dependre de la seule couleur. */
+const navLinkIdle = "text-aws-navy";
+const navLinkOpen = "text-aws-blue-text";
+const navLinkActive = "text-aws-blue-text font-semibold";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue";
@@ -223,7 +212,7 @@ export default function Navbar() {
                           pinnedRef.current = false;
                           setServicesOpen(false);
                         }}
-                        className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors hover:bg-[#f4f8fd] hover:text-aws-navy motion-reduce:transition-none ${focusRing}`}
+                        className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
                       >
                         <span className="text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
                           {s.num}
@@ -356,21 +345,18 @@ const mobileLink =
    silencieusement du parcours. Quand l'anglais sera reellement en place,
    il suffira d'echanger les deux styles. */
 function LangSwitch() {
-  const langBase =
-    "rounded-md px-2 py-1 text-[0.8125rem] transition-colors duration-200 " +
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
-    "motion-reduce:transition-none";
+  /* Le jour ou l'anglais existera, il suffira d'echanger les deux classes :
+     actif = font-semibold text-aws-blue-text, inactif = text-aws-ink/55. */
+  const actif = "font-semibold text-aws-blue-text";
+  const inactif =
+    "font-normal text-aws-ink/55 transition-colors duration-200 hover:text-aws-blue-text " +
+    "focus-visible:text-aws-blue-text focus-visible:outline-2 focus-visible:outline-offset-2 " +
+    "focus-visible:outline-aws-blue motion-reduce:transition-none";
   return (
-    <div className="flex items-center gap-0.5">
-      <span aria-current="true" className={`${langBase} bg-aws-blue/10 font-semibold text-aws-blue-text`}>
-        FR
-      </span>
-      <button
-        type="button"
-        aria-disabled="true"
-        title="Version anglaise à venir"
-        className={`${langBase} cursor-default font-medium text-aws-ink/45 hover:bg-aws-blue/8 hover:text-aws-blue-text`}
-      >
+    <div className="flex items-center gap-1.5 text-[0.8125rem]">
+      <span aria-current="true" className={actif}>FR</span>
+      <span aria-hidden="true" className="select-none text-aws-ink/20">|</span>
+      <button type="button" aria-disabled="true" title="Version anglaise à venir" className={`cursor-default ${inactif}`}>
         EN
       </button>
     </div>

@@ -410,3 +410,89 @@ DEPENDANCES AJOUTEES .... AUCUNE
 
 NEXT:
 - USER REVIEW -> attendre "NAVBAR VALIDEE"
+
+---
+
+## [NAVBAR] FINAL POLISH — 2026-09-15
+
+### TYPOGRAPHIE — ACIM INSPECTE DANS SON CSS
+Le CSS de theme d'ACIM ne s'applique pas dans l'apercu (computed = Times).
+Contourne : fetch des 11 feuilles de style, 644 Ko lus, 0 bloquee.
+
+ACIM FONT:   Montserrat        (font-family:"Montserrat", Sans-serif)
+WEIGHT:      non declare sur la nav -> herite du body
+SIZE:        13px
+COLOR:       #000000 (noir pur)
+PADDING:     0 15px
+LETTER-SP:   aucun sur la nav
+LINE-HEIGHT: aucun sur la nav
+HOVER:       color: var(--e-global-color-primary) — COULEUR SEULE
+             pas d'underline, pas de fond
+SOURCE:      fonts.googleapis.com/css?family=Montserrat:100..900
+REUSABLE:    OUI — SIL Open Font License 1.1, usage commercial libre
+AWS DECISION: on gardait deja Montserrat. L'ecart venait du TRAITEMENT :
+             j'etais en 14/15px dans un gris-bleu adouci #1c2a3d,
+             eux en 13px noir pur -> rendu plus net chez eux.
+             Corrige : 13px (14px a partir de 1280), couleur navy #002454,
+             graisse 500, aucun letter-spacing. Pas de bold general.
+
+### SUPPRESSIONS (moins d'UI, plus de precision)
+- TOUS les underlines supprimes : repos, hover, actif
+- verifie : content du ::after = "none", 0 classe after: dans le fichier
+- pastille de fond du FR supprimee
+- bouton EN separe supprime
+
+### HOVER FINAL
+- couleur seule, 200ms, rien d'autre
+- "Nos services" : texte ET chevron bleus ensemble (stroke=currentColor)
+- dropdown ouvert : bleu conserve, sans changement de graisse
+
+### ETAT ACTIF (≠ HOVER)
+- Accueil : aria-current="page" + bleu + font-semibold
+- la graisse evite de dependre de la seule couleur
+
+### FR | EN
+- FR bleu semibold / separateur | a 20% d'opacite / EN gris 55%
+- hover EN -> bleu, 200ms
+- aria-disabled (pas disabled) : EN reste atteignable au clavier
+- bascule future : echanger les classes actif/inactif, rien d'autre
+
+### DROPDOWN
+- structure conservee (validee)
+- hover : texte bleu + fond #f2f7fd tres pale
+
+### CTA
+- INCHANGE (deja valide) : navy plein, hover #001a3f, fleche +2px
+- hierarchie respectee : pastille pleine > texte bleu des hovers
+
+### LOGO
+- INCHANGE. Verifie seulement :
+  hauteur 44px, centre Y 40 vs centre navbar 41 -> 1px d'ecart
+  (du a la bordure basse), alignement correct
+
+### PIEGES DE MESURE RENCONTRES
+- focus({focusVisible:true}) ne declenche PAS :focus-visible si la
+  derniere interaction etait une souris -> teste avec de VRAIES touches Tab
+- outlineWidth vaut 3px meme sans focus : c'est outlineStyle qui prouve
+  l'anneau (none -> solid)
+
+### TEST
+FONT ................ PASS  Montserrat 13px/14px navy 500
+BLUE HOVER .......... PASS  rgb(0,118,200), couleur seule
+NO UNDERLINE ........ PASS  ::after content = none partout
+DROPDOWN ............ PASS  texte + chevron bleus, fond pale
+FR | EN ............. PASS  separateur 20%, EN focalisable
+CTA ................. PASS  inchange
+KEYBOARD ............ PASS  vraies touches Tab, outlineStyle solid
+375px ............... PASS  pas d'overflow, 0 cible < 44px
+768px ............... PASS  burger a 744 = bord exact
+1024px .............. PASS  marges 32/32 SYMETRIQUES (etait 30/32)
+1440px .............. PASS  marges 112/112, centrage 0, navbar 81px
+CONSOLE ............. PASS
+LINT ................ PASS
+TYPECHECK ........... PASS
+BUILD ............... PASS
+DEPENDANCES ......... AUCUNE
+
+NEXT:
+- USER REVIEW -> attendre "NAVBAR VALIDEE"
