@@ -2172,3 +2172,112 @@ PENDING (inchange)
     un jour sur une page /contact dediee)
 
 PAS DE COMMIT. En attente de la revue structurelle d'Alfred.
+
+
+================================================================================
+PASSE PREMIUM V3 — PALETTE, MICRO-INTERACTIONS, CONCEPTS VS REALISATIONS
+================================================================================
+
+MOI COMPRIS DEMANDE
+  Site deja juste. Manque : chaleur dans la palette, vie au survol,
+  respiration au defilement, et une distinction HONNETE entre ce qui
+  existe vraiment et ce qui est encore une idee.
+
+PALETTE — UN SEUL TOKEN AJOUTE, PAS UNE NOUVELLE MARQUE
+  --color-aws-sand #eee5d4, neutre chaud pour l'univers CONSTRUIRE.
+  Marque DECORATIF UNIQUEMENT dans le CSS, avec la raison ecrite : sur
+  cette teinte, aws-blue-text retombe sous le seuil AA (4.5) des qu'on
+  la rechauffe assez pour qu'elle se distingue vraiment. Calcule AVANT
+  de choisir la contrainte, pas apres avoir pose un texte illisible.
+  Les trois univers se distinguent donc par le fond et l'accent de
+  bordure (navy / sand / bleu), jamais par la couleur d'un texte.
+
+MICRO-INTERACTIONS
+  - images : scale 1.03 au survol, duree 700ms, courbe douce
+  - boutons et liens : fleche qui avance de 2px (systeme partage)
+  - TOUT porte motion-reduce:* — si la personne a desactive les
+    animations dans son systeme, il ne reste RIEN qui bouge.
+
+REVEAL AU DEFILEMENT — EN CSS PUR, ZERO JAVASCRIPT
+  animation-timeline: view(), enferme dans
+  @media (prefers-reduced-motion: no-preference) + @supports.
+  Raison du choix : un IntersectionObserver aurait exige un Client
+  Component par section ET aurait laisse le contenu invisible si
+  l'hydratation echoue. Ici, navigateur qui ne supporte pas -> aucune
+  regle ne s'applique -> contenu visible immediatement. La degradation
+  est structurelle, pas une rustine.
+
+  DEUX BUGS REELS TROUVES ET CORRIGES SUR CE SYSTEME :
+
+  1. animation-range melangeait deux reperes (entry 0% -> cover 30%).
+     Symptome mesure : une section deja a opacite 1 ALORS QU'ELLE ETAIT
+     ENCORE SOUS LE VIEWPORT. Corrige en restant sur un seul repere :
+     entry 0% entry 45%. Verifie sur les 16 elements .reveal.
+
+  2. overflow-hidden sur la <section> Vision faussait le calcul de sa
+     propre view-timeline. Je l'ai retire -> l'animation est repartie,
+     MAIS le halo decoratif (56rem de large, centre) n'etait plus
+     clippe et rendait la page horizontalement scrollable a 768 et 820
+     (scrollWidth 832 pour clientWidth 768 — le chiffre correspondait
+     EXACTEMENT au bord droit du halo, donc aucun doute sur le
+     coupable). Correction : le halo est clippe par SON PROPRE
+     conteneur, frere du contenu anime et non ancetre. Les deux
+     problemes tombent ensemble.
+
+  LECON : une correction peut en creer une autre. C'est la mesure a
+  toutes les largeurs qui l'a attrapee, pas la relecture du code.
+
+PROJETS — SEPARATION HONNETE (le point le plus important de la passe)
+  BLOC 1  Realisations : lignes numerotees, fond blanc. Uniquement ce
+          qui existe vraiment.
+  BLOC 2  "SOLUTIONS EN DEVELOPPEMENT", sur fond off-white pour que la
+          rupture se voie. Intro explicite : "Des directions a l'etude
+          pour chacun des trois univers — PAS ENCORE LIVREES."
+          Trois cartes, une par univers, chacune portant une pastille
+          CONCEPT :
+            - Tableau de bord multi-actifs
+            - Suivi de projets immobiliers
+            - Assistant IA metier
+  Aucun client, aucune date, aucun chiffre, aucune promesse de
+  livraison. Un visiteur ne peut pas confondre les deux blocs.
+
+FOOTER
+  Filet superieur en degrade (s'estompe aux deux bords) au lieu d'une
+  bordure plate. 4 colonnes. Contrastes recalcules sur le navy :
+  blanc/85 = 11.25, blanc/75 = 9.00, blanc/55 = 5.44 — tous au-dessus
+  du seuil.
+
+QA RESPONSIVE — 375, 430, 768, 820, 1024, 1280, 1440
+  0 debordement partout APRES correction (768 et 820 debordaient avant,
+  voir bug 2). 0 ancre cassee sur les 7 ancres internes. Nav et Footer
+  presents a chaque largeur.
+
+FR / EN
+  EN : lang="en", 8 titres h2 tous traduits, 0 residu francais sur une
+  liste de controle, 16 .reveal, 3 pastilles Concept, 0 ancre cassee.
+
+TESTS
+  lint    PASS  28 fichiers analyses (verifie en JSON, pas cru sur
+                parole : un lint muet doit prouver qu'il a lu quelque
+                chose), 0 erreur, 0 warning
+  tsc     PASS  0 erreur
+  build   PASS  11 routes, FR + EN + pages legales + robots + sitemap
+  console PASS  vide
+
+IMAGES
+  AUCUNE nouvelle image sur cette passe. Les deux photos validees
+  restent en place. Le slot du fondateur reste un aplat neutre : tant
+  que la photo originale n'est pas arrivee, aucune forme humaine n'est
+  suggeree.
+
+PENDING ALFRED (inchange)
+  - photo originale du fondateur, non filtree
+  - captures d'ecran des projets (16:10)
+  - URLs reelles LinkedIn / Instagram / Facebook
+  - confirmation WhatsApp du numero
+  - fiche Google Business / URL Maps officielle
+  - identite de l'hebergeur (mentions legales)
+  - decision sur l'envoi serveur du formulaire de contact
+  - sort des 5 .jpg a la racine du depot (jamais commites)
+
+PAS DE COMMIT. En attente de la revue visuelle d'Alfred.

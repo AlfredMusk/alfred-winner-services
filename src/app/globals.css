@@ -61,6 +61,17 @@
      -> 9.95. Verifie par calcul WCAG puis par lecture canvas en
      conditions reelles (Tailwind v4 peut rendre les melanges en oklab). */
   --color-aws-surface: #fdfcfa;
+
+  /* SAND — un neutre chaud pour l'identite CONSTRUIRE (immobilier), pour
+     que les trois univers se distinguent subtilement sans devenir trois
+     marques differentes (Investir=navy, Innover=bleu clair, deja en
+     place). USAGE DECORATIF UNIQUEMENT : sur cette teinte, le bleu de
+     texte (aws-blue-text, deja a 4.63 sur aws-surface) retombe sous 4.5
+     des qu'on la rechauffe assez pour qu'elle se distingue vraiment —
+     verifie par calcul avant de choisir cette contrainte plutot que de
+     risquer un texte sous le seuil AA. Ce token n'accueille donc jamais
+     de texte, seulement un fond d'image ou une bordure. */
+  --color-aws-sand: #eee5d4;
 }
 
 :root {
@@ -78,4 +89,47 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* REVEAL — apparition tres sobre au defilement (opacite + leger
+   translateY), demandee explicitement pour les nouvelles sections.
+
+   VOLONTAIREMENT EN CSS PUR, PAS EN JAVASCRIPT. Un IntersectionObserver
+   aurait exige un Client Component autour de chaque section, et surtout
+   un risque reel : si le contenu part invisible en attendant
+   l'hydratation React, un visiteur sans JavaScript (ou une hydratation
+   lente) ne verrait JAMAIS le contenu. Cela violerait directement la
+   consigne "le site doit rester magnifique si l'animation est
+   desactivee".
+
+   Cette version utilise les animations pilotees par le defilement
+   (animation-timeline: view()). Le @supports est la garantie
+   structurelle, pas une simple precaution : dans un navigateur qui ne
+   supporte pas cette fonctionnalite, AUCUNE regle de ce bloc ne
+   s'applique — l'element reste a son etat par defaut (visible, non
+   transforme), immediatement, sans JavaScript, sans etat intermediaire.
+   Degradation elegante par construction, pas par gestion d'erreur. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: aws-reveal linear both;
+      animation-timeline: view();
+      /* Un seul repere nomme (entry -> entry), pas un melange entry/cover :
+         teste et corrige — melanger deux reperes differents produisait un
+         calcul incoherent pour certains elements (une section revelee en
+         opacite 1 avant meme d'etre entree dans le viewport, verifie en
+         inspectant son opacite calculee a un defilement connu). */
+      animation-range: entry 0% entry 45%;
+    }
+    @keyframes aws-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
 }

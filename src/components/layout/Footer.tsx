@@ -66,8 +66,16 @@ export default function Footer({
 
   return (
     <footer id="contact" className="scroll-mt-24 bg-aws-navy">
+      {/* Filet superieur en degrade : un detail graphique discret plutot
+          qu'une bordure plate, pour que le Footer se sente dessine et
+          non juste "un rectangle bleu pose en bas de page". S'estompe
+          aux deux extremites — jamais une ligne dure d'un bord a l'autre. */}
+      <div
+        aria-hidden="true"
+        className="h-px bg-linear-to-r from-transparent via-aws-blue-text/50 to-transparent"
+      />
       <div className="mx-auto max-w-[1360px] px-4 py-12 sm:px-6 sm:py-14 desk:px-8 desk:py-16">
-        <div className="grid gap-10 desk:grid-cols-[1fr_1fr_1fr_1.1fr] desk:gap-8">
+        <div className="reveal grid gap-10 desk:grid-cols-[1fr_1fr_1fr_1.1fr] desk:gap-8">
           {/* MARQUE — les deux fichiers logo sont des PNG a fond blanc
               opaque (verifie pixel par pixel, pas de canal alpha) : une
               puce blanche porte le logo intact plutot que de le

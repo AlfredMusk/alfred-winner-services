@@ -75,3 +75,20 @@ Chaque asset externe (non produit par AWS) y figure, avec sa source exacte.
    disqualifie l'image, meme si la composition est bonne.
 6. Aucune marque ou nom d'entreprise tierce lisible dans le cadrage
    retenu, pour eviter toute confusion d'affiliation.
+
+## Passe Premium V3 — aucune nouvelle image
+
+Cette passe (palette, micro-interactions, separation realisations /
+concepts) n'a introduit AUCUN nouveau fichier image.
+
+- Les deux photographies validees restent inchangees :
+  `qui-sommes-nous.jpg` et `software-ia.jpg` (sources et licences
+  documentees plus haut).
+- Les trois cartes "solutions en developpement" utilisent des
+  pictogrammes vectoriels dessines dans le projet
+  (`src/components/ui/icones.tsx`), pas des visuels tiers : aucune
+  question de droits, aucune capture d'ecran presentee comme un produit
+  existant.
+- Le slot media du fondateur reste un aplat neutre. Pas de portrait
+  genere, pas de modele stock, aucune silhouette humaine suggeree —
+  en attente de la photographie originale d'Alfred.

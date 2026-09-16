@@ -1,35 +1,38 @@
 /* Server Component pur : texte statique, une image next/image, aucune
-   interaction. */
+   interaction JS (le survol et la revelation au defilement sont geres
+   entierement en CSS — voir globals.css). */
 import Image from "next/image";
 import type { AproposDictionary } from "@/i18n/dictionaries";
 
-/* V3 — reprise sur demande explicite : l'image devait se rapprocher de
-   l'infrastructure/des machines plutot que d'une scene humaine generique
-   (voir ASSETS_SOURCES.md pour l'historique complet, y compris un
-   candidat ecarte pour un conflit de droits detecte dans ses metadonnees
-   EXIF). Le couloir de baies serveurs retenu porte "structure, systeme,
-   organisation" sans mise en scene de personnes — coherent avec
-   l'ambition d'AWS (finance + immobilier + numerique) sans jamais
-   pretendre montrer un site reel d'AWS.
-
-   Petit tick d'accent (40x2, meme langage que Notre approche) au-dessus
-   de l'eyebrow : la section rejoint ainsi le meme systeme visuel que le
-   reste du site plutot que de rester un bloc texte+image isole. */
+/* V4 — composition, pas juste deux colonnes.
+   1. Decalage vertical leger (desk:-mt-6 sur l'image) : le texte et
+      l'image ne sont plus alignes au pixel pres, ils sont composes —
+      une asymetrie choisie, pas un display:grid a deux colonnes egales.
+   2. L'accent (tick + numero "01") relie visuellement le texte a
+      l'image plutot que de rester un simple ornement au-dessus du
+      texte seul.
+   3. Survol : un tres leger zoom (scale 1.03) sur l'image, cadre fixe
+      (overflow-hidden), transition douce — le meme langage que les
+      images d'Expertises. */
 export default function Apropos({ dict }: { dict: AproposDictionary }) {
   return (
     <section id="a-propos" aria-labelledby="apropos-titre" className="bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
-          {/* Colonne texte 42% / image 58% a partir de desk : l'image,
-              desormais plus forte editorialement, porte un peu plus de
-              poids qu'en V2 sans dominer le propos — toujours un
-              equilibre choisi, pas un 50/50 mecanique. */}
-          <div className="flex flex-col gap-10 desk:flex-row desk:items-center desk:gap-16">
-            <div className="desk:w-[42%]">
-              <span
-                aria-hidden="true"
-                className="block h-[2px] w-10 rounded-full bg-aws-blue-text"
-              />
+          <div className="flex flex-col gap-10 desk:flex-row desk:items-start desk:gap-16">
+            <div className="reveal desk:w-[42%]">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-[2px] w-10 shrink-0 rounded-full bg-aws-blue-text"
+                />
+                <span
+                  aria-hidden="true"
+                  className="text-[0.6875rem] font-semibold tabular-nums text-aws-ink/30"
+                >
+                  01
+                </span>
+              </div>
               <p className="mt-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-aws-blue-text">
                 {dict.eyebrow}
               </p>
@@ -46,17 +49,22 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
               </div>
             </div>
 
-            <div className="desk:w-[58%]">
+            {/* desk:-mt-6 : leger decalage vertical vers le haut — la paire
+                cesse d'etre deux colonnes alignees au pixel pres pour
+                devenir une composition. */}
+            <div className="reveal desk:mt-[-1.5rem] desk:w-[58%]">
               {/* Ratio 4:3, coherent avec les deux images du Hero deja
                   validees. Cadre : un filet 1px (aws-line), pas d'ombre —
-                  la photo se sent "posee avec soin", pas decoree. */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface">
+                  la photo se sent "posee avec soin", pas decoree.
+                  group + overflow-hidden : le conteneur reste fixe, seule
+                  l'image a l'interieur s'agrandit tres legerement. */}
+              <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface">
                 <Image
                   src="/images/apropos/qui-sommes-nous.jpg"
                   alt={dict.imageAlt}
                   fill
                   sizes="(min-width: 1100px) 55vw, 92vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
             </div>

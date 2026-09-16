@@ -263,6 +263,38 @@ const fr = {
           "Prototype technologique interne combinant intelligence artificielle et analyse des marchés financiers, actuellement en environnement de démonstration.",
       },
     ],
+    /* SOLUTIONS EN DEVELOPPEMENT — distinctes des projets ci-dessus.
+       Ce sont des DIRECTIONS, pas des livraisons : le statut "Concept"
+       est repete sur chaque item pour qu'aucune ambiguite ne soit
+       possible avec les demonstrateurs reels de la liste "liste". */
+    concepts: {
+      eyebrow: "SOLUTIONS EN DÉVELOPPEMENT",
+      intro:
+        "Des directions à l'étude pour chacun des trois univers — pas encore livrées.",
+      items: [
+        {
+          icone: "portefeuille",
+          titre: "Tableau de bord multi-actifs",
+          texte:
+            "Un tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs.",
+          statut: "Concept",
+        },
+        {
+          icone: "structure",
+          titre: "Suivi de projets immobiliers",
+          texte:
+            "Un outil pour structurer et suivre opportunités, documents et étapes d'un projet immobilier.",
+          statut: "Concept",
+        },
+        {
+          icone: "automatisation",
+          titre: "Assistant IA métier",
+          texte:
+            "Un agent d'automatisation pensé pour accompagner la recherche d'information et les tâches métier.",
+          statut: "Concept",
+        },
+      ],
+    },
   },
 
   /* Section 8 — Vision. Bande pleine largeur au bleu du Hero (aucune
@@ -627,6 +659,34 @@ const en: Dictionary = {
           "An internal technology prototype combining artificial intelligence and financial market analysis, currently running in a demonstration environment.",
       },
     ],
+    concepts: {
+      eyebrow: "SOLUTIONS IN DEVELOPMENT",
+      intro:
+        "Directions under exploration for each of the three business areas — not yet delivered.",
+      items: [
+        {
+          icone: "portefeuille",
+          titre: "Multi-asset dashboard",
+          texte:
+            "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio.",
+          statut: "Concept",
+        },
+        {
+          icone: "structure",
+          titre: "Real estate project tracker",
+          texte:
+            "A tool to structure and track opportunities, documents and stages of a real estate project.",
+          statut: "Concept",
+        },
+        {
+          icone: "automatisation",
+          titre: "Business AI assistant",
+          texte:
+            "An automation agent designed to support information lookup and business tasks.",
+          statut: "Concept",
+        },
+      ],
+    },
   },
 
   vision: {
@@ -762,6 +822,7 @@ export type ExpertisesDictionary = Dictionary["expertises"];
 export type ExpertisePole = ExpertisesDictionary["poles"][number];
 export type ProjetsDictionary = Dictionary["projets"];
 export type Projet = ProjetsDictionary["liste"][number];
+export type Concept = ProjetsDictionary["concepts"]["items"][number];
 export type VisionDictionary = Dictionary["vision"];
 export type FondateurDictionary = Dictionary["fondateur"];
 export type CtaFinalDictionary = Dictionary["ctaFinal"];

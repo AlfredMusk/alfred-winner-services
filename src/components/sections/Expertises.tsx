@@ -27,9 +27,19 @@ const ACCENTS: Record<string, string> = {
   "03": "border-l-aws-blue-text",
 };
 
+/* Fond du cadre-image derriere l'object-cover, par pole. CONSTRUIRE recoit
+   le sable (aws-sand, usage decoratif uniquement — voir globals.css) :
+   c'est la seule place ou ce ton "immobilier/mineral" doit se sentir,
+   les deux autres restant sur le gris neutre habituel. */
+const FOND_IMAGE: Record<string, string> = {
+  "01": "bg-aws-line",
+  "02": "bg-aws-sand",
+  "03": "bg-aws-line",
+};
+
 function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; cta: string }) {
   return (
-    <li id={pole.hash} className="scroll-mt-24">
+    <li id={pole.hash} className="reveal scroll-mt-24">
       {/* scroll-mt-24 : les liens de la navbar (#bourse-finance, etc.)
           sautent directement ici, sans se cacher sous la navbar sticky. */}
       <div
@@ -78,13 +88,15 @@ function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; c
           </div>
 
           <div className="desk:w-1/2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-aws-line">
+            <div
+              className={`group relative aspect-[4/3] overflow-hidden rounded-xl ${FOND_IMAGE[pole.num]}`}
+            >
               <Image
                 src={pole.image!}
                 alt={pole.imageAlt ?? ""}
                 fill
                 sizes="(min-width: 1100px) 40vw, 88vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
             </div>
           </div>

@@ -19,7 +19,7 @@ export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
     <section id="fondateur" aria-labelledby="fondateur-titre" className="bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
-          <div className="flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14">
+          <div className="reveal flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14">
             {/* MEDIA SLOT — ratio portrait 3:4, meme famille visuelle que
                 les autres slots en attente (Projets) : un degrade sobre,
                 aucune forme humaine suggeree. */}

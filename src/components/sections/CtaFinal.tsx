@@ -7,12 +7,16 @@ import { boutonPrimaireClair, fleche } from "@/components/ui/boutons";
    le meme langage que partout ailleurs), et un peu plus de presence
    typographique — sans devenir une bannière publicitaire : pas de fond
    colore supplementaire, pas de carte flottante, la surface off-white
-   deja en place suffit a distinguer ce palier. */
+   deja en place suffit a distinguer ce palier.
+
+   V4 — py resserre (96 -> 80px en desktop) : la section qui precede
+   directement le Footer ne doit pas etre "un enorme espace blanc",
+   juste une transition nette vers la surface sombre qui suit. */
 export default function CtaFinal({ dict }: { dict: CtaFinalDictionary }) {
   return (
     <section aria-labelledby="cta-final-titre" className="bg-aws-surface">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
-        <div className="flex flex-col items-center gap-3 py-16 text-center sm:py-20 desk:py-24">
+        <div className="reveal flex flex-col items-center gap-3 py-14 text-center sm:py-16 desk:py-20">
           <h2
             id="cta-final-titre"
             className="max-w-[18ch] text-balance text-[1.75rem] font-extrabold leading-[1.15] tracking-[-0.02em] text-aws-hero sm:text-[2.125rem] desk:text-[2.5rem]"
