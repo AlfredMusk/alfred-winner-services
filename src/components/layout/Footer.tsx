@@ -1,8 +1,28 @@
-import type { Locale, FooterDictionary, NavbarDictionary, ExpertisesDictionary } from "@/i18n/dictionaries";
+import type {
+  Locale,
+  FooterDictionary,
+  NavbarDictionary,
+  ExpertisesDictionary,
+  ContactDictionary,
+} from "@/i18n/dictionaries";
 import Image from "next/image";
+import { IconeLieu, IconeTelephone, IconeEmail } from "@/components/ui/icones";
 
 /* Server Component pur : aucune interaction, donc aucune raison d'envoyer
-   du JavaScript au client pour un footer. */
+   du JavaScript au client pour un footer.
+
+   V3 — structure editoriale, sur demande explicite : les informations de
+   contact quittent la homepage (plus de gros formulaire dedie) et
+   rejoignent le Footer, dans l'esprit ACIM observe sur leur propre site
+   (identite, informations legales, contacts, reseaux, tout au meme
+   endroit, sans grande section separee). Le bouton "Contact" de la
+   Navbar (verrouillee, non modifiee) pointe deja vers #contact : c'est
+   desormais CETTE colonne qui porte l'ancre.
+
+   Quatre colonnes : marque / navigation / univers / contacts — plutot
+   que l'ancien decoupage marque / navigation / univers / liens legaux,
+   les liens legaux redescendent dans le bandeau du bas avec le
+   copyright, pour laisser sa propre colonne aux contacts. */
 
 const RESEAUX_ICONES: Record<"linkedin" | "instagram" | "facebook", React.ReactElement> = {
   linkedin: (
@@ -29,41 +49,48 @@ export default function Footer({
   dict,
   nav,
   expertises,
+  contact,
 }: {
   locale: Locale;
   dict: FooterDictionary;
   nav: NavbarDictionary;
   expertises: ExpertisesDictionary;
+  contact: ContactDictionary;
 }) {
   const reseauxActifs = (Object.entries(dict.reseaux) as [keyof typeof RESEAUX_ICONES, string][]).filter(
     ([, href]) => href,
   );
+  const lienBase = "text-[0.9375rem] text-white/85 transition-colors hover:text-white";
+  const titreColonne = "text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/75";
+  const iconeContact = "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white";
 
   return (
-    <footer className="border-t border-aws-line bg-white">
+    <footer id="contact" className="scroll-mt-24 bg-aws-navy">
       <div className="mx-auto max-w-[1360px] px-4 py-12 sm:px-6 sm:py-14 desk:px-8 desk:py-16">
-        <div className="grid gap-10 desk:grid-cols-[1.2fr_1fr_1fr_1fr] desk:gap-8">
-          {/* MARQUE */}
+        <div className="grid gap-10 desk:grid-cols-[1fr_1fr_1fr_1.1fr] desk:gap-8">
+          {/* MARQUE — les deux fichiers logo sont des PNG a fond blanc
+              opaque (verifie pixel par pixel, pas de canal alpha) : une
+              puce blanche porte le logo intact plutot que de le
+              transformer par filtre (un essai brightness-0 invert avait
+              produit un rectangle blanc plein — voir travaux realises.md). */}
           <div>
-            <a href={`/${locale}`} aria-label={nav.a11y.brandHome} className="inline-flex items-center gap-2">
-              <Image
-                src="/images/brand/aws-emblem.png"
-                alt=""
-                width={32}
-                height={32}
-                className="h-8 w-8"
-              />
+            <a
+              href={`/${locale}`}
+              aria-label={nav.a11y.brandHome}
+              className="inline-flex items-center gap-2.5 rounded-xl bg-white px-3 py-2"
+            >
+              <Image src="/images/brand/aws-emblem.png" alt="" width={28} height={28} className="h-7 w-7" />
               <Image
                 src="/images/brand/aws-wordmark.png"
                 alt="Alfred Winner Services"
                 width={118}
                 height={30}
-                className="h-[26px] w-auto"
+                className="h-[22px] w-auto"
               />
             </a>
             <p
               aria-hidden="true"
-              className="mt-3 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-aws-muted"
+              className="mt-3 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-white/55"
             >
               {nav.signature}
             </p>
@@ -71,28 +98,26 @@ export default function Footer({
 
           {/* NAVIGATION */}
           <nav aria-label={nav.a11y.mainNav}>
-            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/50">
-              {dict.navigationNav}
-            </p>
+            <p className={titreColonne}>{dict.navigationNav}</p>
             <ul className="mt-3 space-y-2.5">
               <li>
-                <a href={`/${locale}`} className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text">
+                <a href={`/${locale}`} className={lienBase}>
                   {nav.nav.home}
                 </a>
               </li>
               <li>
-                <a href={`/${locale}#a-propos`} className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text">
+                <a href={`/${locale}#a-propos`} className={lienBase}>
                   {nav.nav.about}
                 </a>
               </li>
               <li>
-                <a href={`/${locale}#projets`} className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text">
-                  {nav.nav.projects}
+                <a href={`/${locale}#expertises`} className={lienBase}>
+                  {dict.servicesLabel}
                 </a>
               </li>
               <li>
-                <a href={`/${locale}#contact`} className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text">
-                  {nav.nav.contact}
+                <a href={`/${locale}#projets`} className={lienBase}>
+                  {nav.nav.projects}
                 </a>
               </li>
             </ul>
@@ -100,16 +125,11 @@ export default function Footer({
 
           {/* TROIS UNIVERS */}
           <div>
-            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/50">
-              {dict.universNav}
-            </p>
+            <p className={titreColonne}>{dict.universNav}</p>
             <ul className="mt-3 space-y-2.5">
               {expertises.poles.map((pole) => (
                 <li key={pole.hash}>
-                  <a
-                    href={`/${locale}#${pole.hash}`}
-                    className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text"
-                  >
+                  <a href={`/${locale}#${pole.hash}`} className={lienBase}>
                     {pole.cle} — {pole.titre}
                   </a>
                 </li>
@@ -117,26 +137,38 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* CONTACT + LEGAL */}
+          {/* NOS CONTACTS — reprend le dictionnaire "contact" existant
+              (Contact.tsx n'est plus rendu sur la homepage, mais son
+              contenu i18n reste la source de verite pour ces valeurs :
+              une seule adresse, un seul numero, un seul email a
+              maintenir). */}
           <div>
-            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/50">
-              {dict.liensLegauxNav}
-            </p>
-            <ul className="mt-3 space-y-2.5">
-              <li>
-                <a
-                  href={`/${locale}/mentions-legales`}
-                  className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text"
-                >
-                  {dict.mentionsLegales}
+            <p className={titreColonne}>{dict.contactsNav}</p>
+            <ul className="mt-3 space-y-4">
+              <li className="flex gap-3">
+                <span className={iconeContact}>{IconeLieu}</span>
+                <div>
+                  <p className="text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
+                  <a
+                    href={contact.mapsHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-block text-[0.8125rem] font-medium text-white/60 hover:text-white"
+                  >
+                    {contact.mapsLabel} →
+                  </a>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <span className={iconeContact}>{IconeTelephone}</span>
+                <a href={contact.telephoneHref} className={`${lienBase} pt-1.5`}>
+                  {contact.telephone}
                 </a>
               </li>
-              <li>
-                <a
-                  href={`/${locale}/confidentialite`}
-                  className="text-[0.9375rem] text-aws-ink/80 hover:text-aws-blue-text"
-                >
-                  {dict.confidentialite}
+              <li className="flex gap-3">
+                <span className={iconeContact}>{IconeEmail}</span>
+                <a href={contact.emailMailtoHref} className={`${lienBase} pt-1.5`}>
+                  {contact.email}
                 </a>
               </li>
             </ul>
@@ -145,9 +177,7 @@ export default function Footer({
                 href="#" ni faux profil — voir travaux realises.md. */}
             {reseauxActifs.length > 0 && (
               <>
-                <p className="mt-6 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/50">
-                  {dict.suivezNous}
-                </p>
+                <p className={`mt-6 ${titreColonne}`}>{dict.suivezNous}</p>
                 <div className="mt-3 flex gap-3">
                   {reseauxActifs.map(([reseau, href]) => (
                     <a
@@ -155,7 +185,7 @@ export default function Footer({
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-aws-line text-aws-hero transition-colors hover:bg-aws-blue-text hover:text-white"
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
                       aria-label={reseau}
                     >
                       {RESEAUX_ICONES[reseau]}
@@ -167,13 +197,26 @@ export default function Footer({
           </div>
         </div>
 
-        {/* BANDEAU LEGAL — informations confirmees uniquement. */}
-        <div className="mt-10 border-t border-aws-line pt-6 desk:mt-12">
-          <p className="text-[0.8125rem] leading-[1.6] text-aws-ink/60">
+        {/* BANDEAU LEGAL — informations confirmees uniquement. Les liens
+            "Mentions legales" / "Confidentialite" vivent ici (et non plus
+            dans leur propre colonne) : ce sont des liens utilitaires de
+            bas de page, pas une rubrique de navigation a part entiere.
+            Separateur white/15 : le meme "ressenti, pas remarque" que les
+            filets clairs ailleurs sur le site, transpose au fond sombre. */}
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between desk:mt-12">
+          <p className="text-[0.8125rem] leading-[1.6] text-white/70">
             {dict.raisonSociale} — {dict.formeJuridique} — {dict.rccm}
           </p>
-          <p className="mt-2 text-[0.8125rem] text-aws-ink/50">{dict.copyright}</p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem]">
+            <a href={`/${locale}/mentions-legales`} className="text-white/60 hover:text-white">
+              {dict.mentionsLegales}
+            </a>
+            <a href={`/${locale}/confidentialite`} className="text-white/60 hover:text-white">
+              {dict.confidentialite}
+            </a>
+          </div>
         </div>
+        <p className="mt-3 text-[0.8125rem] text-white/55">{dict.copyright}</p>
       </div>
     </footer>
   );

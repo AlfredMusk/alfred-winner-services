@@ -61,7 +61,13 @@ export default async function LocaleLayout({
         <main id="top" className="flex-1">
           {children}
         </main>
-        <Footer locale={locale} dict={dict.footer} nav={dict.navbar} expertises={dict.expertises} />
+        <Footer
+          locale={locale}
+          dict={dict.footer}
+          nav={dict.navbar}
+          expertises={dict.expertises}
+          contact={dict.contact}
+        />
       </body>
     </html>
   );

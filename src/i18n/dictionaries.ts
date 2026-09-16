@@ -162,6 +162,7 @@ const fr = {
       "Alfred Winner Services est née d'une conviction simple : la création de valeur ne repose pas sur un seul levier. Capital, actifs et technologie peuvent se compléter.",
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
+    imageAlt: "Ligne de production automatisée dans une usine",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -188,6 +189,7 @@ const fr = {
         // plutot que de laisser un doute.
         precision:
           "Ces activités ne constituent ni un conseil en investissement réglementé, ni une gestion de portefeuille, ni une promesse de rendement.",
+        capacites: null,
         image: "/images/hero/finance-markets.jpg",
         imageAlt:
           "Analyse des marchés financiers depuis un bureau donnant sur Abidjan",
@@ -200,6 +202,7 @@ const fr = {
         texte:
           "AWS intervient dans l'univers immobilier : identification de terrains et d'opportunités, structuration de projets immobiliers et accompagnement lié à leur développement.",
         precision: null,
+        capacites: null,
         image: "/images/hero/real-estate.jpg",
         imageAlt:
           "Ouvriers sur un chantier de construction dans un quartier d'affaires",
@@ -212,10 +215,17 @@ const fr = {
         texte:
           "AWS conçoit des sites web professionnels, des applications et des logiciels sur mesure, ainsi que des solutions d'automatisation et d'intelligence artificielle adaptées aux besoins concrets des entreprises et des projets.",
         precision: null,
-        // Pas de photographie de developpement validee pour l'instant :
-        // pas d'image plutot qu'une photo generique non authentifiee.
-        image: null,
-        imageAlt: null,
+        // Capacites reprises mot pour mot du cahier des charges (section
+        // "Software & IA suffisamment etablies") : aucune n'est inventee.
+        capacites: [
+          "Sites web professionnels",
+          "Applications web",
+          "Logiciels sur mesure",
+          "Automatisation",
+          "Agents IA",
+        ],
+        image: "/images/expertises/software-ia.jpg",
+        imageAlt: "Mains sur un clavier d'ordinateur portable, code affiché à l'écran",
       },
     ],
     ctaPole: "Parlons de votre projet",
@@ -282,6 +292,7 @@ const fr = {
 
   ctaFinal: {
     titre: "Un projet à construire ? Parlons-en.",
+    sousTitre: "Comprendre, structurer, réaliser : la même méthode pour chaque projet.",
     cta: "Parlons de votre projet",
   },
 
@@ -327,7 +338,9 @@ const fr = {
      href est non vide ; ne jamais mettre "#" a la place d'un lien reel. */
   footer: {
     navigationNav: "Navigation",
+    servicesLabel: "Nos services",
     universNav: "Nos univers",
+    contactsNav: "Nos contacts",
     liensLegauxNav: "Informations légales",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
@@ -530,6 +543,7 @@ const en: Dictionary = {
       "Alfred Winner Services was founded on a simple conviction: value creation does not rest on a single lever. Capital, assets and technology can work together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
+    imageAlt: "Automated production line in a factory",
   },
 
   expertises: {
@@ -545,6 +559,7 @@ const en: Dictionary = {
           "AWS develops technology solutions and interest at the intersection of finance and digital — technologies and tools applied to financial markets and digital assets.",
         precision:
           "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
+        capacites: null,
         image: "/images/hero/finance-markets.jpg",
         imageAlt:
           "Financial markets analysis from an office overlooking Abidjan",
@@ -557,6 +572,7 @@ const en: Dictionary = {
         texte:
           "AWS operates in real estate: identifying land and opportunities, structuring property projects and supporting their development.",
         precision: null,
+        capacites: null,
         image: "/images/hero/real-estate.jpg",
         imageAlt:
           "Workers on a construction site in a business district",
@@ -569,8 +585,15 @@ const en: Dictionary = {
         texte:
           "AWS designs professional websites, applications and custom software, along with automation and artificial intelligence solutions suited to the real needs of businesses and projects.",
         precision: null,
-        image: null,
-        imageAlt: null,
+        capacites: [
+          "Professional websites",
+          "Web applications",
+          "Custom software",
+          "Automation",
+          "AI agents",
+        ],
+        image: "/images/expertises/software-ia.jpg",
+        imageAlt: "Hands on a laptop keyboard, code displayed on screen",
       },
     ],
     ctaPole: "Let's discuss your project",
@@ -625,6 +648,7 @@ const en: Dictionary = {
 
   ctaFinal: {
     titre: "A project to build? Let's talk.",
+    sousTitre: "Understand, structure, deliver: the same method for every project.",
     cta: "Let's discuss your project",
   },
 
@@ -660,7 +684,9 @@ const en: Dictionary = {
 
   footer: {
     navigationNav: "Navigation",
+    servicesLabel: "Our services",
     universNav: "Our business areas",
+    contactsNav: "Our contacts",
     liensLegauxNav: "Legal information",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",

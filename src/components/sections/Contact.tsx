@@ -7,7 +7,13 @@
    aurait complique l'architecture sans reel benefice de performance. */
 import { useState, type FormEvent } from "react";
 import type { ContactDictionary } from "@/i18n/dictionaries";
+import { boutonPrimaireClair, fleche } from "@/components/ui/boutons";
+import { IconeLieu, IconeTelephone, IconeEmail } from "@/components/ui/icones";
 
+/* NON RENDU sur la homepage depuis la passe "structure editoriale" —
+   les informations de contact vivent desormais dans le Footer, dans
+   l'esprit ACIM. Ce composant reste fonctionnel et intact pour un usage
+   futur (page /contact dediee, par exemple) — voir travaux realises.md. */
 export default function Contact({ dict }: { dict: ContactDictionary }) {
   const [nom, setNom] = useState("");
   const [entreprise, setEntreprise] = useState("");
@@ -46,8 +52,12 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
     lien.click();
   };
 
+  /* V2 — fond aws-surface (au lieu de blanc sur blanc) : les champs se
+     distinguent desormais de la section sans avoir besoin d'une bordure
+     plus lourde. Rayon porte a rounded-xl, coherent avec les cartes
+     Expertises/Projets. */
   const champBase =
-    "w-full rounded-lg border border-aws-line bg-white px-4 py-2.5 text-[0.9375rem] text-aws-ink placeholder:text-aws-ink/40 focus-visible:border-aws-blue-text focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aws-blue-text";
+    "w-full rounded-xl border border-aws-line bg-aws-surface px-4 py-3 text-[0.9375rem] text-aws-ink placeholder:text-aws-ink/40 focus-visible:border-aws-blue-text focus-visible:bg-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aws-blue-text";
   const labelBase = "text-[0.8125rem] font-semibold text-aws-ink/80";
 
   return (
@@ -64,45 +74,62 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
             {dict.titre}
           </h2>
 
-          <div className="mt-10 flex flex-col gap-12 desk:mt-12 desk:flex-row desk:gap-16">
-            {/* COLONNE INFOS — largeur fixe, ne s'ecrase jamais. */}
-            <div className="desk:w-[22rem] desk:shrink-0">
+          <div className="mt-10 flex flex-col gap-8 desk:mt-12 desk:flex-row desk:gap-12">
+            {/* COLONNE INFOS — carte off-white, largeur fixe, ne s'ecrase
+                jamais. Chaque ligne porte un pictogramme identifiant le
+                type de contact, meme famille que le reste du site. */}
+            <div className="rounded-2xl border border-aws-line bg-aws-surface p-6 desk:w-[22rem] desk:shrink-0 desk:p-8">
               <dl className="space-y-6">
-                <div>
-                  <dt className={labelBase}>{dict.adresseLabel}</dt>
-                  <dd className="mt-1 text-[0.9375rem] leading-[1.6] text-aws-ink/85">
-                    {dict.adresse}
-                  </dd>
-                  <a
-                    href={dict.mapsHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 inline-block text-[0.875rem] font-semibold text-aws-blue-text hover:text-aws-hero"
-                  >
-                    {dict.mapsLabel} →
-                  </a>
-                </div>
-                <div>
-                  <dt className={labelBase}>{dict.telephoneLabel}</dt>
-                  <dd className="mt-1">
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-aws-hero">
+                    {IconeLieu}
+                  </span>
+                  <div>
+                    <dt className={labelBase}>{dict.adresseLabel}</dt>
+                    <dd className="mt-1 text-[0.9375rem] leading-[1.6] text-aws-ink/85">
+                      {dict.adresse}
+                    </dd>
                     <a
-                      href={dict.telephoneHref}
-                      className="text-[0.9375rem] font-semibold text-aws-hero hover:text-aws-blue-text"
+                      href={dict.mapsHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block text-[0.875rem] font-semibold text-aws-blue-text hover:text-aws-hero"
                     >
-                      {dict.telephone}
+                      {dict.mapsLabel} →
                     </a>
-                  </dd>
+                  </div>
                 </div>
-                <div>
-                  <dt className={labelBase}>{dict.emailLabel}</dt>
-                  <dd className="mt-1">
-                    <a
-                      href={dict.emailMailtoHref}
-                      className="text-[0.9375rem] font-semibold text-aws-hero hover:text-aws-blue-text"
-                    >
-                      {dict.email}
-                    </a>
-                  </dd>
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-aws-hero">
+                    {IconeTelephone}
+                  </span>
+                  <div>
+                    <dt className={labelBase}>{dict.telephoneLabel}</dt>
+                    <dd className="mt-1">
+                      <a
+                        href={dict.telephoneHref}
+                        className="text-[0.9375rem] font-semibold text-aws-hero hover:text-aws-blue-text"
+                      >
+                        {dict.telephone}
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+                <div className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-aws-hero">
+                    {IconeEmail}
+                  </span>
+                  <div>
+                    <dt className={labelBase}>{dict.emailLabel}</dt>
+                    <dd className="mt-1">
+                      <a
+                        href={dict.emailMailtoHref}
+                        className="text-[0.9375rem] font-semibold text-aws-hero hover:text-aws-blue-text"
+                      >
+                        {dict.email}
+                      </a>
+                    </dd>
+                  </div>
                 </div>
               </dl>
             </div>
@@ -170,17 +197,9 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
               </label>
 
               <div>
-                <button
-                  type="submit"
-                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-aws-hero px-7 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:bg-aws-hero-bas active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-hero motion-reduce:transition-none"
-                >
+                <button type="submit" className={boutonPrimaireClair}>
                   {dict.formulaire.cta}
-                  <span
-                    aria-hidden="true"
-                    className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
-                  >
-                    →
-                  </span>
+                  {fleche}
                 </button>
                 <p className="mt-3 max-w-[46ch] text-[0.8125rem] leading-[1.5] text-aws-ink/60">
                   {dict.formulaire.note}

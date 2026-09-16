@@ -1899,3 +1899,276 @@ BLOCKERS EXPLICITES POUR ALFRED
      suffit pas a terme.
 
 PAS DE COMMIT FINAL. En attente de la revue complete d'Alfred.
+
+==========================================================================
+V2 — DIRECTION ARTISTIQUE + POLISH PREMIUM
+==========================================================================
+
+DIAGNOSTIC AVANT/APRES
+  Qui sommes-nous  : trop vide, aucune photo        -> texte+image, photo Pexels
+  Nos expertises   : backgrounds uniformes, CTA faible -> cartes bordees, CTA renforce, capacites Innover
+  Innover          : rectangle bleu + pictogramme (placeholder assume) -> vraie photo de developpement
+  Projets          : trois colonnes de texte          -> ProjectCard (media abstrait + badge + description)
+  Vision           : aplat bleu plat                  -> degrade (memes tokens que le Hero), titre extrabold
+  Fondateur        : grand vide sans photo             -> composition finale a 2 colonnes, media slot honnete
+  CTA final        : trop simple                      -> ligne complementaire + bouton du systeme partage
+  Contact          : administratif                    -> carte info avec pictogrammes, champs off-white
+  Footer           : blanc, trop faible                -> navy (aws-navy), ferme vraiment le parcours
+
+ASSETS SOURCES (voir ASSETS_SOURCES.md pour le detail complet)
+  qui-sommes-nous.jpg  Pexels, Mikhail Nilov, licence Pexels (gratuite,
+                       usage commercial, sans attribution obligatoire)
+  software-ia.jpg      Pexels, Mizuno K, meme licence
+  Regle appliquee : jamais de hotlink Pinterest — recherche sur Pexels
+  (source de licence claire), telechargement local, alt text neutre,
+  aucune mention d'AWS/employe/client sur des photos qui n'en montrent pas.
+
+SYSTEME DE BOUTONS (src/components/ui/boutons.tsx)
+  Trois variantes (primaire, secondaire, lien texte) x deux tons (sur
+  fond clair, sur fond fonce) = 5 constantes + une fleche partagee.
+  Avant cette passe, chaque section avait sa propre variante bricolee.
+  Tous les nouveaux CTA (Expertises, CTA final, Contact) utilisent
+  desormais ce systeme unique. Hero et Navbar restent inchanges (verrouilles,
+  deja visuellement identiques a ce systeme — aucun besoin reel de les
+  toucher).
+
+BUG TROUVE ET CORRIGE EN COURS DE ROUTE — LOGO FOOTER
+  Premiere tentative : wordmark passe en blanc via `brightness-0 invert`.
+  Resultat mesure (pixel du fichier PNG) : fond (254,254,254) OPAQUE,
+  pas de canal alpha. brightness-0 ecrase tout (fond ET texte) en noir,
+  invert transforme ce noir uniforme en un rectangle BLANC PLEIN —
+  verifie visuellement (capture d'ecran) avant de corriger. Solution
+  retenue : une puce blanche arrondie porte le logo INTACT plutot que de
+  le transformer — jamais de modification d'un asset de marque valide.
+
+RYTHME DES SURFACES (site complet)
+  Hero(bleu dégradé) -> Approche(blanc) -> Methode(off-white) ->
+  Apropos(blanc) -> Expertises(off-white) -> Projets(blanc) ->
+  Vision(bleu degrade, rupture) -> Fondateur(blanc) -> CTA(off-white) ->
+  Contact(blanc) -> Footer(navy).
+  Un seul bleu de rupture (Vision), un seul navy (Footer) : pas
+  d'alternance mecanique blanc/bleu/blanc/bleu.
+
+QA RESPONSIVE — 375, 430, 768, 820, 1024, 1280, 1440
+  0 debordement horizontal a chaque largeur, navbar et footer presents
+  partout, 8 ancres de section trouvees a chaque largeur.
+
+NON-REGRESSION — mesuree
+  Navbar 81px, Hero 596px, Notre approche 592px, Notre methode 948px —
+  tous identiques aux valeurs de reference. git diff sur Navbar.tsx,
+  Hero.tsx, HeroMedia.tsx, Approach.tsx, Method.tsx : VIDE.
+
+FR / EN
+  EN verifie : hierarchie 1×h1/9×h2/13×h3, console vide, 0 debordement,
+  hauteur totale coherente avec le FR (8082 vs 8131 a 1280, ecart normal
+  du a la longueur du texte anglais).
+
+ACCESSIBILITE
+  Tous les alt text audites : neutres, aucune mention d'AWS/employe/client
+  sur une photo qui n'en montre pas. Focus visible sur tous les nouveaux
+  boutons et champs de formulaire (memes classes focus-visible partout).
+
+TESTS
+  lint    PASS  27 fichiers analyses, 0 erreur, 0 warning
+  tsc     PASS  0 erreur
+  build   PASS  11 routes generees, toutes SSG
+  console PASS  vide en FR et en EN
+
+PENDING (inchange depuis le rapport precedent)
+  - photo originale du fondateur (deux versions refusees, traits d'IA)
+  - captures Baby Tourism, Alfred Fitness, Alfred AI Trader
+  - URLs reelles LinkedIn/Instagram/Facebook
+  - confirmation WhatsApp du numero
+  - fiche Google Business / URL Maps officielle
+  - identite de l'hebergeur
+  - decision sur un envoi serveur du formulaire de contact
+
+PAS DE COMMIT. En attente de la revue visuelle premium d'Alfred.
+
+==========================================================================
+QUI SOMMES-NOUS — REPRISE CIBLEE (image + composition)
+==========================================================================
+
+DEMANDE : uniquement cette section, image plus coherente (infrastructure/
+machines, humains secondaires ou absents), composition plus premium.
+
+IMAGE — deux candidats ecartes avant le bon choix
+  1. Photo initiale (discussion d'equipe, Mikhail Nilov) : correcte mais
+     trop "reunion humaine generique" au regard de la nouvelle demande.
+  2. Candidat de remplacement (Christina Morillo, "Engineer Holding
+     Laptop") : bonne composition (infrastructure + humain secondaire),
+     mais SES METADONNEES EXIF CONTREDISENT SA LICENCE — mention
+     "© Mike Ngo Photography. All Rights Reserved." incrustee dans le
+     fichier alors que la page Pexels l'attribue a Christina Morillo sous
+     licence gratuite. Verifie via `file`, ecarte par prudence plutot
+     qu'utilise avec un doute sur les droits reels.
+  3. Retenu : couloir de baies serveurs (Brett Sayles, Pexels, licence
+     gratuite, metadonnees coherentes, 3.4M vues/35K telechargements —
+     asset bien etabli). Infrastructure pure, aucun humain, aucun cliche
+     "neon bleu IA".
+
+COMPOSITION
+  Ratio texte/image ajuste de 45/55 a 42/58 : l'image, plus forte
+  editorialement, porte legerement plus de poids qu'en V2.
+  Tick d'accent (40x2, bleu) ajoute au-dessus de l'eyebrow : reprend le
+  meme langage que Notre approche, la section rejoint le systeme visuel
+  du site plutot que de rester un bloc isole.
+  Cadre image : filet 1px (aws-line) au lieu d'un cadre nu — "pose avec
+  soin", pas d'ombre.
+  Respiration augmentee : gap 14->16 (desktop), espace entre paragraphes
+  4->5.
+
+BUG TROUVE ET CORRIGE — ALT TEXT CODE EN DUR
+  Le nouvel alt text avait ete ecrit directement en francais dans le
+  composant plutot que via le dictionnaire : la version EN affichait donc
+  un alt text francais. Corrige par l'ajout de dict.apropos.imageAlt
+  (FR + EN), verifie sur les deux locales apres correction.
+
+DEFI TECHNIQUE — CACHE DE L'OPTIMISEUR D'IMAGES NEXT.JS
+  Apres remplacement du fichier, plusieurs verifications successives
+  (capture d'ecran, rechargement force) continuaient d'afficher l'ANCIENNE
+  image. Diagnostic par elimination :
+    - fichier statique sur disque : correct (verifie par hash/taille)
+    - reponse brute du endpoint _next/image via fetch({cache:'no-store'}) :
+      correcte (x-nextjs-cache: MISS, pixels decodes = nouvelle image)
+    - rendu reel du <img> dans le navigateur de test : encore l'ancienne,
+      meme apres Cmd+Shift+R
+  Conclusion : artefact du cache HTTP propre a la session de test
+  (persistant meme apres rechargement force dans cet environnement),
+  PAS un bug du site. Confirme en remplacant temporairement le <img> par
+  un blob fraichement recupere : rendu correct immediatement. Un vrai
+  visiteur, sans cache prealable sur cette URL precise, recoit la bonne
+  image des le premier chargement — verifie par ailleurs via une
+  navigation avec parametre de requete different (contourne le cache
+  navigateur), correcte en desktop, mobile et EN.
+
+TESTS
+  lint PASS (27 fichiers, 0 erreur, 0 warning) / tsc PASS / console vide
+  FR + EN, desktop + mobile.
+
+PAS DE COMMIT. En attente de validation.
+
+==========================================================================
+V3 — STRUCTURE EDITORIALE, SUR REFERENCE ACIM
+==========================================================================
+
+QUI SOMMES-NOUS — nouvelle image
+  Remplacee a nouveau : la photo precedente (couloir de serveurs) etait
+  correcte techniquement mais pas specifiquement africaine. Nouvelle
+  image : ligne de production automatisee (bouteilles en verre), Dar es
+  Salaam, Tanzanie (geolocalisation confirmee par Pexels) — aucun visage,
+  contexte industriel africain reel. Deux candidats ecartes avant celui-
+  ci : un montrant une marque tierce lisible sur un emballage ("KIOO
+  LIMITED" — risque de confusion d'affiliation), l'autre deja documente
+  precedemment (conflit de metadonnees EXIF). Voir ASSETS_SOURCES.md.
+
+INNOVER — nouvelle image
+  Remplacee : l'ancienne photo (vue en plongee sur une epaule) etait
+  correcte mais pas assez centree sur "mains + clavier + code" comme
+  demande. Nouvelle image : cadrage serre sur des mains a la peau foncee
+  tapant sur un clavier, code syntaxiquement colore visible a l'ecran,
+  aucun visage. Source Pexels (TREEDEO.ST), verifiee.
+
+EXPERTISES — raffinement (direction et alternance texte/image conservees)
+  1. Accent par pilier : filet gauche de 4px, une teinte par pole, toutes
+     issues des tokens EXISTANTS (aucune nouvelle couleur) :
+       01 INVESTIR   aws-navy       (profond, serieux financier)
+       02 CONSTRUIRE aws-muted      (bleu-gris sourd, mineral/neutre chaud)
+       03 INNOVER    aws-blue-text  (clair, technologique/froid)
+  2. Capacites Innover : pills arrondies -> ligne editoriale a points
+     medians ("Sites web professionnels · Applications web · ..."),
+     discipline plus proche des listes de technologies observees chez
+     ACIM sous leurs cartes, sans en reprendre le style visuel.
+  Photos Investir (finance-markets.jpg) et Construire (real-estate.jpg) :
+  INCHANGEES, comme demande explicitement.
+
+PROJETS & REALISATIONS — changement de direction assume
+  Les grandes ProjectCards bleues (V2) jugees disproportionnees par
+  rapport a l'importance actuelle des projets -> remplacees par une
+  liste editoriale compacte : numero, nom + categorie, description,
+  puce de statut, fleche discrete. Meme discipline que Notre methode
+  plus haut sur la page. Hauteur de la section reduite en consequence.
+  Contenu inchange : Baby Tourism (demonstrateur digital), Alfred
+  Fitness (demonstrateur Front-End), Alfred AI Trader (prototype
+  interne, environnement DEMO) — aucun statut transforme en "realisation
+  client", aucune performance financiere mentionnee.
+
+CONTACT — retire de la homepage, integre au Footer
+  Le gros formulaire dedie (V2) etait juge "trop administratif" et
+  disproportionne. Sur demande explicite : Contact.tsx N'EST PLUS RENDU
+  sur la page d'accueil, mais reste intact et fonctionnel (formulaire
+  mailto:, aucune donnee inventee) pour un usage futur — option B du
+  cahier des charges ("conserver le composant non rendu"). Les
+  informations de contact (adresse, telephone, email) vivent desormais
+  dans le Footer, avec pictogrammes coherents (lieu/telephone/email,
+  memes traits que le reste du site — factorises dans
+  src/components/ui/icones.tsx pour eviter la duplication entre
+  Contact.tsx et Footer.tsx).
+  Le bouton "Contact" de la Navbar (verrouillee) pointait deja vers
+  #contact : c'est desormais le <footer id="contact"> qui porte l'ancre,
+  aucune modification de la Navbar necessaire.
+
+FOOTER — restructuration en 4 colonnes (esprit ACIM, identite AWS)
+  Colonne 1 : marque (logo sur puce blanche + signature)
+  Colonne 2 : Navigation (Accueil / A propos / Nos services / Projets)
+  Colonne 3 : Nos univers (les 3 poles, ancres vers leurs sections)
+  Colonne 4 : Nos contacts (adresse+lien Maps, telephone, email, avec
+              pictogrammes) + Suivez-nous (reseaux, uniquement si une
+              URL reelle existe)
+  Bandeau bas : raison sociale + forme juridique + RCCM, puis les liens
+  Mentions legales / Confidentialite (deplaces depuis leur propre
+  colonne — ce sont des liens utilitaires de bas de page, pas une
+  rubrique de navigation a part entiere), puis le copyright.
+  Fond navy (aws-navy, deja utilise pour le CTA de la navbar) conserve
+  de la passe precedente : aucune nouvelle couleur.
+
+VISION — inchangee (conservee sur demande explicite, deja "correcte").
+FONDATEUR — inchange (media slot toujours en attente de la vraie photo,
+  aucune image stock, aucune generation).
+CTA FINAL — inchange (deja simple, deja harmonise avec le systeme de
+  boutons partage).
+
+DEFAUT DE FRAPPE TROUVE ET CORRIGE — Contact.tsx
+  En factorisant les pictogrammes vers src/components/ui/icones.tsx, une
+  premiere edition intermediaire a laisse une declaration IconeEmail en
+  double dans Contact.tsx. Un console.error de compilation Turbopack a
+  ete observe dans le navigateur — verifie contre les logs SERVEUR (qui
+  ne montraient aucune erreur, uniquement des 200) : le message affiche
+  etait un residu de l'etat intermediaire, deja corrige au moment de la
+  verification. Le fichier final ne contient plus qu'un seul import
+  partage, verifie par tsc (0 erreur) et par le rendu reel de la page.
+
+QA RESPONSIVE — 375, 430, 768, 820, 1024, 1280, 1440
+  0 debordement a chaque largeur. Hauteur totale de la page reduite de
+  ~8243 a 7596px a 1440 (suppression du gros Contact + des grandes
+  ProjectCards) : la page est plus compacte, comme demande.
+
+NON-REGRESSION — mesuree
+  Navbar 81px, Hero 596px, Notre approche 592px, Notre methode 948px —
+  identiques aux valeurs de reference. git diff sur Navbar.tsx, Hero.tsx,
+  HeroMedia.tsx, Approach.tsx, Method.tsx : VIDE.
+
+FR / EN
+  EN verifie : hierarchie 1×h1, console vide, 0 debordement, hauteur
+  coherente avec le FR (7436 vs 7499 a 1280, ecart normal du a la
+  longueur du texte anglais).
+
+TESTS
+  lint    PASS  28 fichiers analyses, 0 erreur, 0 warning
+  tsc     PASS  0 erreur
+  build   PASS  11 routes generees, toutes SSG
+  console PASS  vide en FR et en EN (verifie sur une session navigateur
+                fraiche, apres avoir ecarte un message de compilation
+                perime)
+
+PENDING (inchange)
+  - photo originale du fondateur
+  - captures Baby Tourism, Alfred Fitness, Alfred AI Trader
+  - URLs reelles LinkedIn/Instagram/Facebook
+  - confirmation WhatsApp du numero
+  - fiche Google Business / URL Maps officielle
+  - identite de l'hebergeur
+  - decision sur un envoi serveur du formulaire de contact (si reactive
+    un jour sur une page /contact dediee)
+
+PAS DE COMMIT. En attente de la revue structurelle d'Alfred.

@@ -10,7 +10,10 @@ import Projets from "@/components/sections/Projets";
 import Vision from "@/components/sections/Vision";
 import Fondateur from "@/components/sections/Fondateur";
 import CtaFinal from "@/components/sections/CtaFinal";
-import Contact from "@/components/sections/Contact";
+/* Contact.tsx existe toujours (formulaire mailto: fonctionnel) mais
+   n'est plus rendu ici : sur demande explicite, les informations de
+   contact vivent desormais dans le Footer (esprit ACIM), pas dans une
+   grosse section dediee de la homepage. Voir travaux realises.md. */
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -34,7 +37,6 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <Vision dict={dict.vision} />
       <Fondateur dict={dict.fondateur} />
       <CtaFinal dict={dict.ctaFinal} />
-      <Contact dict={dict.contact} />
     </>
   );
 }

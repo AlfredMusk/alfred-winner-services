@@ -1,9 +1,48 @@
-import type { ProjetsDictionary } from "@/i18n/dictionaries";
+import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
+import { fleche } from "@/components/ui/boutons";
 
-/* Aucune capture ecran validee pour aucun des trois projets (voir travaux
-   realises.md). Plutot qu'un cadre gris qui lirait comme un asset casse,
-   chaque projet est presente en texte seul : nom, categorie, statut EXACT
-   (mot pour mot autorise), description factuelle. Rien de plus. */
+/* V3 — changement de direction assume : les grandes ProjectCards bleues
+   (V2) occupaient trop d'espace au regard de l'importance actuelle des
+   projets. Remplacees par une liste editoriale compacte — numeros,
+   typographie, filets, comme Notre methode plus haut sur la page, pas
+   des rectangles de couleur. Meme discipline que la distinction
+   observee chez ACIM entre "ce qu'ils savent faire" (cartes solutions)
+   et "qui ils servent" (liste sobre des secteurs) : ici, AUCUN projet
+   n'est presente comme une realisation client — uniquement les trois
+   initiatives documentees, avec leur statut exact. */
+function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: string; dernier: boolean }) {
+  return (
+    <li className={"flex gap-5 py-7 sm:gap-8" + (dernier ? "" : " border-b border-aws-line")}>
+      <span
+        aria-hidden="true"
+        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 sm:w-14 sm:text-[0.9375rem]"
+      >
+        {numero}
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero desk:text-[1.1875rem]">
+            {projet.nom}
+          </h3>
+          <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-aws-blue-text">
+            {projet.categorie}
+          </span>
+        </div>
+        <p className="mt-2 max-w-[62ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
+          {projet.texte}
+        </p>
+        <p className="mt-3 flex items-center gap-2 text-[0.8125rem] font-medium text-aws-ink/50">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-aws-blue-text/60" />
+          {projet.statut}
+        </p>
+      </div>
+      <span aria-hidden="true" className="hidden shrink-0 self-center text-aws-ink/25 sm:block">
+        {fleche}
+      </span>
+    </li>
+  );
+}
+
 export default function Projets({ dict }: { dict: ProjetsDictionary }) {
   return (
     <section id="projets" aria-labelledby="projets-titre" className="bg-white">
@@ -22,38 +61,16 @@ export default function Projets({ dict }: { dict: ProjetsDictionary }) {
             {dict.paragraphe}
           </p>
 
-          <ul className="mt-10 flex flex-col desk:mt-12 desk:flex-row">
-            {dict.liste.map((projet, i) => {
-              const premier = i === 0;
-              const dernier = i === dict.liste.length - 1;
-              const marges =
-                (premier ? "" : "desk:border-l desk:border-aws-line desk:pl-10 ") +
-                (dernier ? "" : "desk:pr-10 ");
-              return (
-                <li
-                  key={projet.nom}
-                  className={
-                    "flex-1 border-t border-aws-line pt-6 " +
-                    (premier ? "" : "mt-10 desk:mt-0 ") +
-                    marges
-                  }
-                >
-                  <h3 className="text-[1.125rem] font-bold leading-snug text-aws-hero">
-                    {projet.nom}
-                  </h3>
-                  <p className="mt-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-blue-text">
-                    {projet.categorie}
-                  </p>
-                  <span className="mt-3 inline-flex items-center rounded-full bg-aws-line px-3 py-1 text-[0.75rem] font-medium text-aws-ink/80">
-                    {projet.statut}
-                  </span>
-                  <p className="mt-3 max-w-[42ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
-                    {projet.texte}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
+          <ol className="mt-10 border-t border-aws-line desk:mt-12">
+            {dict.liste.map((projet, i) => (
+              <LigneProjet
+                key={projet.nom}
+                projet={projet}
+                numero={String(i + 1).padStart(2, "0")}
+                dernier={i === dict.liste.length - 1}
+              />
+            ))}
+          </ol>
         </div>
       </div>
     </section>

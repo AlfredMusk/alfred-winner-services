@@ -1,95 +1,93 @@
 import Image from "next/image";
 import type { ExpertisesDictionary, ExpertisePole } from "@/i18n/dictionaries";
+import { boutonSecondaireClair, fleche } from "@/components/ui/boutons";
 
-/* Le pictogramme "puce IA", identique a celui de Notre approche : Innover
-   n'a pas de photographie validee (aucune capture de developpement dans
-   les assets), et un cadre vide aurait l'air d'un oubli. Reprendre ce
-   motif ici — plusieurs sections plus loin, pas juste apres Notre
-   approche — le fait lire comme un rappel volontaire des trois univers,
-   pas comme une redite. */
-const PICTO_PUCE = (
-  <svg
-    viewBox="0 0 24 24"
-    className="h-16 w-16"
-    aria-hidden="true"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={1.3}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="7.75" y="7.75" width="8.5" height="8.5" rx="1.75" />
-    <path d="M10.5 3.5v4.25M13.5 3.5v4.25M10.5 16.25v4.25M13.5 16.25v4.25" />
-    <path d="M3.5 10.5h4.25M3.5 13.5h4.25M16.25 10.5h4.25M16.25 13.5h4.25" />
-  </svg>
-);
+/* V3 — raffinement, pas de reconstruction (la direction alternance
+   texte/image + CTA est conservee telle quelle sur demande explicite).
+
+   Deux ajustements :
+
+   1. UN ACCENT PAR PILIER, PAS TROIS COULEURS. Les trois cartes etaient
+      visuellement trop uniformes. Un filet gauche de 4px, une teinte
+      differente par pole, mais TOUJOURS puisee dans la famille bleue
+      existante — jamais une nouvelle couleur, jamais rouge/vert/jaune :
+        01 INVESTIR   aws-navy       (le plus profond -> serieux financier)
+        02 CONSTRUIRE aws-muted      (bleu-gris sourd -> mineral, neutre chaud)
+        03 INNOVER    aws-blue-text  (le plus clair -> technologique, froid)
+      Le visiteur percoit une variation, pas un changement de marque.
+
+   2. CAPACITES EN LISTE EDITORIALE, PAS EN PILLS. Les badges arrondis
+      ressemblaient a des "features" SaaS. Remplaces par une ligne de
+      texte separee par des points medians — la meme discipline que la
+      liste de technologies observee chez ACIM sous leurs propres
+      cartes, sans en reprendre le style visuel. */
+const ACCENTS: Record<string, string> = {
+  "01": "border-l-aws-navy",
+  "02": "border-l-aws-muted",
+  "03": "border-l-aws-blue-text",
+};
 
 function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; cta: string }) {
   return (
-    <li
-      id={pole.hash}
-      className="scroll-mt-24 border-t border-aws-line py-12 desk:py-14"
-    >
+    <li id={pole.hash} className="scroll-mt-24">
       {/* scroll-mt-24 : les liens de la navbar (#bourse-finance, etc.)
-          sautent directement ici. Sans marge de defilement, le contenu
-          se retrouverait cache sous la navbar sticky. */}
+          sautent directement ici, sans se cacher sous la navbar sticky. */}
       <div
-        className={
-          "flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-16 " +
-          (inverse ? "desk:flex-row-reverse" : "")
-        }
+        className={`rounded-2xl border border-aws-line border-l-4 bg-white p-6 sm:p-8 desk:p-10 ${ACCENTS[pole.num]}`}
       >
-        <div className="desk:w-1/2">
-          <p className="flex items-baseline gap-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-aws-blue-text">
-            <span className="tabular-nums">{pole.num}</span>
-            <span aria-hidden="true" className="text-aws-ink/25">
-              —
-            </span>
-            {pole.cle}
-          </p>
-          <h3 className="mt-2.5 text-[1.375rem] font-bold leading-snug tracking-[-0.01em] text-aws-hero desk:text-[1.625rem]">
-            {pole.titre}
-          </h3>
-          <p className="mt-3 max-w-[58ch] text-[0.9375rem] leading-[1.65] text-aws-ink/85">
-            {pole.texte}
-          </p>
-          {pole.precision && (
-            <p className="mt-3 max-w-[58ch] text-[0.8125rem] leading-[1.6] text-aws-ink/60">
-              {pole.precision}
+        <div
+          className={
+            "flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14 " +
+            (inverse ? "desk:flex-row-reverse" : "")
+          }
+        >
+          <div className="desk:w-1/2">
+            <p className="flex items-baseline gap-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-aws-blue-text">
+              <span className="tabular-nums">{pole.num}</span>
+              <span aria-hidden="true" className="text-aws-ink/25">
+                —
+              </span>
+              {pole.cle}
             </p>
-          )}
-          <a
-            href="#contact"
-            className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-aws-blue-text transition-colors duration-200 hover:text-aws-hero motion-reduce:transition-none"
-          >
-            {cta}
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
-            >
-              →
-            </span>
-          </a>
-        </div>
+            <h3 className="mt-2.5 text-[1.375rem] font-bold leading-snug tracking-[-0.01em] text-aws-hero desk:text-[1.625rem]">
+              {pole.titre}
+            </h3>
+            <p className="mt-3 max-w-[58ch] text-[0.9375rem] leading-[1.65] text-aws-ink/85">
+              {pole.texte}
+            </p>
+            {pole.precision && (
+              <p className="mt-3 max-w-[58ch] text-[0.8125rem] leading-[1.6] text-aws-ink/60">
+                {pole.precision}
+              </p>
+            )}
 
-        <div className="desk:w-1/2">
-          {pole.image ? (
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-aws-line">
+            {/* Capacites : uniquement quand elles sont explicitement
+                confirmees (voir dictionaries.ts) — jamais une liste
+                commerciale devinee pour Investir/Construire. Ligne
+                editoriale (points medians), pas des pills. */}
+            {pole.capacites && (
+              <p className="mt-4 max-w-[58ch] text-[0.8125rem] leading-[1.7] text-aws-ink/60">
+                {pole.capacites.join(" · ")}
+              </p>
+            )}
+
+            <a href="#contact" className={`mt-6 ${boutonSecondaireClair}`}>
+              {cta}
+              {fleche}
+            </a>
+          </div>
+
+          <div className="desk:w-1/2">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-aws-line">
               <Image
-                src={pole.image}
+                src={pole.image!}
                 alt={pole.imageAlt ?? ""}
                 fill
-                sizes="(min-width: 1100px) 44vw, 92vw"
+                sizes="(min-width: 1100px) 40vw, 88vw"
                 className="object-cover"
               />
             </div>
-          ) : (
-            /* Pas de photo : un aplat de couleur porte le pictogramme
-               plutot qu'un cadre vide qui lirait comme un asset manquant. */
-            <div className="flex aspect-[4/3] items-center justify-center rounded-2xl bg-aws-hero text-white/90">
-              {PICTO_PUCE}
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </li>
@@ -113,8 +111,10 @@ export default function Expertises({ dict }: { dict: ExpertisesDictionary }) {
 
           {/* Alternance texte/image d'un pole a l'autre : discipline ACIM
               (alterner casse la monotonie d'une liste repetee trois fois),
-              identite AWS (les images sont les notres, deja etablies). */}
-          <ul className="mt-2">
+              identite AWS (les images sont les notres, deja etablies).
+              Gap 24-40px : chaque pole est desormais une carte visible,
+              l'espacement remplace le trait qui les separait en V1. */}
+          <ul className="mt-8 flex flex-col gap-6 desk:mt-10 desk:gap-8">
             {dict.poles.map((pole, i) => (
               <Pole key={pole.num} pole={pole} inverse={i % 2 === 1} cta={dict.ctaPole} />
             ))}
