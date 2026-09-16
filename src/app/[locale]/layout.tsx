@@ -3,7 +3,9 @@ import { Montserrat } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { getDictionary, hasLocale, locales } from "@/i18n/dictionaries";
+import { isIndexable, organizationSchema, seoCopy } from "@/lib/seo";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -21,12 +23,10 @@ export async function generateMetadata({
   params,
 }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(locale)) notFound();
   return {
-    title: "Alfred Winner Services",
-    description:
-      locale === "en"
-        ? "Alfred Winner Services — Markets & Finance, Real Estate, Software & AI. Abidjan, Côte d'Ivoire."
-        : "Alfred Winner Services — Bourse & Finance, Immobilier, Software & IA. Abidjan, Côte d'Ivoire.",
+    ...seoCopy[locale],
+    robots: { index: isIndexable, follow: true },
   };
 }
 
@@ -51,10 +51,17 @@ export default async function LocaleLayout({
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()).replace(/</g, "\\u003c"),
+          }}
+        />
         <Navbar locale={locale} dict={dict.navbar} />
         <main id="top" className="flex-1">
           {children}
         </main>
+        <Footer locale={locale} dict={dict.footer} nav={dict.navbar} expertises={dict.expertises} />
       </body>
     </html>
   );

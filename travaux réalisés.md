@@ -1679,3 +1679,223 @@ TESTS
   console PASS  vide en FR et en EN, a chaque largeur testee
 
 PAS DE COMMIT. En attente de validation visuelle finale.
+
+
+## GOOGLE SEO — PREPARED / WAITING FOR AWS PRODUCTION WEBSITE — 2026-09-16
+
+- pause explicite Alfred
+- reprise uniquement: SITE AWS = FINALISÉ ET VALIDÉ
+- aucun Google Business Profile cree / revendique / valide
+- aucune Search Console creee / validee
+- aucun DNS modifie / aucun deploiement
+- aucun pin GPS / horaire / categorie invente
+- ALFRED AI TRADER non touche
+- recherche publique + Maps faite: aucune fiche AWS identifiable; absence non prouvee
+- DNS www non resolu lors du controle; achat domaine inconnu
+- avant pause: src/lib/seo.ts prepare
+- avant pause: metadata FR EN + canonical/alternates conditionnels
+- avant pause: robots.ts + sitemap.ts prepares
+- indexation inactive par defaut; domaine non active dans configuration
+- avant pause: Organization JSON-LD ajoute au layout; URL/logo/@id conditionnels
+- LocalBusiness PENDING ALFRED adresse precise
+- avant pause: libelles Maps FR EN precisent quartier / emplacement AWS a confirmer
+- aucune refonte visuelle
+- guides GOOGLE_BUSINESS_PROFILE_SETUP.md + GOOGLE_SEARCH_CONSOLE_SETUP.md prets
+- lint PASS avec 1 warning formulaire Contact en cours de construction
+- npx tsc --noEmit PASS
+- npm run build PASS sur etat intermediaire avant pause
+- autres fichiers modifies ensuite par agent Front-End; verification finale NON FAITE
+- tests navigateur SEO / console / production active NON FAITS
+- aucun commit
+- plus de modification code ni test apres ordre de pause
+- donnees manquantes: PENDING ALFRED
+- categorie principale / secondaires: PENDING ALFRED
+- horaires lundi dimanche: PENDING ALFRED
+- adresse exacte / emplacement Maps: PENDING ALFRED
+- domaine achete / connecte / URL production / hebergeur: PENDING ALFRED
+- WhatsApp / reseaux sociaux / zones desservies si applicables: PENDING ALFRED
+- statut accueil + enseigne confirme OUI pendant conversation; reconfirmer a reprise
+- NEXT: finir site -> valider site -> deployer site -> reprendre Google
+
+==========================================================================
+SECTIONS 05-12 — QUI SOMMES-NOUS, EXPERTISES, PROJETS, VISION, FONDATEUR,
+CTA FINAL, CONTACT, FOOTER, MENTIONS LEGALES, CONFIDENTIALITE
+==========================================================================
+
+CONTEXTE PARTICULIER DE CETTE VAGUE
+  Une AUTRE session Claude Code a travaille EN PARALLELE sur la meme
+  arborescence pendant cette mission (meme conversation, deux processus
+  attaches, confirme par `ps aux`). Elle a construit la couche SEO
+  (src/lib/seo.ts, robots.ts, sitemap.ts, generateMetadata, JSON-LD
+  organisation) pendant que je construisais le contenu. Un artefact de
+  fusion a ete trouve et corrige (des imports coupes par une fonction
+  inseree au milieu dans page.tsx) ; le reste s'est integre proprement.
+  Verifie par tsc + build a plusieurs reprises pendant le travail, pas
+  seulement a la fin.
+
+BLOQUEUR TRAITE EN DIRECT — PHOTO DU FONDATEUR
+  Une premiere image envoyee ("IMAGE DU CEO") presentait des marques
+  caracteristiques d'un traitement par IA (texture de peau en tourbillons,
+  fond de studio generique) : REFUSEE, conformement a l'interdiction
+  explicite de "fausse photographie du CEO", generee ou alteree. Demande
+  faite a Alfred de fournir une photo source non filtree.
+
+QUATRE AUTRES PHOTOS TROUVEES A LA RACINE (EXIF iPhone 13 Pro, donc
+REELLES, pas generees) — AUCUNE UTILISEE :
+  1. Robot/Arduino sur un bureau avec IDE Arduino a l'ecran — sans rapport
+     avec les trois projets autorises (Baby Tourism, Alfred Fitness,
+     Alfred AI Trader).
+  2. Graphique crypto sur laptop + une main/avant-bras non identifiable —
+     impossible de confirmer qu'il s'agit d'Alfred ou d'une activite AWS.
+  3. Chantier avec un materiel de topographie (Nikon, Carlson Surveyor2)
+     de style nord-americain — tres probablement PAS un chantier a
+     Abidjan ; l'utiliser risquerait exactement l'interdiction "chantier
+     stock presente comme realisation AWS".
+  4. Bureau de trading avec graphiques NSE (bourse indienne), imagerie
+     religieuse hindoue et une citation d'un compte Instagram tiers
+     (@coachsnehdesai) — sans aucun rapport avec Alfred ou AWS.
+  Ces quatre fichiers restent a la racine, non suivis, non utilises.
+  Signale a Alfred pour clarification/nettoyage.
+
+QUI SOMMES-NOUS (Apropos.tsx)
+  Traitement typographique pur, decision assumee : les deux seules images
+  validees (marches financiers, chantier) servent deja le Hero et Nos
+  expertises — les reutiliser ici les aurait diluees a chaque reprise.
+  Texte repris du cahier des charges quasi verbatim (deux paragraphes).
+
+NOS EXPERTISES (Expertises.tsx) — coeur commercial
+  Alternance texte/image d'un pole a l'autre (discipline ACIM etudiee sur
+  leur page "solutions"), ancres #bourse-finance / #immobilier /
+  #software-ia EXACTEMENT celles deja attendues par le menu deroulant de
+  la navbar (verifie dans Navbar.tsx avant d'ecrire le code).
+  INVESTIR  : image finance-markets.jpg (deja utilisee dans le Hero) +
+              phrase de precision explicite ("ne constituent ni un
+              conseil en investissement reglemente, ni une gestion de
+              portefeuille, ni une promesse de rendement").
+  CONSTRUIRE: image real-estate.jpg (deja utilisee dans le Hero).
+  INNOVER   : aucune photo de developpement validee -> pictogramme "puce"
+              repris de Notre approche (rappel volontaire, pas une redite :
+              plusieurs sections plus loin, pas juste apres).
+
+PROJETS & REALISATIONS (Projets.tsx)
+  Aucune capture ecran disponible pour aucun des trois projets -> texte
+  seul (nom, categorie, statut EXACT autorise mot pour mot, description
+  factuelle). Pas de cadre gris vide qui lirait comme un asset casse.
+  Alfred AI Trader : aucune mention de taux de reussite, profit,
+  rendement ou performance — uniquement "prototype interne, IA, analyse
+  des marches, environnement DEMO", conforme a l'interdiction explicite.
+
+VISION (Vision.tsx)
+  Seule section avec le Hero a utiliser bg-aws-hero (bleu profond) :
+  respiration corporate au milieu d'une page blanche/off-white. Aucune
+  nouvelle couleur. Pas de photo d'Abidjan validee -> typographie pure,
+  explicitement autorisee par le cahier des charges pour cette section.
+
+FONDATEUR (Fondateur.tsx)
+  PAS DE PHOTO (voir bloqueur ci-dessus). Bio reprise telle que fournie,
+  aucun diplome/certification/annee d'experience ajoute. Mise en page en
+  une colonne texte, pensee pour recevoir une image plus tard (colonne
+  desk:flex-row a ajouter) sans reconstruction.
+
+CTA FINAL (CtaFinal.tsx)
+  "Un projet a construire ? Parlons-en." — espace INSECABLE (U+00A0)
+  avant le "?", regle typographique francaise ET fonctionnelle : sans
+  elle, le titre se coupait avec un "?" orpheline en debut de ligne a la
+  largeur du titre.
+
+CONTACT (Contact.tsx) — "use client", seul composant interactif de la vague
+  Formulaire SANS backend : construit un mailto: avec sujet/corps
+  pre-remplis et declenche un <a> cree en memoire (.click()), pas une
+  affectation window.location.href — cette derniere declenche la regle
+  ESLint no-location-assign-relative-destination (suppose une navigation
+  interne Next.js). Corrige, verifie : 0 warning apres correction.
+
+  TESTE REELLEMENT (pas suppose) : frappe clavier reelle via l'outil
+  navigateur, formulaire rempli (nom, entreprise, message), soumis, et
+  mailto: intercepte pour verification -> corps correctement construit,
+  Entreprise incluse SEULEMENT quand renseignee (verifie dans les deux
+  etats), encodage URI correct. Une tentative initiale de simulation par
+  injection DOM (assignation .value + dispatchEvent) a echoue a mettre a
+  jour l'etat React — limite connue de ce type de simulation, pas un bug
+  du formulaire ; confirme en repetant avec de vraies frappes clavier.
+
+  Lien Maps : recherche textuelle Google Maps (pas une fiche Google
+  Business verifiee) — le libelle le dit explicitement ("emplacement AWS
+  a confirmer"), conformement a l'interdiction de pretendre qu'un
+  marqueur correspond a une fiche validee.
+
+  WhatsApp : non active. Le numero n'a pas ete confirme comme etant un
+  numero WhatsApp — seul un lien tel: est propose.
+
+FOOTER (Footer.tsx, dans layout.tsx — apparait sur toutes les pages)
+  Reseaux sociaux : structure prete (LinkedIn/Instagram/Facebook) mais
+  URLs VIDES tant qu'aucune n'est confirmee. Le composant n'affiche un
+  reseau QUE si son href est non vide — jamais de href="#".
+  Liens d'ancrage (#a-propos, #projets, #contact, #<pole>) prefixes par
+  /${locale} : ils fonctionnent aussi depuis les pages legales, pas
+  seulement depuis l'accueil.
+  BUG TROUVE ET CORRIGE : l'en-tete de la colonne navigation reutilisait
+  nav.nav.home ("Accueil"), donc affichait "ACCUEIL" juste au-dessus du
+  lien "Accueil" — redondant. Nouveau champ dedie footer.navigationNav
+  ("Navigation").
+  Mentions legales : SARLU, capital 1 000 000 F CFA, RCCM
+  CI-ABJ-03-2025-B13-07068 — aucun identifiant non confirme ajoute.
+
+MENTIONS LEGALES / CONFIDENTIALITE (LegalPage.tsx + 2 routes)
+  /[locale]/mentions-legales et /[locale]/confidentialite, meme slug
+  dans les deux langues (simplification assumee pour cette V1 — les
+  URLs profondes restent stables, seul le contenu change de langue).
+  Hebergeur : "information en attente de confirmation" — pas invente.
+  Confidentialite : decrit le fonctionnement REEL du site (aucun cookie
+  de suivi, aucun outil d'analyse, formulaire = mailto: cote client,
+  aucune donnee envoyee a un serveur).
+
+SEO (travail de l'autre session, verifie et integre)
+  src/lib/seo.ts : indexation desactivee par defaut (isIndexable = false
+  tant qu'un domaine officiel + plusieurs variables d'environnement ne
+  sont pas positionnees) — un site pas encore en ligne ne doit pas etre
+  indexe par accident. robots.txt et sitemap.xml suivent la meme regle.
+  JSON-LD Organization avec les informations confirmees uniquement.
+
+QA RESPONSIVE — 375, 430, 768, 820, 1024, 1280, 1440
+  0 debordement horizontal a chaque largeur. Les 7 ancres de section
+  (#a-propos, #expertises, #bourse-finance, #immobilier, #software-ia,
+  #projets, #contact) presentes a chaque largeur. Navbar operationnelle
+  partout.
+
+NON-REGRESSION — mesuree
+  Navbar 81px, Hero 596px (FR) / 580px (EN, ecart du a la longueur du
+  texte anglais, prexistant, pas du a cette session), Notre approche
+  592px, Notre methode 923px (FR et EN identiques) — tous identiques aux
+  valeurs de reference d'avant cette mission.
+  git diff sur Navbar.tsx, Hero.tsx, HeroMedia.tsx, Approach.tsx,
+  Method.tsx : VIDE.
+
+TESTS
+  lint    PASS  26 fichiers analyses, 0 erreur, 0 warning (verifie apres
+                correction du warning ESLint sur le mailto:)
+  tsc     PASS  0 erreur
+  build   PASS  11 routes generees : /fr, /en, /fr(+en)/confidentialite,
+                /fr(+en)/mentions-legales, /robots.txt, /sitemap.xml,
+                toutes SSG sauf le proxy (middleware)
+  console PASS  vide en FR et en EN, sur toutes les pages testees
+
+BLOCKERS EXPLICITES POUR ALFRED
+  1. Photo du fondateur : la premiere fournie a ete refusee (traits d'IA) ;
+     une photo source non filtree est necessaire.
+  2. Captures d'ecran des trois projets (Baby Tourism, Alfred Fitness,
+     Alfred AI Trader) : aucune disponible actuellement.
+  3. Photo de developpement/code pour le pole Innover (optionnelle,
+     amelioration possible) : aucune disponible.
+  4. Quatre photos trouvees a la racine (voir plus haut) : provenance et
+     usage prevu a clarifier — non utilisees.
+  5. URLs reelles LinkedIn/Instagram/Facebook : aucune fournie.
+  6. Confirmation que le numero de telephone est joignable sur WhatsApp.
+  7. URL Google Maps officielle / fiche Google Business verifiee.
+  8. Identite de l'hebergeur (pour les mentions legales, avant mise en
+     ligne definitive).
+  9. Decision sur un envoi cote serveur du formulaire de contact
+     (prestataire type Resend/Formspree) si le mailto: cote client ne
+     suffit pas a terme.
+
+PAS DE COMMIT FINAL. En attente de la revue complete d'Alfred.

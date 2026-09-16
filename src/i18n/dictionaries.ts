@@ -149,6 +149,249 @@ const fr = {
       },
     ],
   },
+  /* Section 5 — Qui sommes-nous. Traitement typographique pur : les deux
+     seuls visuels disponibles (marches financiers, chantier) sont deja
+     mobilises ailleurs (Hero, Expertises) — les reutiliser ici aurait dilue
+     leur poids a chaque reprise plutot que d'ajouter quelque chose. La
+     clarte et la mesure de lecture portent seules la section, dans le
+     droit fil de la discipline ACIM (voir Notre approche / Notre methode). */
+  apropos: {
+    eyebrow: "QUI SOMMES-NOUS",
+    titre: "La valeur ne repose jamais sur un seul levier.",
+    paragraphes: [
+      "Alfred Winner Services est née d'une conviction simple : la création de valeur ne repose pas sur un seul levier. Capital, actifs et technologie peuvent se compléter.",
+      "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
+    ],
+  },
+
+  /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
+     les trois univers, annonces dans le Hero et expliques dans Notre
+     approche, deviennent des activites concretes.
+
+     "hash" reprend EXACTEMENT les ancres deja utilisees par le menu
+     deroulant de la navbar (#bourse-finance, #immobilier, #software-ia) :
+     un lien du menu doit atterrir pile sur le bon pole. */
+  expertises: {
+    eyebrow: "NOS EXPERTISES",
+    titre: "Ce que nous faisons, concrètement.",
+    poles: [
+      {
+        num: "01",
+        hash: "bourse-finance",
+        cle: "INVESTIR",
+        titre: "Bourse & Finance",
+        texte:
+          "AWS développe un intérêt et des solutions technologiques à l'intersection de la finance et du numérique — technologies et outils appliqués aux marchés financiers et aux actifs numériques.",
+        // Precision volontaire : le cahier des charges interdit d'affirmer
+        // ou de laisser entendre une gestion de portefeuille, un conseil
+        // reglemente ou un rendement. Cette phrase le rend explicite
+        // plutot que de laisser un doute.
+        precision:
+          "Ces activités ne constituent ni un conseil en investissement réglementé, ni une gestion de portefeuille, ni une promesse de rendement.",
+        image: "/images/hero/finance-markets.jpg",
+        imageAlt:
+          "Analyse des marchés financiers depuis un bureau donnant sur Abidjan",
+      },
+      {
+        num: "02",
+        hash: "immobilier",
+        cle: "CONSTRUIRE",
+        titre: "Immobilier",
+        texte:
+          "AWS intervient dans l'univers immobilier : identification de terrains et d'opportunités, structuration de projets immobiliers et accompagnement lié à leur développement.",
+        precision: null,
+        image: "/images/hero/real-estate.jpg",
+        imageAlt:
+          "Ouvriers sur un chantier de construction dans un quartier d'affaires",
+      },
+      {
+        num: "03",
+        hash: "software-ia",
+        cle: "INNOVER",
+        titre: "Software & IA",
+        texte:
+          "AWS conçoit des sites web professionnels, des applications et des logiciels sur mesure, ainsi que des solutions d'automatisation et d'intelligence artificielle adaptées aux besoins concrets des entreprises et des projets.",
+        precision: null,
+        // Pas de photographie de developpement validee pour l'instant :
+        // pas d'image plutot qu'une photo generique non authentifiee.
+        image: null,
+        imageAlt: null,
+      },
+    ],
+    ctaPole: "Parlons de votre projet",
+  },
+
+  /* Section 7 — Projets & realisations. Objectif : PROUVER, pas affirmer —
+     mais sans capture reelle disponible pour aucun des trois projets, la
+     preuve visuelle est reportee. Le statut de chaque projet reste celui
+     explicitement autorise, mot pour mot, rien de plus. */
+  projets: {
+    eyebrow: "PROJETS & RÉALISATIONS",
+    titre: "La méthode, mise à l'épreuve.",
+    paragraphe:
+      "Trois projets, à des stades différents, qui appliquent la même méthode : comprendre, structurer, réaliser, faire évoluer.",
+    liste: [
+      {
+        nom: "Baby Tourism",
+        categorie: "Tourisme",
+        statut: "Démonstrateur digital",
+        texte:
+          "Projet démonstrateur digital autour du tourisme, pensé comme une vitrine numérique.",
+      },
+      {
+        nom: "Alfred Fitness",
+        categorie: "Fitness",
+        statut: "Démonstrateur Front-End",
+        texte:
+          "Démonstrateur Front-End explorant une expérience web dédiée au fitness.",
+      },
+      {
+        nom: "Alfred AI Trader",
+        categorie: "Technologie & IA",
+        statut: "Prototype interne — environnement DEMO",
+        texte:
+          "Prototype technologique interne combinant intelligence artificielle et analyse des marchés financiers, actuellement en environnement de démonstration.",
+      },
+    ],
+  },
+
+  /* Section 8 — Vision. Bande pleine largeur au bleu du Hero (aucune
+     nouvelle couleur) : une respiration corporate au milieu d'une page
+     autrement blanche/off-white, la meme fonction que le "manifeste" que
+     beaucoup de sites institutionnels placent avant le closing. */
+  vision: {
+    eyebrow: "VISION",
+    titre: "Une ambition progressivement africaine et internationale.",
+    paragraphe:
+      "Depuis la Côte d'Ivoire, AWS ambitionne de développer des projets, des actifs et des solutions technologiques capables de créer durablement de la valeur. Le logiciel et l'intelligence artificielle occupent une place croissante dans cette vision.",
+  },
+
+  /* Section 9 — Fondateur. Texte repris tel que fourni, sans ajout de
+     diplome, certification ou annee d'experience. Aucune photo pour
+     l'instant (voir travaux realises.md) : mise en page pensee pour en
+     recevoir une des qu'elle sera fournie, sans reconstruction. */
+  fondateur: {
+    eyebrow: "FONDATEUR",
+    nom: "Krodi Krotchaman Alfred Donald",
+    titre: "Fondateur & CEO — Alfred Winner Services",
+    paragraphes: [
+      "Entrepreneur et ingénieur logiciel de formation, Alfred Krodi développe Alfred Winner Services à l'intersection de l'entrepreneuriat, de la technologie, de la finance et de l'immobilier.",
+      "Il porte notamment les initiatives numériques et d'intelligence artificielle développées autour de l'écosystème AWS.",
+    ],
+  },
+
+  ctaFinal: {
+    titre: "Un projet à construire ? Parlons-en.",
+    cta: "Parlons de votre projet",
+  },
+
+  /* Section 11 — Contact. Le formulaire n'appelle aucune API : il ouvre
+     le client mail du visiteur avec un message pre-rempli (mailto:). Pas
+     de backend, pas de secret, pas de fausse confirmation d'envoi — voir
+     travaux realises.md pour la decision et ses limites. */
+  contact: {
+    eyebrow: "CONTACT",
+    titre: "Parlons de votre projet.",
+    adresseLabel: "Adresse",
+    adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
+    telephoneLabel: "Téléphone",
+    telephone: "(+225) 07 48 19 11 00",
+    telephoneHref: "tel:+2250748191100",
+    emailLabel: "Email",
+    email: "krodi2001@gmail.com",
+    emailMailtoHref: "mailto:krodi2001@gmail.com",
+    // Recherche textuelle Google Maps, pas une fiche officielle verifiee :
+    // le cahier des charges interdit de pretendre qu'un marqueur correspond
+    // a une fiche Google Business validee tant qu'elle n'est pas confirmee.
+    mapsHref: "https://www.google.com/maps/search/?api=1&query=Cocody%20Angr%C3%A9%20%E2%80%94%20Nouveau%20CHU%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire",
+    mapsLabel: "Voir le quartier sur Google Maps (emplacement AWS à confirmer)",
+    formulaire: {
+      nom: "Nom et prénom",
+      entreprise: "Entreprise (facultatif)",
+      contactPref: "Email ou téléphone",
+      service: "Service recherché",
+      serviceOptions: [
+        "Bourse & Finance",
+        "Immobilier",
+        "Software & IA",
+        "Autre",
+      ],
+      message: "Message",
+      cta: "Envoyer ma demande",
+      note: "Ce formulaire ouvre votre messagerie avec les informations déjà remplies : aucune donnée n'est envoyée à un serveur.",
+    },
+  },
+
+  /* Footer — reseaux sociaux prets a l'emploi mais VIDES : aucune URL
+     officielle confirmee. Le composant n'affiche un reseau que si son
+     href est non vide ; ne jamais mettre "#" a la place d'un lien reel. */
+  footer: {
+    navigationNav: "Navigation",
+    universNav: "Nos univers",
+    liensLegauxNav: "Informations légales",
+    mentionsLegales: "Mentions légales",
+    confidentialite: "Politique de confidentialité",
+    suivezNous: "Suivez-nous",
+    reseaux: {
+      linkedin: "",
+      instagram: "",
+      facebook: "",
+    },
+    raisonSociale: "ALFRED WINNER SERVICES",
+    formeJuridique: "SARLU au capital de 1 000 000 F CFA",
+    rccm: "RCCM CI-ABJ-03-2025-B13-07068",
+    copyright: "© 2026 Alfred Winner Services. Tous droits réservés.",
+  },
+
+  /* Pages legales — uniquement des informations confirmees. Tout ce qui
+     manque (hebergeur notamment) est signale explicitement dans le texte
+     plutot que devine, pour qu'Alfred le voie et le complete avant mise
+     en ligne. */
+  mentionsLegales: {
+    titre: "Mentions légales",
+    sections: [
+      {
+        titre: "Éditeur du site",
+        paragraphes: [
+          "Alfred Winner Services (AWS), SARLU au capital de 1 000 000 F CFA.",
+          "RCCM : CI-ABJ-03-2025-B13-07068.",
+          "Adresse : Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire.",
+          "Directeur de la publication : Krodi Krotchaman Alfred Donald, Fondateur & CEO.",
+          "Contact : (+225) 07 48 19 11 00 — krodi2001@gmail.com.",
+        ],
+      },
+      {
+        titre: "Hébergement",
+        paragraphes: [
+          "Information en attente de confirmation avant mise en ligne définitive.",
+        ],
+      },
+      {
+        titre: "Propriété intellectuelle",
+        paragraphes: [
+          "L'ensemble des éléments du présent site (textes, images, logo, identité visuelle) est la propriété d'Alfred Winner Services, sauf mention contraire, et ne peut être reproduit sans autorisation préalable.",
+        ],
+      },
+    ],
+  },
+  confidentialite: {
+    titre: "Politique de confidentialité",
+    sections: [
+      {
+        titre: "Données collectées",
+        paragraphes: [
+          "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
+          "Le formulaire de contact n'envoie aucune donnée à un serveur : il ouvre votre messagerie avec un message pré-rempli, que vous choisissez ou non d'envoyer depuis votre propre adresse email.",
+        ],
+      },
+      {
+        titre: "Contact",
+        paragraphes: [
+          "Pour toute question relative à cette politique, vous pouvez écrire à krodi2001@gmail.com.",
+        ],
+      },
+    ],
+  },
 };
 
 /* Le type est deduit du francais : oublier une cle en anglais devient une
@@ -280,6 +523,204 @@ const en: Dictionary = {
       },
     ],
   },
+  apropos: {
+    eyebrow: "ABOUT US",
+    titre: "Value is never built on a single lever.",
+    paragraphes: [
+      "Alfred Winner Services was founded on a simple conviction: value creation does not rest on a single lever. Capital, assets and technology can work together.",
+      "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
+    ],
+  },
+
+  expertises: {
+    eyebrow: "OUR EXPERTISE",
+    titre: "What we actually do.",
+    poles: [
+      {
+        num: "01",
+        hash: "bourse-finance",
+        cle: "INVEST",
+        titre: "Markets & Finance",
+        texte:
+          "AWS develops technology solutions and interest at the intersection of finance and digital — technologies and tools applied to financial markets and digital assets.",
+        precision:
+          "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
+        image: "/images/hero/finance-markets.jpg",
+        imageAlt:
+          "Financial markets analysis from an office overlooking Abidjan",
+      },
+      {
+        num: "02",
+        hash: "immobilier",
+        cle: "BUILD",
+        titre: "Real Estate",
+        texte:
+          "AWS operates in real estate: identifying land and opportunities, structuring property projects and supporting their development.",
+        precision: null,
+        image: "/images/hero/real-estate.jpg",
+        imageAlt:
+          "Workers on a construction site in a business district",
+      },
+      {
+        num: "03",
+        hash: "software-ia",
+        cle: "INNOVATE",
+        titre: "Software & AI",
+        texte:
+          "AWS designs professional websites, applications and custom software, along with automation and artificial intelligence solutions suited to the real needs of businesses and projects.",
+        precision: null,
+        image: null,
+        imageAlt: null,
+      },
+    ],
+    ctaPole: "Let's discuss your project",
+  },
+
+  projets: {
+    eyebrow: "PROJECTS",
+    titre: "The method, put to the test.",
+    paragraphe:
+      "Three projects, at different stages, applying the same method: understand, structure, deliver, evolve.",
+    liste: [
+      {
+        nom: "Baby Tourism",
+        categorie: "Tourism",
+        statut: "Digital demonstrator",
+        texte:
+          "A digital demonstrator project built around tourism, designed as a digital showcase.",
+      },
+      {
+        nom: "Alfred Fitness",
+        categorie: "Fitness",
+        statut: "Front-End demonstrator",
+        texte:
+          "A Front-End demonstrator exploring a web experience dedicated to fitness.",
+      },
+      {
+        nom: "Alfred AI Trader",
+        categorie: "Technology & AI",
+        statut: "Internal prototype — DEMO environment",
+        texte:
+          "An internal technology prototype combining artificial intelligence and financial market analysis, currently running in a demonstration environment.",
+      },
+    ],
+  },
+
+  vision: {
+    eyebrow: "VISION",
+    titre: "A progressively African and international ambition.",
+    paragraphe:
+      "From Côte d'Ivoire, AWS aims to develop projects, assets and technology solutions capable of creating lasting value. Software and artificial intelligence play a growing role in this vision.",
+  },
+
+  fondateur: {
+    eyebrow: "FOUNDER",
+    nom: "Krodi Krotchaman Alfred Donald",
+    titre: "Founder & CEO — Alfred Winner Services",
+    paragraphes: [
+      "An entrepreneur and software engineer by training, Alfred Krodi is building Alfred Winner Services at the intersection of entrepreneurship, technology, finance and real estate.",
+      "He leads in particular the digital and artificial intelligence initiatives developed around the AWS ecosystem.",
+    ],
+  },
+
+  ctaFinal: {
+    titre: "A project to build? Let's talk.",
+    cta: "Let's discuss your project",
+  },
+
+  contact: {
+    eyebrow: "CONTACT",
+    titre: "Let's discuss your project.",
+    adresseLabel: "Address",
+    adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
+    telephoneLabel: "Phone",
+    telephone: "(+225) 07 48 19 11 00",
+    telephoneHref: "tel:+2250748191100",
+    emailLabel: "Email",
+    email: "krodi2001@gmail.com",
+    emailMailtoHref: "mailto:krodi2001@gmail.com",
+    mapsHref: "https://www.google.com/maps/search/?api=1&query=Cocody%20Angr%C3%A9%20%E2%80%94%20Nouveau%20CHU%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire",
+    mapsLabel: "View the area on Google Maps (AWS location to be confirmed)",
+    formulaire: {
+      nom: "Full name",
+      entreprise: "Company (optional)",
+      contactPref: "Email or phone",
+      service: "Service of interest",
+      serviceOptions: [
+        "Markets & Finance",
+        "Real Estate",
+        "Software & AI",
+        "Other",
+      ],
+      message: "Message",
+      cta: "Send my request",
+      note: "This form opens your own email app with the information already filled in: no data is sent to a server.",
+    },
+  },
+
+  footer: {
+    navigationNav: "Navigation",
+    universNav: "Our business areas",
+    liensLegauxNav: "Legal information",
+    mentionsLegales: "Legal notice",
+    confidentialite: "Privacy policy",
+    suivezNous: "Follow us",
+    reseaux: {
+      linkedin: "",
+      instagram: "",
+      facebook: "",
+    },
+    raisonSociale: "ALFRED WINNER SERVICES",
+    formeJuridique: "SARLU with capital of 1,000,000 F CFA",
+    rccm: "RCCM CI-ABJ-03-2025-B13-07068",
+    copyright: "© 2026 Alfred Winner Services. All rights reserved.",
+  },
+
+  mentionsLegales: {
+    titre: "Legal notice",
+    sections: [
+      {
+        titre: "Site publisher",
+        paragraphes: [
+          "Alfred Winner Services (AWS), a SARLU with capital of 1,000,000 F CFA.",
+          "RCCM: CI-ABJ-03-2025-B13-07068.",
+          "Address: Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire.",
+          "Publication director: Krodi Krotchaman Alfred Donald, Founder & CEO.",
+          "Contact: (+225) 07 48 19 11 00 — krodi2001@gmail.com.",
+        ],
+      },
+      {
+        titre: "Hosting",
+        paragraphes: [
+          "Information pending confirmation before final launch.",
+        ],
+      },
+      {
+        titre: "Intellectual property",
+        paragraphes: [
+          "All elements of this site (text, images, logo, visual identity) are the property of Alfred Winner Services, unless otherwise stated, and may not be reproduced without prior authorisation.",
+        ],
+      },
+    ],
+  },
+  confidentialite: {
+    titre: "Privacy policy",
+    sections: [
+      {
+        titre: "Data collected",
+        paragraphes: [
+          "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
+          "The contact form does not send any data to a server: it opens your own email app with a pre-filled message, which you may choose to send from your own email address or not.",
+        ],
+      },
+      {
+        titre: "Contact",
+        paragraphes: [
+          "For any question about this policy, you can write to krodi2001@gmail.com.",
+        ],
+      },
+    ],
+  },
 };
 
 const dictionaries = { fr, en } as const;
@@ -290,6 +731,17 @@ export type HeroSlide = HeroDictionary["slides"][number];
 export type ApprocheDictionary = Dictionary["approche"];
 export type MethodeDictionary = Dictionary["methode"];
 export type MethodeEtape = MethodeDictionary["etapes"][number];
+export type AproposDictionary = Dictionary["apropos"];
+export type ExpertisesDictionary = Dictionary["expertises"];
+export type ExpertisePole = ExpertisesDictionary["poles"][number];
+export type ProjetsDictionary = Dictionary["projets"];
+export type Projet = ProjetsDictionary["liste"][number];
+export type VisionDictionary = Dictionary["vision"];
+export type FondateurDictionary = Dictionary["fondateur"];
+export type CtaFinalDictionary = Dictionary["ctaFinal"];
+export type ContactDictionary = Dictionary["contact"];
+export type FooterDictionary = Dictionary["footer"];
+export type LegalDictionary = Dictionary["mentionsLegales"];
 
 export const hasLocale = (value: string): value is Locale =>
   (locales as readonly string[]).includes(value);
