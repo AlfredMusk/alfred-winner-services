@@ -328,7 +328,7 @@ export default function Navbar({ locale, dict }: Props) {
               </Link>
             </li>
             <li>
-              <span className="block px-1 pb-1 pt-4 text-xs font-semibold uppercase tracking-wider text-aws-ink/50">
+              <span className="block px-1 pb-1 pt-4 text-xs font-semibold uppercase tracking-wider text-aws-ink/70">
                 {dict.nav.services}
               </span>
               <ul className="flex flex-col border-l border-aws-line pl-3">
@@ -404,7 +404,7 @@ function LangSwitch({ locale, dict }: { locale: Locale; dict: NavbarDictionary }
 
   const actif = "font-semibold text-aws-blue-text";
   const inactif =
-    "font-medium text-aws-ink/60 transition-colors duration-200 hover:text-aws-blue-text " +
+    "font-medium text-aws-ink/70 transition-colors duration-200 hover:text-aws-blue-text " +
     `focus-visible:text-aws-blue-text ${focusRing} motion-reduce:transition-none`;
 
   return (

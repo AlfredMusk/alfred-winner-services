@@ -2281,3 +2281,238 @@ PENDING ALFRED (inchange)
   - sort des 5 .jpg a la racine du depot (jamais commites)
 
 PAS DE COMMIT. En attente de la revue visuelle d'Alfred.
+
+
+================================================================================
+CORRECTION PREMIUM GLOBALE — ACIM AUDIT, CACHE BUG, WHATSAPP, STATUTS PROJETS
+================================================================================
+
+DEMANDE
+  Alfred a signale que les deux images rejetees (reunion d'equipe pour
+  Qui sommes-nous, personne non-africaine pour Software IA) etaient
+  TOUJOURS visibles. Plus : palette trop blanche, Vision plate,
+  Projets a enrichir avec statuts explicites, WhatsApp flottant, footer
+  premium, comparaison avec ACIM.
+
+ACIM AUDITE — analyse structurelle (texte, pas pixel-perfect : les
+  scripts/images du site sont bloques par le navigateur d'auto — get_page_text
+  a suffi). Enseignements retenus, jamais copies : alternance de surface
+  par bloc, liste de "capacites" sous chaque carte (deja fait cote AWS),
+  produits nommes avec un statut clair (transpose aux nouveaux concepts).
+
+ENQUETE SUR LES DEUX IMAGES — LE VRAI BUG TROUVE
+  1. Lecture directe des fichiers sur disque : les deux images etaient
+     DEJA les bonnes (bouteilles industrielles, mains sur clavier).
+  2. Requete serveur fraiche (cache:no-store) vers le fichier ET vers
+     /_next/image : toujours les bons octets, x-nextjs-cache: MISS.
+  3. Le <img> rendu dans la page, lui, peignait l'ANCIENNE image —
+     meme apres un changement de parametre d'URL cote client.
+  4. Preuve definitive : remplacer le src par un blob genere depuis un
+     fetch non-cache a fait apparaitre la bonne image INSTANTANEMENT.
+  -> Un cache HTTP retenait une reponse perimee sur le CHEMIN de fichier
+     exact, independamment du contenu reel. Les deux images ont ete
+     remplacees plusieurs fois SANS jamais changer de nom de fichier :
+     un navigateur qui a visite le site tot dans le projet (le notre
+     pendant les tests, tres probablement aussi celui d'Alfred) a garde
+     en cache la toute premiere version indefiniment.
+  CORRECTION : renommage (pas remplacement de contenu, deja bon) —
+    qui-sommes-nous.jpg -> qui-sommes-nous-v3.jpg
+    software-ia.jpg -> software-ia-v3.jpg
+  Un nom de fichier inedit ne peut pas etre servi depuis un vieux cache :
+  verifie dans un ONGLET NEUF, sans aucune manipulation, les deux bonnes
+  images s'affichent desormais par defaut. Documente dans ASSETS_SOURCES.md.
+
+PALETTE — MESURE AVANT CHANGEMENT
+  Calcul WCAG : aws-surface (#fdfcfa) n'est qu'a 2-5 unites RGB du blanc
+  pur — invisible a l'oeil. C'est la cause reelle du ressenti "trop
+  blanc", pas un manque de tokens. Le token n'a pas ete touche partout
+  (utilise ailleurs avec un texte bleu deja a la limite AA) mais :
+  - CtaFinal : aws-surface -> aws-sand (aucun texte en bleu-lien dans
+    cette section, verifie avant le changement : titre en aws-hero,
+    sous-titre en ink/70 a 4.94 de contraste sur sable, AA passe).
+  - Fondateur : le slot media neutre passe egalement au sable (aucun
+    texte dessus, zero risque).
+  - Expertises : les trois fonds d'image passent de gris neutre uniforme
+    a trois teintes distinctes (navy tres discret / sable / bleu tres
+    discret), purement decoratives, pour que Investir/Construire/Innover
+    aient chacun leur atmosphere sans nouvelle couleur.
+
+VISION — accent chaud discret
+  Second halo radial, sable a 4% d'opacite, sous le titre — l'UNIQUE
+  accent chaud de la section. Eyebrow encadre de deux tirets fins.
+
+PROJETS & SOLUTIONS EN DEVELOPPEMENT
+  Les trois projets reels (Baby Tourism, Alfred Fitness, Alfred AI
+  Trader) correspondaient deja exactement au cahier des charges.
+  Nouveaute : les trois concepts ont maintenant un STATUT DIFFERENCIE
+  (plus un "Concept" repete trois fois) :
+    Tableau de bord multi-actifs      -> En developpement
+    Suivi de projets immobiliers      -> En structuration
+    Assistant IA metier               -> En developpement
+  Chaque carte affiche aussi son secteur (Finance & Technologie, etc.).
+  Hover ajoute sur les lignes de projets ET les cartes concepts : fond
+  qui se teinte, numero qui s'accentue, titre et fleche qui glissent —
+  le meme langage que les boutons, applique a une liste.
+
+WHATSAPP FLOTTANT
+  Nouveau composant WhatsappFlottant.tsx, rendu dans le layout (donc sur
+  TOUTES les pages, pas juste la home). Icone seule (48px, cible tactile
+  conforme), jamais de texte permanent. Message pre-rempli FR/EN via
+  wa.me, aria-label explicite, focus-visible, rel=noopener. Verifie :
+  n'entre en collision avec aucun lien ni bouton a aucun des 7 breakpoints.
+
+TESTS
+  lint    PASS  29 fichiers analyses (WhatsappFlottant.tsx inclus), 0/0
+  tsc     PASS  0 erreur
+  build   PASS  11 routes
+  console PASS  vide
+  FR/EN   PASS  0 residu francais en EN, statuts et categories traduits
+  responsive PASS 375/430/768/820/1024/1280/1440 — 0 debordement
+
+PAS DE COMMIT. En attente de la revue visuelle d'Alfred.
+
+
+================================================================================
+PASSE "COHERENCE VISUELLE, EDITORIALE ET PRODUCTION" — ACIM AUDIT, IMAGES,
+FUSION PROJETS/SOLUTIONS, FOOTER COMPACT, VISION DIFFERENCIEE, CONTRASTE
+================================================================================
+
+ACIM AUDITE — texte uniquement (assets bloques par le navigateur d'auto),
+  suffisant pour la comparaison structurelle demandee : rythme editorial,
+  cartes avec liste de "technologies"/"capacites", produits nommes avec
+  un statut clair, footer structure. Rien copie — transpose au langage
+  AWS deja en place.
+
+TROIS DOUBLONS D'IMAGES CORRIGES — recherche menee, plusieurs candidats
+  evalues et REJETES avant chaque choix final (voir ASSETS_SOURCES.md
+  pour le detail complet, tres important pour la tracabilite) :
+
+  QUI SOMMES-NOUS — l'image de bouteilles ne correspondait pas au texte
+  ("capital, actifs, technologie, structuration"). Nouvelle photo :
+  echangeur autoroutier moderne a Abidjan (Pexels, Silvere Meya, lieu
+  confirme). Recadree pour EXCLURE une enseigne "HYUNDAI" lisible
+  presente dans le cadrage large d'origine.
+
+  INVESTIR — dupliquait l'image du Hero. Nouvelle photo : mains a la
+  peau foncee consultant des documents/graphiques financiers (Pexels,
+  Tima Miroshnichenko). Recadree pour exclure deux occurrences du logo
+  logiciel tiers "Qlik" visibles dans le cadrage original.
+  Candidats ecartes avant ce choix : plusieurs photos "trader
+  multi-ecrans" credit "AlphaTradeZone" / legende "Cryptocurrency market
+  analysis" — trop pres du cliche crypto explicitement interdit.
+
+  CONSTRUIRE — dupliquait l'image du Hero. Nouvelle photo : immeuble
+  moderne en developpement, grue de chantier, a Abidjan (Pexels, Jean
+  Marc Bonnel, lieu confirme). Recadree pour exclure le logo "BNI"
+  (banque ivoirienne reelle) tres visible au sommet de la tour la plus
+  en vue du cadrage original — disqualifiant (marque tierce reelle,
+  risque de laisser croire a un partenariat inexistant).
+  Candidats ecartes avant ce choix : un ouvrier a Kaduna, Nigeria (tags
+  Pexels "Child Labor/Child Labour" — ecarte par precaution absolue) ;
+  un ouvrier a Kampala, Ouganda (deux enseignes commerciales lisibles en
+  arriere-plan, "MISS SHEE STUDIO" et "CRSC").
+
+  SOFTWARE & IA — reverifiee contre les criteres du present brief :
+  toujours conforme (identite africaine credible, mains + clavier +
+  code, aucun cliche). CONSERVEE, aucun remplacement.
+
+SERVICES/PROJETS — UNE SEULE COMPOSITION, sur demande explicite
+  Le bloc separe "Solutions en developpement" (qui semblait "ajoute
+  apres coup") est SUPPRIME. Les 3 demonstrateurs reels et les 3
+  solutions en developpement vivent desormais dans UNE MEME liste
+  numerotee (01-06), catalogue editorial : numero, titre, secteur,
+  description, statut, fleche. Le statut de chaque ligne (factuel pour
+  les 3 premieres, "En developpement"/"En structuration" pour les 3
+  suivantes) est l'UNIQUE mecanisme de distinction — jamais confondu,
+  jamais silencieux.
+
+  Chaque pole d'Expertises porte desormais un encart discret "SOLUTION
+  ASSOCIEE" (pictogramme + nom + statut, PAS une deuxieme carte) qui
+  reprend mot pour mot l'entree correspondante de Projets & Realisations
+  — une seule source de verite editoriale.
+
+FOOTER — COMPACTE, sur demande explicite
+  Colonne "Navigation" (Accueil/A propos/Nos services/Projets) et
+  colonne "Nos univers" SUPPRIMEES — deja assurees par la Navbar. Trois
+  zones seulement : Marque / Contact (adresse, telephone, email,
+  WhatsApp) / Reseaux+Legal. Bandeau du bas en une seule colonne alignee
+  a gauche (pas de justify-between) — raison mesuree : a justify-between,
+  le copyright finissait pousse jusque sous le bouton WhatsApp flottant
+  a certaines largeurs desktop (verifie a l'ecran, corrige).
+
+  "emplacement AWS a confirmer" et le faux lien Google Maps SUPPRIMES
+  du Footer ET de Contact.tsx (dictionnaire nettoye des deux langues) :
+  l'adresse reste un texte simple tant qu'aucune fiche Google Business
+  officielle n'est confirmee — plus aucune mention "a confirmer" sur une
+  page publique.
+
+BUG REEL TROUVE ET CORRIGE — chevauchement WhatsApp/Footer
+  Le bouton WhatsApp (position fixed, coin inferieur droit) occupe une
+  bande verticale FIXE au bas de l'ECRAN, quelle que soit la position de
+  defilement : la derniere ligne du Footer (copyright) se retrouvait
+  cachee dessous en bas de page, sur TOUTES les largeurs, jusqu'a ce que
+  le Footer recoive assez de padding-bottom pour que cette ligne puisse
+  defiler au-dessus de cette bande. Verifie : gap vertical mesure a 28px
+  minimum apres correction, sur les 7 largeurs testees, aucun
+  chevauchement.
+
+VISION — personnalite propre, distincte du Hero
+  Bug reel trouve : Vision utilisait EXACTEMENT le meme degrade que le
+  Hero (bg-linear-to-b from-aws-hero-haut to-aws-hero-bas), verifie dans
+  Hero.tsx — "encore le meme rectangle bleu". Corrige : aplat aws-navy
+  (pas de degrade), accent FROID azure (aws-blue-text) au lieu du sable
+  chaud introduit dans une passe precedente (le sable reste l'unique
+  accent chaud, dans CtaFinal uniquement — les deux accents de la page
+  ne se marchent plus dessus), texture quadrillee a 2.5% d'opacite,
+  filet azure en pied de section.
+
+CTA — repetition auditee
+  "Parlons de votre projet" apparaissait 5 fois sur une seule page
+  (Navbar + 3x Expertises + CTA final). Le CTA des poles Expertises
+  devient "Discuter de ce service" — Navbar et CTA final gardent la
+  phrase forte, les poles portent desormais une action plus legere et
+  distincte.
+
+CONTRASTE — MESURE, pas suppose (WCAG 2.2 AA)
+  Calcul systematique de tous les textes gris utilises sur le site.
+  DEUX VRAIS ECHECS AA TROUVES ET CORRIGES :
+    - text-aws-ink/50 -> 3.02 (echec, seuil 4.5) : statut de chaque
+      projet dans Projets & Realisations — precisement le texte que ce
+      brief demande de garder "immediatement lisible".
+    - text-aws-ink/60 -> 4.00 (echec) : l'avertissement reglementaire
+      d'Investir ("ne constitue ni un conseil... ni une gestion de
+      portefeuille..."), les capacites Software & IA, le libelle et le
+      statut de "Solution associee", les items du menu mobile.
+  Les deux uniformises vers text-aws-ink/70 (5.49, AA confirme) partout
+  ou ils apparaissaient, y compris dans la Navbar (verrouillee) : une
+  correction de contraste ponctuelle, pas une reconstruction, jugee
+  necessaire a la coherence du design system.
+
+SEO — deja verrouille correctement, aucune modification necessaire
+  isIndexable exige SIMULTANEMENT une URL de site configuree, NODE_ENV
+  production, un flag de deploiement dedie ET un flag d'indexation
+  explicite — verifie dans lib/seo.ts. robots.txt et sitemap.xml
+  respectent deja ce meme verrou. Rien a corriger.
+
+AUDIT PLACEHOLDERS PUBLICS — recherche systematique ("a confirmer",
+  "bientot", "lorem", href="#", TODO/FIXME) sur tout le code source :
+  un seul residu trouve (le texte Maps du Footer), deja corrige
+  ci-dessus. Le texte "information en attente de confirmation" des
+  Mentions legales (hebergeur) est CONSERVE : ce n'est pas un
+  placeholder paresseux mais une divulgation legale honnete, conforme
+  a la regle du projet ("information non confirmee -> le dire
+  explicitement plutot que l'inventer").
+
+TESTS
+  lint    PASS  29 fichiers analyses, 0 erreur, 0 avertissement
+  tsc     PASS  0 erreur
+  build   PASS  11 routes (FR/EN x accueil/mentions-legales/
+                confidentialite + robots + sitemap)
+  console PASS  vide, FR et EN
+  responsive PASS 375/430/768/820/1024/1280/1440 — 0 debordement,
+                0 chevauchement WhatsApp/Footer, 1 seul H1, 6 projets
+  menu mobile PASS  ouverture/fermeture verifiees, libelles lisibles
+  pages legales PASS  /mentions-legales et /confidentialite, FR, 0
+                debordement
+
+PAS DE COMMIT. En attente de la revue visuelle complete d'Alfred.

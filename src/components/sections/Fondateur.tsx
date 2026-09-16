@@ -24,7 +24,7 @@ export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
                 les autres slots en attente (Projets) : un degrade sobre,
                 aucune forme humaine suggeree. */}
             <div className="desk:w-[32%] desk:shrink-0">
-              <div className="aspect-[3/4] max-w-[20rem] rounded-2xl border border-aws-line bg-aws-surface mx-auto desk:mx-0" />
+              <div className="aspect-[3/4] max-w-[20rem] rounded-2xl border border-aws-line bg-aws-sand mx-auto desk:mx-0" />
             </div>
 
             <div className="desk:flex-1">

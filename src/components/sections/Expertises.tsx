@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ExpertisesDictionary, ExpertisePole } from "@/i18n/dictionaries";
 import { boutonSecondaireClair, fleche } from "@/components/ui/boutons";
+import { IconePortefeuille, IconeStructure, IconeAutomatisation } from "@/components/ui/icones";
 
 /* V3 — raffinement, pas de reconstruction (la direction alternance
    texte/image + CTA est conservee telle quelle sur demande explicite).
@@ -27,17 +28,37 @@ const ACCENTS: Record<string, string> = {
   "03": "border-l-aws-blue-text",
 };
 
-/* Fond du cadre-image derriere l'object-cover, par pole. CONSTRUIRE recoit
-   le sable (aws-sand, usage decoratif uniquement — voir globals.css) :
-   c'est la seule place ou ce ton "immobilier/mineral" doit se sentir,
-   les deux autres restant sur le gris neutre habituel. */
+/* Fond du cadre-image derriere l'object-cover, par pole — trois
+   atmospheres distinctes, purement decoratives (aucun texte ne repose
+   dessus, donc aucun risque de contraste) :
+     01 INVESTIR   lavis navy tres discret  -> froid, financier
+     02 CONSTRUIRE aws-sand (deja documente) -> chaud, mineral
+     03 INNOVER    lavis bleu-text discret  -> froid, technologique
+   Les trois restent dans la famille bleue existante + le sable deja
+   approuve : aucune nouvelle couleur introduite. */
 const FOND_IMAGE: Record<string, string> = {
-  "01": "bg-aws-line",
+  "01": "bg-aws-navy/[0.07]",
   "02": "bg-aws-sand",
-  "03": "bg-aws-line",
+  "03": "bg-aws-blue-text/[0.07]",
 };
 
-function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; cta: string }) {
+const ICONES_SOLUTION: Record<string, React.ReactElement> = {
+  portefeuille: IconePortefeuille,
+  structure: IconeStructure,
+  automatisation: IconeAutomatisation,
+};
+
+function Pole({
+  pole,
+  inverse,
+  cta,
+  solutionAssocieeLabel,
+}: {
+  pole: ExpertisePole;
+  inverse: boolean;
+  cta: string;
+  solutionAssocieeLabel: string;
+}) {
   return (
     <li id={pole.hash} className="reveal scroll-mt-24">
       {/* scroll-mt-24 : les liens de la navbar (#bourse-finance, etc.)
@@ -66,7 +87,7 @@ function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; c
               {pole.texte}
             </p>
             {pole.precision && (
-              <p className="mt-3 max-w-[58ch] text-[0.8125rem] leading-[1.6] text-aws-ink/60">
+              <p className="mt-3 max-w-[58ch] text-[0.8125rem] leading-[1.6] text-aws-ink/70">
                 {pole.precision}
               </p>
             )}
@@ -76,10 +97,32 @@ function Pole({ pole, inverse, cta }: { pole: ExpertisePole; inverse: boolean; c
                 commerciale devinee pour Investir/Construire. Ligne
                 editoriale (points medians), pas des pills. */}
             {pole.capacites && (
-              <p className="mt-4 max-w-[58ch] text-[0.8125rem] leading-[1.7] text-aws-ink/60">
+              <p className="mt-4 max-w-[58ch] text-[0.8125rem] leading-[1.7] text-aws-ink/70">
                 {pole.capacites.join(" · ")}
               </p>
             )}
+
+            {/* SOLUTION ASSOCIEE — encart discret, PAS une deuxieme
+                grande carte : la meme information que Projets & Réalisations
+                (une seule source de verite), ici juste rappelee au fil du
+                pole correspondant. Fond aws-surface + filet : se distingue
+                du reste de la carte (blanche) sans devenir un bloc a part
+                entiere. */}
+            <div className="mt-5 flex items-center gap-3 rounded-xl border border-aws-line bg-aws-surface px-4 py-3">
+              <span className="shrink-0 text-aws-blue-text">
+                {ICONES_SOLUTION[pole.solutionAssociee.icone]}
+              </span>
+              <div className="min-w-0">
+                <p className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/70">
+                  {solutionAssocieeLabel}
+                </p>
+                <p className="mt-0.5 text-[0.8125rem] leading-snug text-aws-ink/85">
+                  <span className="font-semibold text-aws-hero">{pole.solutionAssociee.nom}</span>
+                  {" · "}
+                  <span className="text-aws-ink/70">{pole.solutionAssociee.statut}</span>
+                </p>
+              </div>
+            </div>
 
             <a href="#contact" className={`mt-6 ${boutonSecondaireClair}`}>
               {cta}
@@ -128,7 +171,13 @@ export default function Expertises({ dict }: { dict: ExpertisesDictionary }) {
               l'espacement remplace le trait qui les separait en V1. */}
           <ul className="mt-8 flex flex-col gap-6 desk:mt-10 desk:gap-8">
             {dict.poles.map((pole, i) => (
-              <Pole key={pole.num} pole={pole} inverse={i % 2 === 1} cta={dict.ctaPole} />
+              <Pole
+                key={pole.num}
+                pole={pole}
+                inverse={i % 2 === 1}
+                cta={dict.ctaPole}
+                solutionAssocieeLabel={dict.solutionAssocieeLabel}
+              />
             ))}
           </ul>
         </div>

@@ -89,14 +89,6 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
                     <dd className="mt-1 text-[0.9375rem] leading-[1.6] text-aws-ink/85">
                       {dict.adresse}
                     </dd>
-                    <a
-                      href={dict.mapsHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-block text-[0.875rem] font-semibold text-aws-blue-text hover:text-aws-hero"
-                    >
-                      {dict.mapsLabel} →
-                    </a>
                   </div>
                 </div>
                 <div className="flex gap-3.5">
@@ -201,7 +193,7 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
                   {dict.formulaire.cta}
                   {fleche}
                 </button>
-                <p className="mt-3 max-w-[46ch] text-[0.8125rem] leading-[1.5] text-aws-ink/60">
+                <p className="mt-3 max-w-[46ch] text-[0.8125rem] leading-[1.5] text-aws-ink/70">
                   {dict.formulaire.note}
                 </p>
               </div>

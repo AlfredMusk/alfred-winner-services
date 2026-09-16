@@ -60,7 +60,7 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
                   l'image a l'interieur s'agrandit tres legerement. */}
               <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface">
                 <Image
-                  src="/images/apropos/qui-sommes-nous.jpg"
+                  src="/images/apropos/qui-sommes-nous-v4.jpg"
                   alt={dict.imageAlt}
                   fill
                   sizes="(min-width: 1100px) 55vw, 92vw"

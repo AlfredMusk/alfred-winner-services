@@ -162,7 +162,7 @@ const fr = {
       "Alfred Winner Services est née d'une conviction simple : la création de valeur ne repose pas sur un seul levier. Capital, actifs et technologie peuvent se compléter.",
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
-    imageAlt: "Ligne de production automatisée dans une usine",
+    imageAlt: "Vue aérienne d'un échangeur autoroutier moderne en ville",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -175,6 +175,9 @@ const fr = {
   expertises: {
     eyebrow: "NOS EXPERTISES",
     titre: "Ce que nous faisons, concrètement.",
+    // Label court pour l'encart discret de chaque pole — jamais une
+    // grande carte separee, une seule ligne editoriale (voir Expertises.tsx).
+    solutionAssocieeLabel: "Solution associée",
     poles: [
       {
         num: "01",
@@ -190,9 +193,15 @@ const fr = {
         precision:
           "Ces activités ne constituent ni un conseil en investissement réglementé, ni une gestion de portefeuille, ni une promesse de rendement.",
         capacites: null,
-        image: "/images/hero/finance-markets.jpg",
-        imageAlt:
-          "Analyse des marchés financiers depuis un bureau donnant sur Abidjan",
+        image: "/images/expertises/finance-v4.jpg",
+        imageAlt: "Mains analysant des documents et graphiques financiers",
+        // Reprend mot pour mot l'entree correspondante de Projets & Réalisations —
+        // une seule source de verite editoriale, jamais deux formulations.
+        solutionAssociee: {
+          icone: "portefeuille" as const,
+          nom: "Tableau de bord multi-actifs",
+          statut: "En développement",
+        },
       },
       {
         num: "02",
@@ -203,9 +212,13 @@ const fr = {
           "AWS intervient dans l'univers immobilier : identification de terrains et d'opportunités, structuration de projets immobiliers et accompagnement lié à leur développement.",
         precision: null,
         capacites: null,
-        image: "/images/hero/real-estate.jpg",
-        imageAlt:
-          "Ouvriers sur un chantier de construction dans un quartier d'affaires",
+        image: "/images/expertises/immobilier-v4.jpg",
+        imageAlt: "Immeuble moderne en développement dans un quartier urbain",
+        solutionAssociee: {
+          icone: "structure" as const,
+          nom: "Suivi de projets immobiliers",
+          statut: "En structuration",
+        },
       },
       {
         num: "03",
@@ -224,22 +237,40 @@ const fr = {
           "Automatisation",
           "Agents IA",
         ],
-        image: "/images/expertises/software-ia.jpg",
+        image: "/images/expertises/software-ia-v3.jpg",
         imageAlt: "Mains sur un clavier d'ordinateur portable, code affiché à l'écran",
+        solutionAssociee: {
+          icone: "automatisation" as const,
+          nom: "Assistant IA métier",
+          statut: "En développement",
+        },
       },
     ],
-    ctaPole: "Parlons de votre projet",
+    // Distinct du CTA de la Navbar et du CTA final (meme phrase repetee
+    // 5 fois sur une seule page, sinon) : une action plus legere, propre
+    // a chaque pole plutot qu'un bouton copie-colle.
+    ctaPole: "Discuter de ce service",
   },
 
   /* Section 7 — Projets & realisations. Objectif : PROUVER, pas affirmer —
      mais sans capture reelle disponible pour aucun des trois projets, la
      preuve visuelle est reportee. Le statut de chaque projet reste celui
-     explicitement autorise, mot pour mot, rien de plus. */
+     explicitement autorise, mot pour mot, rien de plus.
+
+     UNE SEULE LISTE, sur demande explicite : melanger demonstrateurs
+     reels et solutions en developpement dans UNE composition, plutot
+     qu'un bloc separe qui semblait "ajoute apres coup". La distinction
+     ne repose plus sur deux blocs visuels differents mais sur le champ
+     "statut" de CHAQUE ligne, toujours visible : un vrai demonstrateur
+     porte un statut factuel ("Demonstrateur digital", "Prototype
+     interne — environnement DEMO"), une direction non livree porte
+     "En developpement" ou "En structuration" — jamais confondus, jamais
+     silencieux. */
   projets: {
     eyebrow: "PROJETS & RÉALISATIONS",
     titre: "La méthode, mise à l'épreuve.",
     paragraphe:
-      "Trois projets, à des stades différents, qui appliquent la même méthode : comprendre, structurer, réaliser, faire évoluer.",
+      "Des démonstrateurs, un prototype et des solutions en développement qui traduisent progressivement les trois univers AWS — chacun à un stade différent, chacun avec un statut clair.",
     liste: [
       {
         nom: "Baby Tourism",
@@ -250,7 +281,7 @@ const fr = {
       },
       {
         nom: "Alfred Fitness",
-        categorie: "Fitness",
+        categorie: "Front-End / Fitness",
         statut: "Démonstrateur Front-End",
         texte:
           "Démonstrateur Front-End explorant une expérience web dédiée au fitness.",
@@ -262,39 +293,28 @@ const fr = {
         texte:
           "Prototype technologique interne combinant intelligence artificielle et analyse des marchés financiers, actuellement en environnement de démonstration.",
       },
+      {
+        nom: "Tableau de bord multi-actifs",
+        categorie: "Finance & Technologie",
+        statut: "En développement",
+        texte:
+          "Tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs. Un outil technologique, pas un service de gestion réglementée ni de conseil financier.",
+      },
+      {
+        nom: "Suivi de projets immobiliers",
+        categorie: "Immobilier & Technologie",
+        statut: "En structuration",
+        texte:
+          "Outil pour structurer et suivre opportunités, documents et étapes d'un projet immobilier.",
+      },
+      {
+        nom: "Assistant IA métier",
+        categorie: "Software & IA",
+        statut: "En développement",
+        texte:
+          "Agent d'automatisation pensé pour accompagner la recherche d'information et les tâches métier.",
+      },
     ],
-    /* SOLUTIONS EN DEVELOPPEMENT — distinctes des projets ci-dessus.
-       Ce sont des DIRECTIONS, pas des livraisons : le statut "Concept"
-       est repete sur chaque item pour qu'aucune ambiguite ne soit
-       possible avec les demonstrateurs reels de la liste "liste". */
-    concepts: {
-      eyebrow: "SOLUTIONS EN DÉVELOPPEMENT",
-      intro:
-        "Des directions à l'étude pour chacun des trois univers — pas encore livrées.",
-      items: [
-        {
-          icone: "portefeuille",
-          titre: "Tableau de bord multi-actifs",
-          texte:
-            "Un tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs.",
-          statut: "Concept",
-        },
-        {
-          icone: "structure",
-          titre: "Suivi de projets immobiliers",
-          texte:
-            "Un outil pour structurer et suivre opportunités, documents et étapes d'un projet immobilier.",
-          statut: "Concept",
-        },
-        {
-          icone: "automatisation",
-          titre: "Assistant IA métier",
-          texte:
-            "Un agent d'automatisation pensé pour accompagner la recherche d'information et les tâches métier.",
-          statut: "Concept",
-        },
-      ],
-    },
   },
 
   /* Section 8 — Vision. Bande pleine largeur au bleu du Hero (aucune
@@ -343,11 +363,6 @@ const fr = {
     emailLabel: "Email",
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
-    // Recherche textuelle Google Maps, pas une fiche officielle verifiee :
-    // le cahier des charges interdit de pretendre qu'un marqueur correspond
-    // a une fiche Google Business validee tant qu'elle n'est pas confirmee.
-    mapsHref: "https://www.google.com/maps/search/?api=1&query=Cocody%20Angr%C3%A9%20%E2%80%94%20Nouveau%20CHU%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire",
-    mapsLabel: "Voir le quartier sur Google Maps (emplacement AWS à confirmer)",
     formulaire: {
       nom: "Nom et prénom",
       entreprise: "Entreprise (facultatif)",
@@ -365,15 +380,22 @@ const fr = {
     },
   },
 
+  /* Bouton WhatsApp flottant — meme numero que contact.telephoneHref,
+     au format wa.me (indicatif + numero sans le 0 initial, requis par
+     WhatsApp pour resoudre le lien ; a confirmer par Alfred si son
+     compte WhatsApp Business attend un autre format). */
+  whatsapp: {
+    ariaLabel: "Contacter Alfred Winner Services sur WhatsApp",
+    href: "https://wa.me/225748191100",
+    message:
+      "Bonjour Alfred Winner Services, je souhaite discuter d'un projet.",
+  },
+
   /* Footer — reseaux sociaux prets a l'emploi mais VIDES : aucune URL
      officielle confirmee. Le composant n'affiche un reseau que si son
      href est non vide ; ne jamais mettre "#" a la place d'un lien reel. */
   footer: {
-    navigationNav: "Navigation",
-    servicesLabel: "Nos services",
-    universNav: "Nos univers",
-    contactsNav: "Nos contacts",
-    liensLegauxNav: "Informations légales",
+    contactsNav: "Contact",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
     suivezNous: "Suivez-nous",
@@ -575,12 +597,13 @@ const en: Dictionary = {
       "Alfred Winner Services was founded on a simple conviction: value creation does not rest on a single lever. Capital, assets and technology can work together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
-    imageAlt: "Automated production line in a factory",
+    imageAlt: "Aerial view of a modern highway interchange in a city",
   },
 
   expertises: {
     eyebrow: "OUR EXPERTISE",
     titre: "What we actually do.",
+    solutionAssocieeLabel: "Related solution",
     poles: [
       {
         num: "01",
@@ -592,9 +615,13 @@ const en: Dictionary = {
         precision:
           "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
         capacites: null,
-        image: "/images/hero/finance-markets.jpg",
-        imageAlt:
-          "Financial markets analysis from an office overlooking Abidjan",
+        image: "/images/expertises/finance-v4.jpg",
+        imageAlt: "Hands reviewing financial documents and charts",
+        solutionAssociee: {
+          icone: "portefeuille" as const,
+          nom: "Multi-asset dashboard",
+          statut: "In development",
+        },
       },
       {
         num: "02",
@@ -605,9 +632,13 @@ const en: Dictionary = {
           "AWS operates in real estate: identifying land and opportunities, structuring property projects and supporting their development.",
         precision: null,
         capacites: null,
-        image: "/images/hero/real-estate.jpg",
-        imageAlt:
-          "Workers on a construction site in a business district",
+        image: "/images/expertises/immobilier-v4.jpg",
+        imageAlt: "Modern building under development in an urban district",
+        solutionAssociee: {
+          icone: "structure" as const,
+          nom: "Real estate project tracker",
+          statut: "In structuring",
+        },
       },
       {
         num: "03",
@@ -624,18 +655,23 @@ const en: Dictionary = {
           "Automation",
           "AI agents",
         ],
-        image: "/images/expertises/software-ia.jpg",
+        image: "/images/expertises/software-ia-v3.jpg",
         imageAlt: "Hands on a laptop keyboard, code displayed on screen",
+        solutionAssociee: {
+          icone: "automatisation" as const,
+          nom: "Business AI assistant",
+          statut: "In development",
+        },
       },
     ],
-    ctaPole: "Let's discuss your project",
+    ctaPole: "Discuss this service",
   },
 
   projets: {
-    eyebrow: "PROJECTS",
+    eyebrow: "PROJECTS & DELIVERABLES",
     titre: "The method, put to the test.",
     paragraphe:
-      "Three projects, at different stages, applying the same method: understand, structure, deliver, evolve.",
+      "Demonstrators, a prototype and solutions in development that progressively translate the three AWS business areas — each at a different stage, each with a clear status.",
     liste: [
       {
         nom: "Baby Tourism",
@@ -646,7 +682,7 @@ const en: Dictionary = {
       },
       {
         nom: "Alfred Fitness",
-        categorie: "Fitness",
+        categorie: "Front-End / Fitness",
         statut: "Front-End demonstrator",
         texte:
           "A Front-End demonstrator exploring a web experience dedicated to fitness.",
@@ -658,35 +694,28 @@ const en: Dictionary = {
         texte:
           "An internal technology prototype combining artificial intelligence and financial market analysis, currently running in a demonstration environment.",
       },
+      {
+        nom: "Multi-asset dashboard",
+        categorie: "Finance & Technology",
+        statut: "In development",
+        texte:
+          "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio. A technology tool, not a regulated portfolio management or advisory service.",
+      },
+      {
+        nom: "Real estate project tracker",
+        categorie: "Real Estate & Technology",
+        statut: "In structuring",
+        texte:
+          "A tool to structure and track opportunities, documents and stages of a real estate project.",
+      },
+      {
+        nom: "Business AI assistant",
+        categorie: "Software & AI",
+        statut: "In development",
+        texte:
+          "An automation agent designed to support information lookup and business tasks.",
+      },
     ],
-    concepts: {
-      eyebrow: "SOLUTIONS IN DEVELOPMENT",
-      intro:
-        "Directions under exploration for each of the three business areas — not yet delivered.",
-      items: [
-        {
-          icone: "portefeuille",
-          titre: "Multi-asset dashboard",
-          texte:
-            "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio.",
-          statut: "Concept",
-        },
-        {
-          icone: "structure",
-          titre: "Real estate project tracker",
-          texte:
-            "A tool to structure and track opportunities, documents and stages of a real estate project.",
-          statut: "Concept",
-        },
-        {
-          icone: "automatisation",
-          titre: "Business AI assistant",
-          texte:
-            "An automation agent designed to support information lookup and business tasks.",
-          statut: "Concept",
-        },
-      ],
-    },
   },
 
   vision: {
@@ -723,8 +752,6 @@ const en: Dictionary = {
     emailLabel: "Email",
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
-    mapsHref: "https://www.google.com/maps/search/?api=1&query=Cocody%20Angr%C3%A9%20%E2%80%94%20Nouveau%20CHU%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire",
-    mapsLabel: "View the area on Google Maps (AWS location to be confirmed)",
     formulaire: {
       nom: "Full name",
       entreprise: "Company (optional)",
@@ -742,12 +769,14 @@ const en: Dictionary = {
     },
   },
 
+  whatsapp: {
+    ariaLabel: "Contact Alfred Winner Services on WhatsApp",
+    href: "https://wa.me/225748191100",
+    message: "Hello Alfred Winner Services, I'd like to discuss a project.",
+  },
+
   footer: {
-    navigationNav: "Navigation",
-    servicesLabel: "Our services",
-    universNav: "Our business areas",
-    contactsNav: "Our contacts",
-    liensLegauxNav: "Legal information",
+    contactsNav: "Contact",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",
     suivezNous: "Follow us",
@@ -822,11 +851,11 @@ export type ExpertisesDictionary = Dictionary["expertises"];
 export type ExpertisePole = ExpertisesDictionary["poles"][number];
 export type ProjetsDictionary = Dictionary["projets"];
 export type Projet = ProjetsDictionary["liste"][number];
-export type Concept = ProjetsDictionary["concepts"]["items"][number];
 export type VisionDictionary = Dictionary["vision"];
 export type FondateurDictionary = Dictionary["fondateur"];
 export type CtaFinalDictionary = Dictionary["ctaFinal"];
 export type ContactDictionary = Dictionary["contact"];
+export type WhatsappDictionary = Dictionary["whatsapp"];
 export type FooterDictionary = Dictionary["footer"];
 export type LegalDictionary = Dictionary["mentionsLegales"];
 

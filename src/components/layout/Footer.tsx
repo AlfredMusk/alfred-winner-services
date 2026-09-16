@@ -2,27 +2,28 @@ import type {
   Locale,
   FooterDictionary,
   NavbarDictionary,
-  ExpertisesDictionary,
   ContactDictionary,
+  WhatsappDictionary,
 } from "@/i18n/dictionaries";
 import Image from "next/image";
-import { IconeLieu, IconeTelephone, IconeEmail } from "@/components/ui/icones";
+import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/components/ui/icones";
 
 /* Server Component pur : aucune interaction, donc aucune raison d'envoyer
    du JavaScript au client pour un footer.
 
-   V3 — structure editoriale, sur demande explicite : les informations de
-   contact quittent la homepage (plus de gros formulaire dedie) et
-   rejoignent le Footer, dans l'esprit ACIM observe sur leur propre site
-   (identite, informations legales, contacts, reseaux, tout au meme
-   endroit, sans grande section separee). Le bouton "Contact" de la
-   Navbar (verrouillee, non modifiee) pointe deja vers #contact : c'est
-   desormais CETTE colonne qui porte l'ancre.
+   V4 — COMPACT, sur demande explicite : le Footer etait devenu trop
+   grand et repetait une Navigation deja assuree par la Navbar (Accueil,
+   A propos, Nos services, Projets) ainsi qu'un rappel des trois univers
+   deja presents dans son menu deroulant. Un footer n'est pas une
+   deuxieme navigation — c'est une fin de page. Trois zones seulement :
 
-   Quatre colonnes : marque / navigation / univers / contacts — plutot
-   que l'ancien decoupage marque / navigation / univers / liens legaux,
-   les liens legaux redescendent dans le bandeau du bas avec le
-   copyright, pour laisser sa propre colonne aux contacts. */
+     1. MARQUE — logo + signature, rien d'autre.
+     2. CONTACT — adresse, telephone, email, WhatsApp : tout ce qu'un
+        visiteur cherche reellement en bas de page.
+     3. RESEAUX + LEGAL — reseaux reels uniquement, liens utilitaires.
+
+   Bandeau du bas : identite legale compacte + copyright, sur une seule
+   ligne des que la largeur le permet. */
 
 const RESEAUX_ICONES: Record<"linkedin" | "instagram" | "facebook", React.ReactElement> = {
   linkedin: (
@@ -48,14 +49,14 @@ export default function Footer({
   locale,
   dict,
   nav,
-  expertises,
   contact,
+  whatsapp,
 }: {
   locale: Locale;
   dict: FooterDictionary;
   nav: NavbarDictionary;
-  expertises: ExpertisesDictionary;
   contact: ContactDictionary;
+  whatsapp: WhatsappDictionary;
 }) {
   const reseauxActifs = (Object.entries(dict.reseaux) as [keyof typeof RESEAUX_ICONES, string][]).filter(
     ([, href]) => href,
@@ -63,6 +64,7 @@ export default function Footer({
   const lienBase = "text-[0.9375rem] text-white/85 transition-colors hover:text-white";
   const titreColonne = "text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/75";
   const iconeContact = "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white";
+  const whatsappHref = `${whatsapp.href}?text=${encodeURIComponent(whatsapp.message)}`;
 
   return (
     <footer id="contact" className="scroll-mt-24 bg-aws-navy">
@@ -74,11 +76,19 @@ export default function Footer({
         aria-hidden="true"
         className="h-px bg-linear-to-r from-transparent via-aws-blue-text/50 to-transparent"
       />
-      <div className="mx-auto max-w-[1360px] px-4 py-12 sm:px-6 sm:py-14 desk:px-8 desk:py-16">
-        <div className="reveal grid gap-10 desk:grid-cols-[1fr_1fr_1fr_1.1fr] desk:gap-8">
-          {/* MARQUE — les deux fichiers logo sont des PNG a fond blanc
-              opaque (verifie pixel par pixel, pas de canal alpha) : une
-              puce blanche porte le logo intact plutot que de le
+      {/* pb superieur a pt : le bouton WhatsApp flottant (fixed, coin
+          inferieur droit) occupe une bande verticale fixe au bas de
+          l'ECRAN, quelle que soit la position de defilement — la derniere
+          ligne du Footer doit donc disposer d'assez d'espace en dessous
+          d'elle pour qu'on puisse la faire defiler AU-DESSUS de cette
+          bande. Verifie a l'ecran : sans cette marge, le copyright reste
+          coince sous le bouton meme en bas de page, quel que soit
+          l'alignement horizontal du texte. */}
+      <div className="mx-auto max-w-[1360px] px-4 pt-10 pb-24 sm:px-6 sm:pt-12 sm:pb-24 desk:px-8 desk:pt-14 desk:pb-24">
+        <div className="reveal grid gap-9 desk:grid-cols-[1fr_1.2fr_1fr] desk:gap-8">
+          {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
+              blanc opaque (verifie pixel par pixel, pas de canal alpha) :
+              une puce blanche porte le logo intact plutot que de le
               transformer par filtre (un essai brightness-0 invert avait
               produit un rectangle blanc plein — voir travaux realises.md). */}
           <div>
@@ -104,68 +114,16 @@ export default function Footer({
             </p>
           </div>
 
-          {/* NAVIGATION */}
-          <nav aria-label={nav.a11y.mainNav}>
-            <p className={titreColonne}>{dict.navigationNav}</p>
-            <ul className="mt-3 space-y-2.5">
-              <li>
-                <a href={`/${locale}`} className={lienBase}>
-                  {nav.nav.home}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#a-propos`} className={lienBase}>
-                  {nav.nav.about}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#expertises`} className={lienBase}>
-                  {dict.servicesLabel}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}#projets`} className={lienBase}>
-                  {nav.nav.projects}
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          {/* TROIS UNIVERS */}
-          <div>
-            <p className={titreColonne}>{dict.universNav}</p>
-            <ul className="mt-3 space-y-2.5">
-              {expertises.poles.map((pole) => (
-                <li key={pole.hash}>
-                  <a href={`/${locale}#${pole.hash}`} className={lienBase}>
-                    {pole.cle} — {pole.titre}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* NOS CONTACTS — reprend le dictionnaire "contact" existant
-              (Contact.tsx n'est plus rendu sur la homepage, mais son
-              contenu i18n reste la source de verite pour ces valeurs :
-              une seule adresse, un seul numero, un seul email a
-              maintenir). */}
+          {/* ZONE 2 — CONTACT. L'adresse reste un texte simple : tant
+              qu'aucune fiche Google Business officielle n'est confirmee,
+              aucun lien Maps n'est affiche (et surtout aucune mention
+              "a confirmer" sur une page publique). */}
           <div>
             <p className={titreColonne}>{dict.contactsNav}</p>
             <ul className="mt-3 space-y-4">
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeLieu}</span>
-                <div>
-                  <p className="text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
-                  <a
-                    href={contact.mapsHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 inline-block text-[0.8125rem] font-medium text-white/60 hover:text-white"
-                  >
-                    {contact.mapsLabel} →
-                  </a>
-                </div>
+                <p className="pt-1.5 text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
               </li>
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeTelephone}</span>
@@ -179,13 +137,26 @@ export default function Footer({
                   {contact.email}
                 </a>
               </li>
+              <li className="flex gap-3">
+                <span className={iconeContact}>{IconeWhatsapp}</span>
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${lienBase} pt-1.5`}
+                >
+                  WhatsApp
+                </a>
+              </li>
             </ul>
+          </div>
 
-            {/* Reseaux : uniquement s'ils existent reellement. Aucun
-                href="#" ni faux profil — voir travaux realises.md. */}
+          {/* ZONE 3 — RESEAUX + LEGAL. Reseaux : uniquement s'ils
+              existent reellement. Aucun href="#" ni faux profil. */}
+          <div>
             {reseauxActifs.length > 0 && (
               <>
-                <p className={`mt-6 ${titreColonne}`}>{dict.suivezNous}</p>
+                <p className={titreColonne}>{dict.suivezNous}</p>
                 <div className="mt-3 flex gap-3">
                   {reseauxActifs.map(([reseau, href]) => (
                     <a
@@ -202,29 +173,36 @@ export default function Footer({
                 </div>
               </>
             )}
+            <ul className={reseauxActifs.length > 0 ? "mt-6 space-y-2.5" : "space-y-2.5"}>
+              <li>
+                <a href={`/${locale}/mentions-legales`} className={lienBase}>
+                  {dict.mentionsLegales}
+                </a>
+              </li>
+              <li>
+                <a href={`/${locale}/confidentialite`} className={lienBase}>
+                  {dict.confidentialite}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* BANDEAU LEGAL — informations confirmees uniquement. Les liens
-            "Mentions legales" / "Confidentialite" vivent ici (et non plus
-            dans leur propre colonne) : ce sont des liens utilitaires de
-            bas de page, pas une rubrique de navigation a part entiere.
-            Separateur white/15 : le meme "ressenti, pas remarque" que les
-            filets clairs ailleurs sur le site, transpose au fond sombre. */}
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between desk:mt-12">
-          <p className="text-[0.8125rem] leading-[1.6] text-white/70">
+        {/* BANDEAU LEGAL — compact, toujours en colonne (pas de
+            justify-between) : le bouton WhatsApp flottant occupe le coin
+            inferieur droit sur TOUTE la hauteur de la page, copyright
+            inclus. Un bandeau justify-between aurait pousse cette ligne
+            jusque sous le bouton a certaines largeurs — verifie a
+            l'ecran, corrige en gardant les deux lignes alignees a
+            gauche, qui ne rencontrent jamais ce coin. Separateur
+            white/15 : le meme "ressenti, pas remarque" que les filets
+            clairs ailleurs sur le site. */}
+        <div className="mt-9 flex flex-col gap-2 border-t border-white/15 pt-5 text-[0.8125rem] desk:mt-10">
+          <p className="text-white/60">
             {dict.raisonSociale} — {dict.formeJuridique} — {dict.rccm}
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.8125rem]">
-            <a href={`/${locale}/mentions-legales`} className="text-white/60 hover:text-white">
-              {dict.mentionsLegales}
-            </a>
-            <a href={`/${locale}/confidentialite`} className="text-white/60 hover:text-white">
-              {dict.confidentialite}
-            </a>
-          </div>
+          <p className="text-white/50">{dict.copyright}</p>
         </div>
-        <p className="mt-3 text-[0.8125rem] text-white/55">{dict.copyright}</p>
       </div>
     </footer>
   );

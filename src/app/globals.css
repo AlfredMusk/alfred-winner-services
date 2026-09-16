@@ -65,12 +65,16 @@
   /* SAND — un neutre chaud pour l'identite CONSTRUIRE (immobilier), pour
      que les trois univers se distinguent subtilement sans devenir trois
      marques differentes (Investir=navy, Innover=bleu clair, deja en
-     place). USAGE DECORATIF UNIQUEMENT : sur cette teinte, le bleu de
-     texte (aws-blue-text, deja a 4.63 sur aws-surface) retombe sous 4.5
-     des qu'on la rechauffe assez pour qu'elle se distingue vraiment —
-     verifie par calcul avant de choisir cette contrainte plutot que de
-     risquer un texte sous le seuil AA. Ce token n'accueille donc jamais
-     de texte, seulement un fond d'image ou une bordure. */
+     place). Sert aussi de rupture de surface premium (CtaFinal) : le
+     token aws-surface n'est qu'a 2-5 unites RGB du blanc pur (verifie),
+     une alternance invisible a l'oeil — le sable, lui, se voit vraiment.
+
+     UNE SEULE RESTRICTION, VERIFIEE PAR CALCUL : aws-blue-text (le bleu
+     de lien/eyebrow, deja a 4.63 sur aws-surface) retombe a 3.79 sur ce
+     ton, sous le seuil AA (4.5). Ce token n'accueille donc jamais de
+     aws-blue-text — mais aws-hero (8.16), aws-navy (12.17) et aws-ink a
+     70%+ d'opacite (4.94 a 70%, davantage au-dessus) y restent tous
+     largement conformes. Verifie avant chaque nouvel usage, pas suppose. */
   --color-aws-sand: #eee5d4;
 }
 

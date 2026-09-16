@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import WhatsappFlottant from "@/components/layout/WhatsappFlottant";
 import { getDictionary, hasLocale, locales } from "@/i18n/dictionaries";
 import { isIndexable, organizationSchema, seoCopy } from "@/lib/seo";
 
@@ -65,9 +66,10 @@ export default async function LocaleLayout({
           locale={locale}
           dict={dict.footer}
           nav={dict.navbar}
-          expertises={dict.expertises}
           contact={dict.contact}
+          whatsapp={dict.whatsapp}
         />
+        <WhatsappFlottant dict={dict.whatsapp} />
       </body>
     </html>
   );

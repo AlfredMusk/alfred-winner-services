@@ -1,29 +1,35 @@
-import type { ProjetsDictionary, Projet, Concept } from "@/i18n/dictionaries";
+import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
 import { fleche } from "@/components/ui/boutons";
-import { IconePortefeuille, IconeStructure, IconeAutomatisation } from "@/components/ui/icones";
 
-/* V4 — deux blocs desormais clairement separes, sur demande explicite :
-   AWS ne doit jamais melanger "ce qui existe" et "ce qui est a l'etude".
-   Le meme risque que celui deja documente pour la section Expertises
-   (ne jamais transformer une formulation generale en promesse precise)
-   s'applique ici a l'envers : ne jamais transformer une direction future
-   en realisation. Chaque concept porte donc un badge "Concept" repete,
-   et vit dans un bloc visuellement distinct (fond off-white, grille
-   compacte) de la liste des demonstrateurs reels (fond blanc, lignes
-   numerotees). */
+/* V5 — UNE SEULE LISTE, sur demande explicite : plus de bloc separe
+   "Solutions en developpement" qui semblait ajoute apres coup. Les
+   demonstrateurs reels et les solutions en developpement partagent
+   desormais UNE composition editoriale, dans l'esprit d'un catalogue —
+   numero, titre, secteur, description, statut, fleche.
 
+   La distinction entre "livre" et "pas encore livre" ne repose plus sur
+   deux styles de blocs differents mais sur le champ STATUT de chaque
+   ligne, toujours affiche au meme endroit avec la meme importance :
+   aucune ligne n'est presentee comme plus ou moins "vraie" qu'une
+   autre visuellement, mais aucune ne peut non plus etre confondue —
+   lire un statut suffit a savoir ou en est chaque projet. */
 function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: string; dernier: boolean }) {
   return (
-    <li className={"reveal flex gap-5 py-7 sm:gap-8" + (dernier ? "" : " border-b border-aws-line")}>
+    <li
+      className={
+        "reveal group -mx-4 flex gap-5 rounded-xl px-4 py-7 transition-colors duration-300 hover:bg-aws-surface sm:gap-8" +
+        (dernier ? "" : " border-b border-aws-line")
+      }
+    >
       <span
         aria-hidden="true"
-        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 sm:w-14 sm:text-[0.9375rem]"
+        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 transition-colors duration-300 group-hover:text-aws-blue-text sm:w-14 sm:text-[0.9375rem]"
       >
         {numero}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero desk:text-[1.1875rem]">
+          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 desk:text-[1.1875rem]">
             {projet.nom}
           </h3>
           <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-aws-blue-text">
@@ -33,32 +39,16 @@ function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: stri
         <p className="mt-2 max-w-[62ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
           {projet.texte}
         </p>
-        <p className="mt-3 flex items-center gap-2 text-[0.8125rem] font-medium text-aws-ink/50">
+        <p className="mt-3 flex items-center gap-2 text-[0.8125rem] font-medium text-aws-ink/70">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-aws-blue-text/60" />
           {projet.statut}
         </p>
       </div>
-      <span aria-hidden="true" className="hidden shrink-0 self-center text-aws-ink/25 sm:block">
+      <span
+        aria-hidden="true"
+        className="hidden shrink-0 self-center text-aws-ink/25 transition-all duration-300 group-hover:translate-x-1 group-hover:text-aws-blue-text motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 sm:block"
+      >
         {fleche}
-      </span>
-    </li>
-  );
-}
-
-const ICONES_CONCEPT: Record<string, React.ReactElement> = {
-  portefeuille: IconePortefeuille,
-  structure: IconeStructure,
-  automatisation: IconeAutomatisation,
-};
-
-function CarteConcept({ concept }: { concept: Concept }) {
-  return (
-    <li className="reveal rounded-xl border border-aws-line bg-white p-6">
-      <div className="text-aws-blue-text">{ICONES_CONCEPT[concept.icone]}</div>
-      <h4 className="mt-3 text-[1rem] font-bold leading-snug text-aws-hero">{concept.titre}</h4>
-      <p className="mt-2 text-[0.875rem] leading-[1.6] text-aws-ink/75">{concept.texte}</p>
-      <span className="mt-3 inline-flex items-center rounded-full border border-aws-blue-text/30 px-2.5 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-aws-blue-text">
-        {concept.statut}
       </span>
     </li>
   );
@@ -92,24 +82,6 @@ export default function Projets({ dict }: { dict: ProjetsDictionary }) {
               />
             ))}
           </ol>
-
-          {/* BLOC 2 — SOLUTIONS EN DEVELOPPEMENT. Rupture de surface
-              deliberee (off-white, coins arrondis, grille compacte) :
-              le visiteur doit sentir, avant meme de lire, qu'il change
-              de registre — de "ce qui existe" a "ce qui est a l'etude". */}
-          <div className="reveal mt-14 rounded-2xl bg-aws-surface p-6 sm:p-8 desk:mt-16 desk:p-10">
-            <p className="text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-aws-ink/50">
-              {dict.concepts.eyebrow}
-            </p>
-            <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-[1.6] text-aws-ink/70">
-              {dict.concepts.intro}
-            </p>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2 desk:grid-cols-3">
-              {dict.concepts.items.map((concept) => (
-                <CarteConcept key={concept.titre} concept={concept} />
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </section>
