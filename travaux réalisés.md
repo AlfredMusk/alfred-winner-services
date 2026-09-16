@@ -1095,3 +1095,587 @@ QA
   1280 126/126 media 435 34.0%  h1 52  ok  2 colonnes, vide 64
   1440 184/184 media 480 33.3%  h1 52  ok  2 colonnes, vide 64
   0 overflow, symetrique partout, navbar 81/65 inchangee
+
+---
+
+## [SECTION 2] NOTRE APPROCHE — 2026-09-15 — ATTENTE VALIDATION
+
+SECTION 2 creee
+- src/components/sections/Approach.tsx (SERVER component, 0 JS)
+- eyebrow NOTRE APPROCHE + h2 + paragraphe
+- 3 piliers 01 INVESTIR / 02 CONSTRUIRE / 03 INNOVER
+- fond BLANC, pas de photo, pas de carte
+- FR + EN
+- responsive 375 -> 1440
+- lint PASS / tsc PASS / build PASS
+- PAS DE COMMIT
+
+DECISIONS DESIGN
+- PAS de cartes : filet superieur par colonne (procede de presse imprimee),
+  aucun fond, aucune ombre, aucun gros arrondi
+- PAS d'animation au scroll : la section suit immediatement le Hero, elle
+  est deja visible au chargement sur la plupart des ecrans. L'animation se
+  declencherait a vide. Consequence : composant serveur pur, 0 JS.
+- PAS d'image : le Hero en porte deja une forte
+- en-tete sur 2 colonnes a partir de 1100 : titre 816 / paragraphe 400,
+  alignes par le BAS (items-end) — assise nette plutot qu'un alignement
+  haut toujours bancal quand les hauteurs different
+- <ul>/<li> et non des <div> : un lecteur d'ecran annonce "liste de 3"
+
+FOND BLANC — DECISION MESUREE
+  J'avais d'abord pose un blanc casse #f7f9fc (token aws-shell).
+  Mesure : le bleu d'accent y tombait a 4.50 de contraste, le seuil EXACT,
+  pour des libelles de 11px. Sur blanc pur il retrouve 4.75, valeur deja
+  validee ailleurs. Fond passe en blanc, token aws-shell retire.
+  La respiration apres le bloc bleu vient de l'espace (96px de padding),
+  pas d'une seconde teinte.
+
+NETTOYAGE
+  --color-aws-deep (#0a3d6e) supprime : plus aucun usage depuis que le Hero
+  utilise --color-aws-hero. Evite deux bleus quasi identiques dans le systeme.
+
+CONTRASTES (sur blanc)
+  eyebrow 11px      4.75
+  h2 40px          10.21
+  paragraphe 16px   7.59
+  label 11px        4.75
+  titre pilier 22px 10.21
+  texte 15px        7.59
+
+GEOMETRIE 1440
+  container 1360 partage avec navbar et Hero, aligne a 72
+  padding section 96 haut / 96 bas
+  en-tete 816 + gap 80 + 400
+  piliers 400 / 400 / 400, gap 48, marge haute 80
+  transition Hero -> section : 0px
+
+QA
+  375   16/16  piliers empiles  h2 28px  ok
+  430   16/16  piliers empiles  h2 28px  ok
+  768   24/24  piliers empiles  h2 34px  ok
+  820   24/24  piliers empiles  h2 34px  ok
+  1024  24/24  piliers empiles  h2 34px  ok
+  1280  32/32  3 colonnes       h2 40px  ok
+  1440  72/72  3 colonnes       h2 40px  ok
+  0 overflow partout, aligne sur la navbar a chaque largeur
+
+SEMANTIQUE
+  h1 = 1 (Hero), h2 = 1 (cette section), h3 = 3 (piliers)
+
+NAVBAR ET HERO : diff VIDE, aucun des deux n'a ete touche.
+
+CONTENU : aucune invention. Ni client, ni chiffre, ni certification, ni
+promesse de rendement. Micro-copy conservee telle que fournie.
+
+--------------------------------------------------------------------------
+SECTION 2 — CORRECTION VISUELLE (PASSE 02)
+--------------------------------------------------------------------------
+
+LE PROBLEME, DIT SIMPLEMENT
+  Version 01 : trop d'air, trop de texte, trois colonnes qui se ressemblent.
+  L'oeil lit trois paragraphes, pas trois piliers. Rien n'accroche.
+
+CE QUE J'AI CHANGE
+
+  1. FLEXBOX A LA PLACE DE GRID
+     avant : grid md:grid-cols-3 gap-12
+     apres : flex flex-col desk:flex-row, chaque <li> en flex-1
+     flex-1 = flex-grow:1 + flex-shrink:1 + flex-basis:0%
+     basis 0 veut dire : on oublie la largeur du contenu, on partage
+     l'espace en parts egales. Les trois piliers font donc exactement
+     la meme largeur meme si un texte est plus long. Mesure : hauteurs
+     et largeurs egales, verifie true.
+
+  2. GAP ZERO, BORDURES A LA PLACE
+     Le gap coupait le filet haut en trois morceaux. Gap retire, espace
+     rendu par du padding interne (pl-10 / pr-10). Les trois border-t se
+     touchent : UNE seule ligne continue sur toute la bande. Verifie true.
+     Separation verticale = border-l sur les piliers 02 et 03 uniquement.
+     Resultat : une bande, pas trois cartes SaaS.
+
+  3. PICTOGRAMMES
+     Trois SVG inline, dessines a la main, traits seulement.
+     stroke 1.6, 28x28, currentColor, aria-hidden.
+     Motifs pris DANS l'embleme AWS lui-meme :
+       01 courbe qui monte + fleche   -> marches
+       02 deux immeubles + fenetres   -> immobilier
+       03 puce avec broches           -> IA / logiciel
+     Zero dependance ajoutee. Zero emoji. Zero image generee.
+     Pourquoi inline et pas une librairie : 3 icones = 1.2 Ko de JSX
+     contre ~50 Ko de paquet pour trois formes qu'on dessine mieux nous-memes.
+
+  4. ACCENT AU-DESSUS DE CHAQUE PILIER
+     Barre 40x2px, rgb(0,118,200), rounded-full, en position absolue sur
+     le filet. Elle demarre exactement ou demarre le texte du pilier
+     (left-0 pour le premier, desk:left-10 pour les suivants, la meme
+     valeur que leur pl-10). Aligne sur le contenu : verifie true x3.
+
+  5. INTRO COMPACTEE EN UN SEUL BLOC
+     avant : deux colonnes (titre a gauche, paragraphe a droite), gap 80.
+     apres : eyebrow -> h2 -> paragraphe, empiles, mt-4 entre chaque.
+     Un seul groupe editorial que l'oeil avale d'un coup.
+
+  6. DENSITE
+     padding  96/96  ->  py-12 sm:py-14 desk:py-16  (48 / 56 / 64)
+     h2 40px  ->  36px a 1280
+     marge avant les piliers 80 -> 40 (mt-10 / desk:mt-12)
+     Compact, pas serre : les respirations restent, elles sont juste
+     proportionnees au contenu.
+
+HAUTEUR DE SECTION (la mesure qui compte)
+  1280   667 version editoriale
+         710 apres ajout des pictogrammes
+         644 apres reglage de densite      -> -23 px sous l'origine
+  1440   592
+
+QA REELLE (viewport redimensionne pour de vrai, pas simule)
+  vp     sens     hauteur  largeur texte  lignes  accents  overflow
+  375    colonne   1169     343            3       ok       non
+  430    colonne   1062     398            3       ok       non
+  768    colonne    963     536            2       ok       non
+  820    colonne    963     536            2       ok       non
+  1024   colonne    963     536            2       ok       non
+  1280   ligne      644     ~330           3       ok       non
+  1440   ligne      592     365            3       ok       non
+
+DEFAUT TROUVE ET CORRIGE EN COURS DE ROUTE
+  En empile j'avais retire max-w. A 1024 le texte d'un pilier s'etalait
+  sur 976px, soit plus de 130 caracteres par ligne. Illisible.
+  Regle typographique : on vise 45-75 caracteres.
+  Corrige par max-w-[54ch] desk:max-w-none -> 536px, 2 lignes.
+  Le max-w ne s'applique qu'en pile ; en ligne c'est flex-1 qui borne.
+
+BARRIERE QUALITE
+  npm run lint      0 erreur, 0 warning
+  npx tsc --noEmit  0 erreur
+  npm run build     OK, /fr et /en toujours en SSG
+  console navigateur : vide, FR et EN
+
+CONTENU
+  Aucun texte invente. EN verifie mot pour mot :
+  OUR APPROACH / Three fields. One ambition: creating value. /
+  01 INVEST, 02 BUILD, 03 INNOVATE.
+
+TOKENS
+  Aucun token cree. Aucun token modifie. La section n'utilise que
+  aws-hero, aws-blue-text, aws-ink, aws-line.
+
+NAVBAR ET HERO : toujours pas touches.
+
+PAS DE COMMIT. En attente de validation visuelle.
+
+--------------------------------------------------------------------------
+SECTION 2 — QA RESPONSIVE EXHAUSTIVE (PASSE 03)
+--------------------------------------------------------------------------
+
+POURQUOI CETTE PASSE
+  L'utilisateur demande la preuve que la section tient sur TOUS les
+  appareils, pas sur 7 largeurs choisies. J'ai donc balaye 19 largeurs,
+  de 320 a 2560, en redimensionnant reellement le viewport.
+
+DEFAUT TROUVE — LA GOUTTIERE ORPHELINE
+  A 1100 (pile au basculement en ligne), mesure :
+    piliers 318 / 359 / 359     <- pas egaux
+    texte du 3e pilier finit a 41px AVANT la fin du filet
+
+  Cause. Chaque pilier porte flex-1, donc flex-basis:0%. Avec
+  box-sizing:border-box, une base de 0 ne peut pas etre plus petite que
+  le padding : la base reelle d'un pilier vaut son padding.
+    pilier 1 : pr-10        -> base 40
+    pilier 2 : pl-10 pr-10  -> base 80
+    pilier 3 : pl-10 pr-10  -> base 80
+  L'espace libre se partage en 3 parts egales, mais on l'ajoute a des
+  bases inegales : les boites sortent inegales. Et le pr-10 du dernier
+  pilier ne sert a rien : il n'a aucun voisin a droite. Il creusait donc
+  un trou de 40px entre le dernier texte et le bout du filet.
+
+  Correction. La gouttiere ne se pose que la ou il y a un voisin :
+    pas de pl sur le premier, pas de pr sur le dernier.
+    bases 40 / 80 / 40, et les colonnes de contenu redeviennent egales.
+
+  Apres :
+    1100  colonnes 291 / 291 / 291   gouttieres 81 / 81   bord droit OK
+    1280  colonnes 351 x3            hauteur 644 -> 619
+    1440+ colonnes 378 x3            hauteur 592
+
+DEUX FOIS OU MON INSTRUMENT ETAIT FAUX, PAS LA PAGE
+  1. Je mesurais le bord gauche de la BOITE du conteneur. px-4 est un
+     padding interieur, donc cette boite commence a 0. J'ai conclu a tort
+     "gouttiere 0, pas aligne sur la navbar". Preuve du contraire : a 320
+     les piliers font 288 = 320 - 2x16. Sonde corrigee -> mesurer le
+     debut du CONTENU. Resultat : 16px, aligne sur le logo.
+  2. Je comparais le bord droit du dernier texte au bord droit du h2.
+     Or le h2 est volontairement bride a max-w-[24ch] : sa droite ne veut
+     rien dire. Bonne reference = le bord du conteneur flex.
+
+BALAYAGE COMPLET — toutes valeurs mesurees, aucune extrapolee
+
+  TELEPHONES (empile)
+  320   h 1269  marge 16  h2 27px  3 lignes  texte 28-35 c/ligne
+  360   h 1169  marge 16  h2 27px  3 lignes
+  375   h 1169  marge 16  h2 27px  3 lignes
+  390   h 1093  marge 16  h2 27px  3 lignes
+  414   h 1093  marge 16  h2 27px  3 lignes
+  430   h 1062  marge 16  h2 27px  2 lignes
+
+  TABLETTES (empile)
+  600   h  963  marge 16  h2 27px  texte 536px  2 lignes
+  768   h  963  marge 24  h2 31px  texte 536px  2 lignes
+  810   h  963  marge 24  h2 31px
+  834   h  963  marge 24  h2 31px
+  1024  h  963  marge 24  h2 31px
+  1099  h  963  marge 24  h2 31px   <- derniere largeur empilee
+
+  ORDINATEURS (en ligne, bascule a 1100 = 68.75rem)
+  1100  h 644  marge 32   colonnes 291 x3  gouttieres 81/81
+  1280  h 619  marge 32   colonnes 351 x3  gouttieres 81/81
+  1366  h 592  marge 35   colonnes 378 x3  gouttieres 81/81
+  1440  h 592  marge 72   colonnes 378 x3
+  1512  h 592  marge 108  colonnes 378 x3
+  1920  h 592  marge 312  colonnes 378 x3
+  2560  h 592  marge 632  colonnes 378 x3
+
+  Au-dela de 1424 le conteneur plafonne a 1296 de contenu et les marges
+  grandissent symetriquement. 2560 - 2x632 = 1296. Confirme.
+
+  A CHAQUE largeur, sans exception :
+    overflow horizontal      non
+    accents alignes          oui
+    filet continu            oui
+    colonnes egales          oui
+    bord gauche / droit OK   oui
+    aligne sur la navbar     oui
+
+MOBILE NON REGRESSE
+  Le correctif est prefixe desk:, donc il ne devait rien changer en
+  dessous de 1100. Verifie et non suppose : hauteurs identiques avant /
+  apres a 320, 375, 430, 768, 1024.
+
+BARRIERE QUALITE
+  npm run lint      0 erreur, 0 warning
+                    PREUVE : 11 fichiers reellement analyses, dont
+                    src/components/sections/Approach.tsx (sortie JSON).
+  npx tsc --noEmit  0 erreur
+  npm run build     OK, /fr et /en toujours en SSG
+  console FR et EN  vide
+
+EN VERIFIE A 1440 APRES CORRECTION
+  colonnes 378 x3, bord droit OK, hauteur 592, lang="en",
+  titres Identifying opportunities / Turning projects into assets /
+  Technology as an accelerator.
+
+PAS DE COMMIT. En attente de validation visuelle.
+
+==========================================================================
+SECTION 4 — NOTRE METHODE
+==========================================================================
+
+CE QUE J'AI ETUDIE CHEZ ACIM (mesure reelle, pas souvenir)
+  Section "Notre methode / Design -> Build -> Grow -> Innovate", a 1440 :
+    container            1026 de contenu dans un panneau de 1140
+    eyebrow              14px, 700, tracking 2.5px, GRIS NEUTRE
+    grand titre          45px, 800, line-height 45px (ratio 1.0), couleur accent
+    intro                14px, largeur 596 = 58% du container seulement
+    numero               disque 44px, fond rgb(251,225,230), chiffre rgb(179,35,72)
+    colonne numero       72px fixe, contenu 954 souple
+    separateur           1px rgb(216,211,209), 3 filets pour 4 etapes, ~28px autour
+    fond                 rgb(246,244,243), panneau contenu, PAS pleine largeur
+
+  Les 5 lecons retenues :
+    1. l'accent est reserve au titre, l'eyebrow reste neutre
+    2. la force du titre vient du serrage (lh 1.0), pas de la taille seule
+    3. l'intro est une legende : plus etroite ET plus petite que le corps
+    4. colonne rigide + colonne elastique = flex
+    5. n-1 separateurs : une ligne apres la derniere etape fermerait une boite
+
+CE QUE JE N'AI PAS REPRIS
+  leur panneau de fond beige       -> nous restons en blanc + filet
+  leurs 4 concepts                 -> nos 4 etapes AWS
+  leur chiffre a 1 caractere       -> 01-04, la notation deja utilisee sur le site
+  leur description pleine largeur  -> bornee (ils sont a ~120 car/ligne, c'est trop)
+  leur echelle de titre            -> la notre, celle de Notre approche
+
+FICHIERS
+  CREE     src/components/sections/Method.tsx
+  MODIFIE  src/i18n/dictionaries.ts        (methode FR + EN, 2 types exportes)
+  MODIFIE  src/app/[locale]/page.tsx       (montage apres Approach)
+  Aucun token touche. Aucune dependance ajoutee. Aucune image.
+
+COULEURS — pourquoi ce partage
+  eyebrow          bleu clair   comme l'eyebrow de Notre approche -> systeme coherent
+  grand titre      bleu profond comme le h2 de Notre approche
+  fleches          bleu clair   l'accent est la, pas sur tout le titre
+  mot-cle etape    bleu clair   COMPRENDRE / STRUCTURER / REALISER / FAIRE EVOLUER
+  complement       bleu profond
+  description      encre 80%
+  numero           bleu profond sur disque bleu clair a 10%
+  filets           aws-line
+
+  Le chiffre est en BLEU PROFOND et non en bleu clair : sur la teinte a 10%
+  le bleu clair tombe a 4.15 de contraste, sous le seuil AA pour du 12px.
+  Mesure, pas estime. Bleu profond -> 8.89.
+
+CONTRASTES MESURES (canvas, car Tailwind v4 rend l'opacite en oklab)
+  eyebrow 11px        4.75
+  grand titre 36px   10.21
+  fleches 36px        4.75
+  numero 12px         8.89   (sur le disque teinte)
+  mot-cle 20px        4.75
+  titre etape 20px   10.21
+  description 15px    7.59
+  separateur          1.19   (voulu : ressenti, pas vu)
+
+TROIS DEFAUTS TROUVES PAR LE TEST, PAS PAR LA COMPILATION
+
+  1. DESCRIPTIONS TROP LARGES
+     max-w-[68ch] donnait 83 caracteres par ligne, jusqu'a 88 sur l'etape 04.
+     Confortable = 45-75. Ramene a 58ch -> 52 a 71 car/ligne.
+     Prix assume : la section passe de 913 a 987 a 1440. La lisibilite
+     passe avant la compacite.
+
+  2. LE NUMERO PENDAIT SOUS SON TITRE
+     Avec items-start, un disque se centre sur LUI-MEME, pas sur la ligne
+     de titre d'a cote. Disque 40px, ligne de titre 23.4px :
+     (40 - 23.4) / 2 = 8.3px de decalage. Mesure : 8.3. Exactement.
+     L'interligne du h3 change a chaque breakpoint, donc une marge negative
+     fixe serait fausse quelque part. Disque ramene a 32px -> 4.3px,
+     puis -3px de correction -> 1.3px en mobile, -0.8px en desktop.
+     Effet secondaire voulu : le repere devient plus discret.
+
+  3. NOM ACCESSIBLE CASSE (le plus grave, invisible a l'ecran)
+     Le h3 est fait de 3 fragments : mot-cle / tiret decoratif / complement.
+     L'algorithme accname retire les noeuds aria-hidden, et n'ajoute un
+     espace qu'autour des elements NON-inline. Mes 3 spans etaient inline.
+     Un lecteur d'ecran annoncait : "COMPRENDREClarifier avant d'agir".
+     Corrige par des espaces explicites places HORS du span cache, et le
+     padding du tiret ramene de 8 a 4px pour compenser.
+
+     A NOTER : mon premier test signalait le meme defaut sur "01INVEST"
+     dans Notre approche. FAUX. La-bas les fragments sont des items flex,
+     donc display:block, donc accname ajoute les espaces : le vrai rendu
+     est "01 INVEST". Verifie en lisant le display calcule des deux cotes.
+     Notre approche n'a PAS ete modifiee.
+
+STRUCTURE
+  section > container 1360 > bloc py + filet haut
+    eyebrow
+    h2   reconstruit a partir des 4 "cle" : le titre EST la sequence
+    intro
+    ol
+      li  flex items-start
+          span  disque 32px shrink-0
+          div   min-w-0 : h3 (mot-cle / tiret / complement) + description
+
+  min-w-0 : par defaut un enfant flex a min-width:auto et refuse de
+  devenir plus etroit que son plus long mot. Sans lui, un mot long
+  pousserait la ligne hors du container.
+
+  Coupure du grand titre : chaque groupe "mot + fleche" est nowrap, donc
+  une fleche ne peut jamais se retrouver seule en debut de ligne. Mais
+  deux spans colles n'offrent aucune occasion de couper : le titre serait
+  devenu une seule ligne insecable. D'ou l'espace explicite entre les
+  groupes, seul endroit ou la ligne peut se casser.
+
+TRANSITION AVEC NOTRE APPROCHE
+  Les deux sections sont blanches. Sans marqueur elles feraient une masse.
+  Un filet aws-line en haut de Notre methode, sur toute la largeur du
+  container : le meme langage que les filets entre les etapes.
+  Mesure a 1440 : 64px entre le dernier texte d'Approche et le filet,
+  65px entre le filet et l'eyebrow. Centre.
+  Pas de fond teinte : le bleu clair faisait tomber l'eyebrow a 4.50,
+  le seuil exact.
+
+ANIMATION
+  AUCUNE. Une apparition au scroll imposerait un Client Component donc du
+  JS et de l'hydratation, pour un gain nul. Server Component pur, 0 JS.
+
+QA RESPONSIVE (viewports reellement redimensionnes)
+  vp     h section  titre       car/ligne desc   repere  filets  overflow
+  320    1488       27px 4 lig  26-29            1.3px   1110    non
+  375    1311       27px 3 lig  31-36            1.3px   1110    non
+  430    1133       27px 2 lig  39-47            1.3px   1110    non
+  768     951       31px 2 lig  52-71            0.1px   1110    non
+  820     951       31px 2 lig  52-71            0.1px   1110    non
+  1024    915       31px 1 lig  52-71            0.1px   1110    non
+  1280    987       36px 1 lig  52-71            0.8px   1110    non
+  1440    987       36px 1 lig  52-71            0.8px   1110    non
+  1920    987       36px 1 lig  52-71            0.8px   1110    non
+
+  filets "1110" = 3 separateurs, le dernier n'en a pas. Partout.
+  Le grand titre tient sur UNE ligne des 1024. C'est l'effet recherche.
+  Aligne sur l'axe de la navbar a chaque largeur.
+
+RIEN N'EST CASSE — preuve par mesure, pas par affirmation
+  Hauteurs de Hero et Notre approche identiques a celles relevees AVANT
+  cette mission, a chaque largeur :
+    Approche  592 (1440) / 619 (1280) / 963 (768-1024) / 1062 (430) /
+              1169 (375) / 1269 (320)
+    Hero      596 / 1044 / 953 / 977 / 1001
+  Navbar     alignement verifie a chaque largeur.
+
+ACCESSIBILITE
+  h1 = 1 (Hero), h2 = 2 (Approche, Methode), h3 = 7 (3 piliers + 4 etapes)
+  <ol> car l'ordre porte du sens, contrairement aux 3 univers simultanes
+  numero non masque : Tailwind retire les puces de <ol> et certains
+  navigateurs cessent alors d'annoncer la liste
+  fleches et tirets aria-hidden
+  aucune info portee par la seule couleur
+  aucun ARIA superflu
+
+CONTENU
+  Aucune invention. Aucun chiffre. Aucun client. Aucune certification.
+  Aucune promesse de rendement ni de performance financiere.
+  Textes FR repris du cahier des charges, EN redige (pas traduit mot a mot) :
+  Understand / Structure / Deliver / Evolve.
+
+TESTS
+  lint    PASS  12 fichiers analyses, dont Method.tsx (preuve JSON)
+  tsc     PASS  0 erreur
+  build   PASS  /fr et /en toujours en SSG
+  console PASS  vide en FR et en EN
+
+PAS DE COMMIT. En attente de validation visuelle.
+
+==========================================================================
+SECTION 4 — NOTRE METHODE — CALIBRATION VISUELLE FINALE
+==========================================================================
+
+DIAGNOSTIC (avant de toucher au code)
+  Version precedente : correcte techniquement, jugee trop "documentation" :
+  fond blanc clinique, titre pas assez affirme, numeros trop discrets,
+  664px d'espace mort a droite de chaque etape, separateurs quasi invisibles.
+
+RE-ETUDE ACIM (mesure reelle, meme viewport 1440, pas de memoire)
+  fond section         rgb(246,244,243) — panneau contenu, pas pleine largeur
+  eyebrow              14px 700 tracking 2.5px GRIS neutre (pas l'accent)
+  grand titre           45px 800 line-height 45px (ratio 1.0)
+  colonne numero        72px fixe / contenu 954 souple
+  separateur            1px rgb(216,211,209), 3 pour 4 etapes
+
+  Verifie IMMEDIATEMENT que rgb(246,244,243) copie telle quelle ferait
+  tomber notre bleu de texte a 4.33 de contraste — sous le seuil AA. Meme
+  piege que le rejet "aws-shell" documente plus haut dans ce journal.
+  Le fond ACIM n'a donc pas ete copie : reconstruit et mesure a part.
+
+TOKEN AJOUTE
+  --color-aws-surface: #fdfcfa  rgb(253,252,250)
+  Meme DIRECTION de teinte que ACIM (rouge > vert > bleu, un blanc
+  "chauffe"), calibree pour laisser une marge reelle :
+    eyebrow (aws-blue-text)  4.63   (ACIM litteral : 4.33, sous le seuil)
+    titre   (aws-hero)       9.95
+  Verifie par calcul WCAG puis RE-verifie en lisant la couleur reellement
+  peinte par le navigateur (canvas) : rgb(253,252,250) exact, aucune
+  surprise oklab.
+
+SIX CORRECTIONS, CHACUNE MESUREE AVANT/APRES
+
+  1. FOND — blanc -> aws-surface. Transition avec Notre approche (fond
+     blanc juste au-dessus) : filet aws-ink/18 CONSERVE en plus du
+     changement de fond — deux signaux tres discrets qui se renforcent
+     plutot qu'un vide ou un bloc colore.
+
+  2. GRAND TITRE — presence renforcee :
+       36px bold 700 lh 1.15   ->   44px extrabold 800 lh 1.08 (desktop)
+     Tient sur UNE ligne des 1100px (verifie), et se replie proprement
+     a 1024/1024px en "Comprendre -> Structurer -> Realiser ->" /
+     "Faire evoluer" (coupure naturelle, pas un mot coupe en deux) —
+     verifie a l'ecran, pas suppose.
+     Fleches : allegees (font-light, 0.72em) pour rester un rythme et
+     non un signal concurrent du mot.
+
+  3. INTRO — contraste renforce : ink/80 (7.50) -> ink/85 (8.80).
+     Reste sous aws-hero (9.95, le complement de chaque etape) : la
+     hierarchie intro < titre d'etape est preservee, pas inversee.
+
+  4. NUMEROS — plus de presence sans devenir des badges :
+       disque 32px, texte 12px, teinte 10%   ->   36px, 13px, teinte 12%
+     Alignement optique recalcule (l'ecart theorique change avec la
+     taille du disque) : residu maximal mesure 1.3px, invisible a l'oeil,
+     a chaque largeur testee.
+
+  5. SEPARATEURS — plus ressentis : aws-line (contraste 1.16, "invisible")
+     -> aws-ink/18 (1.42). Toujours un filet, pas un trait — mais qui
+     existe reellement au lieu de disparaitre.
+
+  6. LARGEUR DES LIGNES — le vrai defaut structurel trouve par la mesure :
+     le contenu de chaque etape (flex-grow:0 par defaut) ne remplissait
+     PAS la ligne — 664px d'espace mort mesures a 1440 entre la fin du
+     contenu et le bord du container, exactement le symptome decrit dans
+     le cahier des charges. Corrige par flex-1 sur le conteneur de
+     contenu ; le filet de separation, lui, couvrait deja toute la
+     largeur (verifie).
+     Mesure de la description elargie : 58ch/576px -> 39.75rem/636px.
+
+DEUX DEFAUTS QUE MON PROPRE CODE A INTRODUITS, TROUVES PAR LA MESURE
+
+  A. "ch" NE DONNE PAS LA MEME LARGEUR SUR DEUX ELEMENTS DE TAILLE
+     DIFFERENTE. J'avais d'abord borne le h3 (17-20px selon le point de
+     rupture) et la description (15px fixe) toutes deux a "64ch", en
+     supposant que la meme unite donnerait la meme largeur. Mesure :
+     h3 861px contre description 636px — le titre depassait de 226px.
+     "ch" vaut la largeur du glyphe "0" DANS LA POLICE DE L'ELEMENT QUI
+     LE PORTE : deux tailles de police, deux valeurs de ch. Corrige avec
+     une largeur ABSOLUE (39.75rem) partagee par les deux. Ecart mesure
+     apres correction : 0px, a chaque largeur.
+
+  B. LA "PIRE LIGNE" N'EST PAS LA MOYENNE. Mon premier chiffre ("58ch
+     donnait en moyenne 52-71 caracteres/ligne", ecrit dans la version
+     precedente de ce journal) etait vrai en moyenne mais cachait la
+     PIRE ligne. Simulation exacte par decoupe de mots (canvas, meme
+     police/graisse que le rendu) : a 58ch, la pire ligne atteignait deja
+     79 caracteres, pas 71. A la nouvelle largeur (636px), pire cas
+     mesure : 85 caracteres sur l'etape la plus longue, les trois autres
+     entre 62 et 80. Assume et documente plutot que cache : la demande
+     explicite est d'elargir, et ACIM lui-meme depasse tres largement les
+     75 caracteres "confortables" (110-140 mesures sur sa propre section).
+
+CONTRASTES FINAUX (mesures par canvas, en conditions reelles)
+  eyebrow 11px          4.63
+  grand titre 44px      9.95
+  intro 15-16px         8.78
+  mot-cle etape 20px    4.63
+  titre etape 20px      9.95
+  numero (sur disque)   8.41 / 8.48 selon l'etape
+  description 15px      7.40
+  separateur            1.38   (voulu : ressenti, pas vu)
+
+QA RESPONSIVE (viewports reellement redimensionnes)
+  vp     h methode  h approche  titre       ecart h3/p  repere  filets  overflow
+  375    1352       1169        30px 4 lig  0px         1.3px   1110    non
+  430    1220       1062        30px 3 lig  0px         1.3px   1110    non
+  768     916        963        38px 2 lig  0px         0.1px   1110    non
+  820     916        963        38px 2 lig  0px         0.1px   1110    non
+  1024    ...        963        38px 2 lig  0px         0.1px   1110    non
+  1100    ...        ...        44px 2 lig  0px         ...     1110    non
+  1280    948*       619        44px 1 lig  0px         0.8px   1110    non
+  1440    948        592        44px 1 lig  0px         0.8px   1110    non
+
+  * hauteur methode fluctue legerement (923-948) selon le nombre de
+  lignes que chaque description occupe reellement a cette largeur — pas
+  une anomalie, un effet attendu de l'elargissement des colonnes.
+
+  Le titre casse proprement a 1024/1100 : "...Realiser ->" puis
+  "Faire evoluer" — verifie a l'ecran, pas une coupure en plein mot.
+
+NON-REGRESSION — mesuree, pas affirmee
+  Navbar    81px   (inchangee)
+  Hero      596px  (identique a la mesure d'avant cette mission)
+  Approche  592-1169px selon largeur (identique, table complete ci-dessus)
+  Diff git de Navbar.tsx, Hero.tsx, HeroMedia.tsx, Approach.tsx : VIDE.
+
+FR / EN
+  EN verifie : hierarchie 1×h1, 2×h2, 7×h3 ; noms accessibles corrects
+  (Understand Get clear before acting. / etc., espaces presents) ;
+  hauteur 923, identique au FR a cette largeur ; console vide.
+
+ACCESSIBILITE
+  Hierarchie inchangee depuis la premiere version (1×h1, 2×h2, 7×h3).
+  <ol> toujours semantique. Contrastes tous verifies ci-dessus.
+
+TESTS
+  lint    PASS  12 fichiers analyses, dont Method.tsx (preuve JSON)
+  tsc     PASS  0 erreur
+  build   PASS  /fr et /en toujours en SSG
+  console PASS  vide en FR et en EN, a chaque largeur testee
+
+PAS DE COMMIT. En attente de validation visuelle finale.

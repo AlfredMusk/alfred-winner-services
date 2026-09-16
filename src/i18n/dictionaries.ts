@@ -70,6 +70,85 @@ const fr = {
       choisir: "Afficher",
     },
   },
+
+  /* Section 2 — elle explique COMMENT la valeur annoncee dans le Hero
+     est concue. Ce n'est pas encore le catalogue des expertises. */
+  approche: {
+    eyebrow: "NOTRE APPROCHE",
+    titre: "Trois univers. Une même ambition : créer de la valeur.",
+    paragraphe:
+      "Alfred Winner Services réunit finance, immobilier et technologies numériques autour d'une même vision : identifier les opportunités, structurer des projets solides et développer des solutions capables de créer une valeur durable.",
+    piliers: [
+      {
+        num: "01",
+        cle: "INVESTIR",
+        titre: "Identifier les opportunités",
+        texte:
+          "Observer les marchés, comprendre les opportunités et mobiliser les outils financiers et numériques avec méthode.",
+      },
+      {
+        num: "02",
+        cle: "CONSTRUIRE",
+        titre: "Transformer les projets en actifs",
+        texte:
+          "Aborder l'immobilier et les projets avec une logique de développement, de structuration et de création de valeur.",
+      },
+      {
+        num: "03",
+        cle: "INNOVER",
+        titre: "La technologie comme accélérateur",
+        texte:
+          "Concevoir des sites, applications, logiciels, automatisations et solutions d'intelligence artificielle utiles aux entreprises et aux projets.",
+      },
+    ],
+  },
+
+  /* Section 4 — apres le QUOI (approche), le COMMENT. Une seule methode,
+     valable pour les trois univers : finance, immobilier, logiciel.
+
+     Le grand titre de la section n'est PAS stocke ici : il est reconstruit
+     a partir des quatre "cle" ci-dessous. Le titre EST la sequence des
+     quatre etapes — les separer ouvrirait la porte a une divergence entre
+     l'annonce et le detail.
+
+     "cle" est en casse normale, pas en capitales : les capitales sont
+     posees par le CSS. Certains lecteurs d'ecran epellent un mot ecrit
+     tout en majuscules dans le texte source. */
+  methode: {
+    eyebrow: "NOTRE MÉTHODE",
+    paragraphe:
+      "Qu'il s'agisse de finance, d'immobilier ou de technologies numériques, notre méthode reste la même : comprendre le besoin, structurer une réponse cohérente, passer à l'exécution et faire évoluer durablement la valeur créée.",
+    etapes: [
+      {
+        num: "01",
+        cle: "Comprendre",
+        titre: "Clarifier avant d'agir.",
+        texte:
+          "Chaque projet commence par l'écoute et l'analyse. Nous cherchons à comprendre le besoin, le contexte, les contraintes et les objectifs avant de définir une direction.",
+      },
+      {
+        num: "02",
+        cle: "Structurer",
+        titre: "Transformer une idée en plan concret.",
+        texte:
+          "Nous organisons les priorités, les ressources et les étapes nécessaires afin de construire une approche claire, réaliste et adaptée au projet.",
+      },
+      {
+        num: "03",
+        cle: "Réaliser",
+        titre: "Passer de la stratégie à l'action.",
+        texte:
+          "Nous mettons en œuvre la solution avec méthode, transparence et attention portée à la qualité, tout en gardant l'objectif du projet au centre de l'exécution.",
+      },
+      {
+        num: "04",
+        cle: "Faire évoluer",
+        titre: "Améliorer ce qui crée de la valeur.",
+        texte:
+          "Un projet ne s'arrête pas à sa livraison. Nous observons, ajustons et faisons évoluer les solutions lorsque cela permet d'en renforcer la pertinence et la valeur dans le temps.",
+      },
+    ],
+  },
 };
 
 /* Le type est deduit du francais : oublier une cle en anglais devient une
@@ -135,6 +214,72 @@ const en: Dictionary = {
       choisir: "Show",
     },
   },
+
+  approche: {
+    eyebrow: "OUR APPROACH",
+    titre: "Three fields. One ambition: creating value.",
+    paragraphe:
+      "Alfred Winner Services brings together finance, real estate and digital technologies around a single vision: identifying opportunities, structuring sound projects and developing solutions that create lasting value.",
+    piliers: [
+      {
+        num: "01",
+        cle: "INVEST",
+        titre: "Identifying opportunities",
+        texte:
+          "Reading the markets, understanding where the opportunities lie, and applying financial and digital tools with method.",
+      },
+      {
+        num: "02",
+        cle: "BUILD",
+        titre: "Turning projects into assets",
+        texte:
+          "Approaching real estate and projects with a logic of development, structuring and value creation.",
+      },
+      {
+        num: "03",
+        cle: "INNOVATE",
+        titre: "Technology as an accelerator",
+        texte:
+          "Designing websites, applications, software, automation and artificial intelligence solutions that serve businesses and projects.",
+      },
+    ],
+  },
+
+  methode: {
+    eyebrow: "OUR METHOD",
+    paragraphe:
+      "Whether the work is financial, property-related or digital, our method stays the same: understand the need, structure a coherent response, move to execution, and keep improving the value created over time.",
+    etapes: [
+      {
+        num: "01",
+        cle: "Understand",
+        titre: "Get clear before acting.",
+        texte:
+          "Every project starts with listening and analysis. We work to understand the need, the context, the constraints and the objectives before setting a direction.",
+      },
+      {
+        num: "02",
+        cle: "Structure",
+        titre: "Turn an idea into a concrete plan.",
+        texte:
+          "We organise the priorities, the resources and the steps required to build an approach that is clear, realistic and suited to the project.",
+      },
+      {
+        num: "03",
+        cle: "Deliver",
+        titre: "Move from strategy to action.",
+        texte:
+          "We implement the solution with method, transparency and close attention to quality, keeping the project's objective at the centre of execution.",
+      },
+      {
+        num: "04",
+        cle: "Evolve",
+        titre: "Improve what creates value.",
+        texte:
+          "A project does not end at delivery. We observe, adjust and evolve the solutions whenever doing so strengthens their relevance and their value over time.",
+      },
+    ],
+  },
 };
 
 const dictionaries = { fr, en } as const;
@@ -142,6 +287,9 @@ const dictionaries = { fr, en } as const;
 export type NavbarDictionary = Dictionary["navbar"];
 export type HeroDictionary = Dictionary["hero"];
 export type HeroSlide = HeroDictionary["slides"][number];
+export type ApprocheDictionary = Dictionary["approche"];
+export type MethodeDictionary = Dictionary["methode"];
+export type MethodeEtape = MethodeDictionary["etapes"][number];
 
 export const hasLocale = (value: string): value is Locale =>
   (locales as readonly string[]).includes(value);

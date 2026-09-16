@@ -28,12 +28,6 @@
   --color-aws-blue-text: #0076c8; /* contraste 4.75 — le meme bleu, calibre pour passer AA sur du texte */
   --color-aws-ink: #1c2a3d;       /* gris-bleu pour la navigation courante */
   --color-aws-line: #e6ecf4;      /* filets et separateurs tres discrets */
-  --color-aws-deep: #0a3d6e;      /* BLEU HERO. Contraste 11.02 sur blanc ET
-                                     avec du texte blanc : un seul token sert de
-                                     couleur de titre et de fond de bouton.
-                                     Situe entre le navy #002454 de la navbar et
-                                     le bleu interactif #0076c8 : meme famille,
-                                     profondeur intermediaire assumee. */
   /* HERO — bleus preleves DANS L'EMBLEME du logo, par frequence de pixels :
      #0050a0 (2007 px) est le bleu dominant, #004080 (1543 px) sa version
      profonde. Le fond retenu se place entre les deux. Blanc dessus : 10.21
@@ -50,6 +44,23 @@
                                      ink a 50/60% d'opacite tombait a 3.02 / 4.04 :
                                      un texte de 9px exige PLUS de contraste qu'un
                                      texte courant, pas moins. */
+
+  /* SURFACE — blanc legerement chauffe, pour une section qui doit se
+     distinguer d'un blanc pur sans devenir une "carte" coloree.
+
+     Reference etudiee : ACIM utilise rgb(246,244,243) pour sa section
+     "Notre methode". MESURE, pas copiee : sur cette valeur, notre bleu de
+     texte (aws-blue-text) tombe a 4.33 de contraste — sous le seuil AA
+     (4.5) pour un texte de 11px. C'est exactement le probleme deja
+     rencontre sur "Notre approche" (un fond a 4.50 pile, rejete a
+     l'epoque). On ne reproduit pas le meme risque.
+
+     #FDFCFA = rgb(253,252,250). Meme direction de teinte que ACIM (rouge
+     > vert > bleu, un blanc "chaud"), mais calibree pour laisser une
+     marge reelle : eyebrow (aws-blue-text) -> 4.63, titre (aws-hero)
+     -> 9.95. Verifie par calcul WCAG puis par lecture canvas en
+     conditions reelles (Tailwind v4 peut rendre les melanges en oklab). */
+  --color-aws-surface: #fdfcfa;
 }
 
 :root {
