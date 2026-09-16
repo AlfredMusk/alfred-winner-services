@@ -16,23 +16,20 @@ import type { AproposDictionary } from "@/i18n/dictionaries";
       images d'Expertises. */
 export default function Apropos({ dict }: { dict: AproposDictionary }) {
   return (
-    <section id="a-propos" aria-labelledby="apropos-titre" className="bg-white">
+    <section id="a-propos" aria-labelledby="apropos-titre" className="scroll-mt-24 bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
           <div className="flex flex-col gap-10 desk:flex-row desk:items-start desk:gap-16">
             <div className="reveal desk:w-[42%]">
-              <div className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="h-[2px] w-10 shrink-0 rounded-full bg-aws-blue-text"
-                />
-                <span
-                  aria-hidden="true"
-                  className="text-[0.6875rem] font-semibold tabular-nums text-aws-ink/30"
-                >
-                  01
-                </span>
-              </div>
+              {/* Le "01" decoratif a ete retire : il empruntait l'idiome des
+                  suites numerotees de Notre approche et d'Expertises (01/02/03)
+                  alors qu'il etait seul de son espece — un numero qui ne
+                  numerote rien. Reste le filet d'accent, qui lui a une
+                  fonction : amorcer la colonne de texte. */}
+              <span
+                aria-hidden="true"
+                className="block h-[2px] w-10 rounded-full bg-aws-blue-text"
+              />
               <p className="mt-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-aws-blue-text">
                 {dict.eyebrow}
               </p>

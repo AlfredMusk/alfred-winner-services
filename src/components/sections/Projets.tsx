@@ -1,5 +1,4 @@
 import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
-import { fleche } from "@/components/ui/boutons";
 
 /* V5 — UNE SEULE LISTE, sur demande explicite : plus de bloc separe
    "Solutions en developpement" qui semblait ajoute apres coup. Les
@@ -12,24 +11,37 @@ import { fleche } from "@/components/ui/boutons";
    ligne, toujours affiche au meme endroit avec la meme importance :
    aucune ligne n'est presentee comme plus ou moins "vraie" qu'une
    autre visuellement, mais aucune ne peut non plus etre confondue —
-   lire un statut suffit a savoir ou en est chaque projet. */
+   lire un statut suffit a savoir ou en est chaque projet.
+
+   V6 — AFFORDANCE HONNETE. Ces lignes portaient une fleche, un fond au
+   survol, un titre qui glissait et un numero qui s'allumait : tout le
+   vocabulaire d'une ligne cliquable. Or aucune n'est un lien — aucun
+   projet n'a de page, de demo publique ni de capture autorisee. Une
+   fleche qui ne mene nulle part est un mensonge d'interface, et un
+   href="#" en serait un autre. Les effets de faux lien sont donc
+   retires : il reste une liste editoriale, lisible et franche.
+
+   Chaque ligne porte en revanche un id : les "solutions associees" des
+   Expertises pointent dessus, ce qui leur donne une vraie destination
+   au lieu de dupliquer le meme texte a deux endroits. */
 function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: string; dernier: boolean }) {
   return (
     <li
+      id={`projet-${projet.id}`}
       className={
-        "reveal group -mx-4 flex gap-5 rounded-xl px-4 py-7 transition-colors duration-300 hover:bg-aws-surface sm:gap-8" +
+        "reveal flex scroll-mt-24 gap-5 py-7 sm:gap-8" +
         (dernier ? "" : " border-b border-aws-line")
       }
     >
       <span
         aria-hidden="true"
-        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 transition-colors duration-300 group-hover:text-aws-blue-text sm:w-14 sm:text-[0.9375rem]"
+        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 sm:w-14 sm:text-[0.9375rem]"
       >
         {numero}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 desk:text-[1.1875rem]">
+          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero desk:text-[1.1875rem]">
             {projet.nom}
           </h3>
           <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-aws-blue-text">
@@ -44,19 +56,13 @@ function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: stri
           {projet.statut}
         </p>
       </div>
-      <span
-        aria-hidden="true"
-        className="hidden shrink-0 self-center text-aws-ink/25 transition-all duration-300 group-hover:translate-x-1 group-hover:text-aws-blue-text motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 sm:block"
-      >
-        {fleche}
-      </span>
     </li>
   );
 }
 
 export default function Projets({ dict }: { dict: ProjetsDictionary }) {
   return (
-    <section id="projets" aria-labelledby="projets-titre" className="bg-white">
+    <section id="projets" aria-labelledby="projets-titre" className="scroll-mt-24 bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
           <p className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-aws-blue-text">

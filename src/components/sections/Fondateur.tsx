@@ -1,30 +1,35 @@
+import Image from "next/image";
 import type { FondateurDictionary } from "@/i18n/dictionaries";
 
-/* V2 — composition FINALE construite maintenant (photo + texte), pour
-   qu'aucune refonte ne soit necessaire quand la vraie photo arrivera.
+/* V3 — VRAIE PHOTO integree. Deux versions recues auparavant montraient
+   des traits caracteristiques d'un traitement par IA (texture de peau,
+   fond de studio generique) et avaient ete refusees sur ce fondement.
+   Celle-ci est differente : EXIF verifie (iPhone 11 Pro, 17 juillet
+   2021, aucune trace de generation), donc une vraie photographie —
+   voir ASSETS_SOURCES.md pour le detail complet de cette verification.
 
-   PAS DE PHOTO pour l'instant — voir travaux realises.md. Deux versions
-   recues montraient des traits caracteristiques d'un traitement par IA
-   (texture de peau, fond de studio generique) : le cahier des charges
-   interdit explicitement une "fausse photographie du CEO", generee ou
-   alteree, et cette ligne est tenue independamment de toute demande.
-
-   Le slot media est un aplat abstrait (memes tokens que le reste du
-   site), PAS une silhouette generique presentee comme un portrait :
-   personne ne doit pouvoir croire, meme un instant, qu'il s'agit
-   d'Alfred. Le jour ou la photo source arrive : le <div> media est
-   remplace par un <Image>, le reste de la section ne change pas. */
+   Cadrage CONSERVE tel que fourni (deja en 3:4, aucun recadrage force) :
+   c'est un choix de mise en scene personnelle d'Alfred, pas a moi de le
+   retoucher sans le lui demander. */
 export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
   return (
-    <section id="fondateur" aria-labelledby="fondateur-titre" className="bg-white">
+    <section id="fondateur" aria-labelledby="fondateur-titre" className="scroll-mt-24 bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
           <div className="reveal flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14">
-            {/* MEDIA SLOT — ratio portrait 3:4, meme famille visuelle que
-                les autres slots en attente (Projets) : un degrade sobre,
-                aucune forme humaine suggeree. */}
+            {/* MEDIA — ratio portrait 3:4, meme cadre (filet aws-line,
+                coins arrondis) que le reste du site. */}
             <div className="desk:w-[32%] desk:shrink-0">
-              <div className="aspect-[3/4] max-w-[20rem] rounded-2xl border border-aws-line bg-aws-sand mx-auto desk:mx-0" />
+              <div className="relative aspect-[3/4] max-w-[20rem] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface mx-auto desk:mx-0">
+                <Image
+                  src="/images/fondateur/krodi-krotchaman-fondateur.jpg"
+                  alt={dict.imageAlt}
+                  fill
+                  sizes="(min-width: 1100px) 20rem, 60vw"
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
             </div>
 
             <div className="desk:flex-1">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/dictionaries";
+import { telephoneE164 } from "@/lib/contact";
 
 // Set only after Alfred confirms that the official HTTPS domain is live.
 // No localhost, preview host or unpurchased domain is emitted as a public URL.
@@ -33,7 +34,7 @@ export const isIndexable = Boolean(
 export const business = {
   name: "Alfred Winner Services",
   legalName: "ALFRED WINNER SERVICES",
-  telephone: "+2250748191100",
+  telephone: telephoneE164,
   email: "krodi2001@gmail.com",
   logoPath: "/images/brand/logo.png",
 } as const;

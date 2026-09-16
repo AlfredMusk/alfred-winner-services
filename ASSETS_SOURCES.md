@@ -220,3 +220,83 @@ REJETÉS avant ces trois choix — détail ci-dessous, par transparence.
 Conservée telle quelle : verifiee une nouvelle fois contre les criteres
 du present brief (identite africaine credible, logiciel visible, aucun
 cliche futuriste) — toujours conforme, aucun remplacement necessaire.
+
+## krodi-krotchaman-fondateur.jpg — photo du fondateur (pas une image de banque)
+
+- **Fichier** : `public/images/fondateur/krodi-krotchaman-fondateur.jpg`
+- **Section** : Fondateur
+- **Source** : fournie directement par Alfred (Krodi Krotchaman Alfred
+  Donald) via la conversation — PAS une banque d'images, aucune licence
+  tierce a documenter.
+- **Historique** : deux versions precedentes avaient ete REFUSEES —
+  elles montraient des traits caracteristiques d'un traitement par IA
+  (texture de peau, fond de studio generique), en contradiction directe
+  avec la consigne "ne genere pas mon portrait, ne mets aucun modele
+  stock" et avec l'interdiction explicite d'une fausse photographie du
+  CEO.
+- **Verification effectuee sur CETTE photo avant integration** :
+  1. Lecture directe de l'image (pas seulement des metadonnees) :
+     scene coherente, environnement reel (piscine en rooftop, immeubles
+     d'Abidjan, panneau publicitaire Nissan lisible en arriere-plan),
+     aucun artefact typique d'une generation (mains anatomiquement
+     correctes, texte d'arriere-plan flou mais non "en bouillie",
+     aucune texture de peau synthetique).
+  2. Metadonnees EXIF lues (`file` + `strings`) : manufacturer=Apple,
+     model=iPhone 11 Pro, software=13.5.1, datetime=2021:07:17 15:01:05
+     — coherent avec une vraie photo prise au telephone, pas avec un
+     export d'outil de generation d'image.
+  3. Recherche de mentions de copyright/outils IA dans les metadonnees
+     (`strings CHEF.jpg | grep -i copyright/artist/midjourney/...`) :
+     seule occurrence = "Copyright Apple Inc., 2017", un gabarit XMP
+     standard present sur toutes les photos iPhone (schema de
+     metadonnees d'Apple, pas une revendication sur le contenu) — rien
+     d'anormal.
+  -> Conclusion : photographie authentique. Integree.
+- **Traitement** : redimensionnee (3024×4032 -> 1050×1400, format deja
+  natif 3:4) et compressee pour le web. AUCUN recadrage de cadrage :
+  la mise en scene (costume, chapeau, lunettes, MacBook, terrasse)
+  est une decision personnelle d'Alfred, conservee telle quelle.
+- **Date d'integration** : 16 septembre 2026.
+
+## Images du Hero — finance-markets.jpg et real-estate.jpg (PENDING ALFRED)
+
+Ces deux images n'avaient jamais de fiche dans ce document. Recherche de
+provenance menee avant toute conclusion (voir travaux realises.md,
+entree [HERO] PHASE 2, 2026-09-15) :
+
+- **Fichiers** : `public/images/hero/finance-markets.jpg` (1448×1086),
+  `public/images/hero/real-estate.jpg` (1536×864).
+- **Origine consignee** : "2 imgs fournies par l'utilisateur, jamais
+  remplacees" — fournies par Alfred, pas puisees dans une banque
+  d'images par Claude Code. Ce n'est donc pas un oubli de documentation
+  au sens ou les autres photos (Pexels) en ont une.
+- **Verification technique effectuee** (meme methode que pour la photo
+  du fondateur) : aucune donnee EXIF d'appareil (ni fabricant, ni
+  modele, ni date de prise de vue) dans les deux fichiers — a comparer
+  avec `krodi-krotchaman-fondateur.jpg`, qui porte des EXIF iPhone 11
+  Pro complets. Cette absence ne prouve rien a elle seule (un export ou
+  une compression peut retirer les EXIF), mais elle retire aussi la
+  preuve inverse.
+- **Constat visuel qui appelle une decision d'Alfred** :
+  `finance-markets.jpg` montre, sur l'etagere du bureau, trois ouvrages
+  empiles portant exactement les mots **"INVESTIR" / "CONSTRUIRE" /
+  "INNOVER"** — la signature de marque AWS elle-meme — ainsi qu'une
+  tasse "UN MEILLEUR MOI CHAQUE JOUR" et une affiche "DISCIPLINE BATIT
+  LA LIBERTE". Aucune bibliotheque de photographies de stock ne produit
+  par coincidence des ouvrages portant la signature exacte d'une
+  entreprise. Le meme cadrage montre en arriere-plan un immeuble
+  portant l'enseigne lisible **"NSIA"**, groupe financier panafricain
+  reel, non affilie a AWS.
+- **Ce que cela signifie, sans le trancher** : ce faisceau d'indices
+  (props sur mesure a la marque, absence totale d'EXIF, enseigne d'une
+  entreprise tierce reelle dans un cadrage par ailleurs sans point
+  d'ancrage geographique verifiable) rend plausible une image generee
+  ou composite plutot qu'une photographie prise telle quelle. Ce n'est
+  pas une certitude — je n'ai pas d'outil de detection IA fiable — mais
+  le doute est raisonnable et je ne le tranche pas seul : le Hero est
+  une section verrouillee, et le cahier des charges actuel comme les
+  precedents interdisent explicitement une image qui laisserait croire
+  a un bureau ou une activite AWS fictifs.
+- **Action prise** : AUCUNE. Les deux images restent en place (le Hero
+  n'est pas modifie sans presenter la raison, conformement au perimetre
+  de cette passe). Signale a Alfred en tete de rapport.

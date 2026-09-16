@@ -1,5 +1,9 @@
 import Image from "next/image";
-import type { ExpertisesDictionary, ExpertisePole } from "@/i18n/dictionaries";
+import type {
+  ExpertisesDictionary,
+  ExpertisePole,
+  Projet,
+} from "@/i18n/dictionaries";
 import { boutonSecondaireClair, fleche } from "@/components/ui/boutons";
 import { IconePortefeuille, IconeStructure, IconeAutomatisation } from "@/components/ui/icones";
 
@@ -53,11 +57,17 @@ function Pole({
   inverse,
   cta,
   solutionAssocieeLabel,
+  projet,
 }: {
   pole: ExpertisePole;
   inverse: boolean;
   cta: string;
   solutionAssocieeLabel: string;
+  /* L'entree correspondante de Projets & Initiatives. Le nom et le statut
+     ne sont PLUS recopies ici : ils viennent de la, une seule fois, donc
+     une divergence FR/EN entre les deux sections est devenue impossible
+     par construction. */
+  projet: Projet | undefined;
 }) {
   return (
     <li id={pole.hash} className="reveal scroll-mt-24">
@@ -108,21 +118,26 @@ function Pole({
                 pole correspondant. Fond aws-surface + filet : se distingue
                 du reste de la carte (blanche) sans devenir un bloc a part
                 entiere. */}
-            <div className="mt-5 flex items-center gap-3 rounded-xl border border-aws-line bg-aws-surface px-4 py-3">
-              <span className="shrink-0 text-aws-blue-text">
-                {ICONES_SOLUTION[pole.solutionAssociee.icone]}
-              </span>
-              <div className="min-w-0">
-                <p className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/70">
-                  {solutionAssocieeLabel}
-                </p>
-                <p className="mt-0.5 text-[0.8125rem] leading-snug text-aws-ink/85">
-                  <span className="font-semibold text-aws-hero">{pole.solutionAssociee.nom}</span>
-                  {" · "}
-                  <span className="text-aws-ink/70">{pole.solutionAssociee.statut}</span>
-                </p>
-              </div>
-            </div>
+            {projet && (
+              <a
+                href={`#projet-${projet.id}`}
+                className="group/solution mt-5 flex items-center gap-3 rounded-xl border border-aws-line bg-aws-surface px-4 py-3 transition-colors duration-200 hover:border-aws-blue-text/40 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue-text motion-reduce:transition-none"
+              >
+                <span className="shrink-0 text-aws-blue-text">
+                  {ICONES_SOLUTION[pole.solutionAssociee.icone]}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/70">
+                    {solutionAssocieeLabel}
+                  </p>
+                  <p className="mt-0.5 text-[0.8125rem] leading-snug text-aws-ink/85">
+                    <span className="font-semibold text-aws-hero">{projet.nom}</span>
+                    {" · "}
+                    <span className="text-aws-ink/70">{projet.statut}</span>
+                  </p>
+                </div>
+              </a>
+            )}
 
             <a href="#contact" className={`mt-6 ${boutonSecondaireClair}`}>
               {cta}
@@ -149,9 +164,15 @@ function Pole({
   );
 }
 
-export default function Expertises({ dict }: { dict: ExpertisesDictionary }) {
+export default function Expertises({
+  dict,
+  projets,
+}: {
+  dict: ExpertisesDictionary;
+  projets: readonly Projet[];
+}) {
   return (
-    <section id="expertises" aria-labelledby="expertises-titre" className="bg-aws-surface">
+    <section id="expertises" aria-labelledby="expertises-titre" className="scroll-mt-24 bg-aws-surface">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-ink/18 py-12 sm:py-14 desk:py-16">
           <p className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-aws-blue-text">
@@ -177,6 +198,7 @@ export default function Expertises({ dict }: { dict: ExpertisesDictionary }) {
                 inverse={i % 2 === 1}
                 cta={dict.ctaPole}
                 solutionAssocieeLabel={dict.solutionAssocieeLabel}
+                projet={projets.find((p) => p.id === pole.solutionAssociee.projetId)}
               />
             ))}
           </ul>

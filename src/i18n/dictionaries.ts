@@ -8,6 +8,12 @@
    Server -> Client Component. Il doit donc rester serialisable :
    uniquement des donnees, jamais de fonction. */
 
+import {
+  telephoneAffiche,
+  telephoneHref as telHref,
+  whatsappBase,
+} from "@/lib/contact";
+
 export const locales = ["fr", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "fr";
@@ -52,14 +58,14 @@ const fr = {
     slides: [
       {
         num: "01",
-        label: "BOURSE & FINANCE",
+        label: "Bourse & Finance",
         src: "/images/hero/finance-markets.jpg",
         alt: "Analyse des marchés financiers depuis un bureau donnant sur Abidjan",
         position: "50% 50%",
       },
       {
         num: "02",
-        label: "IMMOBILIER",
+        label: "Immobilier",
         src: "/images/hero/real-estate.jpg",
         alt: "Ouvriers sur un chantier de construction dans un quartier d'affaires",
         position: "78% 50%",
@@ -68,6 +74,8 @@ const fr = {
     a11y: {
       media: "Univers Alfred Winner Services",
       choisir: "Afficher",
+      pause: "Mettre en pause le défilement des images",
+      reprendre: "Reprendre le défilement des images",
     },
   },
 
@@ -159,7 +167,7 @@ const fr = {
     eyebrow: "QUI SOMMES-NOUS",
     titre: "La valeur ne repose jamais sur un seul levier.",
     paragraphes: [
-      "Alfred Winner Services est née d'une conviction simple : la création de valeur ne repose pas sur un seul levier. Capital, actifs et technologie peuvent se compléter.",
+      "Alfred Winner Services est née d'une conviction simple : capital, actifs et technologie se renforcent mutuellement dès qu'on les travaille ensemble.",
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
     imageAlt: "Vue aérienne d'un échangeur autoroutier moderne en ville",
@@ -185,7 +193,7 @@ const fr = {
         cle: "INVESTIR",
         titre: "Bourse & Finance",
         texte:
-          "AWS développe un intérêt et des solutions technologiques à l'intersection de la finance et du numérique — technologies et outils appliqués aux marchés financiers et aux actifs numériques.",
+          "AWS développe des outils technologiques à l'intersection de la finance et du numérique, appliqués aux marchés financiers et aux actifs numériques.",
         // Precision volontaire : le cahier des charges interdit d'affirmer
         // ou de laisser entendre une gestion de portefeuille, un conseil
         // reglemente ou un rendement. Cette phrase le rend explicite
@@ -199,8 +207,7 @@ const fr = {
         // une seule source de verite editoriale, jamais deux formulations.
         solutionAssociee: {
           icone: "portefeuille" as const,
-          nom: "Tableau de bord multi-actifs",
-          statut: "En développement",
+          projetId: "tableau-de-bord-multi-actifs",
         },
       },
       {
@@ -216,8 +223,7 @@ const fr = {
         imageAlt: "Immeuble moderne en développement dans un quartier urbain",
         solutionAssociee: {
           icone: "structure" as const,
-          nom: "Suivi de projets immobiliers",
-          statut: "En structuration",
+          projetId: "suivi-projets-immobiliers",
         },
       },
       {
@@ -241,8 +247,7 @@ const fr = {
         imageAlt: "Mains sur un clavier d'ordinateur portable, code affiché à l'écran",
         solutionAssociee: {
           icone: "automatisation" as const,
-          nom: "Assistant IA métier",
-          statut: "En développement",
+          projetId: "assistant-ia-metier",
         },
       },
     ],
@@ -267,12 +272,13 @@ const fr = {
      "En developpement" ou "En structuration" — jamais confondus, jamais
      silencieux. */
   projets: {
-    eyebrow: "PROJETS & RÉALISATIONS",
+    eyebrow: "PROJETS & INITIATIVES",
     titre: "La méthode, mise à l'épreuve.",
     paragraphe:
       "Des démonstrateurs, un prototype et des solutions en développement qui traduisent progressivement les trois univers AWS — chacun à un stade différent, chacun avec un statut clair.",
     liste: [
       {
+        id: "baby-tourism",
         nom: "Baby Tourism",
         categorie: "Tourisme",
         statut: "Démonstrateur digital",
@@ -280,6 +286,7 @@ const fr = {
           "Projet démonstrateur digital autour du tourisme, pensé comme une vitrine numérique.",
       },
       {
+        id: "alfred-fitness",
         nom: "Alfred Fitness",
         categorie: "Front-End / Fitness",
         statut: "Démonstrateur Front-End",
@@ -287,6 +294,7 @@ const fr = {
           "Démonstrateur Front-End explorant une expérience web dédiée au fitness.",
       },
       {
+        id: "alfred-ai-trader",
         nom: "Alfred AI Trader",
         categorie: "Technologie & IA",
         statut: "Prototype interne — environnement DEMO",
@@ -294,6 +302,7 @@ const fr = {
           "Prototype technologique interne combinant intelligence artificielle et analyse des marchés financiers, actuellement en environnement de démonstration.",
       },
       {
+        id: "tableau-de-bord-multi-actifs",
         nom: "Tableau de bord multi-actifs",
         categorie: "Finance & Technologie",
         statut: "En développement",
@@ -301,6 +310,7 @@ const fr = {
           "Tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs. Un outil technologique, pas un service de gestion réglementée ni de conseil financier.",
       },
       {
+        id: "suivi-projets-immobiliers",
         nom: "Suivi de projets immobiliers",
         categorie: "Immobilier & Technologie",
         statut: "En structuration",
@@ -308,6 +318,7 @@ const fr = {
           "Outil pour structurer et suivre opportunités, documents et étapes d'un projet immobilier.",
       },
       {
+        id: "assistant-ia-metier",
         nom: "Assistant IA métier",
         categorie: "Software & IA",
         statut: "En développement",
@@ -340,6 +351,7 @@ const fr = {
       "Entrepreneur et ingénieur logiciel de formation, Alfred Krodi développe Alfred Winner Services à l'intersection de l'entrepreneuriat, de la technologie, de la finance et de l'immobilier.",
       "Il porte notamment les initiatives numériques et d'intelligence artificielle développées autour de l'écosystème AWS.",
     ],
+    imageAlt: "Krodi Krotchaman Alfred Donald, fondateur d'Alfred Winner Services",
   },
 
   ctaFinal: {
@@ -358,8 +370,8 @@ const fr = {
     adresseLabel: "Adresse",
     adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
     telephoneLabel: "Téléphone",
-    telephone: "(+225) 07 48 19 11 00",
-    telephoneHref: "tel:+2250748191100",
+    telephone: telephoneAffiche,
+    telephoneHref: telHref,
     emailLabel: "Email",
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
@@ -380,13 +392,14 @@ const fr = {
     },
   },
 
-  /* Bouton WhatsApp flottant — meme numero que contact.telephoneHref,
-     au format wa.me (indicatif + numero sans le 0 initial, requis par
-     WhatsApp pour resoudre le lien ; a confirmer par Alfred si son
-     compte WhatsApp Business attend un autre format). */
+  /* Bouton WhatsApp — le numero vient de lib/contact.ts, source unique.
+     Le canal a ete demande explicitement par Alfred ; reste a confirmer
+     qu'un compte WhatsApp est bien ACTIF sur ce numero (un lien wa.me se
+     construit pour n'importe quel numero, valide ou non : le format ne
+     prouve rien). Aucun message n'a ete envoye pour le verifier. */
   whatsapp: {
     ariaLabel: "Contacter Alfred Winner Services sur WhatsApp",
-    href: "https://wa.me/225748191100",
+    href: whatsappBase,
     message:
       "Bonjour Alfred Winner Services, je souhaite discuter d'un projet.",
   },
@@ -398,7 +411,6 @@ const fr = {
     contactsNav: "Contact",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
-    suivezNous: "Suivez-nous",
     reseaux: {
       linkedin: "",
       instagram: "",
@@ -448,7 +460,9 @@ const fr = {
         titre: "Données collectées",
         paragraphes: [
           "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
-          "Le formulaire de contact n'envoie aucune donnée à un serveur : il ouvre votre messagerie avec un message pré-rempli, que vous choisissez ou non d'envoyer depuis votre propre adresse email.",
+          "Il ne comporte aucun formulaire : la prise de contact se fait uniquement par téléphone, par email ou par WhatsApp, à votre initiative. Aucune donnée n'est saisie ni transmise depuis ces pages.",
+          "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
+          "Comme tout site web, les pages sont servies par un hébergeur susceptible de conserver des journaux de connexion techniques (adresse IP, date, page demandée). L'hébergeur n'étant pas encore arrêté, cette section sera complétée avant la mise en ligne publique.",
         ],
       },
       {
@@ -506,14 +520,14 @@ const en: Dictionary = {
     slides: [
       {
         num: "01",
-        label: "FINANCE & MARKETS",
+        label: "Markets & Finance",
         src: "/images/hero/finance-markets.jpg",
         alt: "Financial markets analysis from an office overlooking Abidjan",
         position: "50% 50%",
       },
       {
         num: "02",
-        label: "REAL ESTATE",
+        label: "Real Estate",
         src: "/images/hero/real-estate.jpg",
         alt: "Workers on a construction site in a business district",
         position: "78% 50%",
@@ -522,6 +536,8 @@ const en: Dictionary = {
     a11y: {
       media: "Alfred Winner Services business areas",
       choisir: "Show",
+      pause: "Pause the image slideshow",
+      reprendre: "Resume the image slideshow",
     },
   },
 
@@ -594,7 +610,7 @@ const en: Dictionary = {
     eyebrow: "ABOUT US",
     titre: "Value is never built on a single lever.",
     paragraphes: [
-      "Alfred Winner Services was founded on a simple conviction: value creation does not rest on a single lever. Capital, assets and technology can work together.",
+      "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another once they are worked on together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
     imageAlt: "Aerial view of a modern highway interchange in a city",
@@ -611,7 +627,7 @@ const en: Dictionary = {
         cle: "INVEST",
         titre: "Markets & Finance",
         texte:
-          "AWS develops technology solutions and interest at the intersection of finance and digital — technologies and tools applied to financial markets and digital assets.",
+          "AWS is building technology tools at the intersection of finance and digital, applied to financial markets and digital assets.",
         precision:
           "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
         capacites: null,
@@ -619,8 +635,7 @@ const en: Dictionary = {
         imageAlt: "Hands reviewing financial documents and charts",
         solutionAssociee: {
           icone: "portefeuille" as const,
-          nom: "Multi-asset dashboard",
-          statut: "In development",
+          projetId: "tableau-de-bord-multi-actifs",
         },
       },
       {
@@ -636,8 +651,7 @@ const en: Dictionary = {
         imageAlt: "Modern building under development in an urban district",
         solutionAssociee: {
           icone: "structure" as const,
-          nom: "Real estate project tracker",
-          statut: "In structuring",
+          projetId: "suivi-projets-immobiliers",
         },
       },
       {
@@ -659,8 +673,7 @@ const en: Dictionary = {
         imageAlt: "Hands on a laptop keyboard, code displayed on screen",
         solutionAssociee: {
           icone: "automatisation" as const,
-          nom: "Business AI assistant",
-          statut: "In development",
+          projetId: "assistant-ia-metier",
         },
       },
     ],
@@ -668,12 +681,13 @@ const en: Dictionary = {
   },
 
   projets: {
-    eyebrow: "PROJECTS & DELIVERABLES",
+    eyebrow: "PROJECTS & INITIATIVES",
     titre: "The method, put to the test.",
     paragraphe:
-      "Demonstrators, a prototype and solutions in development that progressively translate the three AWS business areas — each at a different stage, each with a clear status.",
+      "Demonstrators, a prototype and solutions still in development — each giving concrete form to one of the three AWS business areas, each at its own stage, each with a stated status.",
     liste: [
       {
+        id: "baby-tourism",
         nom: "Baby Tourism",
         categorie: "Tourism",
         statut: "Digital demonstrator",
@@ -681,6 +695,7 @@ const en: Dictionary = {
           "A digital demonstrator project built around tourism, designed as a digital showcase.",
       },
       {
+        id: "alfred-fitness",
         nom: "Alfred Fitness",
         categorie: "Front-End / Fitness",
         statut: "Front-End demonstrator",
@@ -688,6 +703,7 @@ const en: Dictionary = {
           "A Front-End demonstrator exploring a web experience dedicated to fitness.",
       },
       {
+        id: "alfred-ai-trader",
         nom: "Alfred AI Trader",
         categorie: "Technology & AI",
         statut: "Internal prototype — DEMO environment",
@@ -695,6 +711,7 @@ const en: Dictionary = {
           "An internal technology prototype combining artificial intelligence and financial market analysis, currently running in a demonstration environment.",
       },
       {
+        id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset dashboard",
         categorie: "Finance & Technology",
         statut: "In development",
@@ -702,13 +719,15 @@ const en: Dictionary = {
           "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio. A technology tool, not a regulated portfolio management or advisory service.",
       },
       {
+        id: "suivi-projets-immobiliers",
         nom: "Real estate project tracker",
         categorie: "Real Estate & Technology",
-        statut: "In structuring",
+        statut: "In scoping",
         texte:
           "A tool to structure and track opportunities, documents and stages of a real estate project.",
       },
       {
+        id: "assistant-ia-metier",
         nom: "Business AI assistant",
         categorie: "Software & AI",
         statut: "In development",
@@ -720,7 +739,7 @@ const en: Dictionary = {
 
   vision: {
     eyebrow: "VISION",
-    titre: "A progressively African and international ambition.",
+    titre: "An ambition growing step by step — Ivorian, African, international.",
     paragraphe:
       "From Côte d'Ivoire, AWS aims to develop projects, assets and technology solutions capable of creating lasting value. Software and artificial intelligence play a growing role in this vision.",
   },
@@ -733,6 +752,7 @@ const en: Dictionary = {
       "An entrepreneur and software engineer by training, Alfred Krodi is building Alfred Winner Services at the intersection of entrepreneurship, technology, finance and real estate.",
       "He leads in particular the digital and artificial intelligence initiatives developed around the AWS ecosystem.",
     ],
+    imageAlt: "Krodi Krotchaman Alfred Donald, founder of Alfred Winner Services",
   },
 
   ctaFinal: {
@@ -747,8 +767,8 @@ const en: Dictionary = {
     adresseLabel: "Address",
     adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
     telephoneLabel: "Phone",
-    telephone: "(+225) 07 48 19 11 00",
-    telephoneHref: "tel:+2250748191100",
+    telephone: telephoneAffiche,
+    telephoneHref: telHref,
     emailLabel: "Email",
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
@@ -771,7 +791,7 @@ const en: Dictionary = {
 
   whatsapp: {
     ariaLabel: "Contact Alfred Winner Services on WhatsApp",
-    href: "https://wa.me/225748191100",
+    href: whatsappBase,
     message: "Hello Alfred Winner Services, I'd like to discuss a project.",
   },
 
@@ -779,7 +799,6 @@ const en: Dictionary = {
     contactsNav: "Contact",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",
-    suivezNous: "Follow us",
     reseaux: {
       linkedin: "",
       instagram: "",
@@ -825,7 +844,9 @@ const en: Dictionary = {
         titre: "Data collected",
         paragraphes: [
           "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
-          "The contact form does not send any data to a server: it opens your own email app with a pre-filled message, which you may choose to send from your own email address or not.",
+          "It contains no form: getting in touch happens only by phone, email or WhatsApp, at your own initiative. No data is entered or transmitted from these pages.",
+          "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
+          "Like any website, these pages are served by a hosting provider that may keep technical connection logs (IP address, date, page requested). The provider has not been chosen yet; this section will be completed before public launch.",
         ],
       },
       {

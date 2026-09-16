@@ -85,7 +85,7 @@ export default function Footer({
           coince sous le bouton meme en bas de page, quel que soit
           l'alignement horizontal du texte. */}
       <div className="mx-auto max-w-[1360px] px-4 pt-10 pb-24 sm:px-6 sm:pt-12 sm:pb-24 desk:px-8 desk:pt-14 desk:pb-24">
-        <div className="reveal grid gap-9 desk:grid-cols-[1fr_1.2fr_1fr] desk:gap-8">
+        <div className="reveal grid gap-9 desk:grid-cols-[1fr_1.2fr] desk:gap-12">
           {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
               blanc opaque (verifie pixel par pixel, pas de canal alpha) :
               une puce blanche porte le logo intact plutot que de le
@@ -151,41 +151,6 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* ZONE 3 — RESEAUX + LEGAL. Reseaux : uniquement s'ils
-              existent reellement. Aucun href="#" ni faux profil. */}
-          <div>
-            {reseauxActifs.length > 0 && (
-              <>
-                <p className={titreColonne}>{dict.suivezNous}</p>
-                <div className="mt-3 flex gap-3">
-                  {reseauxActifs.map(([reseau, href]) => (
-                    <a
-                      key={reseau}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-                      aria-label={reseau}
-                    >
-                      {RESEAUX_ICONES[reseau]}
-                    </a>
-                  ))}
-                </div>
-              </>
-            )}
-            <ul className={reseauxActifs.length > 0 ? "mt-6 space-y-2.5" : "space-y-2.5"}>
-              <li>
-                <a href={`/${locale}/mentions-legales`} className={lienBase}>
-                  {dict.mentionsLegales}
-                </a>
-              </li>
-              <li>
-                <a href={`/${locale}/confidentialite`} className={lienBase}>
-                  {dict.confidentialite}
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
         {/* BANDEAU LEGAL — compact, toujours en colonne (pas de
@@ -197,7 +162,34 @@ export default function Footer({
             gauche, qui ne rencontrent jamais ce coin. Separateur
             white/15 : le meme "ressenti, pas remarque" que les filets
             clairs ailleurs sur le site. */}
-        <div className="mt-9 flex flex-col gap-2 border-t border-white/15 pt-5 text-[0.8125rem] desk:mt-10">
+        <div className="mt-9 flex flex-col gap-3 border-t border-white/15 pt-5 text-[0.8125rem] desk:mt-10">
+          {/* Liens legaux + reseaux : ils occupaient une troisieme colonne
+              qui, les reseaux n'existant pas encore, ne contenait que deux
+              liens et paraissait vide a cote des deux autres. Ils vivent
+              desormais dans le bandeau, ou deux liens forment une ligne
+              normale au lieu d'une colonne desertee. */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href={`/${locale}/mentions-legales`} className="text-white/85 hover:text-white">
+              {dict.mentionsLegales}
+            </a>
+            <a href={`/${locale}/confidentialite`} className="text-white/85 hover:text-white">
+              {dict.confidentialite}
+            </a>
+            {/* Aucun href="#" ni faux profil : tant qu'une URL n'existe
+                pas, l'icone n'est pas rendue du tout. */}
+            {reseauxActifs.map(([reseau, href]) => (
+              <a
+                key={reseau}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/85 hover:text-white"
+                aria-label={reseau}
+              >
+                {RESEAUX_ICONES[reseau]}
+              </a>
+            ))}
+          </div>
           <p className="text-white/60">
             {dict.raisonSociale} — {dict.formeJuridique} — {dict.rccm}
           </p>

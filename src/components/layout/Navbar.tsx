@@ -54,9 +54,19 @@ export default function Navbar({ locale, dict }: Props) {
      refermait le menu aussitot. */
   const pinnedRef = useRef(false);
 
+  /* Chemins ABSOLUS vers l'accueil de la langue courante, pas des ancres
+     nues. La Navbar est partagee avec les pages legales : un simple
+     "#projets" y produisait "/fr/mentions-legales#projets", une cible
+     inexistante (verifie dans le navigateur — 5 liens sur 6 morts).
+     "#contact" fait exception : le Footer, lui, est present sur toutes
+     les pages et porte cette ancre. */
+  const pathname = usePathname() ?? `/${locale}`;
+  const estAccueil = pathname === `/${locale}`;
+  const versAccueil = (hash: string) => `/${locale}#${hash}`;
+
   const links = [
-    { label: dict.nav.projects, href: "#projets" },
-    { label: dict.nav.about, href: "#a-propos" },
+    { label: dict.nav.projects, href: versAccueil("projets") },
+    { label: dict.nav.about, href: versAccueil("a-propos") },
     { label: dict.nav.contact, href: "#contact" },
   ];
 
@@ -178,7 +188,7 @@ export default function Navbar({ locale, dict }: Props) {
             aria-label={dict.a11y.mainNav}
             className="hidden flex-1 items-center justify-center gap-0.5 desk:flex xl:gap-1"
           >
-            <NavHome locale={locale} label={dict.nav.home} />
+            <NavHome locale={locale} label={dict.nav.home} estAccueil={estAccueil} />
 
             <div
               ref={servicesRef}
@@ -235,7 +245,7 @@ export default function Navbar({ locale, dict }: Props) {
                   {dict.services.map((s) => (
                     <li key={s.hash}>
                       <a
-                        href={`#${s.hash}`}
+                        href={versAccueil(s.hash)}
                         onClick={() => {
                           pinnedRef.current = false;
                           setServicesOpen(false);
@@ -320,7 +330,7 @@ export default function Navbar({ locale, dict }: Props) {
             <li>
               <Link
                 href={`/${locale}`}
-                aria-current="page"
+                aria-current={estAccueil ? "page" : undefined}
                 className={`${mobileLink} font-semibold`}
                 onClick={() => setMobileOpen(false)}
               >
@@ -335,7 +345,7 @@ export default function Navbar({ locale, dict }: Props) {
                 {dict.services.map((s) => (
                   <li key={s.hash}>
                     <a
-                      href={`#${s.hash}`}
+                      href={versAccueil(s.hash)}
                       className={mobileLink}
                       onClick={() => setMobileOpen(false)}
                     >
@@ -376,14 +386,25 @@ export default function Navbar({ locale, dict }: Props) {
   );
 }
 
-/* "Accueil" est la page courante : aria-current le dit aux lecteurs
-   d'ecran, et le style reste sobre — navy dense + graisse, pas de bleu. */
-function NavHome({ locale, label }: { locale: Locale; label: string }) {
+/* "Accueil" n'est la page courante QUE sur l'accueil. aria-current etait
+   code en dur : sur /fr/mentions-legales, un lecteur d'ecran annoncait
+   donc "Accueil, page courante" alors que le visiteur etait ailleurs.
+   Le style actif suit la meme condition — un etat actif mensonger est
+   pire qu'une absence d'etat actif. */
+function NavHome({
+  locale,
+  label,
+  estAccueil,
+}: {
+  locale: Locale;
+  label: string;
+  estAccueil: boolean;
+}) {
   return (
     <Link
       href={`/${locale}`}
-      aria-current="page"
-      className={`${navLinkBase} ${navLinkActive}`}
+      aria-current={estAccueil ? "page" : undefined}
+      className={`${navLinkBase} ${estAccueil ? navLinkActive : ""}`}
     >
       {label}
     </Link>

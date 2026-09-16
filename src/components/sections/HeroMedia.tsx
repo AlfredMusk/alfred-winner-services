@@ -30,6 +30,11 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
      devoilement perdrait sa nettete. */
   const [sortant, setSortant] = useState<number | null>(null);
   const [enPause, setEnPause] = useState(false);
+  /* Pause DEMANDEE par le visiteur, distincte de la pause automatique au
+     survol/focus : celle-ci persiste quand le pointeur repart. Sans
+     controle explicite, un defilement automatique ne peut pas etre
+     arrete par quelqu'un qui en a besoin (WCAG 2.2.2). */
+  const [pauseDemandee, setPauseDemandee] = useState(false);
   const [manuel, setManuel] = useState(false);
   const mouvementReduit = useMouvementReduit();
   const toucheX = useRef<number | null>(null);
@@ -57,7 +62,7 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
   /* Rotation automatique. Le delai est rallonge apres une action manuelle :
      l'image choisie ne disparait pas sous le nez de l'utilisateur. */
   useEffect(() => {
-    if (mouvementReduit || enPause || slides.length < 2) return;
+    if (mouvementReduit || enPause || pauseDemandee || slides.length < 2) return;
     const t = setTimeout(
       () => {
         setManuel(false);
@@ -66,7 +71,7 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
       manuel ? DUREE_APRES_CLIC : DUREE,
     );
     return () => clearTimeout(t);
-  }, [index, enPause, manuel, mouvementReduit, slides.length, allerA]);
+  }, [index, enPause, pauseDemandee, manuel, mouvementReduit, slides.length, allerA]);
 
   return (
     <div
@@ -136,12 +141,35 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
           servait a le rendre lisible par-dessus l'image devient inutile :
           un element decoratif de moins. Aucun libelle sectoriel. */}
       <div className="mt-4 flex items-center justify-end gap-1">
+          {/* Le bouton n'apparait que s'il y a reellement un defilement a
+              arreter : un seul plan, ou mouvement reduit demande par le
+              systeme, et il n'a plus d'objet. */}
+          {slides.length > 1 && !mouvementReduit && (
+            <button
+              type="button"
+              onClick={() => setPauseDemandee((p) => !p)}
+              aria-label={pauseDemandee ? dict.a11y.reprendre : dict.a11y.pause}
+              aria-pressed={pauseDemandee}
+              className="mr-1 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true" fill="currentColor">
+                {pauseDemandee ? (
+                  <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+                ) : (
+                  <>
+                    <rect x="7.5" y="5.5" width="3.2" height="13" rx="1" />
+                    <rect x="13.3" y="5.5" width="3.2" height="13" rx="1" />
+                  </>
+                )}
+              </svg>
+            </button>
+          )}
           {slides.map((s, i) => (
             <button
               key={s.num}
               type="button"
               onClick={() => allerA(i, true)}
-              aria-label={`${dict.a11y.choisir} ${s.num}`}
+              aria-label={`${dict.a11y.choisir} ${s.label}`}
               aria-current={i === index ? "true" : undefined}
               /* Cible tactile de 44px, alors que le trait ne fait que 2px. */
               className="group flex h-11 items-center px-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

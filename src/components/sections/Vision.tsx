@@ -37,8 +37,12 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
         <div className="absolute left-1/2 top-0 h-[36rem] w-[56rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-aws-blue-text/[0.08] blur-3xl" />
       </div>
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-aws-blue-text/40" />
+      {/* Le texte occupe desormais davantage la section : padding vertical
+          resserre, titre et paragraphe plus larges et plus presents. La
+          personnalite de la section doit venir de ce qui est ECRIT, pas
+          d'une texture de fond qui la porterait seule. */}
       <div className="relative mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
-        <div className="reveal py-16 text-center sm:py-20 desk:py-24">
+        <div className="reveal py-14 text-center sm:py-16 desk:py-20">
           <div className="flex items-center justify-center gap-3">
             <span aria-hidden="true" className="h-px w-8 bg-aws-blue-text/50" />
             <p className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-white/75">
@@ -48,11 +52,11 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
           </div>
           <h2
             id="vision-titre"
-            className="mx-auto mt-5 max-w-[22ch] text-balance text-[1.75rem] font-extrabold leading-[1.15] tracking-[-0.015em] text-white sm:text-[2.125rem] desk:text-[2.75rem]"
+            className="mx-auto mt-5 max-w-[26ch] text-balance text-[1.875rem] font-extrabold leading-[1.12] tracking-[-0.015em] text-white sm:text-[2.375rem] desk:text-[3rem]"
           >
             {dict.titre}
           </h2>
-          <p className="mx-auto mt-6 max-w-[56ch] text-[0.9375rem] leading-[1.7] text-white/85 desk:text-[1.0625rem]">
+          <p className="mx-auto mt-6 max-w-[62ch] text-[1rem] leading-[1.7] text-white/85 desk:text-[1.125rem]">
             {dict.paragraphe}
           </p>
         </div>
