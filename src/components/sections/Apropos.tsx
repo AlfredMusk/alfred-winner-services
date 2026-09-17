@@ -39,7 +39,14 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
               >
                 {dict.titre}
               </h2>
-              <div className="mt-6 max-w-[52ch] space-y-5 text-[0.9375rem] leading-[1.65] text-aws-ink/85 desk:text-[1rem]">
+              {/* /85 -> /92 : mesure (methode WCAG relative luminance deja
+                  utilisee sur ce projet) — /85 donnait deja 9.0 de
+                  contraste (largement AAA), mais paraissait faible FACE
+                  au H2 tres sombre/tres gras juste au-dessus. /92 monte a
+                  11.35 : une hausse reelle et mesuree, jamais un noir pur
+                  (qui aurait donne 14.5 et un contraste trop dur pour un
+                  paragraphe courant). */}
+              <div className="mt-6 max-w-[52ch] space-y-5 text-[0.9375rem] leading-[1.65] text-aws-ink/92 desk:text-[1rem]">
                 {dict.paragraphes.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -57,11 +64,11 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
                   l'image a l'interieur s'agrandit tres legerement. */}
               <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface">
                 <Image
-                  src="/images/apropos/qui-sommes-nous-v5.jpg"
+                  src="/images/apropos/qui-sommes-nous-v6.jpg"
                   alt={dict.imageAlt}
                   fill
                   sizes="(min-width: 1100px) 55vw, 92vw"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.015] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
             </div>

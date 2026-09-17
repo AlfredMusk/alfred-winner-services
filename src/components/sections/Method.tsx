@@ -15,7 +15,20 @@
    (lui-meme), pas un systeme synchronise entre plusieurs enfants. Aucun
    JavaScript — memes garanties que .reveal (voir globals.css) :
    invisible seulement si le navigateur ne peut pas l'animer, jamais si
-   le JS echoue ou tarde. */
+   le JS echoue ou tarde.
+
+   V5 — RETOUR EN ARRIERE ASSUME sur un point precis. Une version
+   intermediaire faisait AUSSI s'activer badge/titre/texte etape par
+   etape au scroll (chaque etape avec sa propre fenetre de progression).
+   Releve a l'usage : la derniere etape ("Faire evoluer"), activee en
+   dernier dans la sequence, pouvait rester visuellement en retrait
+   selon la vitesse de defilement ou la hauteur d'ecran — exactement le
+   defaut a eviter ("les 4 etapes doivent avoir la meme presence").
+   Plutot que de re-regler indefiniment les plages de defilement,
+   solution plus sure : les 4 badges/titres/textes sont de nouveau
+   TOUJOURS pleinement presents, identiques par construction — seule la
+   ligne de connexion (un seul element, pas quatre) continue de se
+   remplir au defilement. */
 import { Fragment } from "react";
 import type { MethodeDictionary } from "@/i18n/dictionaries";
 
@@ -61,7 +74,7 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
           </p>
 
           {/* ============ MOBILE / TABLETTE — timeline verticale ============ */}
-          <ol className="reveal relative mt-12 desk:hidden">
+          <ol className="reveal relative mt-14 desk:hidden">
             {/* Piste : filet fixe, toujours visible — la ligne remplie
                 vient par-dessus, jamais a sa place : un navigateur sans
                 support d'animation garde une piste coherente. */}
@@ -71,8 +84,14 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
               className="methode-ligne-remplie absolute left-[19px] top-2 bottom-2 w-px origin-top bg-aws-blue-text"
             />
             {dict.etapes.map((e, i) => (
-              <li key={e.num} className={"relative flex gap-5" + (i < dernierIndex ? " pb-10" : "")}>
-                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-aws-hero text-[0.875rem] font-bold tabular-nums text-white ring-4 ring-aws-surface">
+              <li
+                key={e.num}
+                className={
+                  "group relative flex gap-5 rounded-xl transition-colors duration-300 hover:bg-aws-hero/[0.025] motion-reduce:transition-none" +
+                  (i < dernierIndex ? " pb-10" : "")
+                }
+              >
+                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-aws-hero text-[0.875rem] font-bold tabular-nums text-white ring-4 ring-aws-surface transition-shadow duration-300 motion-reduce:transition-none group-hover:ring-aws-blue-text/40">
                   {e.num}
                 </span>
                 <div className="min-w-0 flex-1 pt-1.5">
@@ -92,7 +111,14 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
           </ol>
 
           {/* ============ DESKTOP — stepper horizontal ============ */}
-          <div className="relative mt-16 hidden desk:block">
+          {/* mt-20 (au lieu de 16) : creuse volontairement l'ecart entre
+              le grand enonce (STATEMENT, deja au-dessus) et le stepper
+              (PROCESS, ci-dessous) — la repetition des 4 memes mots juste
+              apres le titre etait relevee comme plate ; l'espace, avec le
+              mouvement propre au stepper (etapes qui s'activent), suffit
+              a signaler "deuxieme temps", sans avoir besoin d'un label
+              supplementaire. */}
+          <div className="relative mt-20 hidden desk:block">
             {/* Piste + ligne remplie : jointes au CENTRE du 1er et du 4e
                 badge d'une grille a 4 colonnes egales (chaque badge est
                 lui-meme centre dans sa colonne, cf. items-center
@@ -118,8 +144,11 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
             />
             <ol className="reveal relative grid grid-cols-4 gap-8">
               {dict.etapes.map((e) => (
-                <li key={e.num} className="flex flex-col items-center text-center">
-                  <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-aws-hero text-[0.875rem] font-bold tabular-nums text-white ring-4 ring-aws-surface">
+                <li
+                  key={e.num}
+                  className="group flex flex-col items-center rounded-xl px-3 py-2 text-center transition-colors duration-300 hover:bg-aws-hero/[0.025] motion-reduce:transition-none"
+                >
+                  <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-aws-hero text-[0.875rem] font-bold tabular-nums text-white ring-4 ring-aws-surface transition-shadow duration-300 motion-reduce:transition-none group-hover:ring-aws-blue-text/40">
                     {e.num}
                   </span>
                   <h3 className="mt-5 max-w-[16rem] text-[1.0625rem] font-semibold leading-snug tracking-[-0.01em] xl:text-[1.1875rem]">

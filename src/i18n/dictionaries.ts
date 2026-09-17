@@ -157,14 +157,15 @@ const fr = {
       },
     ],
   },
-  /* Section 5 — Qui sommes-nous. L'image precedente (un echangeur
-     autoroutier generique) ne racontait rien de precis sur AWS — releve
-     a la relecture ("qu'est-ce que cette image permet de comprendre sans
-     lire le texte ?", reponse : rien de precis). Remplacee par une vraie
-     photographie d'Abidjan (la lagune et le Plateau, la ou AWS opere
-     reellement) : ancrage local authentique plutot qu'une infrastructure
-     anonyme interchangeable avec n'importe quelle ville. Voir
-     ASSETS_SOURCES.md pour la source et la licence. */
+  /* Section 5 — Qui sommes-nous. L'image precedente (echangeur
+     autoroutier, puis vue de la lagune d'Abidjan) racontait "une ville",
+     pas la convergence capital + actifs + technologie que le texte
+     annonce — releve a la relecture ("que comprend le visiteur en
+     regardant la photo seule ?", reponse : une jolie ville, pas assez
+     precis). Remplacee par une photographie qui montre reellement de la
+     TECHNOLOGIE en train d'etre operee (infrastructure serveur, geste
+     professionnel actif), plus proche du texte. Voir ASSETS_SOURCES.md
+     pour la source et la licence. */
   apropos: {
     eyebrow: "QUI SOMMES-NOUS",
     titre: "La valeur ne repose jamais sur un seul levier.",
@@ -172,7 +173,7 @@ const fr = {
       "Alfred Winner Services est née d'une conviction simple : capital, actifs et technologie se renforcent mutuellement dès qu'on les travaille ensemble.",
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
-    imageAlt: "Vue du Plateau, le quartier d'affaires d'Abidjan, depuis la lagune",
+    imageAlt: "Professionnelle gérant une infrastructure de serveurs informatiques",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -185,45 +186,28 @@ const fr = {
   expertises: {
     eyebrow: "NOS EXPERTISES",
     titre: "Ce que nous faisons, concrètement.",
-    // Label court pour l'encart discret de chaque pole — jamais une
-    // grande carte separee, une seule ligne editoriale (voir Expertises.tsx).
-    solutionAssocieeLabel: "Solution associée",
-    // Media secondaire du pole Innover — UNIQUEMENT une illustration du
-    // champ "robotique et automatisation" evoque par le texte : AWS ne
-    // possede pas ce robot, ne l'a pas construit, n'a livre aucun
-    // systeme de ce type. La legende le dit explicitement (voir
-    // ASSETS_SOURCES.md pour la source et la licence).
-    robotique: {
-      ariaLabel: "Bras robotique industriel en fonctionnement dans un centre de production",
-      legende: "Robotique & automatisation — illustration technologique, pas une réalisation AWS.",
-    },
     poles: [
       {
         num: "01",
         hash: "bourse-finance",
         cle: "INVESTIR",
         titre: "Bourse & Finance",
+        // Reformule pour ne plus commencer par "AWS", ton oriente client
+        // plutot que descriptif. La phrase ne dit plus ce que ces
+        // activites NE SONT PAS a part (un paragraphe separe qui sonnait
+        // comme un avertissement juridique) : la meme idee est integree
+        // naturellement en fin de phrase — plus sobre, toujours honnete.
         texte:
-          "AWS développe des outils technologiques à l'intersection de la finance et du numérique, appliqués aux marchés financiers et aux actifs numériques.",
-        // Precision volontaire : le cahier des charges interdit d'affirmer
-        // ou de laisser entendre une gestion de portefeuille, un conseil
-        // reglemente ou un rendement. Cette phrase le rend explicite
-        // plutot que de laisser un doute.
-        precision:
-          "Ces activités ne constituent ni un conseil en investissement réglementé, ni une gestion de portefeuille, ni une promesse de rendement.",
+          "Des outils technologiques pour lire les marchés financiers et les actifs numériques avec clarté — de l'analyse des données à leur visualisation, pensés pour éclairer la décision plutôt que la dicter.",
+        // Retiree sur demande explicite reiteree du fondateur (deux fois :
+        // une reformulation plus douce avait ete proposee en alternative
+        // a la suppression, refusee la seconde fois — "le premier
+        // paragraphe suffit"). Decision du proprietaire de l'entreprise
+        // sur un risque qui lui appartient, pas un fait invente par nous.
+        precision: null,
         capacites: null,
-        // v4 (mains sur documents) jugee "trop generique" a la relecture —
-        // remplacee par une image qui montre reellement l'analyse de
-        // marches/donnees, sans les cliches ecartes par le cahier des
-        // charges (bitcoin, liasses de billets, salle de marche factice).
         image: "/images/expertises/finance-v5.jpg",
         imageAlt: "Professionnel analysant des graphiques financiers sur un grand écran",
-        // Reprend mot pour mot l'entree correspondante de Projets & Réalisations —
-        // une seule source de verite editoriale, jamais deux formulations.
-        solutionAssociee: {
-          icone: "portefeuille" as const,
-          projetId: "tableau-de-bord-multi-actifs",
-        },
       },
       {
         num: "02",
@@ -231,19 +215,11 @@ const fr = {
         cle: "CONSTRUIRE",
         titre: "Immobilier",
         texte:
-          "AWS intervient dans l'univers immobilier : identification de terrains et d'opportunités, structuration de projets immobiliers et accompagnement lié à leur développement.",
+          "Du repérage des opportunités foncières à la structuration des projets, jusqu'à leur développement — une approche immobilière pensée pour créer de la valeur durable.",
         precision: null,
         capacites: null,
-        // v4 etait precisement la "skyline generique" relevee comme trop
-        // distante/anonyme — remplacee par un chantier reel, actif, dont
-        // la grue et la structure en construction racontent directement
-        // "actif en developpement" (Lagos, Afrique de l'Ouest).
         image: "/images/expertises/immobilier-v5.jpg",
         imageAlt: "Immeuble de grande hauteur en construction avec grues, vue aérienne",
-        solutionAssociee: {
-          icone: "structure" as const,
-          projetId: "suivi-projets-immobiliers",
-        },
       },
       {
         num: "03",
@@ -251,7 +227,7 @@ const fr = {
         cle: "INNOVER",
         titre: "Software & IA",
         texte:
-          "AWS conçoit des sites web professionnels, des applications et des logiciels sur mesure, ainsi que des solutions d'automatisation et d'intelligence artificielle adaptées aux besoins concrets des entreprises et des projets.",
+          "Sites web professionnels, applications, logiciels sur mesure : des solutions numériques et des outils d'automatisation et d'intelligence artificielle pensés pour répondre aux besoins réels des entreprises et des projets.",
         precision: null,
         // Capacites reprises mot pour mot du cahier des charges (section
         // "Software & IA suffisamment etablies") : aucune n'est inventee.
@@ -262,12 +238,13 @@ const fr = {
           "Automatisation",
           "Agents IA",
         ],
-        image: "/images/expertises/software-ia-v3.jpg",
-        imageAlt: "Mains sur un clavier d'ordinateur portable, code affiché à l'écran",
-        solutionAssociee: {
-          icone: "automatisation" as const,
-          projetId: "assistant-ia-metier",
-        },
+        // v3 (mains sur clavier, generique) puis un diptyque photo+video
+        // robotique (juge gadget/trop charge a la relecture) : remplaces
+        // par une seule photo d'un developpeur reellement au travail,
+        // code visible a l'ecran — coherente avec le texte, sans
+        // artifice. Voir ASSETS_SOURCES.md.
+        image: "/images/expertises/software-ia-v4.jpg",
+        imageAlt: "Développeur travaillant sur du code, plusieurs écrans dans un bureau",
       },
     ],
     // Distinct du CTA de la Navbar et du CTA final (meme phrase repetee
@@ -683,17 +660,12 @@ const en: Dictionary = {
       "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another once they are worked on together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
-    imageAlt: "View of Le Plateau, Abidjan's business district, from across the lagoon",
+    imageAlt: "Professional managing a server infrastructure rack",
   },
 
   expertises: {
     eyebrow: "OUR EXPERTISE",
     titre: "What we actually do.",
-    solutionAssocieeLabel: "Related solution",
-    robotique: {
-      ariaLabel: "Industrial robotic arm operating in a production facility",
-      legende: "Robotics & automation — a technology illustration, not an AWS delivery.",
-    },
     poles: [
       {
         num: "01",
@@ -701,16 +673,11 @@ const en: Dictionary = {
         cle: "INVEST",
         titre: "Markets & Finance",
         texte:
-          "AWS is building technology tools at the intersection of finance and digital, applied to financial markets and digital assets.",
-        precision:
-          "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
+          "Technology built to make sense of financial markets and digital assets with clarity — from data analysis to visualisation, designed to inform decisions rather than dictate them.",
+        precision: null,
         capacites: null,
         image: "/images/expertises/finance-v5.jpg",
         imageAlt: "Professional analysing financial charts on a large screen",
-        solutionAssociee: {
-          icone: "portefeuille" as const,
-          projetId: "tableau-de-bord-multi-actifs",
-        },
       },
       {
         num: "02",
@@ -718,15 +685,11 @@ const en: Dictionary = {
         cle: "BUILD",
         titre: "Real Estate",
         texte:
-          "AWS operates in real estate: identifying land and opportunities, structuring property projects and supporting their development.",
+          "From spotting land opportunities to structuring and developing real estate projects — an approach built to create lasting value.",
         precision: null,
         capacites: null,
         image: "/images/expertises/immobilier-v5.jpg",
         imageAlt: "High-rise building under construction with cranes, aerial view",
-        solutionAssociee: {
-          icone: "structure" as const,
-          projetId: "suivi-projets-immobiliers",
-        },
       },
       {
         num: "03",
@@ -734,7 +697,7 @@ const en: Dictionary = {
         cle: "INNOVATE",
         titre: "Software & AI",
         texte:
-          "AWS designs professional websites, applications and custom software, along with automation and artificial intelligence solutions suited to the real needs of businesses and projects.",
+          "Professional websites, applications and custom software: digital solutions and automation and artificial intelligence tools designed to meet the real needs of businesses and projects.",
         precision: null,
         capacites: [
           "Professional websites",
@@ -743,12 +706,8 @@ const en: Dictionary = {
           "Automation",
           "AI agents",
         ],
-        image: "/images/expertises/software-ia-v3.jpg",
-        imageAlt: "Hands on a laptop keyboard, code displayed on screen",
-        solutionAssociee: {
-          icone: "automatisation" as const,
-          projetId: "assistant-ia-metier",
-        },
+        image: "/images/expertises/software-ia-v4.jpg",
+        imageAlt: "Developer working on code, multiple screens in an office",
       },
     ],
     ctaPole: "Discuss this service",

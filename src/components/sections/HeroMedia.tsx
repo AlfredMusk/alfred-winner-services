@@ -1,14 +1,21 @@
-/* Seul le media a besoin d'etat : c'est le SEUL morceau du Hero qui part en
-   Client Component. Le texte reste rendu sur le serveur. */
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+/* Seul le media a besoin d'etat : c'est le SEUL morceau du Hero qui part en
+   Client Component. Le texte reste rendu sur le serveur.
+
+   V3 — PLUS AUCUN CONTROLE VISIBLE SUR L'IMAGE. Le bouton pause/play
+   (V2, integre au coin du cadre) a ete retire sur demande explicite :
+   "le visiteur ne doit voir que la photo". Le mecanisme d'arret reste,
+   mais entierement silencieux — survol et focus mettent en pause sans
+   qu'aucun symbole n'apparaisse jamais a l'ecran. Sous mouvement reduit,
+   aucune rotation n'a jamais lieu (voir plus bas), ce qui couvre le cas
+   ou un visiteur a besoin d'arreter le defilement sans dependre d'un
+   controle pointeur. */
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { HeroDictionary } from "@/i18n/dictionaries";
 
-const DUREE = 7000;            // rotation automatique : lent, on a le temps de regarder
-const DUREE_APRES_CLIC = 14000; // apres une action manuelle, on laisse largement respirer
-const DUREE_TRANSITION = 1000;  // doit rester >= la transition CSS
+const DUREE = 5000; // chaque photo reste visible 5s avant de ceder la place
 
 function useMouvementReduit() {
   const [reduit, setReduit] = useState(false);
@@ -25,163 +32,56 @@ function useMouvementReduit() {
 export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
   const { slides } = dict;
   const [index, setIndex] = useState(0);
-  /* Le plan qui s'en va reste immobile pendant que le nouveau se devoile
-     par-dessus. Sans cette memoire, il glisserait en meme temps et le
-     devoilement perdrait sa nettete. */
-  const [sortant, setSortant] = useState<number | null>(null);
+  /* Pause silencieuse au survol/focus — aucun bouton, aucune icone :
+     seul le defilement s'arrete, rien ne change a l'ecran. */
   const [enPause, setEnPause] = useState(false);
-  /* Pause DEMANDEE par le visiteur, distincte de la pause automatique au
-     survol/focus : celle-ci persiste quand le pointeur repart. Sans
-     controle explicite, un defilement automatique ne peut pas etre
-     arrete par quelqu'un qui en a besoin (WCAG 2.2.2). */
-  const [pauseDemandee, setPauseDemandee] = useState(false);
-  const [manuel, setManuel] = useState(false);
   const mouvementReduit = useMouvementReduit();
-  const toucheX = useRef<number | null>(null);
 
-  const allerA = useCallback(
-    (i: number, parClic = false) => {
-      const n = (i + slides.length) % slides.length;
-      setIndex((courant) => {
-        if (n === courant) return courant;
-        setSortant(courant);
-        return n;
-      });
-      if (parClic) setManuel(true);
-    },
-    [slides.length],
-  );
-
-  /* On libere le plan sortant une fois la transition finie. */
+  /* Sous mouvement reduit, aucune rotation automatique : la premiere
+     photo reste affichee — "afficher eventuellement une seule image"
+     est ici le comportement par defaut, pas un cas particulier gere. */
   useEffect(() => {
-    if (sortant === null) return;
-    const t = setTimeout(() => setSortant(null), DUREE_TRANSITION);
+    if (mouvementReduit || enPause || slides.length < 2) return;
+    const t = setTimeout(() => setIndex((i) => (i + 1) % slides.length), DUREE);
     return () => clearTimeout(t);
-  }, [sortant, index]);
-
-  /* Rotation automatique. Le delai est rallonge apres une action manuelle :
-     l'image choisie ne disparait pas sous le nez de l'utilisateur. */
-  useEffect(() => {
-    if (mouvementReduit || enPause || pauseDemandee || slides.length < 2) return;
-    const t = setTimeout(
-      () => {
-        setManuel(false);
-        allerA(index + 1);
-      },
-      manuel ? DUREE_APRES_CLIC : DUREE,
-    );
-    return () => clearTimeout(t);
-  }, [index, enPause, pauseDemandee, manuel, mouvementReduit, slides.length, allerA]);
+  }, [index, enPause, mouvementReduit, slides.length]);
 
   return (
     <div
-      /* La photographie est un OBJET borne, pas un aplat qui remplit sa
-         colonne : c'est ce qui laisse du bleu autour d'elle. */
       className="w-full max-w-[34rem] desk:max-w-none"
       onMouseEnter={() => setEnPause(true)}
       onMouseLeave={() => setEnPause(false)}
       onFocusCapture={() => setEnPause(true)}
       onBlurCapture={() => setEnPause(false)}
     >
-      <div
-        /* Ratio 4:3 partout — c'est le ratio natif de la photo Finance,
-           qui s'affiche donc sans aucun recadrage. Radius sobre sur les
-           quatre cotes. Fond de secours legerement plus profond que la
-           section : l'emplacement se lit avant que l'image ne peigne. */
-        className="relative aspect-4/3 w-full overflow-hidden rounded-[1.25rem] bg-[#00325a]"
-        onTouchStart={(e) => (toucheX.current = e.touches[0].clientX)}
-        onTouchEnd={(e) => {
-          if (toucheX.current === null) return;
-          const delta = e.changedTouches[0].clientX - toucheX.current;
-          if (Math.abs(delta) > 48) allerA(index + (delta < 0 ? 1 : -1), true);
-          toucheX.current = null;
-        }}
-      >
-        {slides.map((s, i) => {
-          const actif = i === index;
-          const immobile = i === sortant;
-          /* DEVOILEMENT par transformations seules, donc compose par le GPU.
-             Le cadre glisse de 100% a 0 tandis que l'image, a l'interieur,
-             fait le trajet inverse : la photographie ne bouge donc pas d'un
-             pixel, c'est son cadre qui la decouvre. Plus riche qu'un fondu,
-             et sans animer ni width ni clip-path. */
-          const cadre = actif || immobile ? "0%" : "100%";
-          const interne = actif || immobile ? "0%" : "-100%";
-          return (
-            <div
-              key={s.num}
-              aria-hidden={!actif}
-              className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
-              style={{
-                transform: `translate3d(${cadre},0,0)`,
-                zIndex: actif ? 20 : immobile ? 10 : 0,
-              }}
-            >
-              <div
-                className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
-                style={{ transform: `translate3d(${interne},0,0)` }}
-              >
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  fill
-                  priority={i === 0}
-                  sizes="(min-width: 1100px) 48vw, 92vw"
-                  style={{ objectPosition: s.position }}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          );
-        })}
-
-      </div>
-
-      {/* Indicateur SOUS la photographie, sur le bleu. Le voile sombre qui
-          servait a le rendre lisible par-dessus l'image devient inutile :
-          un element decoratif de moins. Aucun libelle sectoriel. */}
-      <div className="mt-4 flex items-center justify-end gap-1">
-          {/* Le bouton n'apparait que s'il y a reellement un defilement a
-              arreter : un seul plan, ou mouvement reduit demande par le
-              systeme, et il n'a plus d'objet. */}
-          {slides.length > 1 && !mouvementReduit && (
-            <button
-              type="button"
-              onClick={() => setPauseDemandee((p) => !p)}
-              aria-label={pauseDemandee ? dict.a11y.reprendre : dict.a11y.pause}
-              aria-pressed={pauseDemandee}
-              className="mr-1 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none"
-            >
-              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true" fill="currentColor">
-                {pauseDemandee ? (
-                  <path d="M8 5.5v13l11-6.5-11-6.5Z" />
-                ) : (
-                  <>
-                    <rect x="7.5" y="5.5" width="3.2" height="13" rx="1" />
-                    <rect x="13.3" y="5.5" width="3.2" height="13" rx="1" />
-                  </>
-                )}
-              </svg>
-            </button>
-          )}
-          {slides.map((s, i) => (
-            <button
-              key={s.num}
-              type="button"
-              onClick={() => allerA(i, true)}
-              aria-label={`${dict.a11y.choisir} ${s.label}`}
-              aria-current={i === index ? "true" : undefined}
-              /* Cible tactile de 44px, alors que le trait ne fait que 2px. */
-              className="group flex h-11 items-center px-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              <span
-                className={
-                  "h-[2px] rounded-full transition-all duration-500 motion-reduce:transition-none " +
-                  (i === index ? "w-12 bg-white" : "w-5 bg-white/45 group-hover:bg-white/80")
-                }
-              />
-            </button>
-          ))}
+      {/* Ratio 4:3 partout, radius sobre. Fond de secours legerement plus
+          profond que la section : l'emplacement se lit avant que l'image
+          ne peigne. */}
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-[1.25rem] bg-[#00325a]">
+        {slides.map((s, i) => (
+          <div
+            key={s.num}
+            aria-hidden={i !== index}
+            /* CROSSFADE editorial : opacite + zoom quasi imperceptible
+               (1.012 -> 1). 700ms : assez rapide pour suivre un rythme de
+               5s par photo, assez lent pour rester une transition, jamais
+               un effet "carousel". */
+            className={
+              "absolute inset-0 transition-[opacity,transform] duration-[700ms] ease-out motion-reduce:transition-none " +
+              (i === index ? "opacity-100 scale-100" : "opacity-0 scale-[1.012]")
+            }
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              fill
+              priority={i === 0}
+              sizes="(min-width: 1100px) 48vw, 92vw"
+              style={{ objectPosition: s.position }}
+              className="object-cover"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

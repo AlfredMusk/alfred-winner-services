@@ -401,3 +401,79 @@ entree [HERO] PHASE 2, 2026-09-15) :
   CONSTRUCTION (grues actives, structure inachevée visible), plus narratif
   qu'une skyline finie et distante — Afrique de l'Ouest, cohérent avec
   l'identité régionale d'AWS.
+
+## qui-sommes-nous-v6.jpg — Qui sommes-nous
+- **Remplace** : qui-sommes-nous-v5.jpg (vue de la lagune/Plateau d'Abidjan
+  — une "jolie ville" mais qui ne racontait pas assez la convergence
+  capital+actifs+technologie annoncée par le texte ; retiré du repo).
+- **Section** : Qui sommes-nous.
+- **Source** : Pexels — https://www.pexels.com/photo/software-engineer-standing-beside-server-racks-1181354/
+- **Auteure (page Pexels)** : Christina Morillo — projet #WOCinTech Chat
+  (initiative connue et documentee de photographie de stock authentique
+  mettant en scene des femmes de couleur dans la tech, publiee sous
+  licence Pexels gratuite).
+- **Licence** : Pexels License (gratuite, usage commercial autorisé).
+- **Date d'accès** : 17 septembre 2026.
+- **Note de transparence** : les metadonnees EXIF du fichier telecharge
+  portent un champ "copyright: © Mike Ngo Photography. All Rights
+  Reserved." — Mike Ngo est le photographe qui a realise la seance pour
+  le projet #WOCinTech Chat que Christina Morillo a ensuite publiee sur
+  Pexels sous licence libre ; c'est cette publication Pexels (License:
+  Free, verifiee sur la page) qui gouverne l'usage ici, le champ EXIF
+  etant un residu de metadonnee de prise de vue, pas une revendication
+  de droits actuelle sur la plateforme de diffusion.
+- **Original** : 5644×3768 (~3:2). Recadré à la main en 4:3 EXACT
+  (1200×900 dans l'image source pleine resolution) puis redimensionné à
+  1300×975 avec sips.
+- **Recadrage — raison precise** : le cadrage original incluait, en bas
+  de l'image, un long bandeau visible de logos de sponsors/exposants
+  (Dell, HP, Intel, NetApp, Schneider Electric, EMC, Emerson, Emulex...)
+  signalant sans ambiguite un salon professionnel / stand d'exposition —
+  un risque de confusion de marque bien plus net que les cas deja
+  ecartes plus tot dans ce projet (enseigne BNI, signature "NSIA").
+  Le recadrage retient uniquement la partie superieure de la photo
+  (la professionnelle + les baies de serveurs), EXCLUANT entierement ce
+  bandeau de logos. Les inscriptions "APC" visibles sur l'equipement de
+  refroidissement/alimentation sont conservees : un marquage d'usine sur
+  du materiel reel, incidental et attendu (meme registre que le logo
+  Apple deja accepte sur l'image Software/IA), pas un mur de sponsors.
+- **Vérification avant intégration** : contenu réel confirmé par
+  inspection à pleine résolution (pas seulement la vignette) ; plusieurs
+  candidats compares avant ce choix (voir journal) : une photo
+  industrielle generique (Visen Group, Venezuela), deux photos "concept
+  photography" en gros plan sur des mains (panumas nikhomkhai, sans
+  visage), et une seconde photo de la meme serie #WOCinTech (portrait
+  souriant face camera) jugee moins forte narrativement (pose plutot
+  qu'execution active).
+- **Usage éditorial** : illustre reellement "technologie + infrastructure
+  + execution" — une professionnelle gerant activement une infrastructure
+  serveur reelle — sans jamais suggerer qu'il s'agit d'un bureau, d'une
+  employee ou d'une infrastructure appartenant a AWS.
+
+## software-ia-v4.jpg — Software & IA (pôle Innover)
+- **Remplace** : software-ia-v3.jpg (mains sur clavier, jugé générique)
+  PUIS un diptyque photo+vidéo robotique (robotique-automatisation.mp4 +
+  robotique-poster.jpg) intégré lors d'une passe précédente — jugé
+  gadget/trop chargé à la relecture ("pas de robotique caricaturale, pas
+  d'image qui surcharge"). Les deux anciens fichiers vidéo/poster ont été
+  retirés du dépôt (plus aucune référence dans le code) ; conservé ici
+  comme trace : robotique-automatisation.mp4 provenait de Pexels (Usman
+  AbdulrasheedGambo, Pexels License) — retrait pour raison éditoriale
+  (simplification demandée), pas pour un problème de licence.
+- **Section** : Nos expertises — pôle Innover (Software & IA).
+- **Source** : Pexels — https://www.pexels.com/photo/man-working-with-computers-19805877/
+- **Auteur** : Naboth Otieno (développeur, photographe de sa propre
+  pratique — bio Pexels : "Hello, I am Naboth. And I develop websites.").
+- **Licence** : Pexels License (gratuite, usage commercial autorisé).
+- **Date d'accès** : 17 septembre 2026.
+- **Original** : 5944×3963 (~3:2). Recadré en 4:3 (1706×1280) puis
+  redimensionné à 1300×975 avec sips — recadrage symétrique très léger,
+  aucune perte de sujet (développeur et écrans de code intacts).
+- **Vérification avant intégration** : contenu réel confirmé à pleine
+  résolution — code visible à l'écran (éditeur de type VS Code), logos
+  de marque limités à un marquage "hp" incidental sur le matériel
+  (même registre que le logo Apple déjà accepté ailleurs sur ce site),
+  aucune enseigne ni mur de sponsors.
+- **Usage éditorial** : une seule photographie, cohérente avec le texte
+  (logiciel, développement) — remplace une composition à deux médias
+  jugée trop chargée.

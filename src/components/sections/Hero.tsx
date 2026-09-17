@@ -5,12 +5,12 @@ import type { HeroDictionary } from "@/i18n/dictionaries";
 
 export default function Hero({ dict }: { dict: HeroDictionary }) {
   return (
-    /* Bloc bleu pleine largeur, colle sous la navbar. Le degrade ton sur ton
-       reste imperceptible : il evite juste l'effet "grand aplat". */
-    <section
-      aria-labelledby="hero-titre"
-      className="bg-aws-hero bg-linear-to-b from-aws-hero-haut to-aws-hero-bas"
-    >
+    /* Bloc bleu pleine largeur, colle sous la navbar. aws-hero-surface
+       (globals.css) superpose un degrade lineaire haut->bas ET un voile
+       radial tres doux en haut a gauche : deux nuances de bleu, pas un
+       aplat — voir le commentaire de la classe pour la verification de
+       contraste. */
+    <section aria-labelledby="hero-titre" className="aws-hero-surface bg-aws-hero">
       {/* EXACTEMENT le meme conteneur que la navbar : l'alignement du texte
           sur le logo est donc garanti par construction, sans calcul. */}
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
@@ -78,12 +78,20 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
                 </span>
               </a>
 
-              {/* SECONDAIRE : contour blanc discret. Meme hauteur et meme
-                  rayon que le principal — ils forment un groupe — mais il
-                  reste clairement au second rang : pas de fond plein. */}
+              {/* SECONDAIRE : contour blanc discret au repos — meme hauteur
+                  et meme rayon que le principal, mais pas de fond plein,
+                  il reste clairement au second rang.
+
+                  Au survol seulement, il repond clairement : fond ivoire
+                  (aws-surface, le meme "blanc chaud" que le reste du site,
+                  jamais un blanc pur) + texte qui bascule en aws-hero — le
+                  MEME couple fond-clair/texte-fonce que le bouton primaire
+                  utilise au repos, pour que les deux CTA se sentent de la
+                  meme famille sans jamais se confondre. Lift de 1px, comme
+                  le reste du systeme de boutons AWS. */}
               <a
                 href="#projets"
-                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 px-7 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:border-white/70 hover:bg-white/10 active:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none"
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 px-7 text-[0.9375rem] font-semibold text-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-px hover:border-aws-surface hover:bg-aws-surface hover:text-aws-hero active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 {dict.ctaSecondaire}
                 <span

@@ -121,6 +121,26 @@
   --color-whatsapp-fonce: #0e6e63;
 }
 
+/* HERO — la surface bleue se lisait comme un aplat un peu plat malgre le
+   degrade lineaire existant (haut->bas). Ajout d'un SECOND calque, un
+   voile radial tres doux (blanc a 6%, jamais plus) positionne en haut a
+   gauche — la ou vivent l'eyebrow et le H1 — comme une lumiere ambiante
+   plutot qu'une forme. Les deux calques se superposent (le radial est
+   liste en premier, donc au-dessus, dans le raccourci `background-image`
+   qui accepte plusieurs couches).
+
+   MESURE, PAS SUPPOSE : au point le plus fort du voile (18%/0%, l'angle
+   ou l'opacite est maximale), le bleu #004a85 devient #0f558c — le
+   contraste du texte blanc dessus passe de 9.2 a 7.78 (calcul WCAG
+   relative luminance), donc TOUJOURS AAA (>=7). Ailleurs dans le Hero,
+   la retombee du radial (55% de son rayon) rend l'effet encore plus
+   faible : aucune perte de lisibilite reelle. */
+.aws-hero-surface {
+  background-image:
+    radial-gradient(120% 140% at 18% 0%, rgb(255 255 255 / 6%), transparent 55%),
+    linear-gradient(to bottom, var(--color-aws-hero-haut), var(--color-aws-hero-bas));
+}
+
 :root {
   --background: #ffffff;
   --foreground: #1c2a3d;

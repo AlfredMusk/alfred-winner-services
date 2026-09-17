@@ -197,6 +197,18 @@ export default function Navbar({ locale, dict }: Props) {
               onMouseLeave={() => {
                 if (!pinnedRef.current) setServicesOpen(false);
               }}
+              /* Le focus qui QUITTE tout le groupe (bouton + panneau) doit
+                 refermer le menu — sans ceci, un visiteur au clavier qui
+                 Tab au-dela du dernier lien du panneau laissait le menu
+                 visuellement ouvert alors que son focus etait deja ailleurs.
+                 relatedTarget est l'element qui RECOIT le focus : s'il est
+                 encore dans ce conteneur, on ne ferme pas. */
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                  pinnedRef.current = false;
+                  setServicesOpen(false);
+                }
+              }}
             >
               <button
                 type="button"
@@ -235,31 +247,47 @@ export default function Navbar({ locale, dict }: Props) {
               </button>
 
               {/* pt-3 fait le pont : sans lui le curseur quitte la zone
-                  entre le bouton et le panneau, et le menu clignote. */}
-              <div
-                id="services-menu"
-                hidden={!servicesOpen}
-                className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
-              >
-                <ul className="w-[17rem] rounded-xl border border-aws-line bg-white p-2 shadow-[0_8px_28px_rgba(0,36,84,0.10)]">
-                  {dict.services.map((s) => (
-                    <li key={s.hash}>
-                      <a
-                        href={versAccueil(s.hash)}
-                        onClick={() => {
-                          pinnedRef.current = false;
-                          setServicesOpen(false);
-                        }}
-                        className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
-                      >
-                        <span className="w-4 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
-                          {s.num}
-                        </span>
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                  entre le bouton et le panneau, et le menu clignote.
+                  Le centrage (-translate-x-1/2) vit sur CE conteneur,
+                  immobile — l'ouverture/fermeture anime un enfant distinct
+                  juste en dessous, pour ne jamais faire porter deux
+                  translations differentes par la meme propriete transform. */}
+              <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3">
+                {/* inert (pas hidden) : hidden aurait empeche toute
+                    transition (display:none ne s'anime pas) ; inert retire
+                    le panneau du tabindex et de l'arbre d'accessibilite
+                    exactement comme hidden, mais laisse l'opacite/transform
+                    s'animer normalement pendant la fermeture. */}
+                <div
+                  id="services-menu"
+                  inert={!servicesOpen}
+                  className={
+                    "transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none " +
+                    (servicesOpen
+                      ? "opacity-100"
+                      : "pointer-events-none -translate-y-1 opacity-0")
+                  }
+                >
+                  <ul className="w-[17rem] rounded-xl border border-aws-line bg-white p-2 shadow-[0_8px_28px_rgba(0,36,84,0.10)]">
+                    {dict.services.map((s) => (
+                      <li key={s.hash}>
+                        <a
+                          href={versAccueil(s.hash)}
+                          onClick={() => {
+                            pinnedRef.current = false;
+                            setServicesOpen(false);
+                          }}
+                          className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
+                        >
+                          <span className="w-4 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
+                            {s.num}
+                          </span>
+                          {s.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -276,7 +304,7 @@ export default function Navbar({ locale, dict }: Props) {
 
             <a
               href="#contact"
-              className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] motion-reduce:transition-none desk:inline-flex xl:px-5 ${focusRing}`}
+              className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0 desk:inline-flex xl:px-5 ${focusRing}`}
             >
               {dict.cta}
               <span

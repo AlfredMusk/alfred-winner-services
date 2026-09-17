@@ -72,7 +72,15 @@ const ACCENT_SURFACE: Record<string, string> = {
 
 export default function Approach({ dict }: { dict: ApprocheDictionary }) {
   return (
-    <section aria-labelledby="approche-titre" className="bg-white">
+    /* SURFACE — Approche et Methode ne doivent pas se lire comme le meme
+       chapitre repeint en blanc deux fois (Approche = QUI/OU, Methode =
+       COMMENT). Methode possede deja aws-surface (chaud). Ici, un lavis
+       navy a 2.5% : trop faible pour se nommer "une couleur", juste assez
+       pour que l'oeil sente un blanc FROID, distinct du blanc pur d'A
+       propos et du blanc chaud de Methode — sans toucher au contraste
+       (le texte reste sur des tons aws-hero/aws-ink deja verifies sur
+       blanc, et 2.5% de navy ne les fait pas bouger de facon mesurable). */
+    <section aria-labelledby="approche-titre" className="bg-aws-navy/[0.025]">
       {/* Meme container que la navbar et le Hero. */}
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="py-12 sm:py-14 desk:py-16">
@@ -143,7 +151,7 @@ export default function Approach({ dict }: { dict: ApprocheDictionary }) {
 
                   <div
                     className={
-                      "transition-transform duration-300 motion-reduce:transition-none desk:group-hover:-translate-y-0.5 " +
+                      "transition-transform duration-300 motion-reduce:transition-none desk:group-hover:-translate-y-0.5 desk:group-hover:scale-[1.06] " +
                       ACCENT_TEXTE[p.num]
                     }
                   >
@@ -156,12 +164,17 @@ export default function Approach({ dict }: { dict: ApprocheDictionary }) {
                       ACCENT_TEXTE[p.num]
                     }
                   >
-                    <span className="tabular-nums">{p.num}</span>
+                    {/* Le numero gagne en contraste au survol (70% -> 100%
+                        d'opacite) : un signal supplementaire, discret,
+                        que "cette colonne repond". */}
+                    <span className="tabular-nums opacity-70 transition-opacity duration-300 motion-reduce:transition-none desk:group-hover:opacity-100">
+                      {p.num}
+                    </span>
                     <span aria-hidden="true" className="text-aws-ink/25">—</span>
                     {p.cle}
                   </p>
 
-                  <h3 className="mt-2.5 text-[1.1875rem] font-semibold leading-snug tracking-[-0.01em] text-aws-hero desk:text-[1.25rem]">
+                  <h3 className="mt-2.5 text-[1.1875rem] font-semibold leading-snug tracking-[-0.01em] text-aws-hero transition-colors duration-300 motion-reduce:transition-none desk:text-[1.25rem] desk:group-hover:text-aws-navy">
                     {p.titre}
                   </h3>
 
