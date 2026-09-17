@@ -274,36 +274,31 @@ const fr = {
      "En developpement" ou "En structuration" — jamais confondus, jamais
      silencieux. */
   projets: {
-    eyebrow: "PROJETS & INITIATIVES",
-    // Le titre precedent ("La methode, mise a l'epreuve.") dupliquait le
-    // theme de la section Notre methode juste au-dessus. Celui-ci nomme
-    // ce que la section montre reellement : des choses a des stades
-    // differents, pas une seule "methode" repetee deux fois.
-    titre: "De la démonstration à la solution.",
+    eyebrow: "PROJETS & RÉALISATIONS",
+    titre: "Des solutions conçues pour des usages concrets.",
     paragraphe:
-      "Des solutions livrées, un outil en développement et un projet en structuration — chacun donnant une forme concrète à l'un des trois univers AWS, chacun à son propre stade, chacun avec un statut clair.",
-    // NOMS PUBLICS DEPERSONNALISES : ces trois entrees portaient le nom
-    // personnel du fondateur ("Alfred Fitness", "Alfred AI Trader") ou
-    // un nom de produit isole ("Baby Tourism") — sur demande explicite,
-    // l'entreprise doit rester au premier plan, pas le personal
-    // branding. Seul le nom affiche est reformule en description de ce
-    // que chaque projet EST.
+      "Une sélection de projets numériques conçus par AWS, à travers plusieurs univers : tourisme, fitness, finance et intelligence artificielle.",
+    // NOMS PUBLICS DEPERSONNALISES (passe anterieure) : conserves.
     //
-    // STATUTS "REALISE" — confirmes explicitement par le fondateur (pas
-    // une supposition de notre part : la version precedente de cette
-    // liste les gardait a "demonstrateur"/"prototype" faute de
-    // confirmation, le fondateur a ensuite confirme leur livraison en
-    // detail, projet par projet). Les deux items ci-dessous statuts
-    // "tableau-de-bord-multi-actifs" couvre a la fois "Solution Finance
-    // & Technologie" et "Outil de gestion/suivi de portefeuille
-    // electronique" du brief : un seul et meme outil dans ce projet,
-    // pas deux projets distincts.
+    // LISTE REDUITE A 4 (au lieu de 6) — decision prise ICI, pas une
+    // simple consigne suivie a la lettre : la demande de cette passe
+    // etait de retirer tout statut ("Realise", "En structuration", "En
+    // developpement"...) ET de renommer la section "PROJETS &
+    // REALISATIONS". Or "suivi-projets-immobiliers" et
+    // "assistant-ia-metier" n'ont JAMAIS ete confirmes comme livres par
+    // le fondateur (statuts "En structuration"/"En developpement"
+    // inchanges depuis des passes anterieures). Les afficher SANS badge
+    // dans une section intitulee "Realisations" les ferait passer pour
+    // des livraisons achevees — exactement ce que la charte du projet
+    // interdit ("n'invente aucune realisation"). Retires de la liste
+    // publique plutot que de les faire mentir par omission ; ils restent
+    // documentes ici (travaux realises.md) pour re-apparaitre le jour ou
+    // ils seront reellement livres.
     liste: [
       {
         id: "baby-tourism",
         nom: "Plateforme de découverte touristique",
         categorie: "Digital · Tourisme",
-        statut: "Réalisé",
         texte:
           "Plateforme web dédiée à la découverte, à la présentation et à l'expérience touristique.",
       },
@@ -311,7 +306,6 @@ const fr = {
         id: "alfred-fitness",
         nom: "Expérience web Fitness",
         categorie: "Web · Fitness",
-        statut: "Réalisé",
         texte:
           "Expérience digitale conçue pour présenter une activité fitness, ses services et son univers.",
       },
@@ -319,33 +313,15 @@ const fr = {
         id: "alfred-ai-trader",
         nom: "Plateforme d'analyse de marchés",
         categorie: "Finance · Technologie · IA",
-        statut: "Réalisé",
         texte:
-          "Solution logicielle combinant technologies numériques et analyse des marchés financiers. Un outil technologique, pas un service de conseil réglementé ni une promesse de performance.",
+          "Solution logicielle combinant technologies numériques et analyse des marchés financiers, pensée pour éclairer la lecture des données de marché.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Tableau de bord multi-actifs",
-        categorie: "Finance & Technologie",
-        statut: "Réalisé",
+        categorie: "Finance · Technologie",
         texte:
-          "Tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs. Un outil technologique, pas un service de gestion réglementée ni de conseil financier.",
-      },
-      {
-        id: "suivi-projets-immobiliers",
-        nom: "Suivi de projets immobiliers",
-        categorie: "Immobilier & Technologie",
-        statut: "En structuration",
-        texte:
-          "Outil pour structurer et suivre opportunités, documents et étapes d'un projet immobilier.",
-      },
-      {
-        id: "assistant-ia-metier",
-        nom: "Assistant IA métier",
-        categorie: "Software & IA",
-        statut: "En développement",
-        texte:
-          "Agent d'automatisation pensé pour accompagner la recherche d'information et les tâches métier.",
+          "Tableau de bord numérique pour suivre les allocations, l'historique et les visualisations d'un portefeuille multi-actifs.",
       },
     ],
   },
@@ -356,7 +332,7 @@ const fr = {
      beaucoup de sites institutionnels placent avant le closing. */
   vision: {
     eyebrow: "VISION",
-    titre: "Une ambition progressivement africaine et internationale.",
+    titre: "Une ambition qui grandit étape par étape — ivoirienne, africaine, internationale.",
     paragraphe:
       "Depuis la Côte d'Ivoire, AWS ambitionne de développer des projets, des actifs et des solutions technologiques capables de créer durablement de la valeur. Le logiciel et l'intelligence artificielle occupent une place croissante dans cette vision.",
   },
@@ -370,7 +346,7 @@ const fr = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Fondateur & CEO — Alfred Winner Services",
     paragraphes: [
-      "Entrepreneur et ingénieur logiciel de formation, Alfred Krodi développe Alfred Winner Services à l'intersection de l'entrepreneuriat, de la technologie, de la finance et de l'immobilier.",
+      "Entrepreneur et ingénieur logiciel de formation, il développe Alfred Winner Services à l'intersection de l'entrepreneuriat, de la technologie, de la finance et de l'immobilier.",
       "Il porte notamment les initiatives numériques et d'intelligence artificielle développées autour de l'écosystème AWS.",
     ],
     imageAlt: "Krodi Krotchaman Alfred Donald, fondateur d'Alfred Winner Services",
@@ -401,9 +377,11 @@ const fr = {
     emailMailtoHref: "mailto:krodi2001@gmail.com",
     // Formulaire de prise de contact structuree ("project intake") —
     // remplace l'ancien formulaire court. Champs marques (*) obligatoires
-    // cote client ET serveur (voir src/app/api/contact/route.ts) ; budget
-    // et echeance restent facultatifs, sur demande explicite : personne
-    // n'est bloque de decrire son projet faute de chiffre precis.
+    // cote client ET serveur (voir src/app/api/contact/route.ts).
+    //
+    // Budget et echeance RETIRES (demande explicite) : le premier contact
+    // doit porter sur LE PROJET, pas sur l'argent ou le delai — ces deux
+    // sujets se discutent une fois le besoin compris, pas avant.
     formulaire: {
       nom: "Nom & prénom",
       email: "Email",
@@ -419,16 +397,7 @@ const fr = {
         "Autre",
       ],
       typeProjet: "Type de projet",
-      budget: "Budget estimatif",
-      echeance: "Échéance souhaitée",
-      echeanceOptions: [
-        "Dès que possible",
-        "Dans les 3 prochains mois",
-        "Dans les 6 prochains mois",
-        "Pas encore définie",
-      ],
       description: "Description du projet",
-      optionnel: "(facultatif)",
       cta: "Envoyer mon projet",
       // Etats reels, pas une promesse generique : le canal de livraison
       // depend de ce que /api/contact repond (voir ContactForm.tsx).
@@ -720,16 +689,15 @@ const en: Dictionary = {
   },
 
   projets: {
-    eyebrow: "PROJECTS & INITIATIVES",
-    titre: "From demonstrator to solution.",
+    eyebrow: "PROJECTS & DELIVERABLES",
+    titre: "Solutions designed for real-world use.",
     paragraphe:
-      "Delivered solutions, a tool in development and a project in scoping — each giving concrete form to one of the three AWS business areas, each at its own stage, each with a stated status.",
+      "A selection of digital projects designed by AWS, spanning several fields: tourism, fitness, finance and artificial intelligence.",
     liste: [
       {
         id: "baby-tourism",
         nom: "Tourism discovery platform",
         categorie: "Digital · Tourism",
-        statut: "Delivered",
         texte:
           "A web platform dedicated to tourism discovery, presentation and experience.",
       },
@@ -737,7 +705,6 @@ const en: Dictionary = {
         id: "alfred-fitness",
         nom: "Fitness web experience",
         categorie: "Web · Fitness",
-        statut: "Delivered",
         texte:
           "A digital experience designed to present a fitness business, its services and its world.",
       },
@@ -745,33 +712,15 @@ const en: Dictionary = {
         id: "alfred-ai-trader",
         nom: "Market analysis platform",
         categorie: "Finance · Technology · AI",
-        statut: "Delivered",
         texte:
-          "A software solution combining digital technology and financial market analysis. A technology tool, not regulated advice or a performance promise.",
+          "A software solution combining digital technology and financial market analysis, designed to make market data easier to read.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset dashboard",
-        categorie: "Finance & Technology",
-        statut: "Delivered",
+        categorie: "Finance · Technology",
         texte:
-          "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio. A technology tool, not a regulated portfolio management or advisory service.",
-      },
-      {
-        id: "suivi-projets-immobiliers",
-        nom: "Real estate project tracker",
-        categorie: "Real Estate & Technology",
-        statut: "In scoping",
-        texte:
-          "A tool to structure and track opportunities, documents and stages of a real estate project.",
-      },
-      {
-        id: "assistant-ia-metier",
-        nom: "Business AI assistant",
-        categorie: "Software & AI",
-        statut: "In development",
-        texte:
-          "An automation agent designed to support information lookup and business tasks.",
+          "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio.",
       },
     ],
   },
@@ -788,7 +737,7 @@ const en: Dictionary = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Founder & CEO — Alfred Winner Services",
     paragraphes: [
-      "An entrepreneur and software engineer by training, Alfred Krodi is building Alfred Winner Services at the intersection of entrepreneurship, technology, finance and real estate.",
+      "An entrepreneur and software engineer by training, he is building Alfred Winner Services at the intersection of entrepreneurship, technology, finance and real estate.",
       "He leads in particular the digital and artificial intelligence initiatives developed around the AWS ecosystem.",
     ],
     imageAlt: "Krodi Krotchaman Alfred Donald, founder of Alfred Winner Services",
@@ -828,16 +777,7 @@ const en: Dictionary = {
         "Other",
       ],
       typeProjet: "Type of project",
-      budget: "Estimated budget",
-      echeance: "Desired timeline",
-      echeanceOptions: [
-        "As soon as possible",
-        "Within the next 3 months",
-        "Within the next 6 months",
-        "Not yet defined",
-      ],
       description: "Project description",
-      optionnel: "(optional)",
       cta: "Submit my project",
       envoiEnCours: "Sending…",
       succesEnvoye: "Message sent. We'll get back to you shortly.",

@@ -49,8 +49,6 @@ const LIMITES = {
   entreprise: 200,
   service: 60,
   typeProjet: 200,
-  budget: 100,
-  echeance: 60,
   description: 5000,
 } as const;
 
@@ -61,8 +59,6 @@ type Corps = {
   entreprise?: unknown;
   service?: unknown;
   typeProjet?: unknown;
-  budget?: unknown;
-  echeance?: unknown;
   description?: unknown;
   site?: unknown; // honeypot
   chargeA?: unknown; // timestamp de montage du formulaire, cote client
@@ -104,8 +100,6 @@ export async function POST(requete: Request) {
     entreprise: texte(corps.entreprise, LIMITES.entreprise),
     service: texte(corps.service, LIMITES.service),
     typeProjet: texte(corps.typeProjet, LIMITES.typeProjet),
-    budget: texte(corps.budget, LIMITES.budget),
-    echeance: texte(corps.echeance, LIMITES.echeance),
     description: texte(corps.description, LIMITES.description),
   };
 

@@ -209,6 +209,19 @@ body {
       }
     }
 
+    /* Variante decalee de .reveal — Fondateur : la photo et le texte se
+       reverlent avec un leger decalage (pas ensemble, pas un gros ecart)
+       plutot que le meme bloc unique d'avant. Meme reperage "entry",
+       juste une fenetre qui commence et finit legerement plus tard —
+       aucun etat "a moitie fini" possible une fois la section
+       entierement visible, les deux terminent au meme point (opacity 1,
+       translateY 0). */
+    .reveal-decale {
+      animation: aws-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 6% entry 52%;
+    }
+
     /* LIGNE DE PROGRESSION — Notre methode. Un seul element porte le
        timeline (lui-meme), pas un systeme synchronise entre plusieurs
        enfants : animation-timeline: view() lit la position de scroll de
@@ -231,5 +244,35 @@ body {
         transform: scale(1);
       }
     }
+  }
+}
+
+/* VISION — derive ambiante du halo, "ressentie plutot que vue". Anime le
+   TRANSFORM d'un calque deja purement decoratif (aria-hidden, aucun
+   texte dessus) — jamais opacity/couleur, jamais assez ample pour capter
+   l'oeil consciemment. Duree volontairement longue (24s) et easing
+   sinusoidal : le contraire d'un mouvement qui cherche a se faire
+   remarquer. Animation classique (pas animation-timeline: view()) donc
+   pas besoin de @supports — juste prefers-reduced-motion, comme
+   n'importe quelle animation CSS ordinaire.
+
+   Position de base HORS media query (meme logique que
+   .methode-ligne-remplie) : le halo reste centre et immobile sous
+   mouvement reduit, jamais desaxe faute d'animation. */
+.vision-halo {
+  transform: translate(-50%, -33%) scale(1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vision-halo {
+    animation: aws-vision-derive 24s ease-in-out infinite;
+  }
+}
+@keyframes aws-vision-derive {
+  0%,
+  100% {
+    transform: translate(-50%, -33%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -28%) scale(1.06);
   }
 }

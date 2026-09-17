@@ -112,7 +112,7 @@ function Pole({
                 alt={pole.imageAlt ?? ""}
                 fill
                 sizes="(min-width: 1100px) 40vw, 88vw"
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.01] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
             </div>
           </div>

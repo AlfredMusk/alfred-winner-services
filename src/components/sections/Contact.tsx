@@ -36,8 +36,6 @@ type Champs = {
   entreprise: string;
   service: string;
   typeProjet: string;
-  budget: string;
-  echeance: string;
   description: string;
 };
 
@@ -50,8 +48,6 @@ const CHAMPS_VIDES: Champs = {
   entreprise: "",
   service: "",
   typeProjet: "",
-  budget: "",
-  echeance: "",
   description: "",
 };
 
@@ -132,8 +128,6 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
         d.entreprise ? `Entreprise : ${d.entreprise}` : null,
         `Service recherché : ${d.service}`,
         d.typeProjet ? `Type de projet : ${d.typeProjet}` : null,
-        d.budget ? `Budget estimatif : ${d.budget}` : null,
-        d.echeance ? `Échéance souhaitée : ${d.echeance}` : null,
         "",
         d.description,
       ]
@@ -280,26 +274,6 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
                 <span className={labelBase}>{f.typeProjet}</span>
                 <input type="text" {...champProps("typeProjet")} />
               </label>
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className={labelBase}>
-                    {f.budget} <span className="font-normal text-aws-ink/50">{f.optionnel}</span>
-                  </span>
-                  <input type="text" {...champProps("budget")} />
-                </label>
-                <label className="block">
-                  <span className={labelBase}>{f.echeance}</span>
-                  <select {...champProps("echeance")}>
-                    <option value="" />
-                    {f.echeanceOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
 
               <label className="block">
                 <span className={labelBase}>

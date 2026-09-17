@@ -16,10 +16,13 @@ export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
     <section id="fondateur" aria-labelledby="fondateur-titre" className="scroll-mt-24 bg-white">
       <div className="mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
         <div className="border-t border-aws-line py-12 sm:py-14 desk:py-16">
-          <div className="reveal flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14">
+          <div className="flex flex-col gap-8 desk:flex-row desk:items-center desk:gap-14">
             {/* MEDIA — ratio portrait 3:4, meme cadre (filet aws-line,
-                coins arrondis) que le reste du site. */}
-            <div className="desk:w-[32%] desk:shrink-0">
+                coins arrondis) que le reste du site. Reveal INDEPENDANT
+                du texte (reveal vs reveal-decale) : photo et contenu
+                apparaissent avec un leger decalage plutot qu'un seul
+                bloc qui se devoile d'un coup. */}
+            <div className="reveal desk:w-[32%] desk:shrink-0">
               <div className="relative aspect-[3/4] max-w-[20rem] overflow-hidden rounded-2xl border border-aws-line bg-aws-surface mx-auto desk:mx-0">
                 <Image
                   src="/images/fondateur/krodi-krotchaman-fondateur.jpg"
@@ -32,7 +35,7 @@ export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
               </div>
             </div>
 
-            <div className="desk:flex-1">
+            <div className="reveal-decale desk:flex-1">
               <p className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-aws-blue-text">
                 {dict.eyebrow}
               </p>

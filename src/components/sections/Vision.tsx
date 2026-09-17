@@ -34,7 +34,7 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
               "repeating-linear-gradient(135deg, currentColor 0, currentColor 1px, transparent 1px, transparent 44px)",
           }}
         />
-        <div className="absolute left-1/2 top-0 h-[36rem] w-[56rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-aws-blue-text/[0.08] blur-3xl" />
+        <div className="vision-halo absolute left-1/2 top-0 h-[36rem] w-[56rem] rounded-full bg-aws-blue-text/[0.08] blur-3xl" />
       </div>
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-aws-blue-text/40" />
       {/* Le texte occupe desormais davantage la section : padding vertical
@@ -42,7 +42,7 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
           personnalite de la section doit venir de ce qui est ECRIT, pas
           d'une texture de fond qui la porterait seule. */}
       <div className="relative mx-auto max-w-[1360px] px-4 sm:px-6 desk:px-8">
-        <div className="reveal py-14 text-center sm:py-16 desk:py-20">
+        <div className="reveal py-16 text-center sm:py-20 desk:py-24">
           <div className="flex items-center justify-center gap-3">
             <span aria-hidden="true" className="h-px w-8 bg-aws-blue-text/50" />
             <p className="text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-white/75">

@@ -89,8 +89,8 @@ export default function Footer({
           bande. Verifie a l'ecran : sans cette marge, le copyright reste
           coince sous le bouton meme en bas de page, quel que soit
           l'alignement horizontal du texte. */}
-      <div className="mx-auto max-w-[1360px] px-4 pt-10 pb-24 sm:px-6 sm:pt-12 sm:pb-24 desk:px-8 desk:pt-14 desk:pb-24">
-        <div className="reveal grid gap-9 desk:grid-cols-[1fr_1.2fr] desk:gap-12">
+      <div className="mx-auto max-w-[1360px] px-4 pt-8 pb-20 sm:px-6 sm:pt-9 sm:pb-20 desk:px-8 desk:pt-10 desk:pb-20">
+        <div className="reveal grid gap-7 desk:grid-cols-[1fr_1.2fr] desk:gap-10">
           {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
               blanc opaque (verifie pixel par pixel, pas de canal alpha) :
               une puce blanche porte le logo intact plutot que de le
@@ -125,7 +125,7 @@ export default function Footer({
               "a confirmer" sur une page publique). */}
           <div>
             <p className={titreColonne}>{dict.contactsNav}</p>
-            <ul className="mt-3 space-y-4">
+            <ul className="mt-3 space-y-3">
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeLieu}</span>
                 <p className="pt-1.5 text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
@@ -173,7 +173,7 @@ export default function Footer({
             gauche, qui ne rencontrent jamais ce coin. Separateur
             white/15 : le meme "ressenti, pas remarque" que les filets
             clairs ailleurs sur le site. */}
-        <div className="mt-9 flex flex-col gap-3 border-t border-white/15 pt-5 text-[0.8125rem] desk:mt-10">
+        <div className="mt-7 flex flex-col gap-3 border-t border-white/15 pt-4 text-[0.8125rem] desk:mt-8">
           {/* Liens legaux + reseaux : ils occupaient une troisieme colonne
               qui, les reseaux n'existant pas encore, ne contenait que deux
               liens et paraissait vide a cote des deux autres. Ils vivent

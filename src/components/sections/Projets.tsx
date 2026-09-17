@@ -1,70 +1,38 @@
 import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
 
-/* V8 — QUATRE PROJETS PASSENT A "REALISE". Le fondateur a confirme
-   explicitement (projet par projet, avec description) que quatre des
-   six entrees sont des livraisons reelles, pas des demonstrateurs —
-   voir dictionaries.ts pour la note de confirmation. Le badge PLEIN
-   (aws-hero) marque desormais "Realise"/"Delivered" ; le badge CONTOUR
-   (muted) reste pour ce qui est encore en developpement/structuration
-   (suivi-projets-immobiliers, assistant-ia-metier — statuts inchanges,
-   non confirmes, jamais inventes).
+/* V9 — D'UNE LISTE ADMINISTRATIVE A UN PORTFOLIO. Retire d'un coup :
+   les gros numeros 01-06 (ne portaient aucune information — une seule
+   colonne de texte n'a pas besoin d'un index), les badges de statut
+   ("Realise"/"En structuration"/...) et la ligne separatrice horizontale
+   qui empilait tout en une seule liste verticale, "administrative".
 
-   V7 — TOUJOURS HONNETE. La passe precedente (V6) avait retire toute
-   l'affordance de lien (fleche, fond au survol, titre qui glisse) parce
-   qu'aucune ligne ne mene reellement quelque part — une fleche qui ne
-   navigue nulle part est un mensonge d'interface. Cette demande revient
-   ("hover: surface, titre, fleche, statut"), donc ARBITRAGE EXPLICITE :
-   le survol redevient vivant (fond teinte, titre qui gagne en
-   contraste, statut qui s'accentue) car RIEN de tout cela ne promet une
-   destination — mais LA FLECHE NE REVIENT PAS, elle est le seul des
-   quatre signaux qui dit specifiquement "cliquez, ça mene quelque
-   part". Un projet "Realise" reste un projet SANS capture d'ecran reelle
-   ni page dediee aujourd'hui : la fleche resterait un mensonge, le
-   statut "Realise" seul, non. Le jour ou une vraie capture/demo existe
-   pour une ligne donnee, cette ligne (et uniquement elle) pourra
-   redevenir un vrai lien avec sa fleche et sa vignette. */
+   A la place : une VRAIE grille editoriale (2 colonnes des le desktop,
+   1 sur mobile), chaque entree amorcee par le meme filet d'accent que
+   Notre approche/Qui sommes-nous — le meme langage visuel que le reste
+   du site, pas un composant a part.
 
-const STATUTS_LIVRES = new Set(["Réalisé", "Delivered"]);
-
-function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: string; dernier: boolean }) {
-  const livre = STATUTS_LIVRES.has(projet.statut);
+   Pourquoi seulement 4 entrees et pas 6 : voir dictionaries.ts. Les deux
+   projets jamais confirmes comme livres (suivi immobilier, assistant IA
+   metier) ne sont plus dans cette liste — un statut supprime SANS
+   supprimer aussi le projet aurait fait passer un outil non confirme
+   pour une realisation, dans une section qui s'appelle desormais
+   "Realisations". */
+function CarteProjet({ projet }: { projet: Projet }) {
   return (
-    <li
-      id={`projet-${projet.id}`}
-      className={
-        "reveal group -mx-4 flex scroll-mt-24 gap-5 rounded-xl px-4 py-7 transition-colors duration-300 hover:bg-aws-surface sm:gap-8" +
-        (dernier ? "" : " border-b border-aws-line")
-      }
-    >
+    <li id={`projet-${projet.id}`} className="reveal group scroll-mt-24">
       <span
         aria-hidden="true"
-        className="text-[1.375rem] font-light leading-none tabular-nums text-aws-ink/20 transition-colors duration-300 group-hover:text-aws-blue-text/60 sm:text-[1.625rem] desk:w-14"
-      >
-        {numero}
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero transition-colors duration-300 group-hover:text-aws-navy desk:text-[1.1875rem]">
-            {projet.nom}
-          </h3>
-          <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-aws-blue-text">
-            {projet.categorie}
-          </span>
-        </div>
-        <p className="mt-2 max-w-[62ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
-          {projet.texte}
-        </p>
-        <span
-          className={
-            "mt-3 inline-flex items-center rounded-full px-2.5 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.04em] transition-colors duration-300 " +
-            (livre
-              ? "bg-aws-hero/[0.08] text-aws-hero group-hover:bg-aws-hero/[0.12]"
-              : "border border-aws-ink/25 text-aws-ink/65 group-hover:border-aws-blue-text/40 group-hover:text-aws-blue-text")
-          }
-        >
-          {projet.statut}
-        </span>
-      </div>
+        className="block h-[2px] w-10 rounded-full bg-aws-blue-text transition-[width] duration-300 motion-reduce:transition-none desk:group-hover:w-16"
+      />
+      <p className="mt-4 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-blue-text">
+        {projet.categorie}
+      </p>
+      <h3 className="mt-2 text-[1.1875rem] font-bold leading-snug tracking-[-0.01em] text-aws-hero transition-colors duration-300 motion-reduce:transition-none group-hover:text-aws-navy">
+        {projet.nom}
+      </h3>
+      <p className="mt-2.5 max-w-[42ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
+        {projet.texte}
+      </p>
     </li>
   );
 }
@@ -87,16 +55,11 @@ export default function Projets({ dict }: { dict: ProjetsDictionary }) {
             {dict.paragraphe}
           </p>
 
-          <ol className="mt-10 border-t border-aws-line desk:mt-12">
-            {dict.liste.map((projet, i) => (
-              <LigneProjet
-                key={projet.id}
-                projet={projet}
-                numero={String(i + 1).padStart(2, "0")}
-                dernier={i === dict.liste.length - 1}
-              />
+          <ul className="mt-10 grid gap-x-12 gap-y-12 desk:mt-14 desk:grid-cols-2 desk:gap-x-16 desk:gap-y-14">
+            {dict.liste.map((projet) => (
+              <CarteProjet key={projet.id} projet={projet} />
             ))}
-          </ol>
+          </ul>
         </div>
       </div>
     </section>
