@@ -24,7 +24,13 @@ import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/componen
         confirmee sont cliquables (voir plus bas).
 
    Bandeau du bas : liens legaux + identite legale + copyright,
-   compacts, sans repeter les reseaux. */
+   compacts, sans repeter les reseaux.
+
+   V6 — encore resserre sur demande explicite (padding/gaps -10 a -15%
+   supplementaires) : clearance avec le bouton WhatsApp flottant
+   RE-VERIFIEE par mesure reelle des rectangles de texte (pas seulement
+   des boites), a 375 et 1440, page defilee jusqu'au vrai bas du
+   document. */
 
 const RESEAUX_ICONES: Record<"linkedin" | "instagram" | "facebook", React.ReactElement> = {
   linkedin: (
@@ -89,8 +95,8 @@ export default function Footer({
           bande. Verifie a l'ecran : sans cette marge, le copyright reste
           coince sous le bouton meme en bas de page, quel que soit
           l'alignement horizontal du texte. */}
-      <div className="mx-auto max-w-[1360px] px-4 pt-7 pb-16 sm:px-6 sm:pt-7 sm:pb-16 desk:px-8 desk:pt-8 desk:pb-16">
-        <div className="reveal grid gap-8 desk:grid-cols-[1fr_1.3fr_0.9fr] desk:gap-8">
+      <div className="mx-auto max-w-[1360px] px-4 pt-6 pb-20 sm:px-6 sm:pt-6 sm:pb-20 desk:px-8 desk:pt-7 desk:pb-16">
+        <div className="reveal grid gap-7 desk:grid-cols-[1fr_1.3fr_0.9fr] desk:gap-7">
           {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
               blanc opaque (verifie pixel par pixel, pas de canal alpha) :
               une puce blanche porte le logo intact plutot que de le
@@ -125,7 +131,7 @@ export default function Footer({
               "a confirmer" sur une page publique). */}
           <div>
             <p className={titreColonne}>{dict.contactsNav}</p>
-            <ul className="mt-3 space-y-2.5">
+            <ul className="mt-3 space-y-2">
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeLieu}</span>
                 <p className="pt-1.5 text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
@@ -206,7 +212,7 @@ export default function Footer({
             gauche, qui ne rencontrent jamais ce coin. Separateur
             white/15 : le meme "ressenti, pas remarque" que les filets
             clairs ailleurs sur le site. */}
-        <div className="mt-6 flex flex-col gap-2.5 border-t border-white/15 pt-4 text-[0.8125rem] desk:mt-7">
+        <div className="mt-5 flex flex-col gap-2 border-t border-white/15 pt-3.5 text-[0.8125rem] desk:mt-6">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <a href={`/${locale}/mentions-legales`} className="text-white/85 hover:text-white">
               {dict.mentionsLegales}

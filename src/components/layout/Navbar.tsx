@@ -64,6 +64,20 @@ export default function Navbar({ locale, dict }: Props) {
   const estAccueil = pathname === `/${locale}`;
   const versAccueil = (hash: string) => `/${locale}#${hash}`;
 
+  /* Logo et "Accueil" doivent ramener en haut de page meme quand on y
+     est DEJA : Next.js ne gere le scroll qu'au changement de ROUTE, un
+     clic vers l'URL courante ne declenche donc rien par defaut — verifie
+     a l'ecran (scrollY reste a 3000 apres clic). preventDefault() +
+     scroll manuel uniquement dans ce cas ; si on vient d'une autre page
+     (legales), on laisse <Link> naviguer normalement, Next.js scrolle
+     deja en haut lors d'un vrai changement de route. */
+  const retourAccueil = (e: React.MouseEvent) => {
+    if (!estAccueil) return;
+    e.preventDefault();
+    const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduit ? "auto" : "smooth" });
+  };
+
   const links = [
     { label: dict.nav.projects, href: versAccueil("projets") },
     { label: dict.nav.about, href: versAccueil("a-propos") },
@@ -134,6 +148,7 @@ export default function Navbar({ locale, dict }: Props) {
               sans ambiguite. */}
           <Link
             href={`/${locale}`}
+            onClick={retourAccueil}
             aria-label={dict.a11y.brandHome}
             className={`flex shrink-0 items-center gap-2 rounded-lg ${focusRing}`}
           >
@@ -188,7 +203,7 @@ export default function Navbar({ locale, dict }: Props) {
             aria-label={dict.a11y.mainNav}
             className="hidden flex-1 items-center justify-center gap-0.5 desk:flex xl:gap-1"
           >
-            <NavHome locale={locale} label={dict.nav.home} estAccueil={estAccueil} />
+            <NavHome locale={locale} label={dict.nav.home} estAccueil={estAccueil} onClick={retourAccueil} />
 
             <div
               ref={servicesRef}
@@ -360,7 +375,10 @@ export default function Navbar({ locale, dict }: Props) {
                 href={`/${locale}`}
                 aria-current={estAccueil ? "page" : undefined}
                 className={`${mobileLink} font-semibold`}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  retourAccueil(e);
+                }}
               >
                 {dict.nav.home}
               </Link>
@@ -423,14 +441,17 @@ function NavHome({
   locale,
   label,
   estAccueil,
+  onClick,
 }: {
   locale: Locale;
   label: string;
   estAccueil: boolean;
+  onClick: (e: React.MouseEvent) => void;
 }) {
   return (
     <Link
       href={`/${locale}`}
+      onClick={onClick}
       aria-current={estAccueil ? "page" : undefined}
       className={`${navLinkBase} ${estAccueil ? navLinkActive : ""}`}
     >

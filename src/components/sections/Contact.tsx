@@ -51,6 +51,17 @@ const CHAMPS_VIDES: Champs = {
   description: "",
 };
 
+// Preselection du service depuis Expertises ("Discuter de ce service" ->
+// ?service=<hash>#contact) : le hash de chaque pole (deja utilise comme
+// ancre de section) sert de cle, dans le meme ordre que
+// formulaire.serviceOptions — evite d'ajouter un champ de dictionnaire
+// rien que pour ce mapping.
+const INDEX_SERVICE_PAR_HASH: Record<string, number> = {
+  "bourse-finance": 0,
+  immobilier: 1,
+  "software-ia": 2,
+};
+
 type Etat = "repos" | "envoi" | "succes-envoye" | "succes-mailto" | "erreur";
 
 export default function Contact({ dict }: { dict: ContactDictionary }) {
@@ -71,6 +82,27 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
   useEffect(() => {
     chargeA.current = Date.now();
   }, []);
+
+  // Preselection venue d'Expertises ("Discuter de ce service" ->
+  // ?service=<hash>#contact). Un premier essai calculait ceci dans
+  // l'initialiseur paresseux de useState (evite normalement un setState
+  // en effet) : VERIFIE CASSE A L'ECRAN — la page est generee
+  // statiquement (SSG), donc le HTML servi selectionne toujours la
+  // premiere option ; au montage React hydrate le <select> existant et
+  // n'a pas force sa valeur vers l'etat client different, meme correct
+  // en interne (confirme par log : l'etat calculait bien "Immobilier",
+  // mais le DOM restait sur la premiere option). Le setState en effet,
+  // ci-dessous, s'execute APRES l'hydratation et corrige reellement le
+  // DOM — c'est le seul des deux qui fonctionne, verifie par re-test.
+  useEffect(() => {
+    const hash = new URLSearchParams(window.location.search).get("service");
+    const index = hash ? INDEX_SERVICE_PAR_HASH[hash] : undefined;
+    const service = index !== undefined ? f.serviceOptions[index] : undefined;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- necessaire : voir commentaire ci-dessus (contournement d'un vrai probleme d'hydratation de <select>, pas une simplification evitable)
+    if (service) setChamps((c) => ({ ...c, service }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- lecture unique au montage, f.serviceOptions vient des props initiales
+  }, []);
+
 
   const majChamp = (champ: keyof Champs) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,

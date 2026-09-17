@@ -93,7 +93,11 @@ function Pole({
               </p>
             )}
 
-            <a href="#contact" className={`mt-6 ${boutonSecondaireClair}`}>
+            {/* ?service=<hash> : Contact.tsx lit ce parametre au montage
+                pour preselectionner le bon service dans son <select> — le
+                hash existe deja (ancre de section), reutilise plutot
+                qu'un nouveau champ de dictionnaire pour ce seul usage. */}
+            <a href={`?service=${pole.hash}#contact`} className={`mt-6 ${boutonSecondaireClair}`}>
               {cta}
               {fleche}
             </a>
