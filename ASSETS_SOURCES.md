@@ -477,3 +477,44 @@ entree [HERO] PHASE 2, 2026-09-15) :
 - **Usage éditorial** : une seule photographie, cohérente avec le texte
   (logiciel, développement) — remplace une composition à deux médias
   jugée trop chargée.
+
+## immobilier-v6.jpg — Immobilier (pôle Construire)
+- **Remplace** : immobilier-v5.jpg (chantier de Lagos, sourcé sur Pexels).
+- **Section** : Nos expertises — pôle Construire.
+- **Source** : fournie directement par le fondateur (Alfred), via le chat.
+- **Auteur / licence** : non documentés par une plateforme tierce — image
+  transmise par le client final pour usage sur son propre site. Pas de
+  recherche externe effectuée (consigne explicite : "utilise l'image que
+  je joins, ne cherche pas une autre image").
+- **Date d'intégration** : 17 septembre 2026.
+- **Traitement** : recadrée en 4:3 (687×515, légère perte de largeur
+  seulement) avec sips. Résolution source modeste (736px de large) —
+  non recompressée à une taille superieure pour eviter tout flou
+  artificiel.
+- **Vérification avant intégration** : photo réelle d'un professionnel du
+  BTP casque en main face à un chantier actif (grues, tours en
+  construction) — cohérente avec le texte, aucune enseigne ni marque
+  tierce genante.
+- **Usage éditorial** : illustration générique du secteur immobilier/
+  construction, jamais présentée comme un chantier ou un projet AWS.
+
+## software-ia-v5.jpg — Software & IA (pôle Innover)
+- **Remplace** : software-ia-v4.jpg (développeur, sourcé sur Pexels).
+- **Section** : Nos expertises — pôle Innover (Software & IA).
+- **Source** : fournie directement par le fondateur (Alfred), via le chat.
+- **Auteur / licence** : non documentés par une plateforme tierce — image
+  transmise par le client final pour usage sur son propre site.
+- **Date d'intégration** : 17 septembre 2026.
+- **Traitement** : recadrée en 4:3 (736×552) avec sips, résolution
+  source modeste (736px de large) conservée telle quelle.
+- **Point d'attention signalé avant intégration** : l'écran du second
+  ordinateur portable affiche une machine virtuelle "Kali Linux" et une
+  page de l'outil "HackTricks" (base de connaissances de test
+  d'intrusion), sans rapport direct avec le texte de la section (sites
+  web, applications, logiciels sur mesure, automatisation, IA — pas de
+  test d'intrusion). Signalé explicitement au fondateur (risque qu'un
+  visiteur familier de ces outils associe AWS à des activités de
+  hacking/pentest) ; approuvé explicitement malgré ce signalement
+  ("Traites les deux images j'approuve").
+- **Usage éditorial** : illustration générique du développement logiciel,
+  jamais présentée comme un projet ou un outil AWS.

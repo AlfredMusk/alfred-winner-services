@@ -218,8 +218,10 @@ const fr = {
           "Du repérage des opportunités foncières à la structuration des projets, jusqu'à leur développement — une approche immobilière pensée pour créer de la valeur durable.",
         precision: null,
         capacites: null,
-        image: "/images/expertises/immobilier-v5.jpg",
-        imageAlt: "Immeuble de grande hauteur en construction avec grues, vue aérienne",
+        // v6 : photo fournie directement par le fondateur (chantier reel,
+        // grues + tours en construction). Voir ASSETS_SOURCES.md.
+        image: "/images/expertises/immobilier-v6.jpg",
+        imageAlt: "Professionnel du BTP casque en main face à un chantier avec grues",
       },
       {
         num: "03",
@@ -238,13 +240,17 @@ const fr = {
           "Automatisation",
           "Agents IA",
         ],
-        // v3 (mains sur clavier, generique) puis un diptyque photo+video
-        // robotique (juge gadget/trop charge a la relecture) : remplaces
-        // par une seule photo d'un developpeur reellement au travail,
-        // code visible a l'ecran — coherente avec le texte, sans
-        // artifice. Voir ASSETS_SOURCES.md.
-        image: "/images/expertises/software-ia-v4.jpg",
-        imageAlt: "Développeur travaillant sur du code, plusieurs écrans dans un bureau",
+        // v5 : photo fournie directement par le fondateur, approuvee
+        // explicitement apres qu'un point d'attention ait ete signale
+        // (l'un des deux ecrans affiche une machine Kali Linux et une
+        // reference a l'outil HackTricks — sans rapport direct avec le
+        // texte de la section, qui parle de sites web/apps/logiciels/
+        // automatisation/IA, pas de tests d'intrusion). Alt text reste
+        // factuel, ne mentionne ni "hacking" ni "penetration testing"
+        // pour ne pas suggerer une activite qu'AWS n'exerce pas. Voir
+        // ASSETS_SOURCES.md.
+        image: "/images/expertises/software-ia-v5.jpg",
+        imageAlt: "Développeur travaillant sur deux ordinateurs portables, code affiché à l'écran",
       },
     ],
     // Distinct du CTA de la Navbar et du CTA final (meme phrase repetee
@@ -688,8 +694,8 @@ const en: Dictionary = {
           "From spotting land opportunities to structuring and developing real estate projects — an approach built to create lasting value.",
         precision: null,
         capacites: null,
-        image: "/images/expertises/immobilier-v5.jpg",
-        imageAlt: "High-rise building under construction with cranes, aerial view",
+        image: "/images/expertises/immobilier-v6.jpg",
+        imageAlt: "Construction professional holding a helmet, facing a site with cranes",
       },
       {
         num: "03",
@@ -706,8 +712,8 @@ const en: Dictionary = {
           "Automation",
           "AI agents",
         ],
-        image: "/images/expertises/software-ia-v4.jpg",
-        imageAlt: "Developer working on code, multiple screens in an office",
+        image: "/images/expertises/software-ia-v5.jpg",
+        imageAlt: "Developer working on two laptops, code displayed on screen",
       },
     ],
     ctaPole: "Discuss this service",
