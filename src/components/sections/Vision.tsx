@@ -17,7 +17,11 @@ import type { VisionDictionary } from "@/i18n/dictionaries";
        d'opacite, immobile — "on le sent, on ne le remarque pas".
      - Filet azure en pied de section : une rupture graphique nette
        avec ce qui suit (Fondateur, blanc), pas une simple fin de
-       degrade qui se dilue. */
+       degrade qui se dilue.
+     - Vignette basse tres legere (noir a 15% max, degrade lineaire) :
+       assombrit doucement le tiers inferieur pour donner une sensation
+       de profondeur (halo = lumiere en haut, vignette = poids en bas),
+       sans glow ni particule — un seul degrade statique, immobile. */
 export default function Vision({ dict }: { dict: VisionDictionary }) {
   return (
     <section aria-labelledby="vision-titre" className="relative bg-aws-navy">
@@ -35,6 +39,7 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
           }}
         />
         <div className="vision-halo absolute left-1/2 top-0 h-[36rem] w-[56rem] rounded-full bg-aws-blue-text/[0.08] blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/15" />
       </div>
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-aws-blue-text/40" />
       {/* Le texte occupe desormais davantage la section : padding vertical
@@ -52,7 +57,7 @@ export default function Vision({ dict }: { dict: VisionDictionary }) {
           </div>
           <h2
             id="vision-titre"
-            className="mx-auto mt-5 max-w-[26ch] text-balance text-[1.875rem] font-extrabold leading-[1.12] tracking-[-0.015em] text-white sm:text-[2.375rem] desk:text-[3rem]"
+            className="mx-auto mt-5 max-w-[30ch] text-balance text-[1.875rem] font-extrabold leading-[1.12] tracking-[-0.015em] text-white sm:text-[2.375rem] desk:text-[3rem]"
           >
             {dict.titre}
           </h2>

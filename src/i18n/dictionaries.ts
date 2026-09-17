@@ -332,22 +332,27 @@ const fr = {
      beaucoup de sites institutionnels placent avant le closing. */
   vision: {
     eyebrow: "VISION",
-    titre: "Une ambition qui grandit étape par étape — ivoirienne, africaine, internationale.",
+    titre: "Ancrée en Côte d'Ivoire. Pensée pour grandir en Afrique et au-delà.",
     paragraphe:
-      "Depuis la Côte d'Ivoire, AWS ambitionne de développer des projets, des actifs et des solutions technologiques capables de créer durablement de la valeur. Le logiciel et l'intelligence artificielle occupent une place croissante dans cette vision.",
+      "Depuis la Côte d'Ivoire, AWS développe des projets, des actifs et des solutions technologiques conçus pour créer durablement de la valeur. Le logiciel et l'intelligence artificielle y occupent une place croissante.",
   },
 
   /* Section 9 — Fondateur. Texte repris tel que fourni, sans ajout de
      diplome, certification ou annee d'experience. Aucune photo pour
      l'instant (voir travaux realises.md) : mise en page pensee pour en
-     recevoir une des qu'elle sera fournie, sans reconstruction. */
+     recevoir une des qu'elle sera fournie, sans reconstruction.
+
+     Paragraphes en "il", jamais "Alfred Krodi" a nouveau : le nom est
+     deja porte par l'eyebrow -> nom -> titre juste au-dessus, le
+     repeter dans le corps de texte serait redondant (choix deja fait
+     et garde lors de cette passe, malgre une suggestion contraire). */
   fondateur: {
     eyebrow: "FONDATEUR",
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Fondateur & CEO — Alfred Winner Services",
     paragraphes: [
-      "Entrepreneur et ingénieur logiciel de formation, il développe Alfred Winner Services à l'intersection de l'entrepreneuriat, de la technologie, de la finance et de l'immobilier.",
-      "Il porte notamment les initiatives numériques et d'intelligence artificielle développées autour de l'écosystème AWS.",
+      "Entrepreneur et ingénieur logiciel de formation, il développe Alfred Winner Services à la croisée de la technologie, de la finance et de l'immobilier.",
+      "Il pilote notamment les initiatives numériques et d'intelligence artificielle développées au sein de l'écosystème AWS.",
     ],
     imageAlt: "Krodi Krotchaman Alfred Donald, fondateur d'Alfred Winner Services",
   },
@@ -421,6 +426,7 @@ const fr = {
      prouve rien). Aucun message n'a ete envoye pour le verifier. */
   whatsapp: {
     ariaLabel: "Contacter Alfred Winner Services sur WhatsApp",
+    aideLabel: "Besoin d'aide ?",
     href: whatsappBase,
     message:
       "Bonjour Alfred Winner Services, je souhaite discuter d'un projet.",
@@ -431,6 +437,7 @@ const fr = {
      href est non vide ; ne jamais mettre "#" a la place d'un lien reel. */
   footer: {
     contactsNav: "Contact",
+    reseauxNav: "Réseaux",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
     reseaux: {
@@ -727,9 +734,9 @@ const en: Dictionary = {
 
   vision: {
     eyebrow: "VISION",
-    titre: "An ambition growing step by step — Ivorian, African, international.",
+    titre: "Rooted in Côte d'Ivoire. Built to grow across Africa and beyond.",
     paragraphe:
-      "From Côte d'Ivoire, AWS aims to develop projects, assets and technology solutions capable of creating lasting value. Software and artificial intelligence play a growing role in this vision.",
+      "From Côte d'Ivoire, AWS develops projects, assets and technology solutions designed to create lasting value. Software and artificial intelligence play a growing role within it.",
   },
 
   fondateur: {
@@ -737,8 +744,8 @@ const en: Dictionary = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Founder & CEO — Alfred Winner Services",
     paragraphes: [
-      "An entrepreneur and software engineer by training, he is building Alfred Winner Services at the intersection of entrepreneurship, technology, finance and real estate.",
-      "He leads in particular the digital and artificial intelligence initiatives developed around the AWS ecosystem.",
+      "An entrepreneur and software engineer by training, he is building Alfred Winner Services at the crossroads of technology, finance and real estate.",
+      "He leads in particular the digital and artificial intelligence initiatives developed within the AWS ecosystem.",
     ],
     imageAlt: "Krodi Krotchaman Alfred Donald, founder of Alfred Winner Services",
   },
@@ -793,12 +800,14 @@ const en: Dictionary = {
 
   whatsapp: {
     ariaLabel: "Contact Alfred Winner Services on WhatsApp",
+    aideLabel: "Need help?",
     href: whatsappBase,
     message: "Hello Alfred Winner Services, I'd like to discuss a project.",
   },
 
   footer: {
     contactsNav: "Contact",
+    reseauxNav: "Social",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",
     reseaux: {

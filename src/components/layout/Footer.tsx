@@ -11,19 +11,20 @@ import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/componen
 /* Server Component pur : aucune interaction, donc aucune raison d'envoyer
    du JavaScript au client pour un footer.
 
-   V4 — COMPACT, sur demande explicite : le Footer etait devenu trop
-   grand et repetait une Navigation deja assuree par la Navbar (Accueil,
-   A propos, Nos services, Projets) ainsi qu'un rappel des trois univers
-   deja presents dans son menu deroulant. Un footer n'est pas une
-   deuxieme navigation — c'est une fin de page. Trois zones seulement :
+   V5 — COMPACT + 3 COLONNES, sur demande explicite ("le footer doit
+   FERMER la page, pas devenir une nouvelle section pleine hauteur").
+   Inspiration structurelle ACIM (discipline, densite d'info) sans en
+   copier le contenu ni le design. Trois zones cote a cote des le
+   breakpoint desk, empilees avant :
 
      1. MARQUE — logo + signature, rien d'autre.
-     2. CONTACT — adresse, telephone, email, WhatsApp : tout ce qu'un
-        visiteur cherche reellement en bas de page.
-     3. RESEAUX + LEGAL — reseaux reels uniquement, liens utilitaires.
+     2. CONTACT — adresse, telephone, email, WhatsApp.
+     3. RESEAUX — LinkedIn / Instagram / Facebook, icones toujours
+        presentes (structure prete), mais seules celles dont l'URL est
+        confirmee sont cliquables (voir plus bas).
 
-   Bandeau du bas : identite legale compacte + copyright, sur une seule
-   ligne des que la largeur le permet. */
+   Bandeau du bas : liens legaux + identite legale + copyright,
+   compacts, sans repeter les reseaux. */
 
 const RESEAUX_ICONES: Record<"linkedin" | "instagram" | "facebook", React.ReactElement> = {
   linkedin: (
@@ -58,12 +59,11 @@ export default function Footer({
   contact: ContactDictionary;
   whatsapp: WhatsappDictionary;
 }) {
-  const reseauxActifs = (Object.entries(dict.reseaux) as [keyof typeof RESEAUX_ICONES, string][]).filter(
-    ([, href]) => href,
-  );
+  const reseauxListe = Object.entries(dict.reseaux) as [keyof typeof RESEAUX_ICONES, string][];
   const lienBase = "text-[0.9375rem] text-white/85 transition-colors hover:text-white";
   const titreColonne = "text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/75";
   const iconeContact = "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white";
+  const iconeReseau = "flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-white";
   const whatsappHref = `${whatsapp.href}?text=${encodeURIComponent(whatsapp.message)}`;
 
   /* L'ancre #contact vit desormais sur la section Contact.tsx (le
@@ -89,8 +89,8 @@ export default function Footer({
           bande. Verifie a l'ecran : sans cette marge, le copyright reste
           coince sous le bouton meme en bas de page, quel que soit
           l'alignement horizontal du texte. */}
-      <div className="mx-auto max-w-[1360px] px-4 pt-8 pb-20 sm:px-6 sm:pt-9 sm:pb-20 desk:px-8 desk:pt-10 desk:pb-20">
-        <div className="reveal grid gap-7 desk:grid-cols-[1fr_1.2fr] desk:gap-10">
+      <div className="mx-auto max-w-[1360px] px-4 pt-7 pb-16 sm:px-6 sm:pt-7 sm:pb-16 desk:px-8 desk:pt-8 desk:pb-16">
+        <div className="reveal grid gap-8 desk:grid-cols-[1fr_1.3fr_0.9fr] desk:gap-8">
           {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
               blanc opaque (verifie pixel par pixel, pas de canal alpha) :
               une puce blanche porte le logo intact plutot que de le
@@ -125,7 +125,7 @@ export default function Footer({
               "a confirmer" sur une page publique). */}
           <div>
             <p className={titreColonne}>{dict.contactsNav}</p>
-            <ul className="mt-3 space-y-3">
+            <ul className="mt-3 space-y-2.5">
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeLieu}</span>
                 <p className="pt-1.5 text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
@@ -162,6 +162,39 @@ export default function Footer({
             </ul>
           </div>
 
+          {/* ZONE 3 — RESEAUX. Structure prete pour les trois reseaux,
+              mais AUCUNE URL officielle n'est confirmee aujourd'hui : une
+              icone sans href reel n'est jamais rendue comme un <a> (pas
+              de href="#", pas de faux profil). Elle reste visible, en
+              placeholder attenue et non interactif (aria-hidden, pas de
+              focus), pour que la colonne garde sa place et que la vraie
+              URL puisse etre branchee plus tard sans rien reconstruire. */}
+          <div>
+            <p className={titreColonne}>{dict.reseauxNav}</p>
+            <ul className="mt-3 flex gap-2.5">
+              {reseauxListe.map(([reseau, href]) =>
+                href ? (
+                  <li key={reseau}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={iconeReseau}
+                      aria-label={reseau}
+                    >
+                      {RESEAUX_ICONES[reseau]}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={reseau} aria-hidden="true">
+                    <span className={`${iconeReseau} text-white/30 hover:bg-white/10 hover:text-white/30`}>
+                      {RESEAUX_ICONES[reseau]}
+                    </span>
+                  </li>
+                ),
+              )}
+            </ul>
+          </div>
         </div>
 
         {/* BANDEAU LEGAL — compact, toujours en colonne (pas de
@@ -173,12 +206,7 @@ export default function Footer({
             gauche, qui ne rencontrent jamais ce coin. Separateur
             white/15 : le meme "ressenti, pas remarque" que les filets
             clairs ailleurs sur le site. */}
-        <div className="mt-7 flex flex-col gap-3 border-t border-white/15 pt-4 text-[0.8125rem] desk:mt-8">
-          {/* Liens legaux + reseaux : ils occupaient une troisieme colonne
-              qui, les reseaux n'existant pas encore, ne contenait que deux
-              liens et paraissait vide a cote des deux autres. Ils vivent
-              desormais dans le bandeau, ou deux liens forment une ligne
-              normale au lieu d'une colonne desertee. */}
+        <div className="mt-6 flex flex-col gap-2.5 border-t border-white/15 pt-4 text-[0.8125rem] desk:mt-7">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <a href={`/${locale}/mentions-legales`} className="text-white/85 hover:text-white">
               {dict.mentionsLegales}
@@ -186,20 +214,6 @@ export default function Footer({
             <a href={`/${locale}/confidentialite`} className="text-white/85 hover:text-white">
               {dict.confidentialite}
             </a>
-            {/* Aucun href="#" ni faux profil : tant qu'une URL n'existe
-                pas, l'icone n'est pas rendue du tout. */}
-            {reseauxActifs.map(([reseau, href]) => (
-              <a
-                key={reseau}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/85 hover:text-white"
-                aria-label={reseau}
-              >
-                {RESEAUX_ICONES[reseau]}
-              </a>
-            ))}
           </div>
           <p className="text-white/60">
             {dict.raisonSociale} — {dict.formeJuridique} — {dict.rccm}
