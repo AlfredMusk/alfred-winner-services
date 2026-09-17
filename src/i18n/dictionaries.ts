@@ -157,12 +157,14 @@ const fr = {
       },
     ],
   },
-  /* Section 5 — Qui sommes-nous. Traitement typographique pur : les deux
-     seuls visuels disponibles (marches financiers, chantier) sont deja
-     mobilises ailleurs (Hero, Expertises) — les reutiliser ici aurait dilue
-     leur poids a chaque reprise plutot que d'ajouter quelque chose. La
-     clarte et la mesure de lecture portent seules la section, dans le
-     droit fil de la discipline ACIM (voir Notre approche / Notre methode). */
+  /* Section 5 — Qui sommes-nous. L'image precedente (un echangeur
+     autoroutier generique) ne racontait rien de precis sur AWS — releve
+     a la relecture ("qu'est-ce que cette image permet de comprendre sans
+     lire le texte ?", reponse : rien de precis). Remplacee par une vraie
+     photographie d'Abidjan (la lagune et le Plateau, la ou AWS opere
+     reellement) : ancrage local authentique plutot qu'une infrastructure
+     anonyme interchangeable avec n'importe quelle ville. Voir
+     ASSETS_SOURCES.md pour la source et la licence. */
   apropos: {
     eyebrow: "QUI SOMMES-NOUS",
     titre: "La valeur ne repose jamais sur un seul levier.",
@@ -170,7 +172,7 @@ const fr = {
       "Alfred Winner Services est née d'une conviction simple : capital, actifs et technologie se renforcent mutuellement dès qu'on les travaille ensemble.",
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
-    imageAlt: "Vue aérienne d'un échangeur autoroutier moderne en ville",
+    imageAlt: "Vue du Plateau, le quartier d'affaires d'Abidjan, depuis la lagune",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -186,6 +188,15 @@ const fr = {
     // Label court pour l'encart discret de chaque pole — jamais une
     // grande carte separee, une seule ligne editoriale (voir Expertises.tsx).
     solutionAssocieeLabel: "Solution associée",
+    // Media secondaire du pole Innover — UNIQUEMENT une illustration du
+    // champ "robotique et automatisation" evoque par le texte : AWS ne
+    // possede pas ce robot, ne l'a pas construit, n'a livre aucun
+    // systeme de ce type. La legende le dit explicitement (voir
+    // ASSETS_SOURCES.md pour la source et la licence).
+    robotique: {
+      ariaLabel: "Bras robotique industriel en fonctionnement dans un centre de production",
+      legende: "Robotique & automatisation — illustration technologique, pas une réalisation AWS.",
+    },
     poles: [
       {
         num: "01",
@@ -201,8 +212,12 @@ const fr = {
         precision:
           "Ces activités ne constituent ni un conseil en investissement réglementé, ni une gestion de portefeuille, ni une promesse de rendement.",
         capacites: null,
-        image: "/images/expertises/finance-v4.jpg",
-        imageAlt: "Mains analysant des documents et graphiques financiers",
+        // v4 (mains sur documents) jugee "trop generique" a la relecture —
+        // remplacee par une image qui montre reellement l'analyse de
+        // marches/donnees, sans les cliches ecartes par le cahier des
+        // charges (bitcoin, liasses de billets, salle de marche factice).
+        image: "/images/expertises/finance-v5.jpg",
+        imageAlt: "Professionnel analysant des graphiques financiers sur un grand écran",
         // Reprend mot pour mot l'entree correspondante de Projets & Réalisations —
         // une seule source de verite editoriale, jamais deux formulations.
         solutionAssociee: {
@@ -219,8 +234,12 @@ const fr = {
           "AWS intervient dans l'univers immobilier : identification de terrains et d'opportunités, structuration de projets immobiliers et accompagnement lié à leur développement.",
         precision: null,
         capacites: null,
-        image: "/images/expertises/immobilier-v4.jpg",
-        imageAlt: "Immeuble moderne en développement dans un quartier urbain",
+        // v4 etait precisement la "skyline generique" relevee comme trop
+        // distante/anonyme — remplacee par un chantier reel, actif, dont
+        // la grue et la structure en construction racontent directement
+        // "actif en developpement" (Lagos, Afrique de l'Ouest).
+        image: "/images/expertises/immobilier-v5.jpg",
+        imageAlt: "Immeuble de grande hauteur en construction avec grues, vue aérienne",
         solutionAssociee: {
           icone: "structure" as const,
           projetId: "suivi-projets-immobiliers",
@@ -273,39 +292,59 @@ const fr = {
      silencieux. */
   projets: {
     eyebrow: "PROJETS & INITIATIVES",
-    titre: "La méthode, mise à l'épreuve.",
+    // Le titre precedent ("La methode, mise a l'epreuve.") dupliquait le
+    // theme de la section Notre methode juste au-dessus. Celui-ci nomme
+    // ce que la section montre reellement : des choses a des stades
+    // differents, pas une seule "methode" repetee deux fois.
+    titre: "De la démonstration à la solution.",
     paragraphe:
-      "Des démonstrateurs, un prototype et des solutions en développement qui traduisent progressivement les trois univers AWS — chacun à un stade différent, chacun avec un statut clair.",
+      "Des solutions livrées, un outil en développement et un projet en structuration — chacun donnant une forme concrète à l'un des trois univers AWS, chacun à son propre stade, chacun avec un statut clair.",
+    // NOMS PUBLICS DEPERSONNALISES : ces trois entrees portaient le nom
+    // personnel du fondateur ("Alfred Fitness", "Alfred AI Trader") ou
+    // un nom de produit isole ("Baby Tourism") — sur demande explicite,
+    // l'entreprise doit rester au premier plan, pas le personal
+    // branding. Seul le nom affiche est reformule en description de ce
+    // que chaque projet EST.
+    //
+    // STATUTS "REALISE" — confirmes explicitement par le fondateur (pas
+    // une supposition de notre part : la version precedente de cette
+    // liste les gardait a "demonstrateur"/"prototype" faute de
+    // confirmation, le fondateur a ensuite confirme leur livraison en
+    // detail, projet par projet). Les deux items ci-dessous statuts
+    // "tableau-de-bord-multi-actifs" couvre a la fois "Solution Finance
+    // & Technologie" et "Outil de gestion/suivi de portefeuille
+    // electronique" du brief : un seul et meme outil dans ce projet,
+    // pas deux projets distincts.
     liste: [
       {
         id: "baby-tourism",
-        nom: "Baby Tourism",
-        categorie: "Tourisme",
-        statut: "Démonstrateur digital",
+        nom: "Plateforme de découverte touristique",
+        categorie: "Digital · Tourisme",
+        statut: "Réalisé",
         texte:
-          "Projet démonstrateur digital autour du tourisme, pensé comme une vitrine numérique.",
+          "Plateforme web dédiée à la découverte, à la présentation et à l'expérience touristique.",
       },
       {
         id: "alfred-fitness",
-        nom: "Alfred Fitness",
-        categorie: "Front-End / Fitness",
-        statut: "Démonstrateur Front-End",
+        nom: "Expérience web Fitness",
+        categorie: "Web · Fitness",
+        statut: "Réalisé",
         texte:
-          "Démonstrateur Front-End explorant une expérience web dédiée au fitness.",
+          "Expérience digitale conçue pour présenter une activité fitness, ses services et son univers.",
       },
       {
         id: "alfred-ai-trader",
-        nom: "Alfred AI Trader",
-        categorie: "Technologie & IA",
-        statut: "Prototype interne — environnement DEMO",
+        nom: "Plateforme d'analyse de marchés",
+        categorie: "Finance · Technologie · IA",
+        statut: "Réalisé",
         texte:
-          "Prototype technologique interne combinant intelligence artificielle et analyse des marchés financiers, actuellement en environnement de démonstration.",
+          "Solution logicielle combinant technologies numériques et analyse des marchés financiers. Un outil technologique, pas un service de conseil réglementé ni une promesse de performance.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Tableau de bord multi-actifs",
         categorie: "Finance & Technologie",
-        statut: "En développement",
+        statut: "Réalisé",
         texte:
           "Tableau de bord numérique pour suivre allocations, historique et visualisations d'un portefeuille multi-actifs. Un outil technologique, pas un service de gestion réglementée ni de conseil financier.",
       },
@@ -365,8 +404,10 @@ const fr = {
      de backend, pas de secret, pas de fausse confirmation d'envoi — voir
      travaux realises.md pour la decision et ses limites. */
   contact: {
-    eyebrow: "CONTACT",
-    titre: "Parlons de votre projet.",
+    eyebrow: "PARLONS DE VOTRE PROJET",
+    titre: "Expliquez-nous ce que vous souhaitez construire.",
+    sousTitre:
+      "Notre objectif est de comprendre votre besoin avant de proposer une direction adaptée.",
     adresseLabel: "Adresse",
     adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
     telephoneLabel: "Téléphone",
@@ -375,20 +416,49 @@ const fr = {
     emailLabel: "Email",
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
+    // Formulaire de prise de contact structuree ("project intake") —
+    // remplace l'ancien formulaire court. Champs marques (*) obligatoires
+    // cote client ET serveur (voir src/app/api/contact/route.ts) ; budget
+    // et echeance restent facultatifs, sur demande explicite : personne
+    // n'est bloque de decrire son projet faute de chiffre precis.
     formulaire: {
-      nom: "Nom et prénom",
-      entreprise: "Entreprise (facultatif)",
-      contactPref: "Email ou téléphone",
+      nom: "Nom & prénom",
+      email: "Email",
+      telephone: "Téléphone / WhatsApp",
+      entreprise: "Entreprise",
       service: "Service recherché",
       serviceOptions: [
-        "Bourse & Finance",
+        "Finance & Technologie",
         "Immobilier",
         "Software & IA",
+        "Projet digital",
+        "Projet transversal",
         "Autre",
       ],
-      message: "Message",
-      cta: "Envoyer ma demande",
-      note: "Ce formulaire ouvre votre messagerie avec les informations déjà remplies : aucune donnée n'est envoyée à un serveur.",
+      typeProjet: "Type de projet",
+      budget: "Budget estimatif",
+      echeance: "Échéance souhaitée",
+      echeanceOptions: [
+        "Dès que possible",
+        "Dans les 3 prochains mois",
+        "Dans les 6 prochains mois",
+        "Pas encore définie",
+      ],
+      description: "Description du projet",
+      optionnel: "(facultatif)",
+      cta: "Envoyer mon projet",
+      // Etats reels, pas une promesse generique : le canal de livraison
+      // depend de ce que /api/contact repond (voir ContactForm.tsx).
+      envoiEnCours: "Envoi en cours…",
+      succesEnvoye:
+        "Message envoyé. Nous revenons vers vous rapidement.",
+      succesMailto:
+        "Votre message est prêt dans votre messagerie — il ne reste qu'à l'envoyer pour qu'il nous parvienne.",
+      erreurGenerique:
+        "Une erreur est survenue. Vous pouvez réessayer, ou nous écrire directement à krodi2001@gmail.com.",
+      erreurValidation: "Merci de corriger les champs signalés ci-dessous.",
+      champObligatoire: "Ce champ est obligatoire.",
+      champEmailInvalide: "Merci d'indiquer une adresse email valide.",
     },
   },
 
@@ -460,7 +530,7 @@ const fr = {
         titre: "Données collectées",
         paragraphes: [
           "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
-          "Il ne comporte aucun formulaire : la prise de contact se fait uniquement par téléphone, par email ou par WhatsApp, à votre initiative. Aucune donnée n'est saisie ni transmise depuis ces pages.",
+          "Le formulaire de contact envoie les informations que vous saisissez (nom, email, et les autres champs que vous choisissez de remplir) à notre serveur, uniquement pour les valider. Elles n'y sont pas conservées : votre navigateur ouvre ensuite votre propre messagerie avec un message pré-rempli, que vous choisissez ou non d'envoyer depuis votre propre adresse email. Vous pouvez aussi nous contacter directement par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
           "Comme tout site web, les pages sont servies par un hébergeur susceptible de conserver des journaux de connexion techniques (adresse IP, date, page demandée). L'hébergeur n'étant pas encore arrêté, cette section sera complétée avant la mise en ligne publique.",
         ],
@@ -613,13 +683,17 @@ const en: Dictionary = {
       "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another once they are worked on together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
-    imageAlt: "Aerial view of a modern highway interchange in a city",
+    imageAlt: "View of Le Plateau, Abidjan's business district, from across the lagoon",
   },
 
   expertises: {
     eyebrow: "OUR EXPERTISE",
     titre: "What we actually do.",
     solutionAssocieeLabel: "Related solution",
+    robotique: {
+      ariaLabel: "Industrial robotic arm operating in a production facility",
+      legende: "Robotics & automation — a technology illustration, not an AWS delivery.",
+    },
     poles: [
       {
         num: "01",
@@ -631,8 +705,8 @@ const en: Dictionary = {
         precision:
           "These activities do not constitute regulated investment advice, portfolio management, or any promise of return.",
         capacites: null,
-        image: "/images/expertises/finance-v4.jpg",
-        imageAlt: "Hands reviewing financial documents and charts",
+        image: "/images/expertises/finance-v5.jpg",
+        imageAlt: "Professional analysing financial charts on a large screen",
         solutionAssociee: {
           icone: "portefeuille" as const,
           projetId: "tableau-de-bord-multi-actifs",
@@ -647,8 +721,8 @@ const en: Dictionary = {
           "AWS operates in real estate: identifying land and opportunities, structuring property projects and supporting their development.",
         precision: null,
         capacites: null,
-        image: "/images/expertises/immobilier-v4.jpg",
-        imageAlt: "Modern building under development in an urban district",
+        image: "/images/expertises/immobilier-v5.jpg",
+        imageAlt: "High-rise building under construction with cranes, aerial view",
         solutionAssociee: {
           icone: "structure" as const,
           projetId: "suivi-projets-immobiliers",
@@ -682,39 +756,39 @@ const en: Dictionary = {
 
   projets: {
     eyebrow: "PROJECTS & INITIATIVES",
-    titre: "The method, put to the test.",
+    titre: "From demonstrator to solution.",
     paragraphe:
-      "Demonstrators, a prototype and solutions still in development — each giving concrete form to one of the three AWS business areas, each at its own stage, each with a stated status.",
+      "Delivered solutions, a tool in development and a project in scoping — each giving concrete form to one of the three AWS business areas, each at its own stage, each with a stated status.",
     liste: [
       {
         id: "baby-tourism",
-        nom: "Baby Tourism",
-        categorie: "Tourism",
-        statut: "Digital demonstrator",
+        nom: "Tourism discovery platform",
+        categorie: "Digital · Tourism",
+        statut: "Delivered",
         texte:
-          "A digital demonstrator project built around tourism, designed as a digital showcase.",
+          "A web platform dedicated to tourism discovery, presentation and experience.",
       },
       {
         id: "alfred-fitness",
-        nom: "Alfred Fitness",
-        categorie: "Front-End / Fitness",
-        statut: "Front-End demonstrator",
+        nom: "Fitness web experience",
+        categorie: "Web · Fitness",
+        statut: "Delivered",
         texte:
-          "A Front-End demonstrator exploring a web experience dedicated to fitness.",
+          "A digital experience designed to present a fitness business, its services and its world.",
       },
       {
         id: "alfred-ai-trader",
-        nom: "Alfred AI Trader",
-        categorie: "Technology & AI",
-        statut: "Internal prototype — DEMO environment",
+        nom: "Market analysis platform",
+        categorie: "Finance · Technology · AI",
+        statut: "Delivered",
         texte:
-          "An internal technology prototype combining artificial intelligence and financial market analysis, currently running in a demonstration environment.",
+          "A software solution combining digital technology and financial market analysis. A technology tool, not regulated advice or a performance promise.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset dashboard",
         categorie: "Finance & Technology",
-        statut: "In development",
+        statut: "Delivered",
         texte:
           "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio. A technology tool, not a regulated portfolio management or advisory service.",
       },
@@ -762,8 +836,10 @@ const en: Dictionary = {
   },
 
   contact: {
-    eyebrow: "CONTACT",
-    titre: "Let's discuss your project.",
+    eyebrow: "TELL US ABOUT YOUR PROJECT",
+    titre: "Tell us what you want to build.",
+    sousTitre:
+      "We start by understanding your needs before defining the appropriate direction.",
     adresseLabel: "Address",
     adresse: "Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire",
     telephoneLabel: "Phone",
@@ -774,18 +850,39 @@ const en: Dictionary = {
     emailMailtoHref: "mailto:krodi2001@gmail.com",
     formulaire: {
       nom: "Full name",
-      entreprise: "Company (optional)",
-      contactPref: "Email or phone",
+      email: "Email",
+      telephone: "Phone / WhatsApp",
+      entreprise: "Company",
       service: "Service of interest",
       serviceOptions: [
-        "Markets & Finance",
+        "Finance & Technology",
         "Real Estate",
         "Software & AI",
+        "Digital project",
+        "Cross-business project",
         "Other",
       ],
-      message: "Message",
-      cta: "Send my request",
-      note: "This form opens your own email app with the information already filled in: no data is sent to a server.",
+      typeProjet: "Type of project",
+      budget: "Estimated budget",
+      echeance: "Desired timeline",
+      echeanceOptions: [
+        "As soon as possible",
+        "Within the next 3 months",
+        "Within the next 6 months",
+        "Not yet defined",
+      ],
+      description: "Project description",
+      optionnel: "(optional)",
+      cta: "Submit my project",
+      envoiEnCours: "Sending…",
+      succesEnvoye: "Message sent. We'll get back to you shortly.",
+      succesMailto:
+        "Your message is ready in your email app — just send it and it will reach us.",
+      erreurGenerique:
+        "Something went wrong. You can try again, or write to us directly at krodi2001@gmail.com.",
+      erreurValidation: "Please correct the fields flagged below.",
+      champObligatoire: "This field is required.",
+      champEmailInvalide: "Please provide a valid email address.",
     },
   },
 
@@ -844,7 +941,7 @@ const en: Dictionary = {
         titre: "Data collected",
         paragraphes: [
           "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
-          "It contains no form: getting in touch happens only by phone, email or WhatsApp, at your own initiative. No data is entered or transmitted from these pages.",
+          "The contact form sends the information you enter (name, email, and any other field you choose to fill in) to our server, solely to validate it. It is not stored there: your browser then opens your own email application with a pre-filled message, which you may choose to send from your own email address or not. You can also reach us directly by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
           "Like any website, these pages are served by a hosting provider that may keep technical connection logs (IP address, date, page requested). The provider has not been chosen yet; this section will be completed before public launch.",
         ],

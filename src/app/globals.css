@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------------------
+   SYSTEME DE MOTION — grammaire commune, verifiee dans le code
+   existant plutot qu'imposee : le site utilise deja, de maniere
+   spontanee mais coherente, une hierarchie a trois vitesses (verifie
+   par recherche sur tous les composants, comptage des occurrences) :
+
+     FAST    (duration-200, 20 usages)  boutons, liens, couleurs au
+                                         survol — un retour immediat.
+     NORMAL  (duration-300, 9 usages)   changements de surface, lignes
+                                         de progression, translations.
+     REVEAL  (duration-500, 3 usages)   zoom d'image au survol, les
+                                         transitions les plus lentes,
+                                         jamais un simple etat hover.
+
+   Documente ici plutot que renomme partout : les 32 usages actuels
+   sont deja mutuellement coherents (aucun n'utilise une valeur
+   intermediaire arbitraire comme 250ms ou 450ms) — remplacer des
+   valeurs qui fonctionnent deja par des synonymes cosmetiques
+   (350ms au lieu de 300ms, etc.) n'aurait ajoute aucun benefice
+   reel et aurait risque des regressions sur des transitions deja
+   mesurees et validees section par section. Toute NOUVELLE
+   interaction doit choisir parmi ces trois paliers, jamais une
+   quatrieme valeur ad hoc. Easing : la valeur par defaut de Tailwind
+   (ease) partout, sauf mention contraire explicite dans le composant.
+   -------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
    TOKENS DE MARQUE AWS
    Dans Tailwind v4, tout token declare ici genere automatiquement
    les classes correspondantes : --color-aws-navy produit
@@ -76,6 +102,23 @@
      70%+ d'opacite (4.94 a 70%, davantage au-dessus) y restent tous
      largement conformes. Verifie avant chaque nouvel usage, pas suppose. */
   --color-aws-sand: #eee5d4;
+
+  /* WHATSAPP — pas une couleur AWS : la couleur PROPRE de WhatsApp,
+     conservee volontairement distincte du bleu de marque. Regle
+     explicite du cahier des charges : "WhatsApp reste vert" — le
+     bouton doit rester identifiable comme WhatsApp, jamais confondu
+     avec une action AWS standard (le formulaire de contact, lui, reste
+     en bleu AWS : deux canaux, deux identites visuelles).
+
+     PAS le vert clair de l'icone app (#25D366) : verifie par calcul,
+     du blanc dessus ne fait que 1.98 de contraste, tres en dessous
+     meme du minimum non-textuel (3:1). Retenu a la place le
+     vert-sarcelle que WhatsApp utilise lui-meme sur ses propres
+     boutons (WhatsApp Web) — #128C7E, blanc dessus verifie a 4.14,
+     largement conforme, tout en restant immediatement reconnaissable
+     comme "le vert WhatsApp". */
+  --color-whatsapp: #128c7e;
+  --color-whatsapp-fonce: #0e6e63;
 }
 
 :root {
@@ -93,6 +136,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* Etat par defaut de la ligne de progression (Notre methode) : REMPLIE,
+   pas vide. Sans support de animation-timeline, ou avec mouvement
+   reduit demande, la regle animee ci-dessous ne s'applique jamais —
+   la ligne doit donc deja avoir un etat fini et coherent ici, hors de
+   tout bloc conditionnel : une methode a 4 etapes, presentee comme
+   deja accomplie visuellement, jamais comme "a moitie chargee". */
+.methode-ligne-remplie {
+  transform: scale(1);
 }
 
 /* REVEAL — apparition tres sobre au defilement (opacite + leger
@@ -133,6 +186,29 @@ body {
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    /* LIGNE DE PROGRESSION — Notre methode. Un seul element porte le
+       timeline (lui-meme), pas un systeme synchronise entre plusieurs
+       enfants : animation-timeline: view() lit la position de scroll de
+       L'ELEMENT QUI LE DECLARE, donc l'appliquer directement a la barre
+       de progression (qui occupe deja tout l'espace entre la 1ere et la
+       4eme etape) suffit a la faire grandir pendant que la methode
+       defile — sans orchestrer quatre elements separement.
+       transform-origin est pose en JSX (depend du sens horizontal/
+       vertical), pas ici : une seule regle sert les deux orientations. */
+    .methode-ligne-remplie {
+      animation: aws-methode-remplir linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 95%;
+    }
+    @keyframes aws-methode-remplir {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
       }
     }
   }

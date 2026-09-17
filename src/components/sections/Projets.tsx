@@ -1,47 +1,50 @@
 import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
 
-/* V5 — UNE SEULE LISTE, sur demande explicite : plus de bloc separe
-   "Solutions en developpement" qui semblait ajoute apres coup. Les
-   demonstrateurs reels et les solutions en developpement partagent
-   desormais UNE composition editoriale, dans l'esprit d'un catalogue —
-   numero, titre, secteur, description, statut, fleche.
+/* V8 — QUATRE PROJETS PASSENT A "REALISE". Le fondateur a confirme
+   explicitement (projet par projet, avec description) que quatre des
+   six entrees sont des livraisons reelles, pas des demonstrateurs —
+   voir dictionaries.ts pour la note de confirmation. Le badge PLEIN
+   (aws-hero) marque desormais "Realise"/"Delivered" ; le badge CONTOUR
+   (muted) reste pour ce qui est encore en developpement/structuration
+   (suivi-projets-immobiliers, assistant-ia-metier — statuts inchanges,
+   non confirmes, jamais inventes).
 
-   La distinction entre "livre" et "pas encore livre" ne repose plus sur
-   deux styles de blocs differents mais sur le champ STATUT de chaque
-   ligne, toujours affiche au meme endroit avec la meme importance :
-   aucune ligne n'est presentee comme plus ou moins "vraie" qu'une
-   autre visuellement, mais aucune ne peut non plus etre confondue —
-   lire un statut suffit a savoir ou en est chaque projet.
+   V7 — TOUJOURS HONNETE. La passe precedente (V6) avait retire toute
+   l'affordance de lien (fleche, fond au survol, titre qui glisse) parce
+   qu'aucune ligne ne mene reellement quelque part — une fleche qui ne
+   navigue nulle part est un mensonge d'interface. Cette demande revient
+   ("hover: surface, titre, fleche, statut"), donc ARBITRAGE EXPLICITE :
+   le survol redevient vivant (fond teinte, titre qui gagne en
+   contraste, statut qui s'accentue) car RIEN de tout cela ne promet une
+   destination — mais LA FLECHE NE REVIENT PAS, elle est le seul des
+   quatre signaux qui dit specifiquement "cliquez, ça mene quelque
+   part". Un projet "Realise" reste un projet SANS capture d'ecran reelle
+   ni page dediee aujourd'hui : la fleche resterait un mensonge, le
+   statut "Realise" seul, non. Le jour ou une vraie capture/demo existe
+   pour une ligne donnee, cette ligne (et uniquement elle) pourra
+   redevenir un vrai lien avec sa fleche et sa vignette. */
 
-   V6 — AFFORDANCE HONNETE. Ces lignes portaient une fleche, un fond au
-   survol, un titre qui glissait et un numero qui s'allumait : tout le
-   vocabulaire d'une ligne cliquable. Or aucune n'est un lien — aucun
-   projet n'a de page, de demo publique ni de capture autorisee. Une
-   fleche qui ne mene nulle part est un mensonge d'interface, et un
-   href="#" en serait un autre. Les effets de faux lien sont donc
-   retires : il reste une liste editoriale, lisible et franche.
+const STATUTS_LIVRES = new Set(["Réalisé", "Delivered"]);
 
-   Chaque ligne porte en revanche un id : les "solutions associees" des
-   Expertises pointent dessus, ce qui leur donne une vraie destination
-   au lieu de dupliquer le meme texte a deux endroits. */
 function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: string; dernier: boolean }) {
+  const livre = STATUTS_LIVRES.has(projet.statut);
   return (
     <li
       id={`projet-${projet.id}`}
       className={
-        "reveal flex scroll-mt-24 gap-5 py-7 sm:gap-8" +
+        "reveal group -mx-4 flex scroll-mt-24 gap-5 rounded-xl px-4 py-7 transition-colors duration-300 hover:bg-aws-surface sm:gap-8" +
         (dernier ? "" : " border-b border-aws-line")
       }
     >
       <span
         aria-hidden="true"
-        className="w-10 shrink-0 text-[0.8125rem] font-semibold tabular-nums text-aws-ink/35 sm:w-14 sm:text-[0.9375rem]"
+        className="text-[1.375rem] font-light leading-none tabular-nums text-aws-ink/20 transition-colors duration-300 group-hover:text-aws-blue-text/60 sm:text-[1.625rem] desk:w-14"
       >
         {numero}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero desk:text-[1.1875rem]">
+          <h3 className="text-[1.0625rem] font-bold leading-snug text-aws-hero transition-colors duration-300 group-hover:text-aws-navy desk:text-[1.1875rem]">
             {projet.nom}
           </h3>
           <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-aws-blue-text">
@@ -51,10 +54,16 @@ function LigneProjet({ projet, numero, dernier }: { projet: Projet; numero: stri
         <p className="mt-2 max-w-[62ch] text-[0.9375rem] leading-[1.65] text-aws-ink/80">
           {projet.texte}
         </p>
-        <p className="mt-3 flex items-center gap-2 text-[0.8125rem] font-medium text-aws-ink/70">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-aws-blue-text/60" />
+        <span
+          className={
+            "mt-3 inline-flex items-center rounded-full px-2.5 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.04em] transition-colors duration-300 " +
+            (livre
+              ? "bg-aws-hero/[0.08] text-aws-hero group-hover:bg-aws-hero/[0.12]"
+              : "border border-aws-ink/25 text-aws-ink/65 group-hover:border-aws-blue-text/40 group-hover:text-aws-blue-text")
+          }
+        >
           {projet.statut}
-        </p>
+        </span>
       </div>
     </li>
   );
@@ -81,7 +90,7 @@ export default function Projets({ dict }: { dict: ProjetsDictionary }) {
           <ol className="mt-10 border-t border-aws-line desk:mt-12">
             {dict.liste.map((projet, i) => (
               <LigneProjet
-                key={projet.nom}
+                key={projet.id}
                 projet={projet}
                 numero={String(i + 1).padStart(2, "0")}
                 dernier={i === dict.liste.length - 1}

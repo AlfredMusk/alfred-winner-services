@@ -66,8 +66,13 @@ export default function Footer({
   const iconeContact = "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white";
   const whatsappHref = `${whatsapp.href}?text=${encodeURIComponent(whatsapp.message)}`;
 
+  /* L'ancre #contact vit desormais sur la section Contact.tsx (le
+     formulaire), pas ici : "Parlons de votre projet" (Navbar, CTA
+     final, Expertises) doit amener a une ACTION reelle — remplir le
+     formulaire — plutot qu'a une simple liste de coordonnees. Le
+     Footer garde les memes coordonnees, juste sans porter l'ancre. */
   return (
-    <footer id="contact" className="scroll-mt-24 bg-aws-navy">
+    <footer className="bg-aws-navy">
       {/* Filet superieur en degrade : un detail graphique discret plutot
           qu'une bordure plate, pour que le Footer se sente dessine et
           non juste "un rectangle bleu pose en bas de page". S'estompe
@@ -137,13 +142,19 @@ export default function Footer({
                   {contact.email}
                 </a>
               </li>
+              {/* WhatsApp porte SON propre vert (icone + libelle), pas le
+                  style bleu/blanc des trois autres lignes : regle explicite
+                  du cahier des charges — WhatsApp doit rester identifiable
+                  comme WhatsApp, jamais absorbe dans l'identite AWS. */}
               <li className="flex gap-3">
-                <span className={iconeContact}>{IconeWhatsapp}</span>
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white">
+                  {IconeWhatsapp}
+                </span>
                 <a
                   href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${lienBase} pt-1.5`}
+                  className="pt-1.5 text-[0.9375rem] font-medium text-white/85 transition-colors hover:text-white"
                 >
                   WhatsApp
                 </a>

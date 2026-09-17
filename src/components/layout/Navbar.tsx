@@ -281,7 +281,7 @@ export default function Navbar({ locale, dict }: Props) {
               {dict.cta}
               <span
                 aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
               >
                 →
               </span>
@@ -375,7 +375,7 @@ export default function Navbar({ locale, dict }: Props) {
             {dict.cta}
             <span
               aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+              className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
             >
               →
             </span>

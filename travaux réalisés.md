@@ -2723,3 +2723,272 @@ NON EXECUTE
 
 PAS DE COMMIT. En attente de la revue d'Alfred, notamment sur les
 images du Hero.
+
+## [PASSE PREMIUM] ART DIRECTION + MOTION + MEDIA + PROJETS + CONTACT — 2026-09-17 — ATTENTE VALIDATION ALFRED
+
+Grosse passe de polish, pas de reconstruction. Consigne de depart : garder
+la structure de chaque section, ameliorer la matiere (couleurs, mouvement,
+media, contenu Projets, formulaire de contact). Rien de casse, tout mesure.
+
+### CONFLIT BUSINESS TRUTH — TROUVE, PAS TRANCHE SEUL
+  La consigne demandait de marquer "RÉALISÉ" deux items (tableau de bord
+  multi-actifs, suivi de projets immobiliers) qui sont documentes depuis
+  plusieurs passes comme "En developpement" / "En structuration", sans
+  aucune preuve nouvelle de livraison. La MEME consigne dit par ailleurs
+  "n'invente aucune realisation". Les deux ne peuvent pas etre vraies en
+  meme temps. DECISION : statuts laisses inchanges, rien invente, signale
+  a Alfred des le debut du travail plutot que devine dans un sens ou
+  l'autre.
+
+### PALETTE — TOKENS AJOUTES, PAS DE REFONTE
+  --color-whatsapp / --color-whatsapp-fonce ajoutes dans globals.css.
+  PAS #25D366 (le vert app) : calcule a 1.98 de contraste sur blanc, en
+  dessous meme du minimum non-textuel (3:1). Retenu #128C7E (le vert que
+  WhatsApp utilise lui-meme sur son propre bouton Web) : 4.14, largement
+  conforme. Bug trouve en meme temps : WhatsappFlottant.tsx utilisait du
+  bleu AWS (bg-aws-navy) au lieu du vert — violation directe de la regle
+  "WhatsApp reste vert" heritee d'une passe anterieure. Corrige.
+
+### NOTRE METHODE — REECRITE (V4), PLUS 4 PARAGRAPHES COTE A COTE
+  Mobile/tablette : ligne verticale (piste + remplissage) a gauche des
+  badges numerotes.
+  Desktop : stepper horizontal 4 colonnes, ligne de connexion entre les
+  centres des badges.
+  Remplissage anime au scroll (animation-timeline: view()), degrade a un
+  etat "deja rempli" (pas "a moitie charge") si prefers-reduced-motion ou
+  navigateur non supporte — regle hors bloc @supports, jamais conditionnee.
+
+  BUG TROUVE PAR MESURE, PAS SUPPOSE : la ligne de connexion desktop en
+  left-[12.5%]/right-[12.5%] (calcul naif "100%/4 colonnes") ignorait le
+  gap-8 (32px) du grid. Mesure reelle des centres de badges (DOM,
+  getBoundingClientRect a 1440px) : x=222/554/886/1218 dans un conteneur
+  de 1296px commencant a x=72 — 12.5% de 1296 tombe a 162, soit 12px
+  d'ecart avec le vrai centre (222). Formule exacte derivee et appliquee :
+  calc(12.5% - 12px), via style inline (Tailwind arbitrary ne sait pas
+  combiner % et px soustrait sur deux proprietes). Remesure : 0px d'ecart.
+
+### NOTRE APPROCHE — INTERACTION DESKTOP AJOUTEE
+  Survol desktop uniquement (group-hover) : ligne qui s'allonge (w-10 ->
+  w-16), icone qui se souleve (-translate-y-0.5), fond legerement teinte
+  par pole (couleur deja etablie dans Expertises, reutilisee). Rien sur
+  mobile (pas de hover tactile fiable). Contenu des 3 piliers inchange.
+
+### EXPERTISES — SOLUTION ASSOCIEE REECRITE, MEDIA INNOVER AGRANDI
+  "Solution associee" : l'ancien encadre (bordure + fond + icone en
+  prefixe, look "champ de formulaire") remplace par une ligne editoriale
+  (pictogramme + texte courant + nom souligne), meme langage que la ligne
+  "capacites" juste au-dessus.
+
+  Software & IA (Innover) : c'etait le point le plus faible signale par
+  la consigne — une seule photo mains-clavier ne montrait ni IA ni
+  automatisation. Ajout d'un second media (video courte, robot industriel
+  en fonctionnement) en carte superposee, pas un collage. Legende
+  TOUJOURS visible sous la composition (jamais seulement au survol —
+  erreur evitee avant meme de tester dans le navigateur : un disclaimer
+  aussi important que "AWS ne possede pas ce robot" ne peut pas dependre
+  d'un geste que la moitie des visiteurs, sur tactile, ne fera jamais).
+
+  Video : source Pexels (licence gratuite, usage commercial autorise),
+  reencodee localement avec ffmpeg (1280px, 8s, sans audio, ~1 Mo au lieu
+  de 28 Mo d'origine). Lecture pilotee par JS (VideoRobotique.tsx,
+  seul Client Component de cette famille) uniquement pour respecter
+  prefers-reduced-motion — un attribut autoplay HTML ne peut pas etre
+  recalcule depuis une media query CSS. Fiche complete dans
+  ASSETS_SOURCES.md (source, auteur, licence, verification du contenu
+  reel par extraction d'image, pas seulement lu la description).
+
+### PROJETS & INITIATIVES — NOMS PERSONNELS RETIRES DU PUBLIC
+  Consigne explicite : la marque personnelle du fondateur ("Baby
+  Tourism", "Alfred Fitness", "Alfred AI Trader") ne doit plus apparaitre
+  dans le rendu public — c'est AWS qui doit ressortir, pas une marque
+  perso. `id` techniques inchanges (ancres, references croisees avec
+  Expertises), seul le champ `nom` affiche change :
+    baby-tourism      -> "Plateforme de decouverte touristique"
+    alfred-fitness    -> "Experience web Fitness"
+    alfred-ai-trader  -> "Plateforme d'analyse de marches"
+  Titre de section aussi revu : "La methode, mise a l'epreuve." ->
+  "De la demonstration a la solution." (memes idees, moins pose comme un
+  slogan marketing).
+  Survol des lignes restaure (fond, couleur du titre/numero) mais PAS la
+  fleche — decision deliberee gardee d'une passe anterieure : la fleche
+  est le seul des quatre signaux qui dit specifiquement "cliquez, ca mene
+  quelque part", ce qui reste faux tant qu'il n'existe pas de page dediee.
+
+### CONTACT — VRAI FORMULAIRE, PAS UNE SIMULATION
+  Avant : simple carte d'infos de contact. Maintenant : formulaire de
+  prise de projet complet (nom, email, telephone, entreprise, service*,
+  type de projet, budget, echeance, description*), validation client ET
+  serveur, honeypot + verification de delai anti-spam, etats accessibles
+  (erreurs par champ avec aria-invalid/aria-describedby, resume d'erreurs
+  role="alert" qui s'annonce SANS voler le focus au clavier, etat de
+  succes distinct).
+
+  REGLE SUIVIE A LA LETTRE : pas de fausse simulation. Aucune cle de
+  prestataire email n'existe aujourd'hui -> le serveur valide reellement
+  (seule source de verite), puis renvoie les donnees nettoyees et
+  l'appareil du visiteur ouvre son propre client mail (mailto:), un vrai
+  mecanisme de livraison, jamais un message "envoye" mensonger. Branche
+  `if (process.env.CONTACT_PROVIDER_API_KEY)` prete pour un vrai
+  fournisseur plus tard, aucun secret cote client. Route :
+  src/app/api/contact/route.ts.
+
+  Bug ESLint trouve en cours de route : `useRef(Date.now())` appelle une
+  fonction impure pendant le rendu (regle react-hooks/purity). Corrige :
+  useRef(0) + affectation reelle dans un useEffect.
+
+  Politique de confidentialite mise a jour : elle affirmait encore "il ne
+  comporte aucun formulaire" — vrai avant cette passe, faux maintenant.
+  Reecrite (FR+EN) pour decrire le vrai flux (validation serveur, pas de
+  stockage, ouverture du client mail cote visiteur).
+
+### FONDATEUR — RECADRAGE UNIQUEMENT
+  Meme photo reelle (aucune generation), juste un recadrage plus serre
+  (sips, 900x1200 depuis 1050x1400 original, toujours 3:4, EXIF iPhone
+  intact) pour une composition plus resserree.
+
+### TESTS — REELLEMENT EXECUTES
+  lint       PASS  0 erreur/avertissement
+  tsc        PASS  0 erreur
+  build      PASS  next build complet, /api/contact bien detecte en
+                   route dynamique (ƒ), toutes les pages statiques FR/EN
+                   generees
+  responsive PASS  375 / 768 / 1280 — media Innover (photo + video
+                   superposee + legende) verifie sans debordement
+                   horizontal (document.documentElement.scrollWidth
+                   compare a clientWidth) aux trois largeurs
+  FR/EN      PASS  page EN relue integralement (get_page_text) : noms de
+                   projets bien anonymises en anglais aussi, legende
+                   robotique traduite, formulaire de contact traduit
+  formulaire PASS  soumission vide -> 3 champs obligatoires marques
+                   aria-invalid (nom, email, description), resume
+                   role="alert" affiche le bon texte, focus reste sur le
+                   bouton (choix deliberement documente dans le code :
+                   annoncer sans voler le focus)
+  honeypot   PASS  champ "site" confirme tabIndex={-1} + aria-hidden,
+                   hors-ecran (pas display:none, pour tromper de vrais
+                   robots)
+  ASSETS_SOURCES.md PASS  entree video+poster relue, complete
+
+### NON EXECUTE / PAS DE TOUTE FACON POSSIBLE ICI
+  - Bascule reelle prefers-reduced-motion (emulation navigateur type
+    devtools) : aucun outil de cet environnement ne l'expose. Verifie
+    uniquement par relecture du code (regle hors @supports fournit deja
+    l'etat final, meme pattern deja valide plusieurs fois dans ce projet
+    pour .reveal), pas par bascule live.
+  - Balayage responsive complet 7 tailles (375/430/768/820/1024/1280/1440)
+    refait entierement pour CHAQUE section apres les tout derniers
+    changements Expertises/Contact : seules 375/768/1280 revues sur la
+    zone modifiee (Innover) dans cette passe ; le reste du site avait deja
+    ete valide sur les 7 tailles lors d'une passe anterieure et n'a pas
+    ete retouche.
+  - Navbar et Hero : non touches dans cette passe (hors scope explicite
+    de la consigne, "polish uniquement" mais aucune ligne concrete n'a
+    ete jugee necessaire au-dela de l'existant deja valide).
+  - Lecture d'ecran (VoiceOver/NVDA) : non disponible, verification par
+    inspection DOM/ARIA uniquement.
+
+### POINT OUVERT — HERITE, PAS RESOLU DANS CETTE PASSE
+  Les deux images du Hero (finance-markets.jpg, real-estate.jpg) restent
+  suspectees d'origine generee (voir entree anterieure : signature de
+  marque AWS visible sur des tranches de livres, enseigne NSIA reelle en
+  arriere-plan, aucune EXIF). Hero non touche dans cette passe (section
+  verrouillee par la consigne), donc rien de nouveau tranche ici — le
+  point reste ouvert et est resignale dans le rapport final.
+
+PAS DE COMMIT. En attente de la revue premium d'Alfred.
+
+## [PASSE FINALE] FINAL PREMIUM PRODUCTION PASS — 2026-09-17 — ATTENTE VALIDATION ALFRED
+
+Nouvelle passe "production finale", pas une reconstruction. Cette fois le
+fondateur a explicitement confirme, projet par projet, que 4 des 6
+entrees de Projets & Initiatives sont de vraies livraisons — le conflit
+signale a la fin de la passe precedente (statuts "RÉALISÉ" demandes sans
+preuve) est donc RESOLU par cette confirmation directe, pas devine.
+
+### PROJETS — 4 STATUTS PASSENT A "RÉALISÉ"
+  baby-tourism, alfred-fitness, alfred-ai-trader et
+  tableau-de-bord-multi-actifs passent de
+  demonstrateur/prototype/developpement a "Réalisé"/"Delivered" (FR+EN).
+  suivi-projets-immobiliers et assistant-ia-metier restent inchanges (non
+  confirmes par le fondateur, jamais devines). Note : le brief listait "04
+  Solution Finance & Technologie" et "05 Outil de gestion/suivi de
+  portefeuille electronique" comme deux entrees separees — verification
+  faite, ce sont deux formulations du MEME outil deja present
+  (tableau-de-bord-multi-actifs) : traite comme un seul projet, pas
+  duplique artificiellement.
+  Badge visuel : "Réalisé"/"Delivered" passe desormais en badge PLEIN
+  (avant : memes styles que les anciens libelles "demonstrateur"),
+  Projets.tsx V8. La fleche reste absente (toujours aucune capture/page
+  dediee reelle) — seule la fiabilite du STATUT change, pas une promesse
+  de destination qui serait fausse.
+
+### CTA — FLECHE PLUS SENSIBLE AU SURVOL
+  group-hover:translate-x-0.5 (2px) -> translate-x-1 (4px), dans la
+  fourchette 3-5px demandee. Change au niveau du token partage
+  (boutons.tsx `fleche`) + les deux CTA du Hero qui dupliquaient la
+  classe en inline : un seul changement, coherent partout (Hero, Navbar,
+  Expertises, Projets, CTA final).
+  Indicateurs media du Hero (pause/play + traits de progression) :
+  reevalues, gardes tels quels — deja minimalistes/accessibles (pas de
+  gros points, pas de gadget), rien a gagner a les redessiner.
+
+### SOFTWARE & IA — FIN DU "COLLAGE"
+  La video robotique posee en petite carte qui debordait sur la photo
+  (passe precedente) a ete relevee comme un effet PIP/collage plutot
+  qu'une composition. Remplacee par un vrai DIPTYQUE EDITORIAL : deux
+  cadres independants, memes coins arrondis, un espace reel entre eux
+  (gap-3), AUCUN chevauchement. Mobile : empiles. Desktop : cote a cote,
+  meme hauteur (le bloc entier passe en ratio 4:3, chaque panneau devient
+  h-full). La legende de verite ("illustration technologique, pas une
+  realisation AWS") reste sous le bloc entier, toujours visible.
+
+### TROIS IMAGES REMPLACEES — SOURCING REEL, PAS DEVINE
+  Qui sommes-nous (echangeur autoroutier generique -> vraie vue
+  d'Abidjan, la lagune et le Plateau, photographe ivorien).
+  Bourse & Finance (mains sur documents generiques -> professionnel
+  analysant de vrais graphiques financiers sur grand ecran).
+  Immobilier (skyline distante et generique -> tour en construction
+  active, grues visibles, Lagos).
+
+  DECOUVERTE IMPORTANTE EN COURS DE SOURCING : un premier candidat pour
+  Qui-sommes-nous (une autre vue du Plateau) a ete ECARTE apres
+  verification a pleine resolution — l'enseigne "BNI" (Banque Nationale
+  d'Investissement, institution financiere reelle non affiliee a AWS) y
+  etait grande et parfaitement lisible au sommet d'un immeuble. Meme
+  categorie de risque que le probleme deja documente sur les images du
+  Hero (signature de marque + enseigne "NSIA" visibles). Image
+  definitivement ecartee, remplacee par une vue plus distante ou aucune
+  enseigne n'est dechiffrable. Toutes les images retenues verifiees a
+  pleine resolution avant integration (pas seulement au format vignette).
+
+  Les trois anciennes images (v4) retirees du repo (plus aucune reference
+  dans le code), pas laissees comme fichiers morts.
+
+### TESTS — REELLEMENT EXECUTES
+  lint       PASS  0 erreur/avertissement
+  tsc        PASS  0 erreur
+  build      PASS  next build complet, 12 pages generees
+  responsive PASS  375 / 1440 relus sans debordement horizontal apres
+                   integration des 3 nouvelles images + du diptyque
+                   Innover
+  FR/EN      PASS  page EN relue integralement : "Multi-asset dashboard
+                   (Delivered)" confirme, cascade automatique
+                   Projets -> Expertises verifiee (une seule source de
+                   verite, comme concu des la passe precedente)
+  CTA        PASS  translate-x-1 confirme par lecture du DOM (classe
+                   reelle appliquee), pas seulement suppose depuis le
+                   code source
+
+### NON EXECUTE / HORS SCOPE DE CETTE PASSE
+  - Navbar et Hero (structure) : non retouches, "quasi locked" — seule la
+    fleche des CTA a change (voir ci-dessus), deliberement, comme demande.
+  - Screenshots reels des projets livres : aucun n'existe dans le projet
+    a ce jour (verifie : aucun dossier de captures dans public/) — les
+    quatre projets "Réalisé" restent donc en presentation textuelle
+    propre, sans media ni fleche, conformement a la regle "si le media
+    n'est pas disponible, garder une presentation textuelle propre".
+  - Bascule reelle prefers-reduced-motion en direct : toujours hors de
+    portee des outils de cet environnement, verification par revue de
+    code uniquement (comme la passe precedente).
+
+PAS DE COMMIT. En attente de la revue finale d'Alfred.

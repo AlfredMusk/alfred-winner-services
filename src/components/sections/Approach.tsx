@@ -49,6 +49,27 @@ const PICTOGRAMMES: Record<string, React.ReactElement> = {
   ),
 };
 
+/* Trois atmospheres subtiles, une par pilier — LA MEME famille que les
+   accents deja en place sur Nos expertises (border-l-aws-navy /
+   border-l-aws-muted / border-l-aws-blue-text) : le visiteur retrouve
+   INVESTIR / CONSTRUIRE / INNOVER dans la meme teinte a chaque section,
+   une signature qui se repete sans dependre du logo. */
+const ACCENT_TEXTE: Record<string, string> = {
+  "01": "text-aws-navy",
+  "02": "text-aws-muted",
+  "03": "text-aws-blue-text",
+};
+const ACCENT_LIGNE: Record<string, string> = {
+  "01": "bg-aws-navy",
+  "02": "bg-aws-muted",
+  "03": "bg-aws-blue-text",
+};
+const ACCENT_SURFACE: Record<string, string> = {
+  "01": "group-hover:bg-aws-navy/[0.03]",
+  "02": "group-hover:bg-aws-muted/[0.05]",
+  "03": "group-hover:bg-aws-blue-text/[0.04]",
+};
+
 export default function Approach({ dict }: { dict: ApprocheDictionary }) {
   return (
     <section aria-labelledby="approche-titre" className="bg-white">
@@ -96,24 +117,45 @@ export default function Approach({ dict }: { dict: ApprocheDictionary }) {
                 <li
                   key={p.num}
                   className={
-                    "relative flex-1 border-t border-aws-line pt-6 " +
+                    "group relative flex-1 border-t border-aws-line pt-6 transition-colors duration-300 motion-reduce:transition-none " +
+                    ACCENT_SURFACE[p.num] +
+                    " " +
                     (premier ? "" : "mt-10 desk:mt-0 ") +
                     marges
                   }
                 >
-                  {/* Ligne d'accent : un segment bleu pose sur le filet gris,
-                      a l'aplomb du texte de la colonne. */}
+                  {/* Ligne d'accent : un segment colore pose sur le filet
+                      gris, a l'aplomb du texte de la colonne. S'allonge
+                      tres legerement au survol desktop (2.5rem -> 4rem) —
+                      un signal de vie, pas un gadget : aucune dependance
+                      au survol pour comprendre le contenu (mobile n'a de
+                      toute facon pas de survol, et la ligne est deja
+                      visible et complete a son etat de repos). */}
                   <span
                     aria-hidden="true"
                     className={
-                      "absolute top-0 h-[2px] w-10 rounded-full bg-aws-blue-text " +
+                      "absolute top-0 h-[2px] w-10 rounded-full transition-[width] duration-300 motion-reduce:transition-none desk:group-hover:w-16 " +
+                      ACCENT_LIGNE[p.num] +
+                      " " +
                       (premier ? "left-0" : "left-0 desk:left-10")
                     }
                   />
 
-                  <div className="text-aws-blue-text">{PICTOGRAMMES[p.num]}</div>
+                  <div
+                    className={
+                      "transition-transform duration-300 motion-reduce:transition-none desk:group-hover:-translate-y-0.5 " +
+                      ACCENT_TEXTE[p.num]
+                    }
+                  >
+                    {PICTOGRAMMES[p.num]}
+                  </div>
 
-                  <p className="mt-4 flex items-baseline gap-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-aws-blue-text">
+                  <p
+                    className={
+                      "mt-4 flex items-baseline gap-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] " +
+                      ACCENT_TEXTE[p.num]
+                    }
+                  >
                     <span className="tabular-nums">{p.num}</span>
                     <span aria-hidden="true" className="text-aws-ink/25">—</span>
                     {p.cle}

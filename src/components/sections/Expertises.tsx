@@ -6,6 +6,7 @@ import type {
 } from "@/i18n/dictionaries";
 import { boutonSecondaireClair, fleche } from "@/components/ui/boutons";
 import { IconePortefeuille, IconeStructure, IconeAutomatisation } from "@/components/ui/icones";
+import VideoRobotique from "@/components/ui/VideoRobotique";
 
 /* V3 — raffinement, pas de reconstruction (la direction alternance
    texte/image + CTA est conservee telle quelle sur demande explicite).
@@ -58,6 +59,7 @@ function Pole({
   cta,
   solutionAssocieeLabel,
   projet,
+  robotique,
 }: {
   pole: ExpertisePole;
   inverse: boolean;
@@ -68,6 +70,9 @@ function Pole({
      une divergence FR/EN entre les deux sections est devenue impossible
      par construction. */
   projet: Projet | undefined;
+  /* Media secondaire, UNIQUEMENT pour le pole Innover (num === "03") —
+     voir le rendu plus bas. undefined pour les deux autres poles. */
+  robotique?: { ariaLabel: string; legende: string };
 }) {
   return (
     <li id={pole.hash} className="reveal scroll-mt-24">
@@ -112,30 +117,29 @@ function Pole({
               </p>
             )}
 
-            {/* SOLUTION ASSOCIEE — encart discret, PAS une deuxieme
-                grande carte : la meme information que Projets & Réalisations
-                (une seule source de verite), ici juste rappelee au fil du
-                pole correspondant. Fond aws-surface + filet : se distingue
-                du reste de la carte (blanche) sans devenir un bloc a part
-                entiere. */}
+            {/* SOLUTION ASSOCIEE — reference editoriale, pas un champ
+                d'interface. La version precedente (bordure + fond +
+                icone en prefixe) se lisait comme un input ou une carte
+                miniature ; retiree au profit d'une ligne simple, dans le
+                MEME langage que "capacites" juste au-dessus (petit
+                pictogramme suivi de texte courant), qui pointe vers
+                Projets & Initiatives (une seule source de verite, jamais
+                deux formulations du meme statut). */}
             {projet && (
               <a
                 href={`#projet-${projet.id}`}
-                className="group/solution mt-5 flex items-center gap-3 rounded-xl border border-aws-line bg-aws-surface px-4 py-3 transition-colors duration-200 hover:border-aws-blue-text/40 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue-text motion-reduce:transition-none"
+                className="group/solution mt-4 inline-flex items-baseline gap-2 text-[0.8125rem] leading-[1.6] text-aws-ink/70 transition-colors duration-200 hover:text-aws-hero motion-reduce:transition-none"
               >
-                <span className="shrink-0 text-aws-blue-text">
+                <span className="inline-flex h-4 w-4 shrink-0 translate-y-[3px] items-center justify-center text-aws-blue-text/70 [&>svg]:h-4 [&>svg]:w-4">
                   {ICONES_SOLUTION[pole.solutionAssociee.icone]}
                 </span>
-                <div className="min-w-0">
-                  <p className="text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-aws-ink/70">
-                    {solutionAssocieeLabel}
-                  </p>
-                  <p className="mt-0.5 text-[0.8125rem] leading-snug text-aws-ink/85">
-                    <span className="font-semibold text-aws-hero">{projet.nom}</span>
-                    {" · "}
-                    <span className="text-aws-ink/70">{projet.statut}</span>
-                  </p>
-                </div>
+                <span>
+                  <span className="text-aws-ink/50">{solutionAssocieeLabel} —</span>{" "}
+                  <span className="font-semibold text-aws-hero underline decoration-aws-line decoration-1 underline-offset-4 group-hover/solution:decoration-aws-blue-text">
+                    {projet.nom}
+                  </span>{" "}
+                  <span className="text-aws-ink/50">({projet.statut})</span>
+                </span>
               </a>
             )}
 
@@ -146,17 +150,61 @@ function Pole({
           </div>
 
           <div className="desk:w-1/2">
-            <div
-              className={`group relative aspect-[4/3] overflow-hidden rounded-xl ${FOND_IMAGE[pole.num]}`}
-            >
-              <Image
-                src={pole.image!}
-                alt={pole.imageAlt ?? ""}
-                fill
-                sizes="(min-width: 1100px) 40vw, 88vw"
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-            </div>
+            {robotique ? (
+              /* DIPTYQUE EDITORIAL — deux medias, JAMAIS un chevauchement.
+                 La version precedente posait la video en petite carte qui
+                 debordait sur la photo ("picture-in-picture") : releve a la
+                 relecture comme un effet de collage, pas de composition.
+                 Ici, deux cadres INDEPENDANTS, memes coins arrondis, un
+                 vrai espace entre eux (gap-3) — la photo (mains/clavier,
+                 le geste humain du metier) et la video (automatisation,
+                 la direction technologique) se lisent comme deux faits
+                 distincts, pas comme un fond + une vignette dessus.
+
+                 Mobile : empiles (chacun son propre ratio 4/3).
+                 Desktop : cote a cote, meme hauteur (le bloc entier passe
+                 en ratio 4/3, chaque panneau devient h-full — largeur
+                 differente, hauteur identique, aucun jeu vertical). */
+              <div className="flex flex-col gap-3 desk:aspect-[4/3] desk:flex-row">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-aws-blue-text/[0.07] desk:aspect-auto desk:h-full desk:w-[62%]">
+                  <Image
+                    src={pole.image!}
+                    alt={pole.imageAlt ?? ""}
+                    fill
+                    sizes="(min-width: 1100px) 25vw, 88vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-aws-line desk:aspect-auto desk:h-full desk:w-[38%]">
+                  <VideoRobotique
+                    src="/videos/robotique-automatisation.mp4"
+                    poster="/images/expertises/robotique-poster.jpg"
+                    ariaLabel={robotique.ariaLabel}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div
+                className={`group relative aspect-[4/3] overflow-hidden rounded-xl ${FOND_IMAGE[pole.num]}`}
+              >
+                <Image
+                  src={pole.image!}
+                  alt={pole.imageAlt ?? ""}
+                  fill
+                  sizes="(min-width: 1100px) 40vw, 88vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+              </div>
+            )}
+
+            {/* Legende TOUJOURS visible, jamais reservee au survol : sur
+                tactile, personne ne "survole" rien — une precision aussi
+                importante que "AWS ne possede pas ce robot" ne peut pas
+                dependre d'un geste que la moitie des visiteurs ne fera
+                jamais. */}
+            {robotique && (
+              <p className="mt-2.5 text-[0.75rem] leading-snug text-aws-ink/70">{robotique.legende}</p>
+            )}
           </div>
         </div>
       </div>
@@ -199,6 +247,7 @@ export default function Expertises({
                 cta={dict.ctaPole}
                 solutionAssocieeLabel={dict.solutionAssocieeLabel}
                 projet={projets.find((p) => p.id === pole.solutionAssociee.projetId)}
+                robotique={pole.num === "03" ? dict.robotique : undefined}
               />
             ))}
           </ul>

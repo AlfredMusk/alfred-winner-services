@@ -37,12 +37,14 @@ export const lienTexteFonce =
   "group inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:text-white/70 motion-reduce:transition-none";
 
 /* La fleche : MEME comportement partout ou elle apparait (Hero, Navbar,
-   Expertises, Projets, CTA final) — translation de 2px au survol, jamais
-   d'animation au repos, respect de prefers-reduced-motion. */
+   Expertises, Projets, CTA final) — translation de 4px au survol (dans la
+   fourchette 3-5px demandee pour un hover qui se sente reellement, pas
+   seulement suppose), jamais d'animation au repos, respect de
+   prefers-reduced-motion. */
 export const fleche = (
   <span
     aria-hidden="true"
-    className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+    className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
   >
     →
   </span>

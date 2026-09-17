@@ -300,3 +300,104 @@ entree [HERO] PHASE 2, 2026-09-15) :
 - **Action prise** : AUCUNE. Les deux images restent en place (le Hero
   n'est pas modifie sans presenter la raison, conformement au perimetre
   de cette passe). Signale a Alfred en tete de rapport.
+
+## robotique-automatisation.mp4 + robotique-poster.jpg — media secondaire Innover
+
+- **Fichiers** : `public/videos/robotique-automatisation.mp4`,
+  `public/images/expertises/robotique-poster.jpg`.
+- **Section** : Nos expertises — pôle Innover (Software & IA), media
+  secondaire en superposition sur la photo principale (mains/clavier).
+- **Source** : Pexels — https://www.pexels.com/video/advanced-robotics-in-automated-factory-32386590/
+- **Auteur** : Usman AbdulrasheedGambo
+- **Licence** : Pexels License (gratuite, usage commercial autorisé)
+- **Date d'accès** : 16 septembre 2026
+- **Original** : 3840×2160 (4K), 11s, ~28 Mo — beaucoup trop lourd pour
+  le web tel quel.
+- **Traitement** : reencodee localement avec ffmpeg — 1280px de large,
+  8s (coupee), H.264 /  yuv420p, AUCUNE piste audio (decorative,
+  jamais entendue), faststart pour la lecture progressive. Resultat :
+  ~1,04 Mo (au lieu de 28 Mo). Poster genere depuis une image de la
+  video elle-meme (aucun cadre vide avant chargement du JS).
+- **Verification avant integration** : description originale ("Robotic
+  arm assembling components in a modern factory setting") conforme au
+  contenu reel (verifie par extraction d'image, pas seulement lu) ;
+  aucune marque tierce lisible dans le cadrage retenu ; aucun visage.
+- **Usage editorial** : illustre "robotique et automatisation" comme
+  DIRECTION D'INNOVATION du pole Innover — jamais presentee comme un
+  systeme qu'AWS possede, a construit ou a livre. Legende visible en
+  permanence sous la composition (pas seulement au survol, pour rester
+  lisible sur mobile/tactile) : "Robotique & automatisation —
+  illustration technologique, pas une réalisation AWS."
+- **Comportement** : `<video>` muted/loop/playsInline, lecture pilotee
+  par JavaScript UNIQUEMENT pour respecter prefers-reduced-motion (un
+  attribut autoplay HTML ne peut pas etre recalcule depuis une media
+  query CSS) — sans JS ou en attendant l'hydratation, seul le `poster`
+  (une vraie image fixe) s'affiche, jamais un cadre vide. Voir
+  `src/components/ui/VideoRobotique.tsx`.
+
+## qui-sommes-nous-v5.jpg — Qui sommes-nous
+- **Remplace** : qui-sommes-nous-v4.jpg (un échangeur autoroutier générique,
+  jugé incapable de raconter la section sans le texte — retiré du repo).
+- **Section** : Qui sommes-nous.
+- **Source** : Pexels — https://www.pexels.com/photo/waterfront-buildings-in-a-city-5642426/
+- **Auteur** : Don. Leslie-hamed Bagou (photographe ivorien, Abidjan)
+- **Licence** : Pexels License (gratuite, usage commercial autorisé)
+- **Date d'accès** : 17 septembre 2026
+- **Original** : 2835×3780 (portrait). Recadré en 4:3 (1920×1440) puis
+  redimensionné à 1300×975 avec sips — conserve la bande de skyline et le
+  ciel dramatique, retire l'excédent de ciel en haut.
+- **Lieu réel confirmé** : Abidjan, Côte d'Ivoire (métadonnée Pexels), vue
+  du Plateau depuis la lagune.
+- **Vérification avant integration** : verifie a resolution complete
+  qu'aucun texte/enseigne n'est lisible dans le cadrage retenu (un autre
+  candidat — une vue plus rapprochee du Plateau — a ete ECARTE precisement
+  parce que l'enseigne "BNI" (Banque Nationale d'Investissement, une
+  institution financiere reelle non affiliee) y etait grande et parfaitement
+  lisible : meme risque de confusion que celui deja identifie sur
+  finance-markets.jpg du Hero. Cette version-ci est prise a plus grande
+  distance, aucune enseigne n'y est dechiffrable).
+- **Usage éditorial** : ancrage local reel (la ville ou AWS opere), a la
+  place d'une infrastructure generique interchangeable.
+
+## finance-v5.jpg — Bourse & Finance (pôle Investir)
+- **Remplace** : finance-v4.jpg (mains sur documents financiers, jugé
+  "trop générique" — retiré du repo).
+- **Section** : Nos expertises — pôle Investir.
+- **Source** : Pexels — https://www.pexels.com/photo/man-in-blue-dress-shirt-making-a-business-presetation-9301494/
+- **Auteur** : Mikhail Nilov
+- **Licence** : Pexels License (gratuite, usage commercial autorisé)
+- **Date d'accès** : 17 septembre 2026
+- **Original** : 3572×5359 (portrait). Recadré en 4:3 (1920×1440, conserve
+  visage/attire + graphiques + geste de la main) puis redimensionné à
+  1300×975 avec sips.
+- **Description Pexels** : "Professional analyzing graphs on a screen in
+  an office. Business meeting concept."
+- **Vérification avant intégration** : les données du tableau de bord à
+  l'écran (villes russes, chiffres) sont un jeu de démonstration factice
+  du logiciel photographié, pas une donnée réelle attribuée à AWS —
+  utilisées uniquement comme texture visuelle de "graphiques/analyse",
+  jamais lues comme un chiffre AWS. Aucun logo/marque tierce lisible.
+- **Choix éditorial** : montre une analyse de marché/données concrète,
+  évite les clichés écartés par le cahier des charges (bitcoin, liasses de
+  billets, voiture de luxe, salle de marché factice, hologrammes).
+
+## immobilier-v5.jpg — Immobilier (pôle Construire)
+- **Remplace** : immobilier-v4.jpg (skyline distante et générique,
+  explicitement relevée comme un point faible — retiré du repo).
+- **Section** : Nos expertises — pôle Construire.
+- **Source** : Pexels — https://www.pexels.com/photo/aerial-view-of-high-rise-construction-in-lagos-38511754/
+- **Auteur** : Taiwo Samson
+- **Licence** : Pexels License (gratuite, usage commercial autorisé)
+- **Date d'accès** : 17 septembre 2026
+- **Original** : 4096×3072 (déjà 4:3 exact). Redimensionné à 1300×975 avec
+  sips, aucun recadrage nécessaire.
+- **Lieu réel confirmé** : Lagos, Nigeria (métadonnée Pexels, tag "Real
+  Estate Development").
+- **Vérification avant intégration** : enseignes visibles sur la clôture
+  de chantier au pied de la tour verifiees a pleine resolution — illisibles
+  (motif/logo flou, aucun texte dechiffrable), sans commune mesure avec le
+  cas "BNI" ecarte pour l'image Qui-sommes-nous ci-dessus.
+- **Choix éditorial** : montre un actif immobilier réellement EN COURS DE
+  CONSTRUCTION (grues actives, structure inachevée visible), plus narratif
+  qu'une skyline finie et distante — Afrique de l'Ouest, cohérent avec
+  l'identité régionale d'AWS.

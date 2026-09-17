@@ -22,7 +22,7 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
       target="_blank"
       rel="noopener noreferrer"
       aria-label={dict.ariaLabel}
-      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-aws-navy text-white shadow-[0_8px_24px_rgba(0,36,84,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-aws-navy-soft hover:shadow-[0_12px_28px_rgba(0,36,84,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-navy motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-whatsapp text-white shadow-[0_8px_24px_rgba(18,140,126,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-whatsapp-fonce hover:shadow-[0_12px_28px_rgba(18,140,126,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp-fonce motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       style={{
         bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))",
         right: "calc(1.25rem + env(safe-area-inset-right, 0px))",

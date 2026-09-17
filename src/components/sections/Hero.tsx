@@ -72,7 +72,7 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
                 {dict.ctaPrincipal}
                 <span
                   aria-hidden="true"
-                  className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                  className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
                 >
                   →
                 </span>
@@ -88,7 +88,7 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
                 {dict.ctaSecondaire}
                 <span
                   aria-hidden="true"
-                  className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                  className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
                 >
                   →
                 </span>
