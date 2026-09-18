@@ -49,6 +49,8 @@ export default function Navbar({ locale, dict }: Props) {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const servicesButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
   /* useRef et non useState : "le menu a-t-il ete ouvert par un clic ?"
      ne doit pas provoquer de re-rendu. Sans cela, survoler puis cliquer
      refermait le menu aussitot. */
@@ -58,8 +60,7 @@ export default function Navbar({ locale, dict }: Props) {
      nues. La Navbar est partagee avec les pages legales : un simple
      "#projets" y produisait "/fr/mentions-legales#projets", une cible
      inexistante (verifie dans le navigateur — 5 liens sur 6 morts).
-     "#contact" fait exception : le Footer, lui, est present sur toutes
-     les pages et porte cette ancre. */
+     Le formulaire #contact existe uniquement sur la homepage. */
   const pathname = usePathname() ?? `/${locale}`;
   const estAccueil = pathname === `/${locale}`;
   const versAccueil = (hash: string) => `/${locale}#${hash}`;
@@ -72,8 +73,11 @@ export default function Navbar({ locale, dict }: Props) {
      (legales), on laisse <Link> naviguer normalement, Next.js scrolle
      deja en haut lors d'un vrai changement de route. */
   const retourAccueil = (e: React.MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    setMobileOpen(false);
     if (!estAccueil) return;
     e.preventDefault();
+    window.history.replaceState(null, "", `/${locale}`);
     const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollTo({ top: 0, behavior: reduit ? "auto" : "smooth" });
   };
@@ -81,7 +85,7 @@ export default function Navbar({ locale, dict }: Props) {
   const links = [
     { label: dict.nav.projects, href: versAccueil("projets") },
     { label: dict.nav.about, href: versAccueil("a-propos") },
-    { label: dict.nav.contact, href: "#contact" },
+    { label: dict.nav.contact, href: versAccueil("contact") },
   ];
 
   useEffect(() => {
@@ -94,6 +98,8 @@ export default function Navbar({ locale, dict }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (servicesOpen) servicesButtonRef.current?.focus();
+        if (mobileOpen) mobileButtonRef.current?.focus();
         pinnedRef.current = false;
         setServicesOpen(false);
         setMobileOpen(false);
@@ -101,7 +107,7 @@ export default function Navbar({ locale, dict }: Props) {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, []);
+  }, [servicesOpen, mobileOpen]);
 
   useEffect(() => {
     if (!servicesOpen) return;
@@ -157,7 +163,8 @@ export default function Navbar({ locale, dict }: Props) {
               alt=""
               width={240}
               height={226}
-              priority
+              loading="eager"
+              sizes="(min-width: 1280px) 51px, (min-width: 1100px) 47px, 39px"
               className="h-9 w-auto desk:h-11 xl:h-12"
             />
             {/* Le mot-symbole et la signature forment une colonne : la
@@ -172,7 +179,8 @@ export default function Navbar({ locale, dict }: Props) {
                 alt=""
                 width={472}
                 height={120}
-                priority
+                loading="eager"
+                sizes="(min-width: 1280px) 111px, (min-width: 1100px) 95px, 79px"
                 className="h-5 w-auto desk:h-6 xl:h-7"
               />
               {/* Micro-typographie : petite, espacee, desaturee. Elle se
@@ -226,6 +234,7 @@ export default function Navbar({ locale, dict }: Props) {
               }}
             >
               <button
+                ref={servicesButtonRef}
                 type="button"
                 aria-expanded={servicesOpen}
                 aria-controls="services-menu"
@@ -315,10 +324,10 @@ export default function Navbar({ locale, dict }: Props) {
 
           {/* ---------- ZONE 3 : langues + CTA + burger ---------- */}
           <div className="flex shrink-0 items-center gap-3 sm:gap-4 desk:gap-5">
-            <LangSwitch locale={locale} dict={dict} />
+            <LangSwitch locale={locale} dict={dict} onNavigate={() => setMobileOpen(false)} />
 
             <a
-              href="#contact"
+              href={versAccueil("contact")}
               className={`group hidden items-center gap-2 rounded-full bg-aws-navy px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:bg-[#001a3f] hover:shadow-[0_4px_14px_rgba(0,36,84,0.22)] active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0 desk:inline-flex xl:px-5 ${focusRing}`}
             >
               {dict.cta}
@@ -332,6 +341,7 @@ export default function Navbar({ locale, dict }: Props) {
 
             {/* h-11 w-11 = 44x44px, cible tactile minimale recommandee */}
             <button
+              ref={mobileButtonRef}
               type="button"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -363,7 +373,7 @@ export default function Navbar({ locale, dict }: Props) {
       <div
         id="mobile-menu"
         hidden={!mobileOpen}
-        className="border-t border-aws-line bg-white desk:hidden"
+        className="max-h-[calc(100dvh-4rem-1px)] overflow-y-auto border-t border-aws-line bg-white desk:hidden"
       >
         <nav
           aria-label={dict.a11y.mobileNav}
@@ -414,7 +424,7 @@ export default function Navbar({ locale, dict }: Props) {
           </ul>
 
           <a
-            href="#contact"
+            href={versAccueil("contact")}
             onClick={() => setMobileOpen(false)}
             className={`group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-aws-navy px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#001a3f] motion-reduce:transition-none ${focusRing}`}
           >
@@ -467,7 +477,7 @@ function NavHome({
    On retire le prefixe de langue puis on le remplace par l'autre :
    le visiteur reste donc sur LA MEME page en changeant de langue.
    ------------------------------------------------------------------ */
-function LangSwitch({ locale, dict }: { locale: Locale; dict: NavbarDictionary }) {
+function LangSwitch({ locale, dict, onNavigate }: { locale: Locale; dict: NavbarDictionary; onNavigate: () => void }) {
   const pathname = usePathname() ?? `/${locale}`;
   const sansLangue = pathname.replace(/^\/(fr|en)(?=\/|$)/, "");
   const hrefPour = (l: Locale) => `/${l}${sansLangue}`;
@@ -488,10 +498,11 @@ function LangSwitch({ locale, dict }: { locale: Locale; dict: NavbarDictionary }
           )}
           <Link
             href={hrefPour(l)}
+            onClick={onNavigate}
             hrefLang={l}
             aria-current={l === locale ? "true" : undefined}
             aria-label={l === "fr" ? dict.a11y.switchToFr : dict.a11y.switchToEn}
-            className={`rounded px-0.5 ${l === locale ? actif : inactif}`}
+            className={`inline-flex min-h-11 min-w-8 items-center justify-center rounded px-0.5 ${l === locale ? actif : inactif}`}
           >
             {l.toUpperCase()}
           </Link>

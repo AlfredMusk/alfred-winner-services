@@ -2992,3 +2992,224 @@ preuve) est donc RESOLU par cette confirmation directe, pas devine.
     code uniquement (comme la passe precedente).
 
 PAS DE COMMIT. En attente de la revue finale d'Alfred.
+
+## [PASSE] PROJETS 6 AXES + CORRECTIONS CIBLEES PRE-AUDIT — 2026-09-17
+
+Note prealable : l'entree ci-dessus ("FINAL PREMIUM PRODUCTION PASS")
+decrit des badges "Réalisé" et un diptyque Software & IA qui n'existent
+PAS dans le code actuel (verifie : aucun commit/stash/branche ne les
+contient, "PAS DE COMMIT" ecrit noir sur blanc dans cette meme entree).
+Traite comme orpheline, ni suivie ni effacee — signale au fondateur dans
+le rapport de cette passe plutot que tranche unilateralement.
+
+### PROJETS & REALISATIONS — RESTRUCTUREE AUTOUR DE 6 AXES REELS
+  Liste passee de 4 a 6 entrees, sur demande explicite ("il ne s'agit
+  pas necessairement de 6 produits commerciaux deja lances [...]
+  projets, realisations, experimentations"). Les 4 existantes gardees
+  (noms publics deja depersonnalises inchanges), 2 ajoutees :
+    - 05 Conception de sites web modernes (nouvel axe, aucun identifiant
+      prealable dans le projet — phrase de capacite uniquement, aucun
+      client invente).
+    - 06 Solutions & intelligence artificielle (reprend l'esprit de
+      l'ancien "assistant-ia-metier", retire lors d'une passe anterieure
+      car jamais confirme livre — desormais presente au niveau
+      "experimentations et solutions", jamais un produit fini precis).
+  04 renommee "Suivi & visualisation multi-actifs" (etait "Tableau de
+  bord multi-actifs") + phrase reecrite pour retirer toute ambiguite
+  "gestion de portefeuille" (laisse entendre une gestion reglementee de
+  fonds clients) : vocabulaire remplace par interface/visualisation.
+  03 (trading) reformulee avec clause explicite "pas un conseil
+  financier ni une promesse de performance".
+  Numeros 01-06 reintroduits (retires en V9) : redevenus une vraie
+  information de position dans les 6 axes, pas une decoration —
+  traitement discret, pas de gros chiffre watermark.
+  Fichiers : src/i18n/dictionaries.ts (FR+EN), src/components/sections/Projets.tsx.
+
+### CORRECTIONS CIBLEES
+  - Navigation, WhatsApp, footer, formulaire, preselection de service
+    depuis Expertises : deja corriges et verifies lors de la passe
+    d'audit precedente (meme session), rien de nouveau casse par cette
+    passe — reverifie par clic reel (logo/Accueil -> haut de page,
+    "Discuter de ce service" -> formulaire preselectionne FR+EN, ancre
+    #projets non cachee sous la navbar sticky).
+  - Aucune autre incoherence reelle trouvee sur Navbar/Hero/Approche/
+    Methode/Qui sommes-nous/Expertises/Vision/Fondateur/Footer — non
+    retouches, conformement a l'interdiction de redesign.
+  - Nettoyage : aucun console.log de debug, aucun TODO/FIXME, aucun
+    secret/cle API en dur, aucun .env versionne (verifie par grep sur
+    tout src/).
+
+### TESTS REELLEMENT EXECUTES
+  lint       PASS  0 erreur (npm run lint)
+  typecheck  PASS  0 erreur (npm run typecheck)
+  build      PASS  next build complet, 12 pages generees
+  responsive PASS  375 / 1024 / 1280 relus sans debordement horizontal
+                   sur la nouvelle grille 6 entrees (2x3 desktop des
+                   1100px, 1 colonne en dessous)
+  FR/EN      PASS  6 titres EN verifies par lecture DOM, aucun residu
+                   FR, ancre #projets alignee sous la navbar (30px de
+                   marge mesuree, pas supposee)
+  console    PASS  0 erreur sur onglet frais (/fr)
+
+### NON MODIFIE (volontaire)
+  Navbar, Hero, Notre approche, Notre methode, Qui sommes-nous,
+  Expertises (cartes), Vision, Fondateur, structure du Footer,
+  structure du formulaire (Budget/Echeance toujours absents, confirme).
+
+### RESTE A CONFIGURER (externe, pas du code)
+  - CONTACT_PROVIDER_API_KEY absente : le formulaire ouvre un mailto:
+    pre-rempli, aucun envoi serveur reel. Signale, pas invente.
+  - URLs LinkedIn/Instagram/Facebook toujours non fournies : icones
+    presentes mais non cliquables (aria-hidden), aucun lien fictif.
+  - AWS_SITE_URL / variables d'indexation production non definies :
+    sitemap vide et robots.txt en disallow tant que non configurees
+    (comportement volontaire, pas un bug).
+
+PAS DE COMMIT NI DE PUSH (consigne explicite de cette passe). En attente
+de l'audit final independant.
+
+## FINAL PRE-PRODUCTION AUDIT — 2026-09-18
+
+- Inspection avant code. AGENTS, CLAUDE, journal, architecture, docs Next 16.3.5 lus. Homepage entiere desktop/mobile parcourue.
+- Bugs trouves : faux succes serveur si cle contact presente ; JSON null -> 500 ; erreurs API illisibles ; mailto EN avec labels FR ; CTA legal sans cible ; menu paysage trop haut ; 404 non localisee ; favicon Vercel ; contraste/focus insuffisants ; WhatsApp couvrant texte ; sizes images imprecis ; canonical domaine non actif ; liste Methode non valide.
+- Corrections : validation API bornee, erreurs lisibles, aucun faux envoi ; formulaire autocomplete/limites/double-clic/loading/focus/retry ; lien mailto explicite FR/EN ; navigation/clavier/menu corriges ; 404 FR/EN ; favicon AWS ; pause Hero ; focus/contraste ; WhatsApp masque pendant collision texte/champ/lien ; sizes/preload ; SEO configurable sans domaine invente ; liste HTML corrigee.
+- Photo A propos identifiee comme illustration. Droits contenus tiers distingues des contenus originaux AWS. Confidentialite alignee sur preparation email. README port 3100 et conditions publication corriges.
+- Fichiers : README.md ; src/app/[locale]/layout.tsx ; src/app/[locale]/[...rest]/page.tsx ; src/app/[locale]/not-found.tsx ; src/app/api/contact/route.ts ; src/app/globals.css ; src/app/favicon.ico retire (embleme AWS utilise) ; Navbar.tsx ; WhatsappFlottant.tsx ; Apropos.tsx ; Contact.tsx ; Expertises.tsx ; Fondateur.tsx ; HeroMedia.tsx ; Method.tsx ; dictionaries.ts ; seo.ts ; ce journal.
+- Responsive navigateur FR+EN : 375/390/393/430/768/820/1024/1100/1280/1440/1920. 22 configurations, dernier retest sans overflow horizontal/image cassee/H1 multiple/liste invalide. Paysage 812x375 menu teste. Relecture visuelle mobile/tablette/desktop faite. Images/crops et six axes preserves.
+- Navigation reelle : logo debut, dropdown/clavier/Escape, ancres sous sticky, CTA, services preselectionnes FR/EN, legal, langues, back/forward. WhatsApp ouvre le numero configure ; aucun message envoye. Sociaux absents restent non interactifs.
+- Accessibilite : labels natifs, erreurs associees, focus premier champ/resultat, contour CTA bleu/footer blanc, skip link, lang/landmarks/titres, contrastes corriges. Reduced-motion inspecte dans code ; pas de certification WCAG ni test lecteur ecran/appareil physique.
+- Formulaire teste : vide/email invalide, preselection, double-clic/loading reel, erreur reseau reelle/donnees conservees/retry, preparation mailto FR/EN. API null/malformed/limites/honeypot/soumission trop rapide verifiee. Aucun email livre cote serveur. Cle seule ne simule plus envoi.
+- Performance : Next/Image sizes adaptes, preload Hero seulement, autres photos lazy, ratios reserves, font locale apres build. Pas de scores Lighthouse ni mesures terrain LCP/CLS/INP revendiques.
+- Quality gate final : npm run lint PASS ; npm run typecheck PASS ; npm run build PASS. Build production teste sur 3100 ; console propre FR/EN/404 sur onglet frais, aucune hydration error observee. npm audit : 0 vulnerabilite connue. Aucun .env versionne/secret manifeste/debug log detecte par controles executes.
+- BLOCKER : choisir/integrer mecanisme email avec Alfred puis tester reception reelle. Aucun prestataire choisi ni service payant ajoute.
+- IMPORTANT : confirmer provenance/droits Hero et photos fournies ; completer hebergeur/confidentialite apres choix reel. MINOR : photos immobilier/software sources modestes pour retina, conservees car validees.
+- EXTERNAL : domaine HTTPS officiel, AWS_SITE_URL, flags indexation au build public, canonical/robots/sitemap/partage apres deploiement ; compte WhatsApp actif a confirmer. Sans configuration, noindex/robots bloques/sitemap vide volontaires.
+- Verdict NOT READY FOR PRODUCTION : absence envoi serveur. Mode dev/Fast Refresh restaure sur localhost:3100/fr, onglet laisse ouvert. ALFRED AI TRADER jamais touche.
+- Changements preexistants Projets.tsx/dictionaries.ts/journal et 8 JPG racine preserves. Aucun commit, aucun push. Modifications arretees pour revue humaine.
+
+### HERO CARROUSEL — CONTROLES VISIBLES RETIRES — 2026-09-18
+
+- Demande Alfred : garder auto-defilement, retirer phrase/bouton/icone visibles. HeroMedia.tsx + ce journal uniquement.
+- Bouton natif transparent dans cadre image : clic/toucher/Enter/Espace pause-reprise durable, aria-label FR/EN, contour uniquement au focus clavier. Aucun texte/icone/pagination/fleche ajoute. Pause survol/focus conservee. Prefers-reduced-motion arrete rotation et retire interaction ; code inspecte, preference OS non emulee pendant QA.
+- Photos/textes/CTA/crops/ratio/radius/transition 700ms/delai 5s conserves. Aucun espace ajoute sous cadre.
+- Navigateur desktop 1440 et mobile 375 : trois transitions successives chacun, alternance des deux photos confirmee. Cadre stable 480x360 / 343x257.25, rayon 20px. Hauteur wrapper egale image sur chaque observation. Relecture visuelle faite. Pause persistante hors survol puis reprise au clavier testees.
+- Suite audit : 22 configurations FR/EN 375/390/393/430/768/820/1024/1100/1280/1440/1920 retestees ; aucun overflow/image cassee/H1 multiple/hauteur ou texte de controle supplementaire detecte. Console onglet frais FR+EN propre, aucune erreur hydration observee.
+- npm run lint/typecheck/build PASS ; git diff --check PASS. Aucune autre section modifiee. Preview dev localhost:3100/fr ouverte. Aucun commit/push.
+- Verdict general inchange : NOT READY FOR PRODUCTION, envoi email serveur absent. Domaine HTTPS/SEO public, hebergeur/confidentialite et droits images restent a confirmer/configurer comme dans audit precedent.
+
+## MISSION FINALE — AUDIT COMPLET ET POLISH — 2026-09-18
+
+- Mission finale lue. Relecture repository avant code : AGENTS/CLAUDE, journal, package/configs, App Router, composants, dictionnaires, styles, API, SEO, routes legales/404, assets et sources. Docs Next locales consultees. Homepage entiere parcourue desktop/mobile ; FR et EN relus.
+- Correction Contact.tsx : quatre asterisques visibles retires. Labels/id, required, validation client/serveur, focus et erreurs associees conserves. Aucun champ ajoute/retire.
+- dictionaries.ts : phrase asterisques retiree FR/EN ; mention courte « Photographie d’illustration. » / « Illustrative photograph. » ; formulations EN A propos et Software allegees ; orthographe britannique visualisation/organise harmonisee. Commentaire formulaire corrige : API validation puis mailto.
+- README : mailto accepte explicitement par nouvelle mission. Absence d'envoi serveur NE CONSTITUE PLUS le blocker impose dans les audits precedents. Le visiteur envoie lui-meme depuis sa messagerie. Aucun prestataire/dependance payante ajoute. Entrees historiques conservees ; leur verdict email est supersede par cette consigne.
+- Hero conserve sans modification : auto 5s, transition 700ms, images/crops/ratio/radius identiques, bouton transparent dans image accessible clavier/toucher, aucun texte/icone visible. Desktop : deux cycles complets observes ; mobile : alternance observee plus de 25s. Cadres stables 480x360 et 343x257.25 ; radius 20px ; zero hauteur parasite ; hauteur page stable pendant observations. Pause Espace persistante apres sortie du focus, reprise Enter testees. Reduced-motion inspecte dans code, preference OS non emulee.
+- Responsive production FR+EN : 375/390/393/430/768/820/1024/1100/1280/1440/1920. 22 configurations : pas d'overflow horizontal, titre/controle hors ecran, image cassee ni H1 multiple. DOM FR : pas d'ID duplique, ancre manquante, controle interactif imbrique. Relecture visuelle desktop/mobile/tablette ; Methode verticale tablette, horizontale desktop preservee.
+- Navigation apres build : logo/Accueil debut absolu, dropdown services/Tab/Escape/focus, trois destinations services, Projets/A propos/Contact, CTA Hero/expertises/final, FR/EN et preservation route legale, menu mobile ferme apres navigation. Paysage 812x375 : conteneur menu 309px, contenu 440px, scroll disponible. Ancres visibles sous sticky.
+- Formulaire : soumission vide et email invalide, erreurs lisibles/focus premier champ, quatre champs required, labels sans asterisque, preselection trois services FR/EN, preparation mailto correcte FR/EN, focus resultat status. Confirmation dit explicitement aucun message encore envoye. Aucun email envoye pendant tests. Tests loading/double-clic/reseau/retry du precedent audit conserves ; pas reexecutés pour cette correction de labels.
+- API production retestee : valide 200 livraison mailto ; JSON null/tableau/invalide/champs manquants/honeypot/longueur excessive 400 ; soumission trop rapide 429. Aucune fausse livraison serveur.
+- WhatsApp clique : page officielle affiche +225 0748191100 ; aucun message envoye. Footer/formulaire verifies 375 et 390 ; cible flottante 48px reste dans ecran, masquee lors collision texte observee sur confidentialite. Telephone/email natifs corrects ; reseaux sans URLs restent non interactifs.
+- HTTP production : / -> 307 /fr ; FR/EN et quatre pages legales -> 200 ; URL inexistante FR/EN -> 404. 404 localisee et retour accueil testes. Console onglet frais FR/EN/404 : aucun warning/error observe, aucune erreur hydration. Titres/descriptions/lang/OG/Twitter/favicon AWS verifies. Aucun canonical fictif ; noindex, robots Disallow et sitemap vide tant que configuration publique absente.
+- Performance inspectee : sections serveur conservees, quatre composants client interactifs plus 404, pas de nouvelle dependance, images Next avec sizes/ratios et lazy hors Hero, seul premier slide preload, font locale apres build, timers/listeners nettoyes. Pas de score Lighthouse ni mesure terrain LCP/CLS/INP. Pas de certification WCAG/lecteur ecran/appareil physique revendiquee.
+- Gates : npm run lint PASS ; npm run typecheck (tsc --noEmit) PASS ; npm run build PASS ; git diff --check PASS. npm audit --omit=dev : 0 vulnerabilite connue. Pas de .env versionne ni debug log trouve dans src.
+- Fichiers modifies DANS CETTE PASSE : Contact.tsx ; dictionaries.ts ; README.md ; ce journal. Autres changements preexistants preserves, y compris Projets.tsx et huit JPG racine. Aucun commit/push.
+- Etat final : controles locaux et build production valides avec parcours mailto accepte. Reste proprietaire : hebergeur reel pour textes legaux/confidentialite, confirmation provenance/droits visuels fournis, URLs sociales ; domaine HTTPS et configuration indexation au futur build public. Pas d'information inventee. Domaine non achete ne bloque pas finalisation locale. ALFRED AI TRADER jamais touche.
+- Preview : serveur AWS dev/Fast Refresh restaure sur 3100 ; homepage FR laissee ouverte. Validation humaine requise avant commit/push final.
+
+### FACEBOOK OFFICIEL — FOOTER — 2026-09-18
+
+- URL Alfred fournie branchee exactement FR/EN : https://www.facebook.com/share/19R1mBiHr6/?mibextid=wwXIfr
+- dictionaries.ts : URL + nom accessible « Alfred Winner Services sur Facebook » / « Alfred Winner Services on Facebook ». Footer.tsx : lien natif existant, target _blank, rel noopener noreferrer. Style attenue precedent conserve : 36x36px, SVG 20px, couleurs/fond/radius/position identiques. LinkedIn/Instagram restent vides et non interactifs. Aucune autre section touchee.
+- Quatre clics reels navigateur : FR/EN, mobile 375 et desktop 1440. Nouvel onglet ouvre page « Alfred winner services | Abidjan Abidjan | Facebook ». URL partage redirigee par Facebook ; href du site conserve exactement URL fournie. Aucun login/message/publication. Onglets temporaires fermes.
+- Visuel footer desktop/mobile verifie, aucun overflow ; couleurs au repos mesurees identiques aux anciennes icones. Aucun error console observe. Avertissement Next dev LCP sur second slide Hero observe, sans lien avec cette modification ; Hero conserve hors scope.
+- npm run lint PASS ; npm run build PASS ; npm run typecheck PASS ; git diff --check PASS. Aucun commit/push. Preview FR dev 3100 conservee. Audit local precedent termine ; attente validation humaine et informations externes restantes.
+
+### LINKEDIN FOURNI — FOOTER — 2026-09-18
+
+- Profil fourni branche FR/EN : https://www.linkedin.com/in/krotchaman-alfred-donald-krodi-38b684429 (HTTPS utilise a la place du HTTP fourni). Profil personnel du fondateur ; pas presente comme une page entreprise.
+- dictionaries.ts : URL et nom accessible Krodi Krotchaman Alfred Donald sur/on LinkedIn. Footer.tsx : lien natif, nouvel onglet, noopener noreferrer ; style precedent conserve. Facebook inchange ; Instagram toujours vide/non interactif. Aucune autre section modifiee.
+- Clic reel FR desktop 1440 et EN mobile 375 : bonne URL ouverte ; LinkedIn impose son ecran connexion/inscription avec sessionRedirect vers profil fourni. Pas de connexion ni contournement ; contenu profil non verifie derriere cet ecran. Footer relu visuellement, icone 36x36 preservee, aucun overflow mobile ni erreur console observee.
+- npm run lint PASS ; npm run typecheck PASS ; git diff --check PASS. Build precedent Facebook valide ; pas relance pour cet ajout de donnees/label. Journal actualise. Aucun commit/push ; preview FR conservee sur 3100.
+
+### FOOTER FINALISE — COMPACTION CIBLEE — 2026-09-18
+
+- Scope footer uniquement. Pas de nouvel audit global. Footer.tsx, dictionnaires footer FR/EN, ce journal. Autres modifications preexistantes preservees.
+- Espaces reduits sans changer typographie/logo/icones/fond : padding haut 20px ; bas mobile/tablette 72px, desktop 40px ; gap vertical colonnes mobile 28 -> 20px ; signature mt 12 -> 8px ; contact mt 12 -> 8px et lignes gap 8 -> 4px ; reseaux mt 12 -> 8px ; bandeau legal mt 16px, pt 12px, gap 6px. Grille trois colonnes desktop conservee.
+- Mesures FR avant/apres : 375/390/393/430, 634 -> 572px ; 768, 597.5 -> 535.5px ; 1280/1440, 396.5 -> 334.5px. Gain 62px partout, environ 10% mobile et 16% desktop. Coordonnees 15px et legal 13px conserves, aucune information retiree.
+- Instagram retire completement : SVG et cle dictionnaire supprimes. Deux icones seulement, LinkedIn puis Facebook. Profil LinkedIn reconfirme par Alfred pendant passe, branche en HTTPS FR/EN, nom accessible personnel du fondateur. Facebook URL exacte conservee. Liens externes _blank + noopener noreferrer. Pas de faux lien.
+- WhatsApp footer/flottant inspectes et cliques : tous deux ouvrent page officielle « Chat on WhatsApp with +225 0748191100 ». Base https://wa.me/2250748191100 commune FR/EN ; messages pre-remplis localises conserves. Aucun message envoye. Numero central lib/contact.ts inchange ; composant flottant inchange.
+- Telephone tel:+2250748191100 et email mailto:krodi2001@gmail.com verifies/clics executes ; aucun appel ni email envoye. Facebook clique FR desktop et EN mobile, page AWS confirmee. LinkedIn clique, destination profil fournie puis ecran connexion impose par LinkedIn, pas de contournement.
+- Responsive footer seulement FR+EN : 375/390/393/430/768/1280/1440/1920, seize configurations. Aucun overflow/texte hors ecran ; deux icones sociales ; aucun SVG/lien Instagram. Au bas reel de page : zero collision rectangles texte/liens footer avec bouton flottant, visible sur seize observations. Mobile 375x812 copyright bas 739.875px, bouton haut 744px. Relecture screenshots mobile/tablette/desktop faite.
+- Clavier : focus Facebook blanc 2px confirme apres Tab depuis LinkedIn. Mentions/confidentialite ouvertes dans les deux langues. Textes societe/capital/RCCM/copyright inchanges. Console : aucune erreur/hydratation observee ; avertissement LCP Hero dev historique hors scope.
+- npm run lint PASS ; npm run typecheck PASS ; npm run build PASS ; git diff --check PASS. Aucun commit/push. Footer FR laisse visible dans preview dev 3100. Attente validation utilisateur avant futur audit global.
+
+## FINAL PRE-PRODUCTION AUDIT — ALFRED WINNER SERVICES
+
+- Date : 2026-09-18. Nouvelle mission finale lue. Repository/configs/AGENTS/CLAUDE/journal relus ; docs Next locales consultees. Versions installees : Next 16.3.5, React 19.2.8, Tailwind 4.3.3, TypeScript 5.9.3. AWS uniquement.
+- Homepage entiere FR/EN inspectee : navbar, Hero, approche, methode, A propos, expertises, six projets, Vision, fondateur, CTA, formulaire, footer. Contenu credible conserve ; pas de client/chiffre/promesse invente. Reference ACIM consultee sans reprise de contenu/assets.
+- IMPORTANT corrige : deux liens sociaux actifs gardaient blanc 30% des anciens placeholders. Contraste icone/fond calcule 2.43:1. Footer.tsx : blanc 55% au repos, blanc au survol ; contraste au repos 4.64:1. Dimensions 36px/SVG 20px, position, fond, espacements et hauteur footer inchanges. Aucun autre composant modifie dans cette passe.
+- Responsive navigateur avant puis apres correction, build compile FR+EN : 375/390/393/430/768/820/1024/1280/1440/1920, vingt configurations par passage. Pas d'overflow horizontal/controle hors ecran/image cassee/H1 multiple detecte. IDs/ancres/labels verifies. Relecture visuelle mobile/tablette/desktop. Footer toujours 572px mobile, 535.5px tablette, 334.5px desktop.
+- Methode verticale 820/1024 relue ; grille desktop conservee. Menu paysage EN 812x375 : hauteur 309px, contenu 440px, scroll disponible ; Escape ferme et rend focus au bouton. Menu tactile FR/EN et navigation clavier dropdown/Tab/Escape testes.
+- Navigation : logo/Accueil retour haut confirme ; Projets/A propos/Contact et CTA Hero/final sous sticky ; six CTA expertises FR/EN donnent service correct dans formulaire. Quatre routes legales ouvertes ; changement langue conserve route ; 404 EN et retour accueil testes. HTTP : racine 307 /fr, six pages FR/EN 200, URLs inconnues FR/EN 404.
+- Hero : alternance mobile et deux cycles desktop observes, crossfade 700ms conserve. Cadres 343x257.25 / 480x360, rayon 20px, hauteur wrapper identique au cadre et hauteur page stable. Aucun texte/icone visible de pause ; pause persistante Espace et reprise Enter testees. Reduced-motion : arret auto et CSS inspectes ; preference OS non emulee.
+- Formulaire : vide/email invalide/focus/erreurs associees, select, champs optionnels, description, double-clic EN, preparation mailto FR/EN testes. Confirmation honnete, aucun message encore envoye. Rejet anti-delai lors remplissage automatise rapide, retry reussi. Pas d'email envoye. API onze cas : valide 200 mailto ; null/tableau/vide/email/service/piege/limite/JSON invalide 400 ; trop rapide 429 ; corps >32000 caracteres 413. Loading/reseau/retry prolonges deja testes lors audit precedent, pas nouvel outil de simulation ajoute.
+- Facebook clique : page AWS confirmee. LinkedIn clique : profil fourni reconnu, ouverture connexion pour profil complet ; pas de login. WhatsApp footer EN et flottant FR cliques : +225 0748191100 confirme, pas de message envoye. Telephone/email URI correctes conservees. Instagram absent. Bouton flottant masque lors collision texte constatee, safe-area CSS conservee.
+- Accessibilite : lang, landmarks, H1, headings, alt, labels natifs, focus, erreur/resultat, skip link vers main verifies. Contraste social corrige selon repere W3C 1.4.11. Pas de certification WCAG, lecteur ecran ou appareil physique revendique.
+- Performance : images Next sizes/ratios/lazy inspectes ; seul premier slide Hero preload explicite ; logos eager existants ; font locale dans HTML compile ; timers/listeners nettoyes. HTTP image optimise Hero a 1080px, WebP : finance 56Ko, immobilier 139Ko. Pas de score Lighthouse ni mesure terrain LCP/CLS/INP. Sources immobilier/software modestes pour retina conservees car validees.
+- Gates : npm run lint PASS ; npm run typecheck PASS ; npm run build PASS ; git diff --check PASS. npm audit --omit=dev : 0 vulnerabilite connue. Scan motifs secrets sans resultat, aucun .env versionne/debug log src trouve. Console onglet neuf compile FR/EN/legal/404 : aucun error/warn observe ; aucune hydration error observee. Avertissement LCP second slide connu en dev ne reproduit pas en build compile.
+- Verdict : READY FOR PRODUCTION pour les controles techniques locaux et le parcours mailto accepte. Aucun blocker local confirme. EXTERNAL avant publication : confirmer droits/provenance visuels et hebergeur pour textes legaux/confidentialite ; configurer origine HTTPS reelle et flags SEO au futur build public. Noindex/robots Disallow/sitemap vide volontaires avant configuration ; aucun domaine fictif.
+- Fichiers modifies CETTE PASSE : src/components/layout/Footer.tsx ; ce journal. Changements preexistants preserves : 18 fichiers suivis modifies/supprimes, deux routes non suivies, huit JPG racine. Rien stage. Aucun commit/push/deploiement/domaine. ALFRED AI TRADER jamais touche.
+- Serveur compile teste sur 3100, puis dev/Fast Refresh restaure sur meme port. Preview FR conservee. Suite : revue humaine du rapport avant operations Git finales.
+
+### CONTACT — AUDIT ENVOI SERVEUR — BLOCKER — 2026-09-18
+
+- Nouvelle exigence Alfred : envoyer depuis site, sans messagerie visiteur. Remplace acceptation mailto et verdict READY precedent : NOT READY tant que reception reelle non validee.
+- Contact.tsx POST /api/contact ; route valide/nettoie puis retourne livraison mailto. Aucun fournisseur/SMTP/Server Action/envoi/persistance applicative. CONTACT_PROVIDER_API_KEY apparait seulement dans commentaire ; ajouter cle ne suffit pas.
+- Test HTTP local : 200, livraison mailto, sept champs retournes correctement. Donnees atteignent serveur de validation ; aucun email automatique vers krodi2001@gmail.com. Aucun email envoye pendant audit.
+- Proposition uniquement : conserver route API Next, appeler API email transactionnelle Resend apres accord ; destinataire fixe krodi2001@gmail.com, From domaine controle/verifie, Reply-To email visiteur, sept champs dans message texte. Domaine d'envoi a confirmer ; Gmail reste destinataire. SMTP Gmail avec mot de passe application eligible possible si besoin sans domaine, compromis a valider.
+- Variables proposees cote serveur : RESEND_API_KEY, CONTACT_FROM_EMAIL, CONTACT_TO_EMAIL, CONTACT_ALLOWED_ORIGINS. Aucun NEXT_PUBLIC ni secret dans Git/client. Vercel environnements distincts puis nouveau deploiement. Honeypot/limites/validation conserves ; origine controlee et rate limit effectif Vercel WAF propose, quotas/cout a valider. Delai client seul facilement contournable.
+- Loading/double-clic existants conservables ; erreur conserve saisie ; succes seulement apres acceptation effective prestataire, sans promettre livraison boite. Test reception Gmail FR/EN, Reply-To, panne/cle manquante/anti-spam indispensable avant READY. Confidentialite a adapter au prestataire retenu.
+- Docs officielles Resend/Vercel/Google consultees. Aucun fournisseur choisi/installe/configure, aucune modification formulaire/API/package/env, aucun compte cree. Journal seul actualise ; pas de commit/push/deploiement.
+
+### CONTACT — GMAIL SMTP PREPARE — 2026-09-18
+
+- User confirme Gmail envoi + reception krodi2001@gmail.com. Resend abandonne. Aucun domaine requis pour cette configuration.
+- Route Node /api/contact -> Nodemailer SMTP Gmail TLS465. From/to fixes Gmail AWS. Reply-To email visiteur valide. Sept champs texte brut, optionnels vides marques —.
+- Plus mailto dans soumission. UI FR/EN loading/envoi, succes seulement SMTP accepte, erreur conserve champs. Aucun faux succes si secret absent503/refus SMTP502.
+- Validation serveur, honeypot, tailles/service, Origin allowlist obligatoire en production, JSON requis, limite3tentatives/email/10min par instance. Limite non distribuee : WAF Vercel avant production reste requis. Pas garantie exactement-une-fois.
+- Secret GMAIL_APP_PASSWORD serveur uniquement ; CONTACT_ALLOWED_ORIGINS origines exactes. Aucun secret cree/ecrit/affiche. .env.local ignore Git. README configuration locale/Vercel + redeploiement + validation2etapes Google. User configure mot de passe application hors chat.
+- Confidentialite FR/EN alignee traitement Gmail/Google + demandes boite AWS. Autres sections visuelles intactes.
+- Fichiers phase : route.ts, Contact.tsx, dictionaries.ts, package.json, package-lock.json, README.md, journal.
+- Lint/build/typecheck/diff-check PASS. npm install audit0vuln. HTTP7cas PASS : absenceconfig503, origin403, email/service/honeypot/longueur400, delai429. Aucun SMTP reel.
+- Tests transport factice isole VM PASS : sept champs/to/replyTo, acceptation200, refus502, panne502, limite429. Uniquement test unitaire, aucune livraison simulee presentee comme reelle.
+- Navigateur FR erreur sansconfig + valeurs conservees ; ENdesktop1440 meme resultat ; FRmobile375 form343px, aucun overflow. Console pas erreur/hydratation observee ; avertissement LCP 2e image Hero deja connu dev, hors scope.
+- BLOCKER demeure : aucun mot de passe configure, aucune reception Gmail testee, WAF/deploiement Vercel non configures. Test reel boite/replyTo/FR/EN et SMTP Vercel requis avant production. Aucun commit/push/deploiement.
+
+## FINAL PRE-PRODUCTION AUDIT — ALFRED WINNER SERVICES
+
+- 2026-09-18, nouvelle mission finale. AGENTS/CLAUDE/journal/package/status/diff/configs lus. Next16.3.5 React19.2.8 Tailwind4.3.3 TS5.9.3 Nodemailer10.0.10 verifies. ACIM benchmark consulte uniquement. AWS3100, bot jamais touche.
+- Homepage FR/EN parcourue navigateur : Hero/approche/methode/about/3expertises/6projets/Vision/fondateur/CTA/contact/footer. Relecture screenshots FRmobile375, ENdesktop1440, HeroEN430, tablettes768/820/1024 et footerFR1280. Design verrouille conserve.
+- Responsive18configurations : FR+EN375/390/393/430/768/820/1024/1280/1440. Zero overflow, texte/controle hors ecran detecte ; H1unique, 10sections, images chargees sans casse observee. Footer572mobile/535.5tablette/334.5desktop conserve.
+- Navigation clics : dropdown clavier Enter/Tab/Escape focus retour, menuFRmobile/tablette et ENmobile, logo/Accueil scroll0 apres fin animation, Projets/About/Contact/CTA Hero/final offset96 sous sticky81desktop. Back/forward et 404FR/EN retourhome testes. Six CTA services FR/EN valeurs finales correctes.
+- Premier diagnostic preselection trop rapide : valeur lue avant hydratation. Essai useSearchParams retire apres comparaison initiale reussie. Aucun changement fonctionnel retenu, composant Contact restaure. NO CHANGE.
+- Hero desktop3transitions/mobile2transitions observees ; hauteur480x360desktop et398x298.5mobile430 constante, rayon20px, hauteurpage stable. Pause Espace durable verifiee5.5s horsfocus puis repriseEnter. Aucun textecontrole visible. Reduced-motion implementation/CSS lus ; OS non emule, pas PASS comportement sous preference revendique.
+- FormFR/EN : vide/obligatoires/emailinvalide/focus/labels/7champs/select/textarea/doubleclic/erreur sansconfig testes. Champs texte conserves, bouton redevenu disponible. HTTP15cas PASS : validesFR/EN503 ; origineabsente/interdite403 ; JSON/types/obligatoires/email/service/piege/longueur400 ; delai429 ; corps413 ; contenttype415. Success/loadingprolonge/reception SMTP reels non testes faute configuration.
+- BLOCKER CONTACT FORM DELIVERY : route Node /api/contact + Nodemailer SMTP GmailTLS465 integree, plus mailto soumission. From/to krodi2001@gmail.com, Reply-To visiteur. GMAIL_APP_PASSWORD absent, CONTACT_ALLOWED_ORIGINS absent. Aucun email reel envoye/recu. Configurer secret horsGit/client, originesVercel, redeployer au stade autorise puis receptionGmail/Reply-To/7champsFR/EN indispensables.
+- IMPORTANT/EXTERNAL : limite memoire3tentatives/email/10min parinstance, non distribuee ; WAF/limite parIP a configurer avant publication. Aucune infrastructure/service supplementaire cree. Quotas SMTP Gmail et fonctionnement depuis Vercel a valider.
+- Facebook/LinkedIn cliques : page AWS et profil fourni identifies. WhatsApp footer/flottant cliques : conversation+2250748191100 confirmee, pas messageenvoye. URItel/mailto correctes lues ; activationtel bloquee politique navigateur, pas contournement ; mailto non active cette passe. Instagram absent ; aucun href#fictif.
+- A11y : landmarks/lang/headings/alt/labels/ariaerrors/focus/skipversMAIN#top verifies. Socialblanc55%fondnavy conserve, focus2px observe. Pas audit lecteur ecran/appareilphysique/certificationWCAG revendique.
+- Performance : NextImage/sizes/preloadpremierHero/lazy autres, fontlocale, ratios et cleanuptimers/listeners controles. Herooptimise1080WebP57710/142410octets testesHTTP. Pas scoreLighthouse ni mesuresCWVterrain ; stabilitecarousel uniquement observee.
+- SEO/routing : FR/ENtitle/description/OG/favicon/lang verifies. Racine307/fr, pagesprincipales+4legales200, deuxinconnues404, robots200Disallow et sitemap200vide volontaires tant qu'originepublique/flagsSEO absents. Aucun domaine fictif. Hebergeur texteslegaux et droitsvisuels restent EXTERNAL a confirmer avantpublication.
+- Gates apres restauration : lint/typecheck/build/diff-check PASS. Auditprod0vulnerabilite connue. Aucunenvsuivi/motifsecret/debugsrc detecte. Consoleongletsite27 FR/EN/legal/404 : []warn/error lors controles ; aucunehydrationerror observee. Pas validationproductionVercel revendique.
+- Verdict NOT READY : livraisoncontact non configuree/non verifiee. Aucun autre defautlocal significatif confirme. Cette conclusion remplace READY base ancienparcoursmailto. Fichier retenu cettepasse : journaluniquement. Changements existants20fichierssuivis +8JPG et2routesnon suivies preserves ; rien stage, aucuncommit/push/deploiement/domaine.
+
+### CONTENU UNIQUEMENT — 2026-09-18
+
+- Deux descriptions projets raccourcies exactement selon demande FR + equivalents EN. Phrase livraison formulaire retiree FR/EN avec paragraphe JSX et cles inutilisees.
+- Navigateur FR/EN : deux descriptions conformes, phrase absente, sept champs conserves. Aucun autre contenu/design/style/interactions/API modifie cette passe. Aucun commit/push.
+
+## FINAL GITHUB SYNC — ALFRED WINNER SERVICES
+
+- 2026-09-18. Depot AWS confirme, branche main, origin AlfredMusk/alfred-winner-services existant. Fetch : aucun commit distant absent localement. Audit final + corrections contenu FR/EN integres ; design conserve.
+- Lint/typecheck/build/diff-check PASS. Aucun secret detecte dans candidats ; env sensibles ignores, references serveur GMAIL_APP_PASSWORD uniquement. Aucun credential commite. Code SMTP prepare, configuration/reception reelle restent a valider avant publication.
+- Version applicative preparee pour GitHub/deploiement futur. Huit JPG sources inutilises racine conserves hors commit ; assets runtime public deja suivis. Pas modification autre projet. Vercel/envproduction/domaine/DNS non touches.

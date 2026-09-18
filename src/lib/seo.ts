@@ -13,11 +13,11 @@ function validateSiteUrl(value: string): string {
   const url = new URL(value);
   if (
     url.protocol !== "https:" ||
-    url.hostname !== "www.alfredwinnerservices.com" ||
+    url.hostname === "localhost" || !url.hostname.includes(".") ||
     url.port || url.username || url.password || url.search || url.hash ||
     url.pathname !== "/"
   ) {
-    throw new Error("AWS_SITE_URL must be https://www.alfredwinnerservices.com");
+    throw new Error("AWS_SITE_URL must be the confirmed public HTTPS origin, without a path, query or credentials");
   }
   return url.origin;
 }

@@ -1,30 +1,6 @@
 "use client";
 
-/* PROJECT INTAKE — remplace l'ancien formulaire court (nom/entreprise/
-   contact/service/message) qui n'etait de toute facon plus rendu sur la
-   page. Celui-ci l'est : c'est desormais la derniere etape du parcours
-   avant le Footer (Vision -> Fondateur -> CTA -> ce formulaire ->
-   coordonnees dans le Footer).
-
-   HONNETETE DU BACKEND — pas de fausse confirmation d'envoi. Ce site
-   n'a aucun prestataire d'envoi d'email configure (pas de cle API
-   Resend/Sendgrid, aucun secret cote serveur). Le formulaire :
-     1. Valide cote CLIENT (retour immediat) ET cote SERVEUR
-        (/api/contact — jamais confiance dans le client seul).
-     2. Porte un champ piege ("site") invisible aux humains : un robot
-        qui remplit tous les champs le remplit aussi, l'API le rejette
-        silencieusement.
-     3. Une fois valide, l'API repond QUEL canal de livraison est
-        reellement disponible :
-          - si une cle de prestataire est configuree un jour
-            (CONTACT_PROVIDER_API_KEY, jamais commitee), le message
-            est reellement envoye -> etat "succesEnvoye" ;
-          - sinon (le cas aujourd'hui), l'API renvoie les donnees
-            validees et le CLIENT ouvre un mailto: pre-rempli vers
-            krodi2001@gmail.com -> etat "succesMailto", qui dit
-            explicitement que c'est au visiteur d'appuyer sur "Envoyer"
-            dans SA messagerie. Jamais "message envoye" quand ce n'est
-            pas vrai. */
+// Envoi serveur uniquement. Aucun succes avant acceptation SMTP.
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import type { ContactDictionary } from "@/i18n/dictionaries";
 import { boutonPrimaireClair } from "@/components/ui/boutons";
@@ -62,7 +38,7 @@ const INDEX_SERVICE_PAR_HASH: Record<string, number> = {
   "software-ia": 2,
 };
 
-type Etat = "repos" | "envoi" | "succes-envoye" | "succes-mailto" | "erreur";
+type Etat = "repos" | "envoi" | "succes-envoye" | "erreur";
 
 export default function Contact({ dict }: { dict: ContactDictionary }) {
   const f = dict.formulaire;
@@ -70,6 +46,14 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
   const [piege, setPiege] = useState(""); // honeypot — reste vide pour un humain
   const [erreurs, setErreurs] = useState<Erreurs>({});
   const [etat, setEtat] = useState<Etat>("repos");
+  const soumissionEnCours = useRef(false);
+  const resultatRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (etat === "succes-envoye") {
+      resultatRef.current?.focus();
+      resultatRef.current?.scrollIntoView({ block: "center" });
+    }
+  }, [etat]);
   const idBase = useId();
   // Deuxieme signal anti-spam, sans librairie : l'instant ou le
   // formulaire a fini de se monter. Un robot qui remplit et soumet un
@@ -112,21 +96,31 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
     const e: Erreurs = {};
     if (!champs.nom.trim()) e.nom = f.champObligatoire;
     if (!champs.email.trim()) e.email = f.champObligatoire;
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(champs.email)) e.email = f.champEmailInvalide;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(champs.email.trim())) e.email = f.champEmailInvalide;
     if (!champs.service.trim()) e.service = f.champObligatoire;
     if (!champs.description.trim()) e.description = f.champObligatoire;
     return e;
   };
 
+  const focaliserErreur = (erreursChamps: Erreurs) => {
+    const premier = Object.keys(erreursChamps)[0];
+    const champ = premier ? document.getElementById(`${idBase}-${premier}`) : null;
+    champ?.focus();
+    champ?.scrollIntoView({ block: "center" });
+  };
+
   const soumettre = async (e: FormEvent) => {
     e.preventDefault();
+    if (soumissionEnCours.current) return;
     const erreursLocales = validerLocalement();
     setErreurs(erreursLocales);
     if (Object.keys(erreursLocales).length > 0) {
       setEtat("erreur");
+      focaliserErreur(erreursLocales);
       return;
     }
 
+    soumissionEnCours.current = true;
     setEtat("envoi");
     try {
       const reponse = await fetch("/api/contact", {
@@ -137,7 +131,14 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
       const donnees = await reponse.json();
 
       if (!reponse.ok) {
-        if (donnees?.erreurs) setErreurs(donnees.erreurs);
+        if (donnees?.erreurs) {
+          const erreursServeur: Erreurs = {};
+          for (const champ of Object.keys(CHAMPS_VIDES) as (keyof Champs)[]) {
+            if (donnees.erreurs[champ]) erreursServeur[champ] = f.erreurValidation;
+          }
+          setErreurs(erreursServeur);
+          focaliserErreur(erreursServeur);
+        }
         setEtat("erreur");
         return;
       }
@@ -147,39 +148,16 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
         return;
       }
 
-      // Pas de prestataire configure : le SERVEUR a valide/nettoye les
-      // donnees et les renvoie telles quelles — c'est sur CE texte
-      // valide que le mailto: est construit, jamais sur l'etat local
-      // brut du formulaire.
-      const d = donnees.donnees as Champs;
-      const sujet = `Nouveau projet — ${d.service}`;
-      const corps = [
-        `Nom : ${d.nom}`,
-        `Email : ${d.email}`,
-        d.telephone ? `Téléphone / WhatsApp : ${d.telephone}` : null,
-        d.entreprise ? `Entreprise : ${d.entreprise}` : null,
-        `Service recherché : ${d.service}`,
-        d.typeProjet ? `Type de projet : ${d.typeProjet}` : null,
-        "",
-        d.description,
-      ]
-        .filter((ligne) => ligne !== null)
-        .join("\n");
-      const mailto = `mailto:krodi2001@gmail.com?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
-      // <a> detache + .click(), pas window.location.href : ESLint
-      // (no-location-assign-relative-destination) presume sinon une
-      // navigation interne Next.js pour un protocole mailto:.
-      const lien = document.createElement("a");
-      lien.href = mailto;
-      lien.click();
-      setEtat("succes-mailto");
+      setEtat("erreur");
     } catch {
       setEtat("erreur");
+    } finally {
+      soumissionEnCours.current = false;
     }
   };
 
   const champBase =
-    "w-full rounded-xl border border-aws-line bg-aws-surface px-4 py-3 text-[0.9375rem] text-aws-ink placeholder:text-aws-ink/40 focus-visible:border-aws-blue-text focus-visible:bg-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aws-blue-text";
+    "w-full rounded-xl border border-[#8592a5] bg-aws-surface px-4 py-3 text-[1rem] text-aws-ink placeholder:text-aws-ink/40 focus-visible:border-aws-blue-text focus-visible:bg-white focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-aws-blue-text";
   const champErreur = "border-red-400 focus-visible:border-red-500 focus-visible:outline-red-500";
   const labelBase = "text-[0.8125rem] font-semibold text-aws-ink/80";
 
@@ -196,7 +174,7 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
   });
 
   const envoiEnCours = etat === "envoi";
-  const succes = etat === "succes-envoye" || etat === "succes-mailto";
+  const succes = etat === "succes-envoye";
 
   return (
     <section id="contact" aria-labelledby="contact-titre" className="scroll-mt-24 bg-white">
@@ -216,19 +194,19 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
           </p>
 
           {succes ? (
-            // ETAT DE SUCCES — un seul, mais deux textes possibles selon
-            // le canal REEL (voir commentaire d'entete). role="status" :
-            // annonce aux lecteurs d'ecran sans voler le focus.
+            // Le focus suit le resultat lorsque le formulaire disparait.
             <div
+              ref={resultatRef}
+              tabIndex={-1}
               role="status"
               className="mt-10 max-w-[46rem] rounded-2xl border border-aws-line bg-aws-surface p-6 sm:p-8"
             >
               <p className="text-[1.0625rem] font-semibold text-aws-hero">
-                {etat === "succes-envoye" ? f.succesEnvoye : f.succesMailto}
+                {f.succesEnvoye}
               </p>
             </div>
           ) : (
-            <form onSubmit={soumettre} noValidate className="mt-10 max-w-[46rem] space-y-5 desk:mt-12">
+            <form onSubmit={soumettre} noValidate aria-busy={envoiEnCours} className="mt-10 max-w-[46rem] space-y-5 desk:mt-12">
               {/* Champ piege — hors ecran, jamais display:none (que les
                   lecteurs d'ecran et certains robots respectent), et
                   jamais atteint au clavier. */}
@@ -249,45 +227,45 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
               )}
 
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className={labelBase}>
-                    {f.nom} <span aria-hidden="true">*</span>
-                  </span>
-                  <input type="text" required {...champProps("nom")} />
+                <div>
+                  <label htmlFor={idPour("nom")} className={labelBase}>
+                    {f.nom}
+                  </label>
+                  <input type="text" name="name" autoComplete="name" maxLength={200} required {...champProps("nom")} />
                   {erreurs.nom && (
                     <p id={idErreurPour("nom")} className="mt-1 text-[0.8125rem] text-red-600">
                       {erreurs.nom}
                     </p>
                   )}
-                </label>
-                <label className="block">
-                  <span className={labelBase}>
-                    {f.email} <span aria-hidden="true">*</span>
-                  </span>
-                  <input type="email" required {...champProps("email")} />
+                </div>
+                <div>
+                  <label htmlFor={idPour("email")} className={labelBase}>
+                    {f.email}
+                  </label>
+                  <input type="email" name="email" autoComplete="email" maxLength={200} required {...champProps("email")} />
                   {erreurs.email && (
                     <p id={idErreurPour("email")} className="mt-1 text-[0.8125rem] text-red-600">
                       {erreurs.email}
                     </p>
                   )}
-                </label>
+                </div>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className={labelBase}>{f.telephone}</span>
-                  <input type="tel" {...champProps("telephone")} />
-                </label>
-                <label className="block">
-                  <span className={labelBase}>{f.entreprise}</span>
-                  <input type="text" {...champProps("entreprise")} />
-                </label>
+                <div>
+                  <label htmlFor={idPour("telephone")} className={labelBase}>{f.telephone}</label>
+                  <input type="tel" name="tel" autoComplete="tel" maxLength={40} {...champProps("telephone")} />
+                </div>
+                <div>
+                  <label htmlFor={idPour("entreprise")} className={labelBase}>{f.entreprise}</label>
+                  <input type="text" name="organization" autoComplete="organization" maxLength={200} {...champProps("entreprise")} />
+                </div>
               </div>
 
-              <label className="block">
-                <span className={labelBase}>
-                  {f.service} <span aria-hidden="true">*</span>
-                </span>
+              <div>
+                <label htmlFor={idPour("service")} className={labelBase}>
+                  {f.service}
+                </label>
                 <select required {...champProps("service")}>
                   {f.serviceOptions.map((opt) => (
                     <option key={opt} value={opt}>
@@ -300,24 +278,24 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
                     {erreurs.service}
                   </p>
                 )}
-              </label>
+              </div>
 
-              <label className="block">
-                <span className={labelBase}>{f.typeProjet}</span>
-                <input type="text" {...champProps("typeProjet")} />
-              </label>
+              <div>
+                <label htmlFor={idPour("typeProjet")} className={labelBase}>{f.typeProjet}</label>
+                <input type="text" maxLength={200} {...champProps("typeProjet")} />
+              </div>
 
-              <label className="block">
-                <span className={labelBase}>
-                  {f.description} <span aria-hidden="true">*</span>
-                </span>
-                <textarea required rows={5} {...champProps("description")} className={`${champProps("description").className} resize-y`} />
+              <div>
+                <label htmlFor={idPour("description")} className={labelBase}>
+                  {f.description}
+                </label>
+                <textarea required maxLength={5000} rows={5} {...champProps("description")} className={`${champProps("description").className} resize-y`} />
                 {erreurs.description && (
                   <p id={idErreurPour("description")} className="mt-1 text-[0.8125rem] text-red-600">
                     {erreurs.description}
                   </p>
                 )}
-              </label>
+              </div>
 
               <button type="submit" disabled={envoiEnCours} className={`${boutonPrimaireClair} disabled:opacity-60`}>
                 {envoiEnCours ? f.envoiEnCours : f.cta}

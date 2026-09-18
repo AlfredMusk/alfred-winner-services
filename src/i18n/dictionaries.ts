@@ -174,6 +174,7 @@ const fr = {
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
     imageAlt: "Professionnelle gérant une infrastructure de serveurs informatiques",
+    imageLegende: "Photographie d’illustration.",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -259,69 +260,79 @@ const fr = {
     ctaPole: "Discuter de ce service",
   },
 
-  /* Section 7 — Projets & realisations. Objectif : PROUVER, pas affirmer —
-     mais sans capture reelle disponible pour aucun des trois projets, la
-     preuve visuelle est reportee. Le statut de chaque projet reste celui
-     explicitement autorise, mot pour mot, rien de plus.
-
-     UNE SEULE LISTE, sur demande explicite : melanger demonstrateurs
-     reels et solutions en developpement dans UNE composition, plutot
-     qu'un bloc separe qui semblait "ajoute apres coup". La distinction
-     ne repose plus sur deux blocs visuels differents mais sur le champ
-     "statut" de CHAQUE ligne, toujours visible : un vrai demonstrateur
-     porte un statut factuel ("Demonstrateur digital", "Prototype
-     interne — environnement DEMO"), une direction non livree porte
-     "En developpement" ou "En structuration" — jamais confondus, jamais
-     silencieux. */
+  /* Section 7 — Projets & realisations. V10 — 6 AXES REELS, sur demande
+     explicite du fondateur : "il ne s'agit pas necessairement de 6
+     produits commerciaux deja lances [...] projets, realisations,
+     experimentations ou solutions effectivement travailles". Chaque
+     entree reste au niveau "outil technologique / experimentation",
+     jamais un statut commercial invente, jamais un chiffre, jamais un
+     client. Deux entrees (05, 06) elargissent la liste precedente
+     (reduite a 4 lors d'une passe anterieure — voir historique git) :
+       - 05 CONCEPTION WEB MODERNE n'a pas d'identifiant prealable dans
+         le projet ; aucune preuve inventee, aucun client cite — la
+         phrase reste au niveau capacite/discipline, exactement comme
+         fournie par le fondateur, sans pretendre a un livrable nomme.
+       - 06 SOLUTIONS & INTELLIGENCE ARTIFICIELLE reprend l'esprit de
+         l'ancien "assistant-ia-metier" (jamais confirme livre, retire
+         lors d'une passe anterieure) mais elargi et desormais au niveau
+         "experimentations et solutions", jamais un produit fini precis
+         non confirme.
+     04 renomme "Suivi & visualisation multi-actifs" (au lieu de
+     "Tableau de bord multi-actifs") + phrase retravaillee : le terme
+     "gestion de portefeuille" cree une ambiguite reglementaire (laisse
+     entendre qu'AWS gere l'argent de clients) — remplace par un
+     vocabulaire d'interface/visualisation, jamais de gestion de fonds. */
   projets: {
     eyebrow: "PROJETS & RÉALISATIONS",
     titre: "Des solutions conçues pour des usages concrets.",
     paragraphe:
-      "Une sélection de projets numériques conçus par AWS, à travers plusieurs univers : tourisme, fitness, finance et intelligence artificielle.",
-    // NOMS PUBLICS DEPERSONNALISES (passe anterieure) : conserves.
-    //
-    // LISTE REDUITE A 4 (au lieu de 6) — decision prise ICI, pas une
-    // simple consigne suivie a la lettre : la demande de cette passe
-    // etait de retirer tout statut ("Realise", "En structuration", "En
-    // developpement"...) ET de renommer la section "PROJETS &
-    // REALISATIONS". Or "suivi-projets-immobiliers" et
-    // "assistant-ia-metier" n'ont JAMAIS ete confirmes comme livres par
-    // le fondateur (statuts "En structuration"/"En developpement"
-    // inchanges depuis des passes anterieures). Les afficher SANS badge
-    // dans une section intitulee "Realisations" les ferait passer pour
-    // des livraisons achevees — exactement ce que la charte du projet
-    // interdit ("n'invente aucune realisation"). Retires de la liste
-    // publique plutot que de les faire mentir par omission ; ils restent
-    // documentes ici (travaux realises.md) pour re-apparaitre le jour ou
-    // ils seront reellement livres.
+      "Six axes de projets et d'expérimentations conçus au sein de l'écosystème AWS, du tourisme digital à l'intelligence artificielle.",
+    // NOMS PUBLICS DEPERSONNALISES (passe anterieure) : conserves — les
+    // noms de marque reels (Baby Tourism, Alfred Fitness, Alfred AI
+    // Trader...) donnes en exemple par le fondateur servent a IDENTIFIER
+    // le projet, pas a etre affiches tels quels sur la page publique.
     liste: [
       {
         id: "baby-tourism",
         nom: "Plateforme de découverte touristique",
-        categorie: "Digital · Tourisme",
+        categorie: "Tourisme · Web · Expérience numérique",
         texte:
-          "Plateforme web dédiée à la découverte, à la présentation et à l'expérience touristique.",
+          "Plateforme digitale conçue autour de la découverte et de l'expérience touristique en Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Expérience web Fitness",
-        categorie: "Web · Fitness",
+        categorie: "Web · Fitness · Front-end",
         texte:
-          "Expérience digitale conçue pour présenter une activité fitness, ses services et son univers.",
+          "Expérience web moderne développée autour de l'univers du fitness, de ses services et de son identité digitale.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Plateforme d'analyse de marchés",
-        categorie: "Finance · Technologie · IA",
+        categorie: "Finance · Software · IA",
         texte:
-          "Solution logicielle combinant technologies numériques et analyse des marchés financiers, pensée pour éclairer la lecture des données de marché.",
+          "Logiciel expérimental combinant analyse de marchés, automatisation et intelligence artificielle.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
-        nom: "Tableau de bord multi-actifs",
-        categorie: "Finance · Technologie",
+        nom: "Suivi & visualisation multi-actifs",
+        categorie: "Finance · Data · Interface numérique",
         texte:
-          "Tableau de bord numérique pour suivre les allocations, l'historique et les visualisations d'un portefeuille multi-actifs.",
+          "Interface numérique conçue pour organiser, suivre et visualiser des données liées à différents actifs et opérations.",
+      },
+      {
+        id: "conception-web-moderne",
+        nom: "Conception de sites web modernes",
+        categorie: "Web · UI/UX · Front-end",
+        texte:
+          "Conception d'interfaces et de sites web modernes, responsives et pensés pour des usages professionnels.",
+      },
+      {
+        id: "solutions-intelligence-artificielle",
+        nom: "Solutions & intelligence artificielle",
+        categorie: "IA · Automatisation · Software",
+        texte:
+          "Expérimentations et solutions numériques intégrant intelligence artificielle, automatisation et agents IA pour répondre à des besoins concrets.",
       },
     ],
   },
@@ -363,10 +374,7 @@ const fr = {
     cta: "Parlons de votre projet",
   },
 
-  /* Section 11 — Contact. Le formulaire n'appelle aucune API : il ouvre
-     le client mail du visiteur avec un message pre-rempli (mailto:). Pas
-     de backend, pas de secret, pas de fausse confirmation d'envoi — voir
-     travaux realises.md pour la decision et ses limites. */
+  /* Section 11 — Contact. Validation client/serveur et envoi SMTP Gmail. */
   contact: {
     eyebrow: "PARLONS DE VOTRE PROJET",
     titre: "Expliquez-nous ce que vous souhaitez construire.",
@@ -381,7 +389,7 @@ const fr = {
     email: "krodi2001@gmail.com",
     emailMailtoHref: "mailto:krodi2001@gmail.com",
     // Formulaire de prise de contact structuree ("project intake") —
-    // remplace l'ancien formulaire court. Champs marques (*) obligatoires
+    // remplace l'ancien formulaire court. Champs requis valides
     // cote client ET serveur (voir src/app/api/contact/route.ts).
     //
     // Budget et echeance RETIRES (demande explicite) : le premier contact
@@ -404,13 +412,10 @@ const fr = {
       typeProjet: "Type de projet",
       description: "Description du projet",
       cta: "Envoyer mon projet",
-      // Etats reels, pas une promesse generique : le canal de livraison
-      // depend de ce que /api/contact repond (voir ContactForm.tsx).
+      // Succes seulement apres acceptation SMTP de /api/contact.
       envoiEnCours: "Envoi en cours…",
       succesEnvoye:
-        "Message envoyé. Nous revenons vers vous rapidement.",
-      succesMailto:
-        "Votre message est prêt dans votre messagerie — il ne reste qu'à l'envoyer pour qu'il nous parvienne.",
+        "Votre demande a été transmise au service de messagerie. Merci de nous avoir contactés.",
       erreurGenerique:
         "Une erreur est survenue. Vous pouvez réessayer, ou nous écrire directement à krodi2001@gmail.com.",
       erreurValidation: "Merci de corriger les champs signalés ci-dessous.",
@@ -432,18 +437,18 @@ const fr = {
       "Bonjour Alfred Winner Services, je souhaite discuter d'un projet.",
   },
 
-  /* Footer — reseaux sociaux prets a l'emploi mais VIDES : aucune URL
-     officielle confirmee. Le composant n'affiche un reseau que si son
-     href est non vide ; ne jamais mettre "#" a la place d'un lien reel. */
+  /* Footer — Facebook et profil LinkedIn fournis par Alfred.
+     Instagram retire sur demande ; jamais de lien fictif. */
   footer: {
     contactsNav: "Contact",
     reseauxNav: "Réseaux",
+    facebookLabel: "Alfred Winner Services sur Facebook",
+    linkedinLabel: "Krodi Krotchaman Alfred Donald sur LinkedIn",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
     reseaux: {
-      linkedin: "",
-      instagram: "",
-      facebook: "",
+      linkedin: "https://www.linkedin.com/in/krotchaman-alfred-donald-krodi-38b684429",
+      facebook: "https://www.facebook.com/share/19R1mBiHr6/?mibextid=wwXIfr",
     },
     raisonSociale: "ALFRED WINNER SERVICES",
     formeJuridique: "SARLU au capital de 1 000 000 F CFA",
@@ -477,7 +482,7 @@ const fr = {
       {
         titre: "Propriété intellectuelle",
         paragraphes: [
-          "L'ensemble des éléments du présent site (textes, images, logo, identité visuelle) est la propriété d'Alfred Winner Services, sauf mention contraire, et ne peut être reproduit sans autorisation préalable.",
+          "Les contenus originaux d'Alfred Winner Services, son logo et son identité visuelle appartiennent à AWS. Les photographies et autres contenus tiers restent soumis aux droits et licences de leurs titulaires respectifs.",
         ],
       },
     ],
@@ -489,7 +494,7 @@ const fr = {
         titre: "Données collectées",
         paragraphes: [
           "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
-          "Le formulaire de contact envoie les informations que vous saisissez (nom, email, et les autres champs que vous choisissez de remplir) à notre serveur, uniquement pour les valider. Elles n'y sont pas conservées : votre navigateur ouvre ensuite votre propre messagerie avec un message pré-rempli, que vous choisissez ou non d'envoyer depuis votre propre adresse email. Vous pouvez aussi nous contacter directement par téléphone, par email ou par WhatsApp.",
+          "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à krodi2001@gmail.com. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
           "Comme tout site web, les pages sont servies par un hébergeur susceptible de conserver des journaux de connexion techniques (adresse IP, date, page demandée). L'hébergeur n'étant pas encore arrêté, cette section sera complétée avant la mise en ligne publique.",
         ],
@@ -639,10 +644,11 @@ const en: Dictionary = {
     eyebrow: "ABOUT US",
     titre: "Value is never built on a single lever.",
     paragraphes: [
-      "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another once they are worked on together.",
+      "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another when brought together.",
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
     imageAlt: "Professional managing a server infrastructure rack",
+    imageLegende: "Illustrative photograph.",
   },
 
   expertises: {
@@ -679,7 +685,7 @@ const en: Dictionary = {
         cle: "INNOVATE",
         titre: "Software & AI",
         texte:
-          "Professional websites, applications and custom software: digital solutions and automation and artificial intelligence tools designed to meet the real needs of businesses and projects.",
+          "Professional websites, web applications and custom software, with automation and AI tools designed around the needs of businesses and projects.",
         precision: null,
         capacites: [
           "Professional websites",
@@ -699,35 +705,49 @@ const en: Dictionary = {
     eyebrow: "PROJECTS & DELIVERABLES",
     titre: "Solutions designed for real-world use.",
     paragraphe:
-      "A selection of digital projects designed by AWS, spanning several fields: tourism, fitness, finance and artificial intelligence.",
+      "Six axes of projects and experiments built within the AWS ecosystem, from digital tourism to artificial intelligence.",
     liste: [
       {
         id: "baby-tourism",
         nom: "Tourism discovery platform",
-        categorie: "Digital · Tourism",
+        categorie: "Tourism · Web · Digital experience",
         texte:
-          "A web platform dedicated to tourism discovery, presentation and experience.",
+          "A digital platform built around tourism discovery and experience in Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Fitness web experience",
-        categorie: "Web · Fitness",
+        categorie: "Web · Fitness · Front-end",
         texte:
-          "A digital experience designed to present a fitness business, its services and its world.",
+          "A modern web experience built around the fitness world, its services and its digital identity.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Market analysis platform",
-        categorie: "Finance · Technology · AI",
+        categorie: "Finance · Software · AI",
         texte:
-          "A software solution combining digital technology and financial market analysis, designed to make market data easier to read.",
+          "Experimental software combining market analysis, automation and artificial intelligence.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
-        nom: "Multi-asset dashboard",
-        categorie: "Finance · Technology",
+        nom: "Multi-asset tracking & visualisation",
+        categorie: "Finance · Data · Digital interface",
         texte:
-          "A digital dashboard to track allocations, history and visualisations across a multi-asset portfolio.",
+          "A digital interface designed to organise, track and visualise data linked to different assets and operations.",
+      },
+      {
+        id: "conception-web-moderne",
+        nom: "Modern web design",
+        categorie: "Web · UI/UX · Front-end",
+        texte:
+          "Design of modern, responsive websites and interfaces built for professional use.",
+      },
+      {
+        id: "solutions-intelligence-artificielle",
+        nom: "AI & intelligent solutions",
+        categorie: "AI · Automation · Software",
+        texte:
+          "Experiments and digital solutions integrating artificial intelligence, automation and AI agents to address real needs.",
       },
     ],
   },
@@ -787,9 +807,7 @@ const en: Dictionary = {
       description: "Project description",
       cta: "Submit my project",
       envoiEnCours: "Sending…",
-      succesEnvoye: "Message sent. We'll get back to you shortly.",
-      succesMailto:
-        "Your message is ready in your email app — just send it and it will reach us.",
+      succesEnvoye: "Your request has been submitted to the email service. Thank you for contacting us.",
       erreurGenerique:
         "Something went wrong. You can try again, or write to us directly at krodi2001@gmail.com.",
       erreurValidation: "Please correct the fields flagged below.",
@@ -808,12 +826,13 @@ const en: Dictionary = {
   footer: {
     contactsNav: "Contact",
     reseauxNav: "Social",
+    facebookLabel: "Alfred Winner Services on Facebook",
+    linkedinLabel: "Krodi Krotchaman Alfred Donald on LinkedIn",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",
     reseaux: {
-      linkedin: "",
-      instagram: "",
-      facebook: "",
+      linkedin: "https://www.linkedin.com/in/krotchaman-alfred-donald-krodi-38b684429",
+      facebook: "https://www.facebook.com/share/19R1mBiHr6/?mibextid=wwXIfr",
     },
     raisonSociale: "ALFRED WINNER SERVICES",
     formeJuridique: "SARLU with capital of 1,000,000 F CFA",
@@ -843,7 +862,7 @@ const en: Dictionary = {
       {
         titre: "Intellectual property",
         paragraphes: [
-          "All elements of this site (text, images, logo, visual identity) are the property of Alfred Winner Services, unless otherwise stated, and may not be reproduced without prior authorisation.",
+          "Alfred Winner Services owns its original content, logo and visual identity. Photographs and other third-party content remain subject to the rights and licences of their respective owners.",
         ],
       },
     ],
@@ -855,7 +874,7 @@ const en: Dictionary = {
         titre: "Data collected",
         paragraphes: [
           "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
-          "The contact form sends the information you enter (name, email, and any other field you choose to fill in) to our server, solely to validate it. It is not stored there: your browser then opens your own email application with a pre-filled message, which you may choose to send from your own email address or not. You can also reach us directly by phone, email or WhatsApp.",
+          "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to krodi2001@gmail.com. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
           "Like any website, these pages are served by a hosting provider that may keep technical connection logs (IP address, date, page requested). The provider has not been chosen yet; this section will be completed before public launch.",
         ],

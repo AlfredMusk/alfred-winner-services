@@ -36,9 +36,8 @@ export default function Fondateur({ dict }: { dict: FondateurDictionary }) {
                   src="/images/fondateur/krodi-krotchaman-fondateur.jpg"
                   alt={dict.imageAlt}
                   fill
-                  sizes="(min-width: 1100px) 20rem, 60vw"
+                  sizes="(min-width: 1360px) 415px, (min-width: 1100px) calc(32vw - 20px), (min-width: 352px) 320px, calc(100vw - 32px)"
                   className="object-cover"
-                  priority={false}
                 />
               </div>
             </div>

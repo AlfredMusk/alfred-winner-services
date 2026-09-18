@@ -67,10 +67,11 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
                   src="/images/apropos/qui-sommes-nous-v6.jpg"
                   alt={dict.imageAlt}
                   fill
-                  sizes="(min-width: 1100px) 55vw, 92vw"
+                  sizes="(min-width: 1360px) 713px, (min-width: 1100px) calc(58vw - 75px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.015] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
+              <p className="mt-3 text-[0.75rem] leading-relaxed text-aws-muted">{dict.imageLegende}</p>
             </div>
           </div>
         </div>

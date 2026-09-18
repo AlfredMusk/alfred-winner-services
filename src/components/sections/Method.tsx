@@ -74,7 +74,7 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
           </p>
 
           {/* ============ MOBILE / TABLETTE — timeline verticale ============ */}
-          <ol className="reveal relative mt-14 desk:hidden">
+          <div className="reveal relative mt-14 desk:hidden">
             {/* Piste : filet fixe, toujours visible — la ligne remplie
                 vient par-dessus, jamais a sa place : un navigateur sans
                 support d'animation garde une piste coherente. */}
@@ -83,6 +83,7 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
               aria-hidden="true"
               className="methode-ligne-remplie absolute left-[19px] top-2 bottom-2 w-px origin-top bg-aws-blue-text"
             />
+            <ol>
             {dict.etapes.map((e, i) => (
               <li
                 key={e.num}
@@ -108,7 +109,8 @@ export default function Method({ dict }: { dict: MethodeDictionary }) {
                 </div>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
 
           {/* ============ DESKTOP — stepper horizontal ============ */}
           {/* mt-20 (au lieu de 16) : creuse volontairement l'ecart entre

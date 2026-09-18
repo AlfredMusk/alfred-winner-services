@@ -1,30 +1,28 @@
 import type { ProjetsDictionary, Projet } from "@/i18n/dictionaries";
 
-/* V9 — D'UNE LISTE ADMINISTRATIVE A UN PORTFOLIO. Retire d'un coup :
-   les gros numeros 01-06 (ne portaient aucune information — une seule
-   colonne de texte n'a pas besoin d'un index), les badges de statut
-   ("Realise"/"En structuration"/...) et la ligne separatrice horizontale
-   qui empilait tout en une seule liste verticale, "administrative".
-
-   A la place : une VRAIE grille editoriale (2 colonnes des le desktop,
-   1 sur mobile), chaque entree amorcee par le meme filet d'accent que
-   Notre approche/Qui sommes-nous — le meme langage visuel que le reste
-   du site, pas un composant a part.
-
-   Pourquoi seulement 4 entrees et pas 6 : voir dictionaries.ts. Les deux
-   projets jamais confirmes comme livres (suivi immobilier, assistant IA
-   metier) ne sont plus dans cette liste — un statut supprime SANS
-   supprimer aussi le projet aurait fait passer un outil non confirme
-   pour une realisation, dans une section qui s'appelle desormais
-   "Realisations". */
-function CarteProjet({ projet }: { projet: Projet }) {
+/* V10 — 6 AXES, numero de retour. La liste est passee de 4 a 6 entrees
+   (voir dictionaries.ts) : le numero redevient une information reelle
+   (position dans les 6 axes, pas une decoration) et sert aussi de repere
+   de lecture rapide sur une grille 2x3 — retire en V9 quand la liste
+   n'avait que 4 entrees administratives sans axes, reintroduit ici avec
+   un traitement discret (meme echelle que la categorie, pas un gros
+   chiffre watermark — la lecon du ghost-numeral d'Approche.tsx
+   s'applique aussi ici). Meme filet d'accent que Notre approche/Qui
+   sommes-nous, meme langage visuel que le reste du site. */
+function CarteProjet({ projet, numero }: { projet: Projet; numero: string }) {
   return (
     <li id={`projet-${projet.id}`} className="reveal group scroll-mt-24">
       <span
         aria-hidden="true"
         className="block h-[2px] w-10 rounded-full bg-aws-blue-text transition-[width] duration-300 motion-reduce:transition-none desk:group-hover:w-16"
       />
-      <p className="mt-4 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-blue-text">
+      <p className="mt-4 flex items-baseline gap-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-aws-blue-text">
+        <span aria-hidden="true" className="tabular-nums text-aws-ink/35">
+          {numero}
+        </span>
+        <span aria-hidden="true" className="text-aws-ink/25">
+          —
+        </span>
         {projet.categorie}
       </p>
       <h3 className="mt-2 text-[1.1875rem] font-bold leading-snug tracking-[-0.01em] text-aws-hero transition-colors duration-300 motion-reduce:transition-none group-hover:text-aws-navy">
@@ -55,9 +53,12 @@ export default function Projets({ dict }: { dict: ProjetsDictionary }) {
             {dict.paragraphe}
           </p>
 
+          {/* 2 colonnes x 3 lignes des le desktop (6 entrees), 1 colonne
+              en mobile : la grille existante n'a pas besoin de changer de
+              structure, seul le nombre d'entrees passe de 4 a 6. */}
           <ul className="mt-10 grid gap-x-12 gap-y-12 desk:mt-14 desk:grid-cols-2 desk:gap-x-16 desk:gap-y-14">
-            {dict.liste.map((projet) => (
-              <CarteProjet key={projet.id} projet={projet} />
+            {dict.liste.map((projet, i) => (
+              <CarteProjet key={projet.id} projet={projet} numero={String(i + 1).padStart(2, "0")} />
             ))}
           </ul>
         </div>

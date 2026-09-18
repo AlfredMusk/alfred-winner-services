@@ -1,25 +1,27 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import { createHash } from "node:crypto";
 
-/* ARCHITECTURE "PROVIDER-READY", PAS UN FORMULAIRE SIMULE.
+export const runtime = "nodejs";
 
-   Ce projet n'a AUCUN prestataire d'envoi d'email configure (pas de cle
-   Resend/Sendgrid/Postmark, aucun secret dans l'environnement). Cette
-   route valide donc reellement les donnees cote serveur — jamais
-   confiance dans la seule validation client, contournable par
-   n'importe qui — puis repond honnetement selon ce qui est disponible :
-
-     - CONTACT_PROVIDER_API_KEY absente (le cas aujourd'hui) : renvoie
-       les donnees validees/nettoyees au client, qui ouvre lui-meme un
-       mailto: — c'est SON client mail qui envoie, pas ce serveur.
-     - CONTACT_PROVIDER_API_KEY presente (si Alfred fournit un jour une
-       cle, jamais commitee) : brancher ICI l'appel reel au prestataire
-       choisi et renvoyer { livraison: "envoye" }. Personne ne doit
-       modifier le comportement du formulaire lui-meme pour ce faire —
-       seul ce fichier change.
-
-   Aucun secret cote client : cette route est le SEUL endroit ou une
-   cle de prestataire serait lue (process.env, jamais expose au bundle
-   client puisque ce fichier ne tourne que sur le serveur). */
+const DESTINATAIRE = "krodi2001@gmail.com";
+// Limite complementaire par instance, non distribuee : configurer aussi
+// une regle WAF sur Vercel. Aucun email ni contenu de projet conserve ici.
+const tentatives = new Map<string, { nombre: number; expiration: number }>();
+function limiter(email: string): boolean {
+  const maintenant = Date.now();
+  for (const [cle, valeur] of tentatives) {
+    if (valeur.expiration <= maintenant) tentatives.delete(cle);
+  }
+  const cle = createHash("sha256").update(email.toLowerCase()).digest("hex");
+  const actuelle = tentatives.get(cle);
+  if ((actuelle?.nombre ?? 0) >= 3 || (!actuelle && tentatives.size >= 1000)) return false;
+  tentatives.set(cle, {
+    nombre: (actuelle?.nombre ?? 0) + 1,
+    expiration: actuelle?.expiration ?? maintenant + 600_000,
+  });
+  return true;
+}
 
 const SERVICES_AUTORISES = new Set([
   // FR
@@ -70,18 +72,33 @@ function texte(valeur: unknown, max: number): string {
 }
 
 export async function POST(requete: Request) {
+  const origine = requete.headers.get("origin");
+  const origines = process.env.CONTACT_ALLOWED_ORIGINS?.split(",").map((o) => o.trim()).filter(Boolean)
+    ?? (process.env.NODE_ENV === "development" ? ["http://localhost:3100", "http://127.0.0.1:3100"] : []);
+  if (!origine || !origines.includes(origine)) {
+    return NextResponse.json({ erreurGenerique: true }, { status: 403 });
+  }
+  if (!requete.headers.get("content-type")?.startsWith("application/json")) {
+    return NextResponse.json({ erreurGenerique: true }, { status: 415 });
+  }
   let corps: Corps;
   try {
-    corps = await requete.json();
+    const contenu = await requete.text();
+    if (contenu.length > 32_000) {
+      return NextResponse.json({ erreurGenerique: true }, { status: 413 });
+    }
+    const valeur: unknown = JSON.parse(contenu);
+    if (!valeur || typeof valeur !== "object" || Array.isArray(valeur)) {
+      return NextResponse.json({ erreurGenerique: true }, { status: 400 });
+    }
+    corps = valeur as Corps;
   } catch {
     return NextResponse.json({ erreurGenerique: true }, { status: 400 });
   }
 
-  // HONEYPOT — un champ que seul un robot remplit. On repond un succes
-  // de façade (le robot ne doit rien apprendre de son echec) sans rien
-  // traiter ni transmettre.
+  // HONEYPOT — rejet generique, sans traiter ni transmettre de donnees.
   if (texte(corps.site, 200)) {
-    return NextResponse.json({ livraison: "mailto", donnees: {} }, { status: 200 });
+    return NextResponse.json({ erreurGenerique: true }, { status: 400 });
   }
 
   // ANTI-SPAM PAR DELAI — un formulaire rempli et soumis en moins de
@@ -90,7 +107,7 @@ export async function POST(requete: Request) {
   // qui omettrait ce champ n'est jamais bloque pour autant).
   const chargeA = typeof corps.chargeA === "number" ? corps.chargeA : null;
   if (chargeA !== null && Date.now() - chargeA < 1500) {
-    return NextResponse.json({ livraison: "mailto", donnees: {} }, { status: 200 });
+    return NextResponse.json({ erreurGenerique: true }, { status: 429 });
   }
 
   const donnees = {
@@ -107,8 +124,12 @@ export async function POST(requete: Request) {
   // que le client (voir Contact.tsx), mais RE-VERIFIEES ici : le client
   // peut toujours etre contourne (devtools, requete directe, script).
   const erreurs: Record<string, boolean> = {};
+  for (const [champ, max] of Object.entries(LIMITES)) {
+    const valeur = corps[champ as keyof typeof LIMITES];
+    if (typeof valeur === "string" && valeur.trim().length > max) erreurs[champ] = true;
+  }
   if (!donnees.nom) erreurs.nom = true;
-  if (!donnees.email || !EMAIL_RE.test(donnees.email)) erreurs.email = true;
+  if (!donnees.email || !EMAIL_RE.test(donnees.email) || /[\r\n]/.test(donnees.email)) erreurs.email = true;
   if (!donnees.service || !SERVICES_AUTORISES.has(donnees.service)) erreurs.service = true;
   if (!donnees.description) erreurs.description = true;
 
@@ -116,15 +137,43 @@ export async function POST(requete: Request) {
     return NextResponse.json({ erreurs }, { status: 400 });
   }
 
-  // PRESTATAIRE REEL — brancher ici le jour ou une cle existe. Tant que
-  // process.env.CONTACT_PROVIDER_API_KEY est absente, cette branche ne
-  // s'execute jamais : le formulaire ne PRETEND a aucun moment l'avoir
-  // fait.
-  if (process.env.CONTACT_PROVIDER_API_KEY) {
-    // Exemple d'integration (non appele tant que la cle n'existe pas) :
-    // await fetch("https://api.resend.com/emails", { ... });
-    return NextResponse.json({ livraison: "envoye" }, { status: 200 });
+  const motDePasse = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
+  if (!motDePasse) {
+    return NextResponse.json({ erreurGenerique: true }, { status: 503 });
   }
-
-  return NextResponse.json({ livraison: "mailto", donnees }, { status: 200 });
+  if (!limiter(donnees.email)) {
+    return NextResponse.json({ erreurGenerique: true }, { status: 429 });
+  }
+  const transport = nodemailer.createTransport({
+    host: "smtp.gmail.com", port: 465, secure: true,
+    auth: { user: DESTINATAIRE, pass: motDePasse },
+    connectionTimeout: 10_000, greetingTimeout: 10_000, socketTimeout: 20_000,
+    disableFileAccess: true, disableUrlAccess: true,
+  });
+  try {
+    const resultat = await transport.sendMail({
+      from: { name: "Alfred Winner Services", address: DESTINATAIRE },
+      to: DESTINATAIRE,
+      replyTo: donnees.email,
+      subject: `Nouveau projet AWS — ${donnees.service}`,
+      text: [
+        `Nom & prénom : ${donnees.nom}`, `Email : ${donnees.email}`,
+        `Téléphone / WhatsApp : ${donnees.telephone || "—"}`,
+        `Entreprise : ${donnees.entreprise || "—"}`,
+        `Service recherché : ${donnees.service}`,
+        `Type de projet : ${donnees.typeProjet || "—"}`,
+        "", "Description du projet :", donnees.description,
+      ].join("\n"),
+    });
+    if (!resultat.accepted.some((adresse) => String(adresse).toLowerCase() === DESTINATAIRE)) {
+      return NextResponse.json({ erreurGenerique: true }, { status: 502 });
+    }
+    // Acceptation SMTP uniquement : la reception en boite doit etre verifiee.
+    return NextResponse.json({ livraison: "envoye" }, { status: 200 });
+  } catch {
+    // Ne jamais exposer identifiants, reponse SMTP ou donnees personnelles.
+    return NextResponse.json({ erreurGenerique: true }, { status: 502 });
+  } finally {
+    transport.close();
+  }
 }

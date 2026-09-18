@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { WhatsappDictionary } from "@/i18n/dictionaries";
 import { IconeWhatsapp } from "@/components/ui/icones";
 
@@ -18,13 +21,60 @@ import { IconeWhatsapp } from "@/components/ui/icones";
    un eventuel modal/menu mobile (qui doit rester au-dessus), au-dessus
    du contenu de page.
 
-   Server Component pur : un <a> suffit, aucune interaction JS requise
-   pour ouvrir wa.me dans un nouvel onglet. */
+   Le lien reste natif. Il s'efface temporairement s'il couvrirait du
+   texte ou un champ : les liens WhatsApp du footer restent disponibles.
+   Mesures regroupees dans un seul frame par scroll, sans rendu React. */
 export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary }) {
   const href = `${dict.href}?text=${encodeURIComponent(dict.message)}`;
+  const lienRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const lien = lienRef.current;
+    if (!lien) return;
+    let frame = 0;
+    const verifier = () => {
+      frame = 0;
+      if (document.activeElement === lien) return;
+      const bouton = lien.getBoundingClientRect();
+      const chevauche = (rect: DOMRect) => rect.width > 0 && rect.height > 0 &&
+        rect.left < bouton.right && rect.right > bouton.left &&
+        rect.top < bouton.bottom && rect.bottom > bouton.top;
+      const elements = document.querySelectorAll(
+        "main p, main h1, main h2, main h3, main label, main input, main select, main textarea, main button, main a, footer p, footer a",
+      );
+      const collision = Array.from(elements).some((element) => {
+        if (!chevauche(element.getBoundingClientRect())) return false;
+        if (element.matches("input, select, textarea, button, a, label")) return true;
+        // Les rectangles des lignes de texte excluent le blanc en fin de ligne.
+        const texte = document.createRange();
+        texte.selectNodeContents(element);
+        return Array.from(texte.getClientRects()).some(chevauche);
+      });
+      lien.style.visibility = collision ? "hidden" : "visible";
+    };
+    const planifier = () => { if (!frame) frame = requestAnimationFrame(verifier); };
+    const observer = new MutationObserver(planifier);
+    for (const zone of document.querySelectorAll("main, footer")) {
+      observer.observe(zone, { childList: true, characterData: true, subtree: true });
+    }
+    window.addEventListener("scroll", planifier, { passive: true });
+    window.addEventListener("resize", planifier);
+    window.visualViewport?.addEventListener("resize", planifier);
+    lien.addEventListener("blur", planifier);
+    planifier();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", planifier);
+      window.removeEventListener("resize", planifier);
+      window.visualViewport?.removeEventListener("resize", planifier);
+      lien.removeEventListener("blur", planifier);
+    };
+  }, []);
 
   return (
     <a
+      ref={lienRef}
       href={href}
       target="_blank"
       rel="noopener noreferrer"

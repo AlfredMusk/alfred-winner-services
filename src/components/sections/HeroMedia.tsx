@@ -1,16 +1,7 @@
 "use client";
 
-/* Seul le media a besoin d'etat : c'est le SEUL morceau du Hero qui part en
-   Client Component. Le texte reste rendu sur le serveur.
-
-   V3 — PLUS AUCUN CONTROLE VISIBLE SUR L'IMAGE. Le bouton pause/play
-   (V2, integre au coin du cadre) a ete retire sur demande explicite :
-   "le visiteur ne doit voir que la photo". Le mecanisme d'arret reste,
-   mais entierement silencieux — survol et focus mettent en pause sans
-   qu'aucun symbole n'apparaisse jamais a l'ecran. Sous mouvement reduit,
-   aucune rotation n'a jamais lieu (voir plus bas), ce qui couvre le cas
-   ou un visiteur a besoin d'arreter le defilement sans dependre d'un
-   controle pointeur. */
+/* Le texte reste sur le serveur. L'image est la zone de pause/reprise :
+   aucun controle visible ajoute, bouton natif accessible au clavier/toucher. */
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { HeroDictionary } from "@/i18n/dictionaries";
@@ -32,19 +23,19 @@ function useMouvementReduit() {
 export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
   const { slides } = dict;
   const [index, setIndex] = useState(0);
-  /* Pause silencieuse au survol/focus — aucun bouton, aucune icone :
-     seul le defilement s'arrete, rien ne change a l'ecran. */
+  /* Pause temporaire au survol/focus, independante du choix utilisateur. */
   const [enPause, setEnPause] = useState(false);
+  const [pauseDemandee, setPauseDemandee] = useState(false);
   const mouvementReduit = useMouvementReduit();
 
   /* Sous mouvement reduit, aucune rotation automatique : la premiere
      photo reste affichee — "afficher eventuellement une seule image"
      est ici le comportement par defaut, pas un cas particulier gere. */
   useEffect(() => {
-    if (mouvementReduit || enPause || slides.length < 2) return;
+    if (mouvementReduit || enPause || pauseDemandee || slides.length < 2) return;
     const t = setTimeout(() => setIndex((i) => (i + 1) % slides.length), DUREE);
     return () => clearTimeout(t);
-  }, [index, enPause, mouvementReduit, slides.length]);
+  }, [index, enPause, pauseDemandee, mouvementReduit, slides.length]);
 
   return (
     <div
@@ -75,13 +66,21 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
               src={s.src}
               alt={s.alt}
               fill
-              priority={i === 0}
-              sizes="(min-width: 1100px) 48vw, 92vw"
+              preload={i === 0}
+              sizes="(min-width: 1412px) 480px, (min-width: 1100px) 34vw, (min-width: 592px) 544px, calc(100vw - 32px)"
               style={{ objectPosition: s.position }}
               className="object-cover"
             />
           </div>
         ))}
+        {!mouvementReduit && slides.length > 1 && (
+          <button
+            type="button"
+            aria-label={pauseDemandee ? dict.a11y.reprendre : dict.a11y.pause}
+            onClick={() => setPauseDemandee((pause) => !pause)}
+            className="absolute inset-0 cursor-default rounded-[inherit] border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
+          />
+        )}
       </div>
     </div>
   );

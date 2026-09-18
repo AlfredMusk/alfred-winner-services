@@ -117,7 +117,7 @@
      boutons (WhatsApp Web) — #128C7E, blanc dessus verifie a 4.14,
      largement conforme, tout en restant immediatement reconnaissable
      comme "le vert WhatsApp". */
-  --color-whatsapp: #128c7e;
+  --color-whatsapp: #0f8073; /* Blanc : > 4.5:1 pour le texte du bouton. */
   --color-whatsapp-fonce: #0e6e63;
 }
 
@@ -156,6 +156,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* La couche base laisse les utilitaires des CTA choisir leur contraste. */
+@layer base {
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+  footer a:focus-visible {
+    outline-color: white;
+  }
 }
 
 /* Etat par defaut de la ligne de progression (Notre methode) : REMPLIE,

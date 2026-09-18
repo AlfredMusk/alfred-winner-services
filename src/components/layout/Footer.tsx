@@ -19,7 +19,7 @@ import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/componen
 
      1. MARQUE — logo + signature, rien d'autre.
      2. CONTACT — adresse, telephone, email, WhatsApp.
-     3. RESEAUX — LinkedIn / Instagram / Facebook, icones toujours
+     3. RESEAUX — LinkedIn / Facebook, icones toujours
         presentes (structure prete), mais seules celles dont l'URL est
         confirmee sont cliquables (voir plus bas).
 
@@ -30,19 +30,15 @@ import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/componen
    supplementaires) : clearance avec le bouton WhatsApp flottant
    RE-VERIFIEE par mesure reelle des rectangles de texte (pas seulement
    des boites), a 375 et 1440, page defilee jusqu'au vrai bas du
-   document. */
+   document.
 
-const RESEAUX_ICONES: Record<"linkedin" | "instagram" | "facebook", React.ReactElement> = {
+   V7 — compaction des espacements uniquement ; tailles des textes,
+   logos et icones conservees. Marge basse mobile reservee a WhatsApp. */
+
+const RESEAUX_ICONES: Record<"linkedin" | "facebook", React.ReactElement> = {
   linkedin: (
     <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="currentColor">
       <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3.5a1.97 1.97 0 1 0 0 3.94 1.97 1.97 0 0 0 0-3.94ZM20.44 20h-3.37v-5.9c0-1.41-.03-3.22-1.96-3.22-1.97 0-2.27 1.54-2.27 3.12V20H9.47V8.5h3.24v1.57h.05c.45-.85 1.56-1.75 3.21-1.75 3.43 0 4.06 2.26 4.06 5.2V20Z" />
-    </svg>
-  ),
-  instagram: (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth={1.6}>
-      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
     </svg>
   ),
   facebook: (
@@ -69,7 +65,7 @@ export default function Footer({
   const lienBase = "text-[0.9375rem] text-white/85 transition-colors hover:text-white";
   const titreColonne = "text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-white/75";
   const iconeContact = "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white";
-  const iconeReseau = "flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-white";
+  const iconeReseau = "flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/55 transition-colors hover:bg-white/20 hover:text-white";
   const whatsappHref = `${whatsapp.href}?text=${encodeURIComponent(whatsapp.message)}`;
 
   /* L'ancre #contact vit desormais sur la section Contact.tsx (le
@@ -95,8 +91,8 @@ export default function Footer({
           bande. Verifie a l'ecran : sans cette marge, le copyright reste
           coince sous le bouton meme en bas de page, quel que soit
           l'alignement horizontal du texte. */}
-      <div className="mx-auto max-w-[1360px] px-4 pt-6 pb-20 sm:px-6 sm:pt-6 sm:pb-20 desk:px-8 desk:pt-7 desk:pb-16">
-        <div className="reveal grid gap-7 desk:grid-cols-[1fr_1.3fr_0.9fr] desk:gap-7">
+      <div className="mx-auto max-w-[1360px] px-4 pt-5 pb-18 sm:px-6 desk:px-8 desk:pb-10">
+        <div className="reveal grid gap-5 desk:grid-cols-[1fr_1.3fr_0.9fr] desk:gap-7">
           {/* ZONE 1 — MARQUE. Les deux fichiers logo sont des PNG a fond
               blanc opaque (verifie pixel par pixel, pas de canal alpha) :
               une puce blanche porte le logo intact plutot que de le
@@ -119,7 +115,7 @@ export default function Footer({
             </a>
             <p
               aria-hidden="true"
-              className="mt-3 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-white/55"
+              className="mt-2 text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-white/55"
             >
               {nav.signature}
             </p>
@@ -131,7 +127,7 @@ export default function Footer({
               "a confirmer" sur une page publique). */}
           <div>
             <p className={titreColonne}>{dict.contactsNav}</p>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-2 space-y-1">
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeLieu}</span>
                 <p className="pt-1.5 text-[0.9375rem] leading-[1.5] text-white/85">{contact.adresse}</p>
@@ -168,16 +164,15 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* ZONE 3 — RESEAUX. Structure prete pour les trois reseaux,
-              mais AUCUNE URL officielle n'est confirmee aujourd'hui : une
-              icone sans href reel n'est jamais rendue comme un <a> (pas
+          {/* ZONE 3 — RESEAUX. Seules les URLs officielles fournies sont
+              interactives. Une icone sans href reel n'est jamais un <a> (pas
               de href="#", pas de faux profil). Elle reste visible, en
               placeholder attenue et non interactif (aria-hidden, pas de
               focus), pour que la colonne garde sa place et que la vraie
               URL puisse etre branchee plus tard sans rien reconstruire. */}
           <div>
             <p className={titreColonne}>{dict.reseauxNav}</p>
-            <ul className="mt-3 flex gap-2.5">
+            <ul className="mt-2 flex gap-2.5">
               {reseauxListe.map(([reseau, href]) =>
                 href ? (
                   <li key={reseau}>
@@ -186,7 +181,7 @@ export default function Footer({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={iconeReseau}
-                      aria-label={reseau}
+                      aria-label={reseau === "facebook" ? dict.facebookLabel : reseau === "linkedin" ? dict.linkedinLabel : reseau}
                     >
                       {RESEAUX_ICONES[reseau]}
                     </a>
@@ -212,7 +207,7 @@ export default function Footer({
             gauche, qui ne rencontrent jamais ce coin. Separateur
             white/15 : le meme "ressenti, pas remarque" que les filets
             clairs ailleurs sur le site. */}
-        <div className="mt-5 flex flex-col gap-2 border-t border-white/15 pt-3.5 text-[0.8125rem] desk:mt-6">
+        <div className="mt-4 flex flex-col gap-1.5 border-t border-white/15 pt-3 text-[0.8125rem]">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <a href={`/${locale}/mentions-legales`} className="text-white/85 hover:text-white">
               {dict.mentionsLegales}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
@@ -14,6 +14,8 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
+
 /* Pre-genere /fr et /en au build : ces deux pages deviennent statiques,
    donc servies instantanement, sans calcul serveur a chaque visite. */
 export function generateStaticParams() {
@@ -28,6 +30,7 @@ export async function generateMetadata({
   return {
     ...seoCopy[locale],
     robots: { index: isIndexable, follow: true },
+    icons: { icon: { url: "/images/brand/aws-emblem.png", type: "image/png" } },
   };
 }
 
@@ -52,6 +55,9 @@ export default async function LocaleLayout({
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <a href="#top" className="sr-only z-[60] rounded-lg bg-white px-4 py-3 text-aws-navy focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:outline-2 focus:outline-aws-blue-text">
+          {locale === "fr" ? "Aller au contenu" : "Skip to content"}
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -59,7 +65,7 @@ export default async function LocaleLayout({
           }}
         />
         <Navbar locale={locale} dict={dict.navbar} />
-        <main id="top" className="flex-1">
+        <main id="top" tabIndex={-1} className="flex-1 scroll-mt-24">
           {children}
         </main>
         <Footer
