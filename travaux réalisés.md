@@ -3222,3 +3222,13 @@ de l'audit final independant.
 - FR/EN controles navigateur. Mobile 390px et desktop 1440px : zero image Fondateur, zero overflow, textes conformes, console propre.
 - Routes locales principales/legales 200, inconnue 404. API locale sans secret 503 attendu ; API production sans origine configuree 403 attendu. Aucun envoi SMTP simule.
 - Lint PASS ; TypeScript PASS ; build PASS ; git diff check PASS. Scan secret propre ; placeholder README uniquement, aucun env suivi.
+
+### AUDIT SENIOR PRODUCTION — 2026-09-19
+
+- Production Netlify FR/EN + quatre pages legales : contenu identique local. Racine redirige FR ; inconnue 404. 136 routes/ressources internes referencees HTTP200. Favicon PNG declare charge ; /favicon.ico non utilise.
+- Responsive FR/EN : 375/390/430/768/820/1024/1280/1440 sans overflow document ni texte tronque detecte. Inspections visuelles Hero/menu/contact/footer/Founder. Menu mobile et services desktop + Escape/focus controles.
+- Defaut reproduit : badge Netlify recouvre WhatsApp flottant. Correction unique composant : relever lien uniquement lorsque iframe nl-badge-frame presente ; garder position locale sans badge et detection collisions contenu existante.
+- Formulaire : SMTP FR/EN reels deja recus ce jour, sept champs/Reply-To verifies ; dernier envoi navigateur Visiteur test AWS recu18:04. Aucun nouvel email inutile. Validation EN vide/focus observee ; API production origine interdite403, champs invalides400. Secret serveur seulement, aucunenvsuivi. Limiteur memoire par instance reste protection complementaire, non distribuee.
+- SEO temporaire : noindex/robotsDisallow/sitemapvide et canonical/OGimage absents tant que AWS_SITE_URL/flags non actives. Configuration finale differee jusqu'au domaine HTTPS. AucunDNS modifie.
+- Images NextImage tailles responsives, preload premier Hero, formats WebP HTTP200. Console aucun warning/error sur accueil lors controle ; pas de score Lighthouse ni CWVterrain revendique.
+- Lint/TypeScript/build/diff-check PASS. Push/redeploiement puis verification publique de la correction a effectuer. Huit JPGsources non suivis preserves.

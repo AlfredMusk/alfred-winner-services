@@ -17,9 +17,13 @@ import { IconeWhatsapp } from "@/components/ui/icones";
    complete dans tous les cas.
 
    position: fixed + inset calcule avec les safe-area insets (iOS) deja
-   disponibles via le reset global (voir globals.css :root). z-40 : sous
-   un eventuel modal/menu mobile (qui doit rester au-dessus), au-dessus
-   du contenu de page.
+   disponibles via le reset global (voir globals.css :root). Lorsque le
+   badge fixe impose par l'hebergement Netlify gratuit est present, le
+   retrait bas passe de 1.25rem a 5.25rem : sans ce retrait, le badge
+   recouvre entierement le bouton sur desktop et mobile. Le test reste
+   dynamique afin de conserver la position normale en local ou si le
+   badge disparait apres un changement d'offre. z-40 : sous un eventuel
+   modal/menu mobile (qui doit rester au-dessus), au-dessus du contenu.
 
    Le lien reste natif. Il s'efface temporairement s'il couvrirait du
    texte ou un champ : les liens WhatsApp du footer restent disponibles.
@@ -34,6 +38,11 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
     let frame = 0;
     const verifier = () => {
       frame = 0;
+      const badgeNetlify = document.getElementById("nl-badge-frame");
+      const badgeVisible = badgeNetlify && badgeNetlify.getBoundingClientRect().height > 0;
+      lien.style.bottom = badgeVisible
+        ? "calc(5.25rem + env(safe-area-inset-bottom, 0px))"
+        : "calc(1.25rem + env(safe-area-inset-bottom, 0px))";
       if (document.activeElement === lien) return;
       const bouton = lien.getBoundingClientRect();
       const chevauche = (rect: DOMRect) => rect.width > 0 && rect.height > 0 &&
@@ -54,6 +63,7 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
     };
     const planifier = () => { if (!frame) frame = requestAnimationFrame(verifier); };
     const observer = new MutationObserver(planifier);
+    observer.observe(document.body, { childList: true });
     for (const zone of document.querySelectorAll("main, footer")) {
       observer.observe(zone, { childList: true, characterData: true, subtree: true });
     }
