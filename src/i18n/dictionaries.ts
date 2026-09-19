@@ -447,10 +447,7 @@ const fr = {
     copyright: "© 2026 Alfred Winner Services. Tous droits réservés.",
   },
 
-  /* Pages legales — uniquement des informations confirmees. Tout ce qui
-     manque (hebergeur notamment) est signale explicitement dans le texte
-     plutot que devine, pour qu'Alfred le voie et le complete avant mise
-     en ligne. */
+  /* Pages legales — informations confirmees ; hebergement Netlify actif. */
   mentionsLegales: {
     titre: "Mentions légales",
     sections: [
@@ -467,7 +464,7 @@ const fr = {
       {
         titre: "Hébergement",
         paragraphes: [
-          "Information en attente de confirmation avant mise en ligne définitive.",
+          "Ce site est hébergé par Netlify, Inc. — www.netlify.com.",
         ],
       },
       {
@@ -487,7 +484,7 @@ const fr = {
           "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
           "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à krodi2001@gmail.com. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
-          "Comme tout site web, les pages sont servies par un hébergeur susceptible de conserver des journaux de connexion techniques (adresse IP, date, page demandée). L'hébergeur n'étant pas encore arrêté, cette section sera complétée avant la mise en ligne publique.",
+          "Les pages et le formulaire sont hébergés par Netlify, Inc., qui peut conserver des journaux de connexion techniques (adresse IP, date, page demandée) pour assurer le fonctionnement et la sécurité du service.",
         ],
       },
       {
@@ -846,7 +843,7 @@ const en: Dictionary = {
       {
         titre: "Hosting",
         paragraphes: [
-          "Information pending confirmation before final launch.",
+          "This site is hosted by Netlify, Inc. — www.netlify.com.",
         ],
       },
       {
@@ -866,7 +863,7 @@ const en: Dictionary = {
           "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
           "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to krodi2001@gmail.com. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
-          "Like any website, these pages are served by a hosting provider that may keep technical connection logs (IP address, date, page requested). The provider has not been chosen yet; this section will be completed before public launch.",
+          "The pages and form are hosted by Netlify, Inc., which may keep technical connection logs (IP address, date, page requested) to operate and secure the service.",
         ],
       },
       {

@@ -3232,3 +3232,6 @@ de l'audit final independant.
 - SEO temporaire : noindex/robotsDisallow/sitemapvide et canonical/OGimage absents tant que AWS_SITE_URL/flags non actives. Configuration finale differee jusqu'au domaine HTTPS. AucunDNS modifie.
 - Images NextImage tailles responsives, preload premier Hero, formats WebP HTTP200. Console aucun warning/error sur accueil lors controle ; pas de score Lighthouse ni CWVterrain revendique.
 - Lint/TypeScript/build/diff-check PASS. Push/redeploiement puis verification publique de la correction a effectuer. Huit JPGsources non suivis preserves.
+
+- Redéploiement 9ae5367 publié Netlify ; FR/EN huit largeurs retestees : zero overflow/image manquante, WhatsApp visible et gap20px badge. Console warn/error vide.
+- Relecture pageslegales : ancien hebergeur en attente encore visible. Remplace FR/EN mentions/confidentialite par Netlify Inc. confirme ; reference https://www.netlify.com/privacy/ consultee. Aucune autre donneelegale modifiee.
