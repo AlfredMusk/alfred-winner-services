@@ -348,24 +348,15 @@ const fr = {
       "Depuis la Côte d'Ivoire, AWS développe des projets, des actifs et des solutions technologiques conçus pour créer durablement de la valeur. Le logiciel et l'intelligence artificielle y occupent une place croissante.",
   },
 
-  /* Section 9 — Fondateur. Texte repris tel que fourni, sans ajout de
-     diplome, certification ou annee d'experience. Aucune photo pour
-     l'instant (voir travaux realises.md) : mise en page pensee pour en
-     recevoir une des qu'elle sera fournie, sans reconstruction.
-
-     Paragraphes en "il", jamais "Alfred Krodi" a nouveau : le nom est
-     deja porte par l'eyebrow -> nom -> titre juste au-dessus, le
-     repeter dans le corps de texte serait redondant (choix deja fait
-     et garde lors de cette passe, malgre une suggestion contraire). */
+  /* Section 9 — Fondateur. Presentation institutionnelle sans photo. */
   fondateur: {
     eyebrow: "FONDATEUR",
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Fondateur & CEO — Alfred Winner Services",
     paragraphes: [
-      "Entrepreneur et ingénieur logiciel de formation, il développe Alfred Winner Services à la croisée de la technologie, de la finance et de l'immobilier.",
-      "Il pilote notamment les initiatives numériques et d'intelligence artificielle développées au sein de l'écosystème AWS.",
+      "Ingénieur logiciel et entrepreneur, Krodi Krotchaman Alfred Donald développe Alfred Winner Services autour d’une vision réunissant technologie, finance et immobilier.",
+      "À travers AWS, il pilote des initiatives numériques et des projets orientés vers l’innovation, la création de valeur et le développement de solutions adaptées aux besoins des entreprises et des particuliers.",
     ],
-    imageAlt: "Krodi Krotchaman Alfred Donald, fondateur d'Alfred Winner Services",
   },
 
   ctaFinal: {
@@ -764,10 +755,9 @@ const en: Dictionary = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Founder & CEO — Alfred Winner Services",
     paragraphes: [
-      "An entrepreneur and software engineer by training, he is building Alfred Winner Services at the crossroads of technology, finance and real estate.",
-      "He leads in particular the digital and artificial intelligence initiatives developed within the AWS ecosystem.",
+      "A software engineer and entrepreneur, Krodi Krotchaman Alfred Donald is developing Alfred Winner Services around a vision that brings together technology, finance and real estate.",
+      "Through AWS, he leads digital initiatives and projects focused on innovation, value creation and the development of solutions tailored to the needs of businesses and individuals.",
     ],
-    imageAlt: "Krodi Krotchaman Alfred Donald, founder of Alfred Winner Services",
   },
 
   ctaFinal: {

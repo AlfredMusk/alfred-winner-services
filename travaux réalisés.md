@@ -3213,3 +3213,12 @@ de l'audit final independant.
 - 2026-09-18. Depot AWS confirme, branche main, origin AlfredMusk/alfred-winner-services existant. Fetch : aucun commit distant absent localement. Audit final + corrections contenu FR/EN integres ; design conserve.
 - Lint/typecheck/build/diff-check PASS. Aucun secret detecte dans candidats ; env sensibles ignores, references serveur GMAIL_APP_PASSWORD uniquement. Aucun credential commite. Code SMTP prepare, configuration/reception reelle restent a valider avant publication.
 - Version applicative preparee pour GitHub/deploiement futur. Huit JPG sources inutilises racine conserves hors commit ; assets runtime public deja suivis. Pas modification autre projet. Vercel/envproduction/domaine/DNS non touches.
+
+### FINAL PRODUCTION FIX — 2026-09-19
+
+- Section Fondateur : photo/import/JSX/commentaires media retires. Bloc institutionnel texte seul conserve. Texte FR exact demande et equivalent EN ajoute. Aucun autre design/contenu change.
+- Contact production Netlify diagnostique : POST /api/contact retourne 403 car CONTACT_ALLOWED_ORIGINS absent. Projet Netlify sans variable environnement. GMAIL_APP_PASSWORD absent aussi ; aucun faux succes et aucun secret ecrit.
+- Variables a saisir manuellement dans Netlify : CONTACT_ALLOWED_ORIGINS avec origine publique exacte ; GMAIL_APP_PASSWORD serveur uniquement. Redeploiement requis apres saisie.
+- FR/EN controles navigateur. Mobile 390px et desktop 1440px : zero image Fondateur, zero overflow, textes conformes, console propre.
+- Routes locales principales/legales 200, inconnue 404. API locale sans secret 503 attendu ; API production sans origine configuree 403 attendu. Aucun envoi SMTP simule.
+- Lint PASS ; TypeScript PASS ; build PASS ; git diff check PASS. Scan secret propre ; placeholder README uniquement, aucun env suivi.
