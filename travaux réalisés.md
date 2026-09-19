@@ -3233,5 +3233,8 @@ de l'audit final independant.
 - Images NextImage tailles responsives, preload premier Hero, formats WebP HTTP200. Console aucun warning/error sur accueil lors controle ; pas de score Lighthouse ni CWVterrain revendique.
 - Lint/TypeScript/build/diff-check PASS. Push/redeploiement puis verification publique de la correction a effectuer. Huit JPGsources non suivis preserves.
 
-- Redéploiement 9ae5367 publié Netlify ; FR/EN huit largeurs retestees : zero overflow/image manquante, WhatsApp visible et gap20px badge. Console warn/error vide.
+- Redéploiement 9ae5367 publié Netlify ; FR/EN huit largeurs retestees avec innerWidth controle : zero overflow ; gap20px badge. WhatsApp visible quand il ne couvre pas le contenu, masque par mecanisme existant sur certaines zones mobiles. Console warn/error vide.
 - Relecture pageslegales : ancien hebergeur en attente encore visible. Remplace FR/EN mentions/confidentialite par Netlify Inc. confirme ; reference https://www.netlify.com/privacy/ consultee. Aucune autre donneelegale modifiee.
+
+- Version063ab7e publiee Netlify. Quatre pageslegales publiques FR/EN : Netlify present, ancienplaceholder absent, H1unique et aucunoverflow375. Consoledernieronglet warn/error vide. Treize bundlesclient controles : aucun marqueurSMTP/envserveur ni sourcemap publique. TestsSMTP deja recus conserves, pas nouvel envoi pour correction sans lien avec formulaire.
+- Limites : pas mesure Lighthouse/CWVterrain ni certificationWCAG ; reducedmotion/doublesubmit controles dans code. LinkedIn refuse requetes automatiseesHTTP999 ; URL exacte fournie conservee. Domaines/DNS inchanges.
