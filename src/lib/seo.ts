@@ -35,7 +35,7 @@ export const business = {
   name: "Alfred Winner Services",
   legalName: "ALFRED WINNER SERVICES",
   telephone: telephoneE164,
-  email: "krodi2001@gmail.com",
+  email: "contact@alfredwinnerservices.com",
   logoPath: "/images/brand/logo.png",
 } as const;
 

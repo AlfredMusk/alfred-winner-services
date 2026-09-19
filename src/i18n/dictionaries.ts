@@ -377,8 +377,8 @@ const fr = {
     telephone: telephoneAffiche,
     telephoneHref: telHref,
     emailLabel: "Email",
-    email: "krodi2001@gmail.com",
-    emailMailtoHref: "mailto:krodi2001@gmail.com",
+    email: "contact@alfredwinnerservices.com",
+    emailMailtoHref: "mailto:contact@alfredwinnerservices.com",
     // Formulaire de prise de contact structuree ("project intake") —
     // remplace l'ancien formulaire court. Champs requis valides
     // cote client ET serveur (voir src/app/api/contact/route.ts).
@@ -408,7 +408,7 @@ const fr = {
       succesEnvoye:
         "Votre demande a été transmise au service de messagerie. Merci de nous avoir contactés.",
       erreurGenerique:
-        "Une erreur est survenue. Vous pouvez réessayer, ou nous écrire directement à krodi2001@gmail.com.",
+        "Une erreur est survenue. Vous pouvez réessayer, ou nous écrire directement à contact@alfredwinnerservices.com.",
       erreurValidation: "Merci de corriger les champs signalés ci-dessous.",
       champObligatoire: "Ce champ est obligatoire.",
       champEmailInvalide: "Merci d'indiquer une adresse email valide.",
@@ -458,7 +458,7 @@ const fr = {
           "RCCM : CI-ABJ-03-2025-B13-07068.",
           "Adresse : Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire.",
           "Directeur de la publication : Krodi Krotchaman Alfred Donald, Fondateur & CEO.",
-          "Contact : (+225) 07 48 19 11 00 — krodi2001@gmail.com.",
+          "Contact : (+225) 07 48 19 11 00 — contact@alfredwinnerservices.com.",
         ],
       },
       {
@@ -482,7 +482,7 @@ const fr = {
         titre: "Données collectées",
         paragraphes: [
           "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
-          "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à krodi2001@gmail.com. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
+          "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à notre adresse professionnelle. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
           "Les pages et le formulaire sont hébergés par Netlify, Inc., qui peut conserver des journaux de connexion techniques (adresse IP, date, page demandée) pour assurer le fonctionnement et la sécurité du service.",
         ],
@@ -490,7 +490,7 @@ const fr = {
       {
         titre: "Contact",
         paragraphes: [
-          "Pour toute question relative à cette politique, vous pouvez écrire à krodi2001@gmail.com.",
+            "Pour toute question relative à cette politique, vous pouvez écrire à contact@alfredwinnerservices.com.",
         ],
       },
     ],
@@ -774,8 +774,8 @@ const en: Dictionary = {
     telephone: telephoneAffiche,
     telephoneHref: telHref,
     emailLabel: "Email",
-    email: "krodi2001@gmail.com",
-    emailMailtoHref: "mailto:krodi2001@gmail.com",
+    email: "contact@alfredwinnerservices.com",
+    emailMailtoHref: "mailto:contact@alfredwinnerservices.com",
     formulaire: {
       nom: "Full name",
       email: "Email",
@@ -796,7 +796,7 @@ const en: Dictionary = {
       envoiEnCours: "Sending…",
       succesEnvoye: "Your request has been submitted to the email service. Thank you for contacting us.",
       erreurGenerique:
-        "Something went wrong. You can try again, or write to us directly at krodi2001@gmail.com.",
+        "Something went wrong. You can try again, or write to us directly at contact@alfredwinnerservices.com.",
       erreurValidation: "Please correct the fields flagged below.",
       champObligatoire: "This field is required.",
       champEmailInvalide: "Please provide a valid email address.",
@@ -837,7 +837,7 @@ const en: Dictionary = {
           "RCCM: CI-ABJ-03-2025-B13-07068.",
           "Address: Cocody Angré — Nouveau CHU, Abidjan, Côte d'Ivoire.",
           "Publication director: Krodi Krotchaman Alfred Donald, Founder & CEO.",
-          "Contact: (+225) 07 48 19 11 00 — krodi2001@gmail.com.",
+          "Contact: (+225) 07 48 19 11 00 — contact@alfredwinnerservices.com.",
         ],
       },
       {
@@ -861,7 +861,7 @@ const en: Dictionary = {
         titre: "Data collected",
         paragraphes: [
           "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
-          "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to krodi2001@gmail.com. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
+          "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to our professional address. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
           "The pages and form are hosted by Netlify, Inc., which may keep technical connection logs (IP address, date, page requested) to operate and secure the service.",
         ],
@@ -869,7 +869,7 @@ const en: Dictionary = {
       {
         titre: "Contact",
         paragraphes: [
-          "For any question about this policy, you can write to krodi2001@gmail.com.",
+            "For any question about this policy, you can write to contact@alfredwinnerservices.com.",
         ],
       },
     ],

@@ -3238,3 +3238,4 @@ de l'audit final independant.
 
 - Version063ab7e publiee Netlify. Quatre pageslegales publiques FR/EN : Netlify present, ancienplaceholder absent, H1unique et aucunoverflow375. Consoledernieronglet warn/error vide. Treize bundlesclient controles : aucun marqueurSMTP/envserveur ni sourcemap publique. TestsSMTP deja recus conserves, pas nouvel envoi pour correction sans lien avec formulaire.
 - Limites : pas mesure Lighthouse/CWVterrain ni certificationWCAG ; reducedmotion/doublesubmit controles dans code. LinkedIn refuse requetes automatiseesHTTP999 ; URL exacte fournie conservee. Domaines/DNS inchanges.
+- 2026-09-19 : adresse publique remplacee par contact@alfredwinnerservices.com en FR/EN et SEO ; destination SMTP interne krodi2001@gmail.com conservee.
