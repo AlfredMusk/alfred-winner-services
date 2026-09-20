@@ -1,4 +1,10 @@
 [[redirects]]
+  from = "https://alfred-winner-services.netlify.app/"
+  to = "https://www.alfredwinnerservices.com/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "https://alfred-winner-services.netlify.app/*"
   to = "https://www.alfredwinnerservices.com/:splat"
   status = 301
