@@ -11,6 +11,14 @@ import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/dictionaries";
 
 export function proxy(request: NextRequest) {
+  if (request.nextUrl.hostname === "alfred-winner-services.netlify.app") {
+    const officialUrl = request.nextUrl.clone();
+    officialUrl.protocol = "https:";
+    officialUrl.hostname = "www.alfredwinnerservices.com";
+    officialUrl.port = "";
+    return NextResponse.redirect(officialUrl, 301);
+  }
+
   const { pathname } = request.nextUrl;
 
   const aDejaUneLangue = locales.some(
