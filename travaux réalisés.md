@@ -3360,3 +3360,20 @@ DONE:
 - Deuxième image du Hero remplacée par l’asset IA sélectionné.
 - Même carousel, dimensions, transition et structure conservés.
 - FR/EN : texte alternatif mis à jour.
+
+## [SITE] — RELEASE CANDIDATE AVANT RESET NETLIFY 2026-09-22
+
+- Hero finalisé : image IA générique (faux dashboard) retirée, vraie
+  photo prototype robotique/code restaurée. Proportions/structure ACIM
+  inchangées.
+- Positionnement Tech/Finance avant Immobilier confirmé FR+EN.
+- Immobilier conservé comme branche complémentaire, formulation pro.
+- Images mortes supprimées (real-estate.jpg, software-ai.jpg).
+- FR/EN, responsive, formulaire, WhatsApp, contact re-vérifiés : PASS.
+- "1 Issue" preview = warning eval()/CSP dev-only (React devtools),
+  absent en production, sans impact.
+- lint/typecheck/build : PASS.
+- GitHub synchronisé, commit 7295585.
+- Production Netlify volontairement non touchée (deploys geles,
+  credits epuises). Reset attendu : 17/10/2026. Au reset : un seul
+  deploy production avec le dernier commit.
