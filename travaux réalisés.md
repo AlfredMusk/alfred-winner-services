@@ -3262,3 +3262,17 @@ IMPORTANT:
 NEXT:
 - npm lint / typecheck / build
 - git commit + push apres tests
+
+---
+
+## [FACEBOOK] — PREPARATION SANS SESSION 2026-09-22
+
+DONE:
+- page publique connue ouverte, mais Facebook demande connexion
+- aucun acces admin/Meta Business Suite prouve -> aucune modif Facebook faite
+- docs faites: audit/checklist, strategie, 10 posts, 10 reels, messages
+- logo, couverture, bio, description, coordonnees et CTA prepares
+
+IMPORTANT:
+- connecter session officielle puis verifier page, roles, anciennes publications, securite
+- pas de pub, pas de depense, pas de suppression, pas de post sans validation
