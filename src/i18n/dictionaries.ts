@@ -65,10 +65,10 @@ const fr = {
       },
       {
         num: "02",
-        label: "Software & IA",
-        src: "/images/expertises/software-ia-v5.jpg",
-        alt: "Développeur travaillant sur du code sur deux ordinateurs portables",
-        position: "50% 50%",
+        label: "Technologie & Software",
+        src: "/images/hero/software-lab.jpg",
+        alt: "Prototype robotique et écrans de code dans un environnement logiciel",
+        position: "50% 35%",
       },
     ],
     a11y: {
@@ -561,10 +561,10 @@ const en: Dictionary = {
       },
       {
         num: "02",
-        label: "Software & AI",
-        src: "/images/expertises/software-ia-v5.jpg",
-        alt: "Developer working with code on two laptops",
-        position: "50% 50%",
+        label: "Technology & Software",
+        src: "/images/hero/software-lab.jpg",
+        alt: "Robotics prototype and code screens in a software environment",
+        position: "50% 35%",
       },
     ],
     a11y: {

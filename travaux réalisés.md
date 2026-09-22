@@ -3347,3 +3347,12 @@ DONE:
 - deuxieme image du carousel Hero remplacee : Immobilier retire.
 - image existante Software & IA utilisee en FR et EN.
 - structure, dimensions, transition, autoplay et responsive inchanges.
+
+---
+
+## [SITE] — HERO IMAGE TECHNOLOGIE DISTINCTE 2026-09-22
+
+DONE:
+- image Hero distincte de la carte Software & IA.
+- photo de prototypage logiciel et robotique utilisee pour la deuxieme slide.
+- recadrage et position adaptes au conteneur Hero existant.
