@@ -71,7 +71,6 @@ export default function Apropos({ dict }: { dict: AproposDictionary }) {
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.015] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
-              <p className="mt-3 text-[0.75rem] leading-relaxed text-aws-muted">{dict.imageLegende}</p>
             </div>
           </div>
         </div>

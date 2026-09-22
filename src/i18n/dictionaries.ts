@@ -174,7 +174,6 @@ const fr = {
       "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
     ],
     imageAlt: "Professionnelle gérant une infrastructure de serveurs informatiques",
-    imageLegende: "Photographie d’illustration.",
   },
 
   /* Section 6 — Nos expertises. Coeur commercial du site : c'est ici que
@@ -636,7 +635,6 @@ const en: Dictionary = {
       "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
     ],
     imageAlt: "Professional managing a server infrastructure rack",
-    imageLegende: "Illustrative photograph.",
   },
 
   expertises: {
