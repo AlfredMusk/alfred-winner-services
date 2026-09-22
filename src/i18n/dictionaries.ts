@@ -65,10 +65,10 @@ const fr = {
       },
       {
         num: "02",
-        label: "Immobilier",
-        src: "/images/hero/real-estate.jpg",
-        alt: "Ouvriers sur un chantier de construction dans un quartier d'affaires",
-        position: "78% 50%",
+        label: "Software & IA",
+        src: "/images/expertises/software-ia-v5.jpg",
+        alt: "Développeur travaillant sur du code sur deux ordinateurs portables",
+        position: "50% 50%",
       },
     ],
     a11y: {
@@ -561,10 +561,10 @@ const en: Dictionary = {
       },
       {
         num: "02",
-        label: "Real Estate",
-        src: "/images/hero/real-estate.jpg",
-        alt: "Workers on a construction site in a business district",
-        position: "78% 50%",
+        label: "Software & AI",
+        src: "/images/expertises/software-ia-v5.jpg",
+        alt: "Developer working with code on two laptops",
+        position: "50% 50%",
       },
     ],
     a11y: {

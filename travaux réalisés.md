@@ -3338,3 +3338,12 @@ DONE:
 - conseil garde comme accompagnement transversal.
 - architecture et design inchanges.
 - SEO conserve et title/meta ajustes sans casser sitemap, robots, canonical.
+
+---
+
+## [SITE] — HERO IMAGE SOFTWARE 2026-09-22
+
+DONE:
+- deuxieme image du carousel Hero remplacee : Immobilier retire.
+- image existante Software & IA utilisee en FR et EN.
+- structure, dimensions, transition, autoplay et responsive inchanges.
