@@ -3356,3 +3356,7 @@ DONE:
 - image Hero distincte de la carte Software & IA.
 - photo de prototypage logiciel et robotique utilisee pour la deuxieme slide.
 - recadrage et position adaptes au conteneur Hero existant.
+[SITE] — HERO IMAGE IA / SOFTWARE 2026-09-22
+- Deuxième image du Hero remplacée par l’asset IA sélectionné.
+- Même carousel, dimensions, transition et structure conservés.
+- FR/EN : texte alternatif mis à jour.
