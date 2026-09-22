@@ -8,7 +8,16 @@ La page publique connue est accessible à l’URL suivante :
 
 `https://www.facebook.com/people/Alfred-winner-services/61594623654401/`
 
-La session Facebook disponible au moment de l’audit n’est pas connectée. Facebook affiche le formulaire de connexion ; aucun rôle, paramètre, contenu, URL canonique de page ou information privée ne peut donc être vérifié. Aucune modification n’a été tentée.
+La session Facebook est connectée avec un accès de gestion à la Page. Trois informations publiques ont été harmonisées le 22 septembre 2026 : l’adresse, les horaires et le site web. La demande de capitalisation du nom reste à soumettre par le propriétaire, car Facebook exige son mot de passe directement dans le formulaire de confirmation.
+
+## Corrections publiques appliquées
+
+| Champ | État |
+| --- | --- |
+| Adresse | `Cocody Angré — Nouveau CHU, Abidjan, Côte d’Ivoire` |
+| Horaires | Lundi à samedi : 08:00–22:00 ; dimanche : fermé |
+| Site | `https://www.alfredwinnerservices.com` |
+| Nom | Demande préparée pour `Alfred Winner Services`, à soumettre par le propriétaire |
 
 ## Données de référence à appliquer après connexion
 
