@@ -3239,3 +3239,26 @@ de l'audit final independant.
 - Version063ab7e publiee Netlify. Quatre pageslegales publiques FR/EN : Netlify present, ancienplaceholder absent, H1unique et aucunoverflow375. Consoledernieronglet warn/error vide. Treize bundlesclient controles : aucun marqueurSMTP/envserveur ni sourcemap publique. TestsSMTP deja recus conserves, pas nouvel envoi pour correction sans lien avec formulaire.
 - Limites : pas mesure Lighthouse/CWVterrain ni certificationWCAG ; reducedmotion/doublesubmit controles dans code. LinkedIn refuse requetes automatiseesHTTP999 ; URL exacte fournie conservee. Domaines/DNS inchanges.
 - 2026-09-19 : adresse publique remplacee par contact@alfredwinnerservices.com en FR/EN et SEO ; destination SMTP interne krodi2001@gmail.com conservee.
+
+---
+
+## [GOOGLE / MAPS / LOCAL SEO] — FINALISE 2026-09-22
+
+DONE:
+- audit site public: www HTTPS, /fr, /en, robots.txt, sitemap.xml, pages legales -> OK
+- NAP verifie: nom, adresse, tel, email pareil footer/contact/legal/schema FR+EN
+- schema JSON-LD rendu plus complet: LocalBusiness + SoftwareCompany, adresse, zone Abidjan/Cote d'Ivoire, contact, horaires
+- sitemap ajoute pages legales FR+EN
+- docs Google faites: checklist fiche, plan photos, avis/reponses/posts
+- fiche Google deja unique, nom principal garde, pas de doublon
+- logo Google importe avant; services software + immobilier soumis a review Google
+
+IMPORTANT:
+- pas de faux avis
+- pas de fausse photo/bureau/equipe/projet
+- pas de categorie finance reglementee inventee
+- Google doit encore valider services/categorie puis il faut vraie couverture + vraies photos
+
+NEXT:
+- npm lint / typecheck / build
+- git commit + push apres tests

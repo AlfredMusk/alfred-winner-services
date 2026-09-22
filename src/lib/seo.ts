@@ -37,6 +37,11 @@ export const business = {
   telephone: telephoneE164,
   email: "contact@alfredwinnerservices.com",
   logoPath: "/images/brand/logo.png",
+  address: {
+    streetAddress: "Cocody Angré — Nouveau CHU",
+    addressLocality: "Abidjan",
+    addressCountry: "CI",
+  },
 } as const;
 
 export const seoCopy = {
@@ -85,17 +90,38 @@ export function pageMetadata(
 export function organizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["LocalBusiness", "SoftwareCompany"],
     name: business.name,
     legalName: business.legalName,
     telephone: business.telephone,
     email: business.email,
+    address: {
+      "@type": "PostalAddress",
+      ...business.address,
+    },
+    areaServed: [
+      { "@type": "City", name: "Abidjan" },
+      { "@type": "Country", name: "Côte d’Ivoire" },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: business.telephone,
+      email: business.email,
+      contactType: "customer support",
+      availableLanguage: ["French", "English"],
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "22:00",
+    },
     ...(siteUrl ? {
       "@id": `${siteUrl}/#organization`,
       url: siteUrl,
       logo: `${siteUrl}${business.logoPath}`,
     } : {}),
-    // Exact address, hours, pin, social URLs and LocalBusiness remain pending.
-    // Both languages use this same object and, after activation, the same @id.
+    // The corporate canonical URLs of social profiles are not confirmed, so
+    // `sameAs` remains intentionally absent. Both languages emit this same @id.
   };
 }
