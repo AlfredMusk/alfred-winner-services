@@ -46,12 +46,12 @@ export const business = {
 
 export const seoCopy = {
   fr: {
-    title: "Alfred Winner Services | Finance, Immobilier, Software & IA",
-    description: "Alfred Winner Services, entreprise basée à Abidjan, développe ses activités autour de la finance, de l’immobilier et des technologies Software & IA.",
+    title: "Alfred Winner Services | Software, IA, Finance & Immobilier",
+    description: "Alfred Winner Services, entreprise basée à Abidjan, développe des solutions Software, IA et technologies financières, avec une branche Immobilier & BTP.",
   },
   en: {
-    title: "Alfred Winner Services | Finance, Real Estate, Software & AI",
-    description: "Alfred Winner Services is an Abidjan-based company developing its activities across finance, real estate, software and artificial intelligence.",
+    title: "Alfred Winner Services | Software, AI, Finance & Real Estate",
+    description: "Alfred Winner Services is an Abidjan-based company developing software, AI and financial technology solutions, with a real estate and construction branch.",
   },
 } as const;
 

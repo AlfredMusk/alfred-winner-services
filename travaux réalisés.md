@@ -3276,3 +3276,65 @@ DONE:
 IMPORTANT:
 - connecter session officielle puis verifier page, roles, anciennes publications, securite
 - pas de pub, pas de depense, pas de suppression, pas de post sans validation
+
+---
+
+## [FACEBOOK] — COORDONNEES PAGE 2026-09-22
+
+DONE:
+- session officielle connectee et acces gestion Page confirme
+- adresse publique corrigee : Cocody Angre — Nouveau CHU, Abidjan, Cote d'Ivoire
+- horaires publics : lundi-samedi 08:00-22:00 ; dimanche ferme
+- URL site public mise en HTTPS : https://www.alfredwinnerservices.com
+- aucune publication creee depuis les changements de coordonnees
+
+PENDING:
+- Facebook demande mot de passe proprietaire pour soumettre le changement de nom Alfred Winner Services
+- aucun mot de passe lu, stocke ou transmis par Codex
+
+## [FACEBOOK] — FINALISATION PAGE 2026-09-22
+
+DONE:
+- bio publique : Software & IA • Finance • Immobilier & BTP • Conseil + phrase d'accompagnement
+- email public : contact@alfredwinnerservices.com
+- site HTTPS et téléphone déjà confirmés
+- quatre services publics enregistrés : Software & IA, Immobilier & BTP, Finance / technologies financières, Conseil
+- premier post officiel publié avec le texte AWS validé
+- logo et couverture existants conservés
+
+PENDING:
+- nom public encore affiché « Alfred winner services » ; Facebook demande le mot de passe propriétaire pour soumettre le changement
+- nom de profil / username à définir dans Facebook
+- association WhatsApp en attente du code envoyé par Meta (à faire par le propriétaire)
+- message d'accueil Messenger non confirmé
+- premier Reel : ASSET REQUIRED (aucune vidéo officielle fournie)
+
+## [FACEBOOK] — LOGO ET VÉRIFICATION FINALE 2026-09-22
+
+DONE:
+- photo de profil remplacée par le logo AWS déjà importé sur Facebook
+- services, email public, téléphone, site et adresse revérifiés
+- premier post officiel visible sur la page
+
+PENDING:
+- nom et username nécessitent l'interface Facebook dédiée (nom : mot de passe propriétaire)
+- WhatsApp : numéro valide, bouton d'envoi du code prêt ; ne pas déclencher sans intervention du propriétaire
+- accueil Messenger non confirmé
+- aucun Reel sans asset vidéo officiel
+
+## [FACEBOOK] — WHATSAPP NON ASSOCIÉ 2026-09-22
+
+- WhatsApp volontairement laissé sans bouton ni association, selon instruction utilisateur.
+- Page publique conserve les coordonnées classiques et Messenger disponible.
+- Checklist Meta reste à 93 % car Meta compte l'association WhatsApp et le Reel parmi les tâches facultatives.
+
+---
+
+## [SITE] — REPOSITIONNEMENT SOFTWARE IA FINANCE 2026-09-22
+
+DONE:
+- repositionnement editorial : Software / IA / Finance remis au premier plan.
+- immobilier conserve comme branche complementaire Immobilier & BTP.
+- conseil garde comme accompagnement transversal.
+- architecture et design inchanges.
+- SEO conserve et title/meta ajustes sans casser sitemap, robots, canonical.

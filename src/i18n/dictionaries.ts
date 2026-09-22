@@ -28,9 +28,9 @@ const fr = {
       contact: "Contact",
     },
     services: [
-      { num: "01", label: "Bourse & Finance", hash: "bourse-finance" },
-      { num: "02", label: "Immobilier", hash: "immobilier" },
-      { num: "03", label: "Software & IA", hash: "software-ia" },
+      { num: "01", label: "Software & IA", hash: "software-ia" },
+      { num: "02", label: "Bourse & Finance", hash: "bourse-finance" },
+      { num: "03", label: "Immobilier & BTP", hash: "immobilier" },
     ],
     cta: "Parlons de votre projet",
     /* Signature de marque, sous le mot-symbole AWS.
@@ -48,9 +48,9 @@ const fr = {
   },
   hero: {
     eyebrow: "INVESTIR · CONSTRUIRE · INNOVER",
-    titre: "Nous transformons les opportunités en valeur.",
+    titre: "Technologie, finance et innovation au service de vos projets.",
     paragraphe:
-      "Alfred Winner Services réunit finance, immobilier et technologies numériques pour concevoir, développer et accompagner des projets créateurs de valeur en Côte d'Ivoire et au-delà.",
+      "Alfred Winner Services développe des solutions en Software, Intelligence Artificielle et technologies financières, tout en accompagnant des projets immobiliers et entrepreneuriaux.",
     ctaPrincipal: "Découvrir nos expertises",
     /* Le contact appartient au CTA de la navbar. Ici le role est de
        PROUVER, pas de convertir : on ne duplique plus la meme action. */
@@ -85,28 +85,28 @@ const fr = {
     eyebrow: "NOTRE APPROCHE",
     titre: "Trois univers. Une même ambition : créer de la valeur.",
     paragraphe:
-      "Alfred Winner Services réunit finance, immobilier et technologies numériques autour d'une même vision : identifier les opportunités, structurer des projets solides et développer des solutions capables de créer une valeur durable.",
+      "Alfred Winner Services place le software, l'intelligence artificielle et les technologies financières au coeur de son développement, avec une même vision : identifier les opportunités, structurer des projets solides et créer une valeur durable.",
     piliers: [
       {
         num: "01",
         cle: "INVESTIR",
         titre: "Identifier les opportunités",
         texte:
-          "Observer les marchés, comprendre les opportunités et mobiliser les outils financiers et numériques avec méthode.",
+          "Observer les marchés, comprendre les opportunités et mobiliser des outils software, data et financiers avec méthode.",
       },
       {
         num: "02",
         cle: "CONSTRUIRE",
         titre: "Transformer les projets en actifs",
         texte:
-          "Aborder l'immobilier et les projets avec une logique de développement, de structuration et de création de valeur.",
+          "Accompagner les projets immobiliers et entrepreneuriaux avec une logique de structuration, de coordination et de création de valeur.",
       },
       {
         num: "03",
         cle: "INNOVER",
         titre: "La technologie comme accélérateur",
         texte:
-          "Concevoir des sites, applications, logiciels, automatisations et solutions d'intelligence artificielle utiles aux entreprises et aux projets.",
+          "Concevoir des sites, applications, logiciels, automatisations, agents IA et solutions technologiques utiles aux entreprises et aux projets.",
       },
     ],
   },
@@ -170,8 +170,8 @@ const fr = {
     eyebrow: "QUI SOMMES-NOUS",
     titre: "La valeur ne repose jamais sur un seul levier.",
     paragraphes: [
-      "Alfred Winner Services est née d'une conviction simple : capital, actifs et technologie se renforcent mutuellement dès qu'on les travaille ensemble.",
-      "AWS réunit ainsi finance, immobilier et solutions numériques autour d'une même ambition : identifier les opportunités, structurer les projets et développer des solutions capables de créer une valeur durable.",
+      "Alfred Winner Services est une entreprise ivoirienne orientée technologie, finance et développement de projets.",
+      "AWS conçoit des solutions technologiques et accompagne des projets à forte valeur ajoutée dans les domaines du Software, de l'Intelligence Artificielle, des technologies financières et de l'immobilier.",
     ],
     imageAlt: "Professionnelle gérant une infrastructure de serveurs informatiques",
   },
@@ -189,9 +189,39 @@ const fr = {
     poles: [
       {
         num: "01",
+        hash: "software-ia",
+        cle: "INNOVER",
+        titre: "Software & IA",
+        texte:
+          "Sites web professionnels, applications web, logiciels sur mesure : AWS développe des solutions numériques, des automatisations, des agents IA et des outils digitaux adaptés aux besoins réels des entreprises et des projets.",
+        precision: null,
+        // Capacites reprises mot pour mot du cahier des charges (section
+        // "Software & IA suffisamment etablies") : aucune n'est inventee.
+        capacites: [
+          "Sites web professionnels",
+          "Applications web",
+          "Logiciels sur mesure",
+          "Automatisation",
+          "Agents IA",
+          "Intégration IA",
+        ],
+        // v5 : photo fournie directement par le fondateur, approuvee
+        // explicitement apres qu'un point d'attention ait ete signale
+        // (l'un des deux ecrans affiche une machine Kali Linux et une
+        // reference a l'outil HackTricks — sans rapport direct avec le
+        // texte de la section, qui parle de sites web/apps/logiciels/
+        // automatisation/IA, pas de tests d'intrusion). Alt text reste
+        // factuel, ne mentionne ni "hacking" ni "penetration testing"
+        // pour ne pas suggerer une activite qu'AWS n'exerce pas. Voir
+        // ASSETS_SOURCES.md.
+        image: "/images/expertises/software-ia-v5.jpg",
+        imageAlt: "Développeur travaillant sur deux ordinateurs portables, code affiché à l'écran",
+      },
+      {
+        num: "02",
         hash: "bourse-finance",
         cle: "INVESTIR",
-        titre: "Bourse & Finance",
+        titre: "Finance & technologies financières",
         // Reformule pour ne plus commencer par "AWS", ton oriente client
         // plutot que descriptif. La phrase ne dit plus ce que ces
         // activites NE SONT PAS a part (un paragraphe separe qui sonnait
@@ -205,52 +235,35 @@ const fr = {
         // paragraphe suffit"). Decision du proprietaire de l'entreprise
         // sur un risque qui lui appartient, pas un fait invente par nous.
         precision: null,
-        capacites: null,
+        capacites: [
+          "Outils d'analyse",
+          "Logiciels liés aux marchés financiers",
+          "Automatisation",
+          "Systèmes d'aide à la décision",
+          "Solutions financières digitales",
+        ],
         image: "/images/expertises/finance-v5.jpg",
         imageAlt: "Professionnel analysant des graphiques financiers sur un grand écran",
       },
       {
-        num: "02",
+        num: "03",
         hash: "immobilier",
         cle: "CONSTRUIRE",
-        titre: "Immobilier",
+        titre: "Immobilier & BTP",
         texte:
-          "Du repérage des opportunités foncières à la structuration des projets, jusqu'à leur développement — une approche immobilière pensée pour créer de la valeur durable.",
+          "AWS accompagne le développement de projets immobiliers, de l'identification d'opportunités à la coordination des différents intervenants nécessaires à leur réalisation.",
         precision: null,
-        capacites: null,
+        capacites: [
+          "Recherche d'opportunités",
+          "Achat, vente et location",
+          "Développement immobilier",
+          "Coordination de projets",
+          "Mise en relation adaptée",
+        ],
         // v6 : photo fournie directement par le fondateur (chantier reel,
         // grues + tours en construction). Voir ASSETS_SOURCES.md.
         image: "/images/expertises/immobilier-v6.jpg",
         imageAlt: "Professionnel du BTP casque en main face à un chantier avec grues",
-      },
-      {
-        num: "03",
-        hash: "software-ia",
-        cle: "INNOVER",
-        titre: "Software & IA",
-        texte:
-          "Sites web professionnels, applications, logiciels sur mesure : des solutions numériques et des outils d'automatisation et d'intelligence artificielle pensés pour répondre aux besoins réels des entreprises et des projets.",
-        precision: null,
-        // Capacites reprises mot pour mot du cahier des charges (section
-        // "Software & IA suffisamment etablies") : aucune n'est inventee.
-        capacites: [
-          "Sites web professionnels",
-          "Applications web",
-          "Logiciels sur mesure",
-          "Automatisation",
-          "Agents IA",
-        ],
-        // v5 : photo fournie directement par le fondateur, approuvee
-        // explicitement apres qu'un point d'attention ait ete signale
-        // (l'un des deux ecrans affiche une machine Kali Linux et une
-        // reference a l'outil HackTricks — sans rapport direct avec le
-        // texte de la section, qui parle de sites web/apps/logiciels/
-        // automatisation/IA, pas de tests d'intrusion). Alt text reste
-        // factuel, ne mentionne ni "hacking" ni "penetration testing"
-        // pour ne pas suggerer une activite qu'AWS n'exerce pas. Voir
-        // ASSETS_SOURCES.md.
-        image: "/images/expertises/software-ia-v5.jpg",
-        imageAlt: "Développeur travaillant sur deux ordinateurs portables, code affiché à l'écran",
       },
     ],
     // Distinct du CTA de la Navbar et du CTA final (meme phrase repetee
@@ -285,7 +298,7 @@ const fr = {
     eyebrow: "PROJETS & RÉALISATIONS",
     titre: "Des solutions conçues pour des usages concrets.",
     paragraphe:
-      "Six axes de projets et d'expérimentations conçus au sein de l'écosystème AWS, du tourisme digital à l'intelligence artificielle.",
+      "Six axes de projets et d'expérimentations conçus au sein de l'écosystème AWS, avec un accent fort sur le software, l'intelligence artificielle, l'automatisation et les technologies financières.",
     // NOMS PUBLICS DEPERSONNALISES (passe anterieure) : conserves — les
     // noms de marque reels (Baby Tourism, Alfred Fitness, Alfred AI
     // Trader...) donnes en exemple par le fondateur servent a IDENTIFIER
@@ -344,7 +357,7 @@ const fr = {
     eyebrow: "VISION",
     titre: "Ancrée en Côte d'Ivoire. Pensée pour grandir en Afrique et au-delà.",
     paragraphe:
-      "Depuis la Côte d'Ivoire, AWS développe des projets, des actifs et des solutions technologiques conçus pour créer durablement de la valeur. Le logiciel et l'intelligence artificielle y occupent une place croissante.",
+      "Depuis la Côte d'Ivoire, AWS développe des solutions software, IA et financières conçues pour créer durablement de la valeur, tout en accompagnant des projets immobiliers et entrepreneuriaux.",
   },
 
   /* Section 9 — Fondateur. Presentation institutionnelle sans photo. */
@@ -353,7 +366,7 @@ const fr = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Fondateur & CEO — Alfred Winner Services",
     paragraphes: [
-      "Ingénieur logiciel et entrepreneur, Krodi Krotchaman Alfred Donald développe Alfred Winner Services autour d’une vision réunissant technologie, finance et immobilier.",
+      "Ingénieur logiciel et entrepreneur, Krodi Krotchaman Alfred Donald développe Alfred Winner Services autour d'une vision réunissant software, intelligence artificielle, finance et immobilier.",
       "À travers AWS, il pilote des initiatives numériques et des projets orientés vers l’innovation, la création de valeur et le développement de solutions adaptées aux besoins des entreprises et des particuliers.",
     ],
   },
@@ -392,9 +405,9 @@ const fr = {
       entreprise: "Entreprise",
       service: "Service recherché",
       serviceOptions: [
-        "Finance & Technologie",
-        "Immobilier",
         "Software & IA",
+        "Finance & technologies financières",
+        "Immobilier & BTP",
         "Projet digital",
         "Projet transversal",
         "Autre",
@@ -515,9 +528,9 @@ const en: Dictionary = {
       contact: "Contact",
     },
     services: [
-      { num: "01", label: "Markets & Finance", hash: "bourse-finance" },
-      { num: "02", label: "Real Estate", hash: "immobilier" },
-      { num: "03", label: "Software & AI", hash: "software-ia" },
+      { num: "01", label: "Software & AI", hash: "software-ia" },
+      { num: "02", label: "Markets & Finance", hash: "bourse-finance" },
+      { num: "03", label: "Real Estate & Construction", hash: "immobilier" },
     ],
     cta: "Let's discuss your project",
     signature: "INVEST · BUILD · INNOVATE",
@@ -533,9 +546,9 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: "INVEST · BUILD · INNOVATE",
-    titre: "We turn opportunities into value.",
+    titre: "Technology, finance and innovation for your projects.",
     paragraphe:
-      "Alfred Winner Services brings together finance, real estate and digital technologies to design, develop and support value-creating projects in Côte d'Ivoire and beyond.",
+      "Alfred Winner Services develops solutions in software, artificial intelligence and financial technologies, while supporting real estate and entrepreneurial projects.",
     ctaPrincipal: "Explore our expertise",
     ctaSecondaire: "View our projects",
     slides: [
@@ -566,28 +579,28 @@ const en: Dictionary = {
     eyebrow: "OUR APPROACH",
     titre: "Three fields. One ambition: creating value.",
     paragraphe:
-      "Alfred Winner Services brings together finance, real estate and digital technologies around a single vision: identifying opportunities, structuring sound projects and developing solutions that create lasting value.",
+      "Alfred Winner Services places software, artificial intelligence and financial technologies at the core of its development, with one vision: identifying opportunities, structuring sound projects and creating lasting value.",
     piliers: [
       {
         num: "01",
         cle: "INVEST",
         titre: "Identifying opportunities",
         texte:
-          "Reading the markets, understanding where the opportunities lie, and applying financial and digital tools with method.",
+          "Reading markets, understanding opportunities and applying software, data and financial tools with method.",
       },
       {
         num: "02",
         cle: "BUILD",
         titre: "Turning projects into assets",
         texte:
-          "Approaching real estate and projects with a logic of development, structuring and value creation.",
+          "Supporting real estate and entrepreneurial projects through structuring, coordination and value creation.",
       },
       {
         num: "03",
         cle: "INNOVATE",
         titre: "Technology as an accelerator",
         texte:
-          "Designing websites, applications, software, automation and artificial intelligence solutions that serve businesses and projects.",
+          "Designing websites, applications, software, automation, AI agents and technology solutions that serve businesses and projects.",
       },
     ],
   },
@@ -631,8 +644,8 @@ const en: Dictionary = {
     eyebrow: "ABOUT US",
     titre: "Value is never built on a single lever.",
     paragraphes: [
-      "Alfred Winner Services was founded on a simple conviction: capital, assets and technology reinforce one another when brought together.",
-      "AWS brings together finance, real estate and digital solutions around one ambition: identifying opportunities, structuring projects and building solutions capable of creating lasting value.",
+      "Alfred Winner Services is an Ivorian company focused on technology, finance and project development.",
+      "AWS designs technology solutions and supports high-value projects across software, artificial intelligence, financial technologies and real estate.",
     ],
     imageAlt: "Professional managing a server infrastructure rack",
   },
@@ -643,35 +656,11 @@ const en: Dictionary = {
     poles: [
       {
         num: "01",
-        hash: "bourse-finance",
-        cle: "INVEST",
-        titre: "Markets & Finance",
-        texte:
-          "Technology built to make sense of financial markets and digital assets with clarity — from data analysis to visualisation, designed to inform decisions rather than dictate them.",
-        precision: null,
-        capacites: null,
-        image: "/images/expertises/finance-v5.jpg",
-        imageAlt: "Professional analysing financial charts on a large screen",
-      },
-      {
-        num: "02",
-        hash: "immobilier",
-        cle: "BUILD",
-        titre: "Real Estate",
-        texte:
-          "From spotting land opportunities to structuring and developing real estate projects — an approach built to create lasting value.",
-        precision: null,
-        capacites: null,
-        image: "/images/expertises/immobilier-v6.jpg",
-        imageAlt: "Construction professional holding a helmet, facing a site with cranes",
-      },
-      {
-        num: "03",
         hash: "software-ia",
         cle: "INNOVATE",
         titre: "Software & AI",
         texte:
-          "Professional websites, web applications and custom software, with automation and AI tools designed around the needs of businesses and projects.",
+          "Professional websites, web applications and custom software: AWS develops digital solutions, automation, AI agents and business tools adapted to the real needs of companies and projects.",
         precision: null,
         capacites: [
           "Professional websites",
@@ -679,9 +668,46 @@ const en: Dictionary = {
           "Custom software",
           "Automation",
           "AI agents",
+          "AI integration",
         ],
         image: "/images/expertises/software-ia-v5.jpg",
         imageAlt: "Developer working on two laptops, code displayed on screen",
+      },
+      {
+        num: "02",
+        hash: "bourse-finance",
+        cle: "INVEST",
+        titre: "Finance & financial technologies",
+        texte:
+          "Technology built to make sense of financial markets and digital assets with clarity — from data analysis to visualisation, designed to inform decisions rather than dictate them.",
+        precision: null,
+        capacites: [
+          "Analysis tools",
+          "Software linked to financial markets",
+          "Automation",
+          "Decision-support systems",
+          "Digital financial solutions",
+        ],
+        image: "/images/expertises/finance-v5.jpg",
+        imageAlt: "Professional analysing financial charts on a large screen",
+      },
+      {
+        num: "03",
+        hash: "immobilier",
+        cle: "BUILD",
+        titre: "Real Estate & Construction",
+        texte:
+          "AWS supports real estate project development, from identifying opportunities to coordinating the different contributors required to make them happen.",
+        precision: null,
+        capacites: [
+          "Opportunity search",
+          "Purchase, sale and rental support",
+          "Real estate development",
+          "Project coordination",
+          "Relevant professional connections",
+        ],
+        image: "/images/expertises/immobilier-v6.jpg",
+        imageAlt: "Construction professional holding a helmet, facing a site with cranes",
       },
     ],
     ctaPole: "Discuss this service",
@@ -691,7 +717,7 @@ const en: Dictionary = {
     eyebrow: "PROJECTS & DELIVERABLES",
     titre: "Solutions designed for real-world use.",
     paragraphe:
-      "Six axes of projects and experiments built within the AWS ecosystem, from digital tourism to artificial intelligence.",
+      "Six axes of projects and experiments built within the AWS ecosystem, with a strong focus on software, artificial intelligence, automation and financial technologies.",
     liste: [
       {
         id: "baby-tourism",
@@ -742,7 +768,7 @@ const en: Dictionary = {
     eyebrow: "VISION",
     titre: "Rooted in Côte d'Ivoire. Built to grow across Africa and beyond.",
     paragraphe:
-      "From Côte d'Ivoire, AWS develops projects, assets and technology solutions designed to create lasting value. Software and artificial intelligence play a growing role within it.",
+      "From Côte d'Ivoire, AWS develops software, AI and financial solutions designed to create lasting value, while supporting real estate and entrepreneurial projects.",
   },
 
   fondateur: {
@@ -750,7 +776,7 @@ const en: Dictionary = {
     nom: "Krodi Krotchaman Alfred Donald",
     titre: "Founder & CEO — Alfred Winner Services",
     paragraphes: [
-      "A software engineer and entrepreneur, Krodi Krotchaman Alfred Donald is developing Alfred Winner Services around a vision that brings together technology, finance and real estate.",
+      "A software engineer and entrepreneur, Krodi Krotchaman Alfred Donald is developing Alfred Winner Services around a vision that brings together software, artificial intelligence, finance and real estate.",
       "Through AWS, he leads digital initiatives and projects focused on innovation, value creation and the development of solutions tailored to the needs of businesses and individuals.",
     ],
   },
@@ -781,9 +807,9 @@ const en: Dictionary = {
       entreprise: "Company",
       service: "Service of interest",
       serviceOptions: [
-        "Finance & Technology",
-        "Real Estate",
         "Software & AI",
+        "Finance & financial technologies",
+        "Real Estate & Construction",
         "Digital project",
         "Cross-business project",
         "Other",
