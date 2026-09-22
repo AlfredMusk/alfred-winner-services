@@ -66,9 +66,9 @@ const fr = {
       {
         num: "02",
         label: "Technologie & Software",
-        src: "/images/hero/software-ai.jpg",
-        alt: "Illustration d'intelligence artificielle et d'analyse de données",
-        position: "50% 50%",
+        src: "/images/hero/software-lab.jpg",
+        alt: "Prototype robotique et écrans de code dans un environnement logiciel",
+        position: "50% 35%",
       },
     ],
     a11y: {
@@ -562,9 +562,9 @@ const en: Dictionary = {
       {
         num: "02",
         label: "Technology & Software",
-        src: "/images/hero/software-ai.jpg",
-        alt: "Artificial intelligence and data analysis illustration",
-        position: "50% 50%",
+        src: "/images/hero/software-lab.jpg",
+        alt: "Robotics prototype and code screens in a software environment",
+        position: "50% 35%",
       },
     ],
     a11y: {
