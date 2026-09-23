@@ -1,6 +1,6 @@
 # Audit Facebook — Alfred Winner Services
 
-Dernière vérification : 22 septembre 2026.
+Dernière vérification : 23 septembre 2026.
 
 ## État d’accès
 
@@ -18,6 +18,41 @@ La session Facebook est connectée avec un accès de gestion à la Page. Trois i
 | Horaires | Lundi à samedi : 08:00–22:00 ; dimanche : fermé |
 | Site | `https://www.alfredwinnerservices.com` |
 | Nom | Demande préparée pour `Alfred Winner Services`, à soumettre par le propriétaire |
+
+## Audit final — 23 septembre 2026
+
+Comparaison de la Page (vue publique et vue gestion) avec le site : `dictionaries.ts`, `lib/contact.ts`, `lib/seo.ts`.
+
+### Conforme au site
+
+| Champ | Constat |
+| --- | --- |
+| Adresse | Identique au site |
+| E-mail | `contact@alfredwinnerservices.com`, identique |
+| Téléphone | Stocké avec l'indicatif (`+225 0748191100`). La vue publique l'affiche sans +225 : artefact d'affichage Facebook, pas une erreur de saisie |
+| Site web | `alfredwinnerservices.com`, identique |
+| Horaires | Lun–sam 08:00–22:00, dimanche vide, identique à `lib/seo.ts` |
+| Catégorie | Entreprise de logiciels |
+| Spécialités | Software & IA · Finance / technologies financières · Immobilier & BTP |
+| Photo de profil | Logo AWS |
+| Bio | « Software & IA • Finance • Immobilier & BTP » : cohérente avec les trois univers du site |
+
+### Modifié pendant cet audit
+
+- Zone de service : `Abidjan, Côte d'Ivoire` ajoutée, conforme à `areaServed` de `lib/seo.ts`.
+
+### Écarts restants (action du propriétaire ou validation requise)
+
+1. **Nom en minuscules** (`Alfred winner services`) : la modification exige le mot de passe du propriétaire dans le formulaire Facebook.
+2. **« Conseil »** : cité dans le post « À la une » et dans la description proposée ci-dessous, mais absent du site. Soit ajouter l'activité au site, soit retirer le mot du post et de la description. Décision du propriétaire.
+3. **Couverture** : photo d'une personne devant des écrans de trading, différente du brief ci-dessous. Confirmer les droits sur la photo ou la remplacer.
+4. **Date de fondation, gamme de prix** : vides. Non renseignées, aucune information confirmée.
+5. **Nom d'utilisateur** (`@alfredwinnerservices`), CTA (WhatsApp de préférence), message d'accueil Messenger, rôles administrateur, liaisons Instagram/WhatsApp : non vérifiés.
+6. **1 follower, 0 avis** : rien à corriger, aucune preuve sociale à afficher.
+
+### Meta Verified
+
+Abonnement payant, à souscrire par le propriétaire (paiement et pièce d'identité). Il ne peut pas être fait par l'assistant. La vérification s'applique en général à un profil personnel ou à une Page selon l'offre ; le nom sur la pièce d'identité et le nom de la Page/du profil doivent correspondre. Corriger d'abord la capitalisation du nom.
 
 ## Données de référence à appliquer après connexion
 

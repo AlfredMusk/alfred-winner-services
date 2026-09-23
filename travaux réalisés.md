@@ -3377,3 +3377,12 @@ DONE:
 - Production Netlify volontairement non touchée (deploys geles,
   credits epuises). Reset attendu : 17/10/2026. Au reset : un seul
   deploy production avec le dernier commit.
+
+### AUDIT FINAL PAGE FACEBOOK — 2026-09-23
+
+- Page comparee au site (dictionaries.ts, contact.ts, seo.ts). Vue publique + vue gestion (bascule sur la Page). Rien envoye ni publie.
+- Conforme : adresse, email, site, telephone (+225 stocke ; vue publique l'affiche sans indicatif = artefact Facebook), horaires lun-sam 08:00-22:00, categorie, specialites, logo, bio.
+- Modifie : zone de service = Abidjan, Cote d'Ivoire (source areaServed seo.ts). Enregistre, coche verte.
+- Reste proprietaire : nom en minuscules (mot de passe exige) ; « Conseil » cite dans post/description mais absent du site ; couverture = photo personne, droits a confirmer ; date fondation/gamme de prix vides ; username, CTA, Messenger, roles non verifies.
+- Meta Verified : paiement + piece d'identite, a faire par le proprietaire. Non tente.
+- docs/facebook-audit.md mis a jour. Aucun identifiant note. ALFRED AI TRADER jamais touche.
