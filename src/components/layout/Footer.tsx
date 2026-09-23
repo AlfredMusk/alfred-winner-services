@@ -6,7 +6,7 @@ import type {
   WhatsappDictionary,
 } from "@/i18n/dictionaries";
 import Image from "next/image";
-import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp } from "@/components/ui/icones";
+import { IconeLieu, IconeTelephone, IconeEmail, IconeWhatsapp, IconeVerifie } from "@/components/ui/icones";
 
 /* Server Component pur : aucune interaction, donc aucune raison d'envoyer
    du JavaScript au client pour un footer.
@@ -152,14 +152,20 @@ export default function Footer({
                 <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white">
                   {IconeWhatsapp}
                 </span>
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pt-1.5 text-[0.9375rem] font-medium text-white/85 transition-colors hover:text-white"
-                >
-                  WhatsApp
-                </a>
+                <div>
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block pt-1.5 text-[0.9375rem] font-medium text-white/85 transition-colors hover:text-white"
+                  >
+                    WhatsApp
+                  </a>
+                  <span className="flex items-center gap-1 text-[0.8125rem] text-white/70">
+                    {IconeVerifie}
+                    {whatsapp.verifieLabel}
+                  </span>
+                </div>
               </li>
             </ul>
           </div>

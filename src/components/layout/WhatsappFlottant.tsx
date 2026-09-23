@@ -88,7 +88,8 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={dict.ariaLabel}
+      aria-label={`${dict.ariaLabel} — ${dict.verifieLabel}`}
+      title={dict.verifieLabel}
       className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-whatsapp text-white shadow-[0_8px_24px_rgba(18,140,126,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-whatsapp-fonce hover:shadow-[0_12px_28px_rgba(18,140,126,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp-fonce motion-reduce:transition-none motion-reduce:hover:translate-y-0 desk:w-auto desk:pl-5 desk:pr-4"
       style={{
         bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))",

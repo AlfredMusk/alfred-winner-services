@@ -3386,3 +3386,12 @@ DONE:
 - Reste proprietaire : nom en minuscules (mot de passe exige) ; « Conseil » cite dans post/description mais absent du site ; couverture = photo personne, droits a confirmer ; date fondation/gamme de prix vides ; username, CTA, Messenger, roles non verifies.
 - Meta Verified : paiement + piece d'identite, a faire par le proprietaire. Non tente.
 - docs/facebook-audit.md mis a jour. Aucun identifiant note. ALFRED AI TRADER jamais touche.
+
+### MENTION META VERIFIED — WHATSAPP — 2026-09-23
+
+- Info confirmee par Alfred : compte WhatsApp Business verifie par Meta sur le numero du site (+225 07 48 19 11 00). Source de la verite = declaration Alfred ; non verifiable depuis le code.
+- dictionaries.ts : whatsapp.verifieLabel FR « Compte vérifié par Meta » / EN « Meta verified business account ». icones.tsx : IconeVerifie (coche generique, PAS le badge/logo Meta : charte Meta).
+- Footer.tsx : mention sous le lien WhatsApp (lien + mention dans un div, lien en block). WhatsappFlottant.tsx : aria-label + title etendus. Aucun changement visuel du bouton flottant.
+- Verifie : mobile ~400px footer OK, pas d'overflow ; FR/EN rendus (curl) ; typecheck PASS ; lint PASS ; git diff --check PASS. Pas de build, pas de test tablette/desktop 1440 de cette mention.
+- Note : erreurs console « eval() not supported » = limite du navigateur integre en mode dev React, pas liee a ce changement.
+- Aucun commit fichiers hors scope (huit JPG racine non suivis preserves). ALFRED AI TRADER jamais touche.

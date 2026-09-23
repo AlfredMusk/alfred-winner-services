@@ -435,6 +435,9 @@ const fr = {
   whatsapp: {
     ariaLabel: "Contacter Alfred Winner Services sur WhatsApp",
     aideLabel: "Besoin d'aide ?",
+    /* Compte WhatsApp Business verifie par Meta : information confirmee par
+       Alfred (numero du site). Texte seul, sans logo ni badge Meta. */
+    verifieLabel: "Compte vérifié par Meta",
     href: whatsappBase,
     message:
       "Bonjour Alfred Winner Services, je souhaite discuter d'un projet.",
@@ -830,6 +833,7 @@ const en: Dictionary = {
   whatsapp: {
     ariaLabel: "Contact Alfred Winner Services on WhatsApp",
     aideLabel: "Need help?",
+    verifieLabel: "Meta verified business account",
     href: whatsappBase,
     message: "Hello Alfred Winner Services, I'd like to discuss a project.",
   },
