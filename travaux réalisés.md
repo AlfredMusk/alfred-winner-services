@@ -3403,3 +3403,9 @@ DONE:
 - docs/google-maps-audit.md : audit, description 3 phrases sans chiffre, services, reponse a l'avis, actions d'Alfred. GOOGLE_BUSINESS_PROFILE_SETUP.md : note de mise a jour.
 - Lien Maps footer NON ajoute : regle Footer.tsx (aucune fiche officielle confirmee = aucun lien). A faire apres confirmation de propriete. Photos de services = illustrations.
 - Reste proprietaire : connexion Google Business Profile, upload photos, nom Facebook (mot de passe), Meta Verified pour la Page, decision « Conseil ». Aucun identifiant note. ALFRED AI TRADER jamais touche.
+
+### FACEBOOK — NOM DE PAGE CORRIGE — 2026-09-24
+
+- Formulaire prepare par l'assistant (Parametres de la Page > Nom), confirmation par Alfred lui-meme (mot de passe : jamais vu ni saisi par l'assistant). Verifie apres : Configuration de la Page affiche « Alfred Winner Services ».
+- Facebook : nom non modifiable pendant 60 jours. Etape suivante possible : ajouter la Page a l'abonnement Meta Verified (chemin officiel WhatsApp > Gerer les abonnements), par Alfred sur son telephone. Aucun paiement lance. Pas de mention « Facebook verifie » sur le site tant que la coche n'apparait pas.
+- docs/facebook-audit.md mis a jour. ALFRED AI TRADER jamais touche.

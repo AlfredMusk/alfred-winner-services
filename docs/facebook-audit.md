@@ -1,6 +1,6 @@
 # Audit Facebook — Alfred Winner Services
 
-Dernière vérification : 23 septembre 2026.
+Dernière vérification : 24 septembre 2026.
 
 ## État d’accès
 
@@ -43,7 +43,7 @@ Comparaison de la Page (vue publique et vue gestion) avec le site : `dictionarie
 
 ### Écarts restants (action du propriétaire ou validation requise)
 
-1. **Nom en minuscules** (`Alfred winner services`) : la modification exige le mot de passe du propriétaire dans le formulaire Facebook.
+1. ~~Nom en minuscules~~ **Corrigé le 24 septembre 2026** : la Page s'appelle `Alfred Winner Services` (demande confirmée par le propriétaire avec son mot de passe ; Facebook indique que le nom ne peut pas être rechangé pendant 60 jours).
 2. **« Conseil »** : cité dans le post « À la une » et dans la description proposée ci-dessous, mais absent du site. Soit ajouter l'activité au site, soit retirer le mot du post et de la description. Décision du propriétaire.
 3. **Couverture** : photo d'une personne devant des écrans de trading, différente du brief ci-dessous. Confirmer les droits sur la photo ou la remplacer. Une couverture assortie (1640 × 624) est prête : `docs/google-maps-assets/facebook-couverture-1640x624.jpg`. À téléverser par le propriétaire.
 4. **Date de fondation, gamme de prix** : vides. Non renseignées, aucune information confirmée.
