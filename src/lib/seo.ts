@@ -22,6 +22,9 @@ function validateSiteUrl(value: string): string {
   return url.origin;
 }
 
+// Official Facebook Page (Page id URL, resolves publicly). Confirmed by Alfred.
+const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61594623654401";
+
 // NODE_ENV alone is insufficient: preview builds also use production mode.
 export const isIndexable = Boolean(
   siteUrl &&
@@ -121,7 +124,10 @@ export function organizationSchema() {
       url: siteUrl,
       logo: `${siteUrl}${business.logoPath}`,
     } : {}),
-    // The corporate canonical URLs of social profiles are not confirmed, so
-    // `sameAs` remains intentionally absent. Both languages emit this same @id.
+    // Only the official Facebook Page is listed: its name matches the legal
+    // brand since 2026-09-24 and its URL is the Page id URL. LinkedIn (a
+    // personal founder profile) and Google Maps (ownership not confirmed)
+    // stay out until confirmed. Both languages emit this same @id.
+    sameAs: [FACEBOOK_PAGE_URL],
   };
 }

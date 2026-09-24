@@ -3409,3 +3409,11 @@ DONE:
 - Formulaire prepare par l'assistant (Parametres de la Page > Nom), confirmation par Alfred lui-meme (mot de passe : jamais vu ni saisi par l'assistant). Verifie apres : Configuration de la Page affiche « Alfred Winner Services ».
 - Facebook : nom non modifiable pendant 60 jours. Etape suivante possible : ajouter la Page a l'abonnement Meta Verified (chemin officiel WhatsApp > Gerer les abonnements), par Alfred sur son telephone. Aucun paiement lance. Pas de mention « Facebook verifie » sur le site tant que la coche n'apparait pas.
 - docs/facebook-audit.md mis a jour. ALFRED AI TRADER jamais touche.
+
+### EXPANSION — AUDIT EXISTANT — 2026-09-24
+
+- Audit lecture seule : code, journal, production www.alfredwinnerservices.com (200 FR/EN/legal, 404 propres, HTTPS, CSP/HSTS OK, sitemap+robots OK, canonical+hreflang+OG OK). Rapport complet : docs/expansion-audit.md.
+- Site = one-page + 2 pages legales. Manque : pages par activite, pole BTP, devis enrichi (budget/delai/WhatsApp), message WhatsApp par service, FAQ, temoignages, lien Maps (propriete non confirmee).
+- Fait : sameAs Facebook (https://www.facebook.com/profile.php?id=61594623654401) dans JSON-LD, src/lib/seo.ts. Verifie dev :3100, typecheck/lint/diff PASS. Aucun changement visuel.
+- Risques : deploys Netlify geles jusqu'au 17/10 (prod sans derniers commits) ; main ahead 4 sur GitHub, non pousse ; rien invente.
+- Prochaine etape a valider par Alfred : pages par activite (Software & IA d'abord). Meta Verified : ne plus toucher. ALFRED AI TRADER jamais touche.
