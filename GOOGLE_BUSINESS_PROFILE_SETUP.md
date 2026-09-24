@@ -9,6 +9,11 @@
 > Toute information manquante reste **PENDING ALFRED**. Les données et le statut
 > établissement/zone desservie seront reconfirmés à la reprise.
 
+> **MISE À JOUR 24 septembre 2026 :** une fiche « Alfred Winner Services » existe
+> désormais sur Maps (constat public). Propriété non confirmée. Voir
+> [docs/google-maps-audit.md](docs/google-maps-audit.md). Les mentions
+> « aucune fiche » ci-dessous datent du 16 septembre.
+
 État au 16 septembre 2026 : documentation préparée ; aucune fiche créée,
 revendiquée ou validée par Codex. Aucune connexion au compte Google effectuée.
 La confirmation d'Alfred dans cette conversation porte sur un établissement

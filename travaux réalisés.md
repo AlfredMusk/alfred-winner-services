@@ -3395,3 +3395,11 @@ DONE:
 - Verifie : mobile ~400px footer OK, pas d'overflow ; FR/EN rendus (curl) ; typecheck PASS ; lint PASS ; git diff --check PASS. Pas de build, pas de test tablette/desktop 1440 de cette mention.
 - Note : erreurs console « eval() not supported » = limite du navigateur integre en mode dev React, pas liee a ce changement.
 - Aucun commit fichiers hors scope (huit JPG racine non suivis preserves). ALFRED AI TRADER jamais touche.
+
+### GOOGLE MAPS + KIT VISUEL — 2026-09-24
+
+- Fiche Maps « Alfred Winner Services » trouvee (vue publique, sans login) : Software company, adresse « Nouveau CHU, Angre, Abidjan », tel 07 48 19 1100, site OK, horaires lun-sam 8h-22h = site, 0 photo, 0 description, 1 avis (auteur eze). Propriete NON confirmee.
+- Kit cree dans docs/google-maps-assets/ : logo carre 720, couverture Maps 1024x576 (option B typographique, blanche, epuree ; option A avec photo ecartee : ecran Kali/HackTricks visible), 3 photos services 1200x900, couverture Facebook 1640x624. Fond du logo blanchi (rectangle gris parasite).
+- docs/google-maps-audit.md : audit, description 3 phrases sans chiffre, services, reponse a l'avis, actions d'Alfred. GOOGLE_BUSINESS_PROFILE_SETUP.md : note de mise a jour.
+- Lien Maps footer NON ajoute : regle Footer.tsx (aucune fiche officielle confirmee = aucun lien). A faire apres confirmation de propriete. Photos de services = illustrations.
+- Reste proprietaire : connexion Google Business Profile, upload photos, nom Facebook (mot de passe), Meta Verified pour la Page, decision « Conseil ». Aucun identifiant note. ALFRED AI TRADER jamais touche.

@@ -45,14 +45,14 @@ Comparaison de la Page (vue publique et vue gestion) avec le site : `dictionarie
 
 1. **Nom en minuscules** (`Alfred winner services`) : la modification exige le mot de passe du propriétaire dans le formulaire Facebook.
 2. **« Conseil »** : cité dans le post « À la une » et dans la description proposée ci-dessous, mais absent du site. Soit ajouter l'activité au site, soit retirer le mot du post et de la description. Décision du propriétaire.
-3. **Couverture** : photo d'une personne devant des écrans de trading, différente du brief ci-dessous. Confirmer les droits sur la photo ou la remplacer.
+3. **Couverture** : photo d'une personne devant des écrans de trading, différente du brief ci-dessous. Confirmer les droits sur la photo ou la remplacer. Une couverture assortie (1640 × 624) est prête : `docs/google-maps-assets/facebook-couverture-1640x624.jpg`. À téléverser par le propriétaire.
 4. **Date de fondation, gamme de prix** : vides. Non renseignées, aucune information confirmée.
 5. **Nom d'utilisateur** (`@alfredwinnerservices`), CTA (WhatsApp de préférence), message d'accueil Messenger, rôles administrateur, liaisons Instagram/WhatsApp : non vérifiés.
 6. **1 follower, 0 avis** : rien à corriger, aucune preuve sociale à afficher.
 
 ### Meta Verified
 
-Abonnement payant, à souscrire par le propriétaire (paiement et pièce d'identité). Il ne peut pas être fait par l'assistant. La vérification s'applique en général à un profil personnel ou à une Page selon l'offre ; le nom sur la pièce d'identité et le nom de la Page/du profil doivent correspondre. Corriger d'abord la capitalisation du nom.
+La vérification WhatsApp Business ne s'étend pas à la Page Facebook (chaque actif est vérifié séparément). Aucune option Meta Verified visible dans Meta Business Suite pour la Page (24 septembre 2026). Abonnement payant, à souscrire par le propriétaire (paiement et pièce d'identité). Il ne peut pas être fait par l'assistant. La vérification s'applique en général à un profil personnel ou à une Page selon l'offre ; le nom sur la pièce d'identité et le nom de la Page/du profil doivent correspondre. Corriger d'abord la capitalisation du nom.
 
 ## Données de référence à appliquer après connexion
 
