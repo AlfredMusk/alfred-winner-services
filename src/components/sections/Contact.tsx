@@ -11,6 +11,8 @@ type Champs = {
   telephone: string;
   entreprise: string;
   service: string;
+  budget: string;
+  delai: string;
   typeProjet: string;
   description: string;
 };
@@ -23,6 +25,8 @@ const CHAMPS_VIDES: Champs = {
   telephone: "",
   entreprise: "",
   service: "",
+  budget: "",
+  delai: "",
   typeProjet: "",
   description: "",
 };
@@ -278,6 +282,30 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
                     {erreurs.service}
                   </p>
                 )}
+              </div>
+
+              {/* Budget et delai : facultatifs, jamais bloquants. Valeur vide =
+                  "Non precise" (option placeholder), donc rien n'est envoye
+                  par defaut et la validation ne les exige pas. */}
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor={idPour("budget")} className={labelBase}>{f.budget}</label>
+                  <select {...champProps("budget")}>
+                    <option value="">{f.budgetPlaceholder}</option>
+                    {f.budgetOptions.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor={idPour("delai")} className={labelBase}>{f.delai}</label>
+                  <select {...champProps("delai")}>
+                    <option value="">{f.delaiPlaceholder}</option>
+                    {f.delaiOptions.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div>

@@ -16,7 +16,7 @@ Base : code du dépôt + site en production `https://www.alfredwinnerservices.co
 
 - Pages détaillées par activité (Software & IA, Finance, Immobilier, BTP) : n'existent pas, tout tient dans la home.
 - BTP : pas de pôle propre (capacités BTP absentes, seulement Immobilier).
-- Demande de devis : pas de budget, délai, WhatsApp dans le formulaire.
+- Demande de devis : budget et délai ajoutés (facultatifs) ; WhatsApp = champ « Téléphone / WhatsApp » déjà présent.
 - WhatsApp : message unique, pas de message par service.
 - FAQ, témoignages, portfolio détaillé (les 6 axes sont des expérimentations, aucun client cité).
 - Lien vers Google Maps / fiche Business (propriété non confirmée).
@@ -27,7 +27,6 @@ Base : code du dépôt + site en production `https://www.alfredwinnerservices.co
 - Un seul CTA de conversion lourd (formulaire) ; ajouter parcours WhatsApp par service.
 - SEO : une seule page indexable par langue ; les mots-clés ciblés (Abidjan, Côte d'Ivoire, IA, BTP) n'ont pas de page dédiée.
 - Limite de débit en mémoire (inefficace en serverless) : envisager une règle WAF/hébergeur.
-- Commentaire obsolète dans `route.ts` (« Vercel » alors que l'hébergement est Netlify).
 - Photos de services = illustrations : à remplacer par de vraies photos.
 
 ## 4. Cinq prochaines actions
@@ -41,6 +40,9 @@ Base : code du dépôt + site en production `https://www.alfredwinnerservices.co
 ## 5. Fait immédiatement
 
 - `sameAs` Facebook dans le JSON-LD (`src/lib/seo.ts`), sans effet visuel.
+- **Bug corrigé (présent en production)** : la liste blanche de services de `/api/contact` était écrite à la main et rejetait « Immobilier & BTP » et « Finance & technologies financières » (et EN). Elle est maintenant dérivée des dictionnaires FR/EN (`route.ts`). Testé : tous les services passent la validation, valeurs inconnues rejetées.
+- Devis : budget et délai ajoutés en champs **facultatifs** (tranches à valider par Alfred), FR/EN, validés côté serveur, inclus dans l'e-mail reçu.
+- Commentaire obsolète « Vercel » remplacé par « Netlify ».
 
 ## 6. Risques
 

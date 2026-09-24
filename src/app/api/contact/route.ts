@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { createHash } from "node:crypto";
+import { getDictionary, locales } from "@/i18n/dictionaries";
 
 export const runtime = "nodejs";
 
 const DESTINATAIRE = "krodi2001@gmail.com";
 // Limite complementaire par instance, non distribuee : configurer aussi
-// une regle WAF sur Vercel. Aucun email ni contenu de projet conserve ici.
+// une regle de limitation cote hebergeur (Netlify). Aucun email ni contenu de projet conserve ici.
 const tentatives = new Map<string, { nombre: number; expiration: number }>();
 function limiter(email: string): boolean {
   const maintenant = Date.now();
@@ -23,22 +24,15 @@ function limiter(email: string): boolean {
   return true;
 }
 
-const SERVICES_AUTORISES = new Set([
-  // FR
-  "Finance & Technologie",
-  "Immobilier",
-  "Software & IA",
-  "Projet digital",
-  "Projet transversal",
-  "Autre",
-  // EN
-  "Finance & Technology",
-  "Real Estate",
-  "Software & AI",
-  "Digital project",
-  "Cross-business project",
-  "Other",
-]);
+// Listes blanches DERIVEES des dictionnaires FR/EN : une seule source de
+// verite. L'ancienne liste ecrite a la main avait diverge des options
+// affichees (« Immobilier & BTP », « Finance & technologies financieres »
+// etaient rejetees par le serveur). Ne jamais la reecrire en dur.
+const optionsDe = (cle: "serviceOptions" | "budgetOptions" | "delaiOptions") =>
+  new Set(locales.flatMap((l) => getDictionary(l).contact.formulaire[cle]));
+const SERVICES_AUTORISES = optionsDe("serviceOptions");
+const BUDGETS_AUTORISES = optionsDe("budgetOptions");
+const DELAIS_AUTORISES = optionsDe("delaiOptions");
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -50,6 +44,8 @@ const LIMITES = {
   telephone: 40,
   entreprise: 200,
   service: 60,
+  budget: 80,
+  delai: 80,
   typeProjet: 200,
   description: 5000,
 } as const;
@@ -60,6 +56,8 @@ type Corps = {
   telephone?: unknown;
   entreprise?: unknown;
   service?: unknown;
+  budget?: unknown;
+  delai?: unknown;
   typeProjet?: unknown;
   description?: unknown;
   site?: unknown; // honeypot
@@ -116,6 +114,8 @@ export async function POST(requete: Request) {
     telephone: texte(corps.telephone, LIMITES.telephone),
     entreprise: texte(corps.entreprise, LIMITES.entreprise),
     service: texte(corps.service, LIMITES.service),
+    budget: texte(corps.budget, LIMITES.budget),
+    delai: texte(corps.delai, LIMITES.delai),
     typeProjet: texte(corps.typeProjet, LIMITES.typeProjet),
     description: texte(corps.description, LIMITES.description),
   };
@@ -131,6 +131,10 @@ export async function POST(requete: Request) {
   if (!donnees.nom) erreurs.nom = true;
   if (!donnees.email || !EMAIL_RE.test(donnees.email) || /[\r\n]/.test(donnees.email)) erreurs.email = true;
   if (!donnees.service || !SERVICES_AUTORISES.has(donnees.service)) erreurs.service = true;
+  // Budget et delai : facultatifs, mais s'ils sont fournis ils doivent
+  // correspondre a une option proposee.
+  if (donnees.budget && !BUDGETS_AUTORISES.has(donnees.budget)) erreurs.budget = true;
+  if (donnees.delai && !DELAIS_AUTORISES.has(donnees.delai)) erreurs.delai = true;
   if (!donnees.description) erreurs.description = true;
 
   if (Object.keys(erreurs).length > 0) {
@@ -161,6 +165,8 @@ export async function POST(requete: Request) {
         `Téléphone / WhatsApp : ${donnees.telephone || "—"}`,
         `Entreprise : ${donnees.entreprise || "—"}`,
         `Service recherché : ${donnees.service}`,
+        `Budget approximatif : ${donnees.budget || "—"}`,
+        `Délai souhaité : ${donnees.delai || "—"}`,
         `Type de projet : ${donnees.typeProjet || "—"}`,
         "", "Description du projet :", donnees.description,
       ].join("\n"),

@@ -3417,3 +3417,13 @@ DONE:
 - Fait : sameAs Facebook (https://www.facebook.com/profile.php?id=61594623654401) dans JSON-LD, src/lib/seo.ts. Verifie dev :3100, typecheck/lint/diff PASS. Aucun changement visuel.
 - Risques : deploys Netlify geles jusqu'au 17/10 (prod sans derniers commits) ; main ahead 4 sur GitHub, non pousse ; rien invente.
 - Prochaine etape a valider par Alfred : pages par activite (Software & IA d'abord). Meta Verified : ne plus toucher. ALFRED AI TRADER jamais touche.
+
+### EXPANSION — BUG FORMULAIRE + DEVIS — 2026-09-24
+
+- BUG REEL (present en prod, commit 8881fa3) : allowlist services de /api/contact ecrite a la main, divergee des options du formulaire. « Immobilier & BTP », « Finance & technologies financieres » (+ EN « Real Estate & Construction », « Finance & financial technologies ») = 400. Reproduit en local avant correction (400), puis corrige.
+- Fix route.ts : allowlists DERIVEES des dictionnaires FR/EN (optionsDe). Une seule source de verite. Ne jamais reecrire en dur.
+- Ajout budget + delai FACULTATIFS (selects « Non precise » par defaut), FR/EN, valides serveur (option inconnue = 400), lignes ajoutees dans l'email. Tranches FCFA = proposition a valider par Alfred (reintroduit sur demande Phase 2 ; ancien commentaire dictionnaire disait « retires »).
+- Commentaire « Vercel » -> « Netlify ».
+- Tests API local (503 = validation OK, pas de GMAIL_APP_PASSWORD local) : 7 services x FR/EN OK, service/budget/delai invalides = 400, champs vides = 400. Rendu mobile ~400px OK, pas d'overflow. typecheck/lint PASS. Build NON relance (dev server d'un autre chat partage .next). Aucun email envoye.
+- Prod NON deployee (Netlify gele jusqu'au 17/10). Push GitHub non fait. A deployer au reset : ce fix corrige un formulaire casse pour 2 services sur 3.
+- Meta Verified non touche. ALFRED AI TRADER jamais touche.

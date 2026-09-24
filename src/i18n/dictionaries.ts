@@ -395,9 +395,12 @@ const fr = {
     // remplace l'ancien formulaire court. Champs requis valides
     // cote client ET serveur (voir src/app/api/contact/route.ts).
     //
-    // Budget et echeance RETIRES (demande explicite) : le premier contact
-    // doit porter sur LE PROJET, pas sur l'argent ou le delai — ces deux
-    // sujets se discutent une fois le besoin compris, pas avant.
+    // Budget et delai : retires a une passe anterieure (le premier contact
+    // doit porter sur LE PROJET), puis reintroduits le 2026-09-24 sur
+    // demande d'Alfred pour la demande de devis (Phase 2). Ils sont
+    // FACULTATIFS, jamais bloquants, et proposes en tranches pour ne pas
+    // presenter l'argent comme un prerequis. Les tranches sont une
+    // proposition a valider par Alfred, pas des tarifs AWS.
     formulaire: {
       nom: "Nom & prénom",
       email: "Email",
@@ -411,6 +414,24 @@ const fr = {
         "Projet digital",
         "Projet transversal",
         "Autre",
+      ],
+      budget: "Budget approximatif (facultatif)",
+      budgetPlaceholder: "Non précisé",
+      budgetOptions: [
+        "Moins de 500 000 FCFA",
+        "500 000 à 2 000 000 FCFA",
+        "2 000 000 à 10 000 000 FCFA",
+        "Plus de 10 000 000 FCFA",
+        "À définir ensemble",
+      ],
+      delai: "Délai souhaité (facultatif)",
+      delaiPlaceholder: "Non précisé",
+      delaiOptions: [
+        "Urgent (moins d'un mois)",
+        "1 à 3 mois",
+        "3 à 6 mois",
+        "Plus de 6 mois",
+        "Flexible",
       ],
       typeProjet: "Type de projet",
       description: "Description du projet",
@@ -816,6 +837,24 @@ const en: Dictionary = {
         "Digital project",
         "Cross-business project",
         "Other",
+      ],
+      budget: "Approximate budget (optional)",
+      budgetPlaceholder: "Not specified",
+      budgetOptions: [
+        "Under 500,000 FCFA",
+        "500,000 to 2,000,000 FCFA",
+        "2,000,000 to 10,000,000 FCFA",
+        "Over 10,000,000 FCFA",
+        "To be defined together",
+      ],
+      delai: "Preferred timeline (optional)",
+      delaiPlaceholder: "Not specified",
+      delaiOptions: [
+        "Urgent (under one month)",
+        "1 to 3 months",
+        "3 to 6 months",
+        "Over 6 months",
+        "Flexible",
       ],
       typeProjet: "Type of project",
       description: "Project description",
