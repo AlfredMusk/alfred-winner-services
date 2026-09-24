@@ -16,7 +16,7 @@ Base : code du dépôt + site en production `https://www.alfredwinnerservices.co
 
 - Pages détaillées par activité (Software & IA, Finance, Immobilier, BTP) : n'existent pas, tout tient dans la home.
 - BTP : pas de pôle propre (capacités BTP absentes, seulement Immobilier).
-- Demande de devis : budget et délai ajoutés (facultatifs) ; WhatsApp = champ « Téléphone / WhatsApp » déjà présent.
+- Demande de devis : pas de budget ni de délai, décision d'Alfred ; WhatsApp = champ « Téléphone / WhatsApp » déjà présent.
 - WhatsApp : message unique, pas de message par service.
 - FAQ, témoignages, portfolio détaillé (les 6 axes sont des expérimentations, aucun client cité).
 - Lien vers Google Maps / fiche Business (propriété non confirmée).
@@ -41,7 +41,7 @@ Base : code du dépôt + site en production `https://www.alfredwinnerservices.co
 
 - `sameAs` Facebook dans le JSON-LD (`src/lib/seo.ts`), sans effet visuel.
 - **Bug corrigé (présent en production)** : la liste blanche de services de `/api/contact` était écrite à la main et rejetait « Immobilier & BTP » et « Finance & technologies financières » (et EN). Elle est maintenant dérivée des dictionnaires FR/EN (`route.ts`). Testé : tous les services passent la validation, valeurs inconnues rejetées.
-- Devis : budget et délai ajoutés en champs **facultatifs** (tranches à valider par Alfred), FR/EN, validés côté serveur, inclus dans l'e-mail reçu.
+- Devis : budget et délai essayés puis **retirés à la demande d'Alfred** (24/09/2026). Le formulaire reste inchangé côté champs.
 - Commentaire obsolète « Vercel » remplacé par « Netlify ».
 
 ## 6. Risques

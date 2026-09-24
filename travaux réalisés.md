@@ -3427,3 +3427,9 @@ DONE:
 - Tests API local (503 = validation OK, pas de GMAIL_APP_PASSWORD local) : 7 services x FR/EN OK, service/budget/delai invalides = 400, champs vides = 400. Rendu mobile ~400px OK, pas d'overflow. typecheck/lint PASS. Build NON relance (dev server d'un autre chat partage .next). Aucun email envoye.
 - Prod NON deployee (Netlify gele jusqu'au 17/10). Push GitHub non fait. A deployer au reset : ce fix corrige un formulaire casse pour 2 services sur 3.
 - Meta Verified non touche. ALFRED AI TRADER jamais touche.
+
+### FORMULAIRE — BUDGET/DELAI RETIRES — 2026-09-24
+
+- Decision Alfred : pas de budget estimatif ni de delai souhaite. Champs, dictionnaires FR/EN, validation serveur et lignes d'email retires (essai du meme jour annule). Commentaire dictionnaire remis : « retires, reconfirme par Alfred ».
+- CONSERVE : fix allowlist services (derivee des dictionnaires, optionsDe -> SERVICES_AUTORISES) + commentaire Netlify. Tests API local : 6 libelles FR/EN valides (503 = pas de mot de passe Gmail local), service inconnu = 400. HTML sans « Budget approximatif ». typecheck/lint PASS. Aucun email envoye.
+- Ne PAS reproposer budget/delai sans demande explicite d'Alfred. Prod non deployee (Netlify gele jusqu'au 17/10) : le fix allowlist reste a deployer.
