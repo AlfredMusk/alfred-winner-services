@@ -1,4 +1,4 @@
-// @ts-ignore .open-next/worker.js est genere pendant le build OpenNext.
+// @ts-expect-error .open-next/worker.js est genere pendant le build OpenNext.
 import { default as nextWorker } from "./.open-next/worker.js";
 
 const DEFAULT_LOCALE = "fr";

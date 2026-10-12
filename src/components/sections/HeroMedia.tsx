@@ -39,7 +39,7 @@ export default function HeroMedia({ dict }: { dict: HeroDictionary }) {
 
   return (
     <div
-      className="w-full max-w-[34rem] desk:max-w-none"
+      className="min-w-0 w-full max-w-[34rem] desk:max-w-none"
       onMouseEnter={() => setEnPause(true)}
       onMouseLeave={() => setEnPause(false)}
       onFocusCapture={() => setEnPause(true)}
