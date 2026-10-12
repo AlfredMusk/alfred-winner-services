@@ -22,6 +22,17 @@ npm run typecheck
 
 Le build génère les types des routes. `npm run start` sert le build de production sur 3100, après libération du serveur **AWS uniquement**. Montserrat est téléchargée par `next/font` pendant le build puis servie localement.
 
+## Préparation Cloudflare Workers
+
+La variante Cloudflare utilise Workers + OpenNext, car le formulaire `/api/contact`
+requiert un runtime serveur. `npm run preview` construit puis sert le Worker
+localement avec Wrangler ; `npm run deploy` construit et déploie après connexion
+Cloudflare. `cloudflare-worker.ts` porte les redirections d’hôte et de langue.
+Le domaine et les secrets ne sont pas configurés dans le dépôt. Avant le premier
+déploiement, définir dans Cloudflare les variables `AWS_SITE_URL`,
+`AWS_DEPLOYMENT_ENV`, `AWS_INDEXING_ENABLED`, `CONTACT_ALLOWED_ORIGINS` et
+`GMAIL_APP_PASSWORD`, sans jamais les committer.
+
 ## Avant publication
 
 - **Contact** : `/api/contact` valide puis envoie via SMTP Gmail vers `krodi2001@gmail.com`. Sans configuration ou en cas de refus SMTP, le formulaire affiche une erreur, jamais un faux succès. La réception réelle reste à vérifier avant production. Voir la configuration ci-dessous.
@@ -40,7 +51,7 @@ Serveur Node.js uniquement, Nodemailer, SMTP TLS `smtp.gmail.com:465`.
 Expéditeur et destinataire : `krodi2001@gmail.com`. Reply-To : email validé du visiteur.
 
 Variables privées à définir dans `.env.local` (ignoré par Git), puis dans les
-variables Vercel du bon environnement :
+variables serveur de l’hébergeur du bon environnement :
 
 ```dotenv
 GMAIL_APP_PASSWORD=REMPLACER_PAR_LE_MOT_DE_PASSE_APPLICATION_GOOGLE
@@ -57,13 +68,13 @@ En production, remplacer l'origine locale par l'origine HTTPS exacte du site.
 Plusieurs origines autorisées peuvent être séparées par des virgules, sans slash
 final. Définir explicitement les URLs Preview si les tests y sont souhaités.
 Les POST sans origine ou provenant d'une autre origine sont refusés.
-Redémarrer le serveur local après configuration ; sur Vercel, redéployer après
+Redémarrer le serveur local après configuration ; sur l’hébergeur, redéployer après
 modification des variables. Aucun secret n'est nécessaire au build client.
 
 Anti-spam : honeypot, tailles et valeurs autorisées, contrôle Origin,
 limite de trois tentatives SMTP par email sur dix minutes **par instance**.
 Cette limite mémoire n'est pas distribuée et peut être contournée avec d'autres
-emails ou après redémarrage. Avant production, ajouter une limite WAF Vercel
+emails ou après redémarrage. Avant production, ajouter une limite WAF ou équivalente
 sur POST `/api/contact`, avec quotas/coûts à vérifier. Le délai client est un
 signal complémentaire contournable, pas une protection suffisante.
 
@@ -73,4 +84,4 @@ incertain : vérifier la boîte avant de répéter un test ; pas de garantie
 exactement-une-fois. Le succès signifie acceptation SMTP, pas arrivée garantie
 en boîte principale. Vérifier les sept champs, Reply-To, FR/EN, échecs et spam
 par réception réelle Gmail avant de lever le BLOCKER. Gmail peut imposer des
-quotas ou bloquer les connexions SMTP ; valider aussi depuis Vercel.
+quotas ou bloquer les connexions SMTP ; valider aussi depuis Cloudflare.

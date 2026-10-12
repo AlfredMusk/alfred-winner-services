@@ -3440,3 +3440,10 @@ DONE:
 - Cloudflare Workers + OpenNext compatible avec App Router et Route Handlers, mais le build OpenNext 1.19.0 bloque sur le proxy.ts Node.js de Next 16 ; le Proxy Next 16 ne permet pas le runtime Edge.
 - Formulaire actuel : Nodemailer SMTP Gmail via port TLS 465 ; validation Cloudflare Workers nécessaire avant migration, aucun fournisseur email remplacé.
 - Aucun DNS, nameserver, secret, compte Cloudflare ou déploiement externe modifié.
+[CLOUDFLARE] — PRÉPARATION WORKERS OPENNEXT 2026-10-12
+- Branche isolée : codex/cloudflare-restore ; branche de sauvegarde main conservée.
+- Ajout préparatoire : OpenNext Cloudflare, Wrangler, wrangler.jsonc, open-next.config.ts et cloudflare-worker.ts.
+- Proxy Next.js retiré de cette branche uniquement ; redirection Netlify et locale portée par le Worker Cloudflare.
+- Build OpenNext PASS ; preview Worker PASS sur /, /fr, /en, robots.txt et sitemap.xml.
+- POST /api/contact avec origine autorisée et secret absent retourne 503 attendu ; aucun email envoyé.
+- Migration non déployée : connexion Cloudflare, variables secrètes, test SMTP réel et DNS restent à autoriser/configurer.
