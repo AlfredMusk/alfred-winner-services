@@ -3433,3 +3433,10 @@ DONE:
 - Decision Alfred : pas de budget estimatif ni de delai souhaite. Champs, dictionnaires FR/EN, validation serveur et lignes d'email retires (essai du meme jour annule). Commentaire dictionnaire remis : « retires, reconfirme par Alfred ».
 - CONSERVE : fix allowlist services (derivee des dictionnaires, optionsDe -> SERVICES_AUTORISES) + commentaire Netlify. Tests API local : 6 libelles FR/EN valides (503 = pas de mot de passe Gmail local), service inconnu = 400. HTML sans « Budget approximatif ». typecheck/lint PASS. Aucun email envoye.
 - Ne PAS reproposer budget/delai sans demande explicite d'Alfred. Prod non deployee (Netlify gele jusqu'au 17/10) : le fix allowlist reste a deployer.
+[AUDIT] — RESTAURATION CLOUDFLARE 2026-10-12
+- Dépôt local : main en avance de 7 commits sur origin/main ; branche de sauvegarde locale backup/pre-cloudflare-20261012 créée.
+- Quality gates locaux : lint PASS, typecheck PASS, build Next.js PASS.
+- Cloudflare Pages statique incompatible avec /api/contact et le formulaire serveur.
+- Cloudflare Workers + OpenNext compatible avec App Router et Route Handlers, mais le build OpenNext 1.19.0 bloque sur le proxy.ts Node.js de Next 16 ; le Proxy Next 16 ne permet pas le runtime Edge.
+- Formulaire actuel : Nodemailer SMTP Gmail via port TLS 465 ; validation Cloudflare Workers nécessaire avant migration, aucun fournisseur email remplacé.
+- Aucun DNS, nameserver, secret, compte Cloudflare ou déploiement externe modifié.
