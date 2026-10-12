@@ -1,9 +1,14 @@
 /* Pas de "use client" : tout ce bloc est rendu sur le serveur.
    Seul <HeroMedia /> est interactif. */
 import HeroMedia from "./HeroMedia";
-import type { HeroDictionary } from "@/i18n/dictionaries";
+import type { HeroDictionary, Locale } from "@/i18n/dictionaries";
 
-export default function Hero({ dict }: { dict: HeroDictionary }) {
+export default function Hero({ dict, locale }: { dict: HeroDictionary; locale: Locale }) {
+  const titreStyle =
+    locale === "fr"
+      ? "max-w-[23ch] desk:text-[3rem]"
+      : "max-w-[15ch] desk:text-[3.25rem]";
+
   return (
     /* Bloc bleu pleine largeur, colle sous la navbar. aws-hero-surface
        (globals.css) superpose un degrade lineaire haut->bas ET un voile
@@ -30,13 +35,13 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
             et justify-center centre la PAIRE dans le container. L'espace
             libre passe ainsi a l'exterieur de la composition au lieu de
             s'ouvrir en son milieu. */}
-        <div className="grid items-center gap-11 py-14 sm:py-16 desk:grid-cols-[minmax(0,33rem)_minmax(0,clamp(20rem,34vw,30rem))] desk:justify-center desk:gap-16 desk:py-20">
+        <div className="grid items-center gap-11 py-14 sm:py-16 desk:items-start desk:grid-cols-[minmax(0,36rem)_minmax(0,clamp(20rem,34vw,30rem))] desk:justify-center desk:gap-16 desk:py-20">
 
           {/* ---------- GAUCHE : le message ---------- */}
-          {/* En pile, texte et photographie partagent la MEME mesure (34rem)
-              et le bloc est centre : sans cela, a 1024 la colonne restait
-              calee a gauche avec 456px de bleu vide a droite. */}
-          <div className="mx-auto min-w-0 w-full max-w-[34rem] desk:mx-0 desk:max-w-none">
+          {/* En pile, le texte reste centre et plafonne a 36rem ; la photo
+              conserve son propre plafond de 34rem. Les deux se reduisent
+              ensemble sur mobile sans creer de debordement lateral. */}
+          <div className="mx-auto min-w-0 w-full max-w-[36rem] desk:mx-0 desk:max-w-none">
             {/* Eyebrow : c'est ICI que la phrase a son role editorial.
                 11px contre 7.5px pour la signature du logo. */}
             <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/75">
@@ -49,12 +54,12 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
                   imposait une colonne texte de 750. Il reste le
                   protagoniste — ACIM titre a 38px dans 550px, nous a 52px
                   dans 528 — mais il ne dicte plus la composition. */
-              className="mt-6 max-w-[15ch] text-balance text-[2.25rem] font-bold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.75rem] desk:text-[3.25rem]"
+              className={`mt-6 ${titreStyle} text-balance text-[2.25rem] font-bold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.75rem]`}
             >
               {dict.titre}
             </h1>
 
-            <p className="mt-7 max-w-[31rem] text-[1rem] leading-[1.7] text-white/85 desk:text-[1.0625rem]">
+            <p className="mt-7 max-w-[34rem] text-[1rem] leading-[1.7] text-white/85 desk:text-[1.0625rem]">
               {dict.paragraphe}
             </p>
 
@@ -107,7 +112,7 @@ export default function Hero({ dict }: { dict: HeroDictionary }) {
           {/* ---------- DROITE : la photographie ---------- */}
           {/* justify-self-end : la photo se cale a droite de sa colonne, donc
               il reste du bleu entre elle et le bord de l'ecran. */}
-          <div className="mx-auto min-w-0 w-full max-w-[34rem] desk:mx-0 desk:max-w-none">
+          <div className="mx-auto min-w-0 w-full max-w-[34rem] desk:mx-0 desk:mt-10 desk:max-w-none">
             <HeroMedia dict={dict} />
           </div>
         </div>
