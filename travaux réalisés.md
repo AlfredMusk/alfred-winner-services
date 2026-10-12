@@ -3447,3 +3447,4 @@ DONE:
 - Build OpenNext PASS ; preview Worker PASS sur /, /fr, /en, robots.txt et sitemap.xml.
 - POST /api/contact avec origine autorisée et secret absent retourne 503 attendu ; aucun email envoyé.
 - Migration non déployée : connexion Cloudflare, variables secrètes, test SMTP réel et DNS restent à autoriser/configurer.
+- 2026-10-12 — Restauration Cloudflare Free : nameservers Namecheap actifs (`kayleigh.ns.cloudflare.com`, `uriah.ns.cloudflare.com`), anciens A/CNAME Netlify retires en conservant les MX/TXT email et verification Google, domaines racine + www rattaches au Worker `alfred-winner-services`. Variables publiques production activees (URL officielle, indexation, origines contact) ; aucun secret ajoute. OpenNext/Worker redeploye avec lint, typecheck et build PASS. Gmail SMTP reste en attente de `GMAIL_APP_PASSWORD` saisi par Alfred dans Cloudflare.
