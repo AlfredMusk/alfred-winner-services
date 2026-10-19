@@ -3646,3 +3646,13 @@ DONE:
 - Cause de consommation : cache incrémental dummy oblige le runtime Next à traiter les pages SSG. Configuration remplacée par le helper officiel OpenNext avec staticAssetsIncrementalCache + enableCacheInterception. Pages déjà pré-rendues servies depuis Workers Static Assets ; route contact reste serveur.
 - Aucun R2/KV/DO, aucune carte/option payante, aucun DNS, aucun changement visuel. Tests distant/cache en cours, pas de déclaration de production réussie.
 - Référence : https://opennext.js.org/cloudflare/caching#ssg-site
+
+## 19 octobre 2026 — publication officielle terminée
+- Git main + branche synchronisés. Code e0c080d.
+- Worker 48569e67-717e-4c3e-b261-e09fe315ba6d publié à 100 %.
+- Cache statique OpenNext actif. Plus de 503 ressources sur parcours testés.
+- FR/EN 375/768/1440 PASS. Images/liens/légal/404/SEO PASS. Console propre.
+- Formulaire .com : vrai envoi + réception INBOX confirmés. Sept champs/Reply-To PASS.
+- OAuth Gmail production. Secrets serveur uniquement. App non vérifiée Google, révocation possible.
+- Lighthouse public mobile FR 82/100/100/100 ; EN 81/100/100/100. CLS zéro.
+- Docs actualisées. Aucun DNS/paiement. Huit JPG sources préservés hors Git.

@@ -29,14 +29,14 @@ requiert un runtime serveur. `npm run preview` construit puis sert le Worker
 localement avec Wrangler ; `npm run deploy` construit et déploie après connexion
 Cloudflare. `cloudflare-worker.ts` porte les redirections d’hôte et de langue.
 Le domaine officiel est rattaché au Worker existant ; les variables publiques sont
-dans `wrangler.jsonc`. `GMAIL_APP_PASSWORD` doit être ajouté comme secret du Worker
-dans Cloudflare, sans jamais le committer. La branche Premium 2026 reste en
-prévisualisation locale tant que sa publication n'est pas explicitement validée.
+dans `wrangler.jsonc`. La version autorisée a été publiée le 19 octobre 2026.
+Le formulaire utilise Gmail API avec trois secrets serveur chiffrés ; aucun secret
+ne doit être committé. Voir `docs/production-release-2026.md` pour la version active.
 Voir `docs/aws-premium-2026.md` pour les quotas, les vérifications et le rollback.
 
 ## Avant publication
 
-- **Contact** : `/api/contact` valide puis utilise le transport serveur explicitement configuré, vers le Gmail AWS. SMTP historique conservé ; transport HTTPS Gmail API préparé mais non activé tant que son autorisation et sa réception réelle ne sont pas vérifiées. Aucun faux succès. Voir `docs/gmail-api-setup.md`.
+- **Contact** : `/api/contact` valide puis utilise le transport serveur explicitement configuré, vers le Gmail AWS. Transport HTTPS Gmail API actif et réception réelle vérifiée en production. SMTP historique conservé mais non sélectionné. Aucun faux succès. Voir `docs/gmail-api-setup.md`.
 - Vérifier la cohérence des textes FR/EN des mentions légales et de confidentialité avec l'hébergement Cloudflare actif.
 - Confirmer les droits des images fournies et l'origine des visuels Hero : voir `ASSETS_SOURCES.md`.
 - Conserver `AWS_SITE_URL` sur l'origine HTTPS officielle confirmée, sans chemin, paramètres ou identifiants.
@@ -46,46 +46,22 @@ Voir `docs/aws-premium-2026.md` pour les quotas, les vérifications et le rollba
 
 Ne jamais versionner de secret : les fichiers `.env*` sont ignorés par Git.
 
-## Formulaire — configuration Gmail SMTP
+## Formulaire — Gmail API en production
 
-Serveur Node.js uniquement, Nodemailer, SMTP TLS `smtp.gmail.com:465`.
-Expéditeur et destinataire : `krodi2001@gmail.com`. Reply-To : email validé du visiteur.
+`CONTACT_EMAIL_TRANSPORT=gmail-api` sélectionne le transport HTTPS côté serveur.
+Secrets Cloudflare : `GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`.
+Voir `docs/gmail-api-setup.md` pour le provisionnement sécurisé. L'ancien
+`GMAIL_APP_PASSWORD` est conservé, mais SMTP n'est pas utilisé en production.
 
-Secret à définir dans `.env.local` (ignoré par Git) pour le développement, puis
-comme secret du Worker Cloudflare du bon environnement. L'origine autorisée
-locale peut être définie séparément :
+Destination : `krodi2001@gmail.com`. Email public : `contact@alfredwinnerservices.com`.
+Reply-To : adresse validée du visiteur. Aucun OAuth demandé aux visiteurs.
+Les origines autorisées sont les deux domaines HTTPS officiels dans `wrangler.jsonc`.
 
-```dotenv
-GMAIL_APP_PASSWORD=REMPLACER_PAR_LE_MOT_DE_PASSE_APPLICATION_GOOGLE
-CONTACT_ALLOWED_ORIGINS=http://localhost:3100
-```
+Anti-spam : validation serveur, honeypot, tailles limitées, Origin, délai minimal,
+limite par empreinte d'email et limite Worker 12 POST/minute/IP. Ces limites ne
+constituent pas une garantie contre tout spam distribué.
 
-Ne jamais utiliser le mot de passe habituel du compte, un préfixe `NEXT_PUBLIC_`,
-ni partager le secret dans le chat. Créer un mot de passe d'application depuis
-le compte Google `krodi2001@gmail.com`, après activation de la validation en deux
-étapes, si cette fonctionnalité est disponible :
-https://support.google.com/accounts/answer/185833
-
-En production, `CONTACT_ALLOWED_ORIGINS` est déjà défini dans `wrangler.jsonc`
-avec les origines HTTPS officielles.
-Plusieurs origines autorisées peuvent être séparées par des virgules, sans slash
-final. Définir explicitement les URLs Preview si les tests y sont souhaités.
-Les POST sans origine ou provenant d'une autre origine sont refusés.
-Redémarrer le serveur local après configuration ; sur l’hébergeur, redéployer après
-modification des variables. Aucun secret n'est nécessaire au build client.
-
-Anti-spam : honeypot, tailles et valeurs autorisées, contrôle Origin,
-limite de trois tentatives SMTP par email sur dix minutes **par instance**.
-Une limite Cloudflare supplémentaire de 12 POST par minute et par IP est déclarée
-dans `wrangler.jsonc` pour la branche Premium 2026. La limite mémoire n'est pas
-distribuée ; la limite Cloudflare est distribuée par localisation, donc aucune des
-deux ne garantit seule l'arrêt de tout spam. Le délai client est un
-signal complémentaire contournable, pas une protection suffisante.
-
-Les champs sont conservés lors d'une erreur. Le bouton bloque la soumission
-simultanée. Une erreur réseau après acceptation SMTP peut rendre le résultat
-incertain : vérifier la boîte avant de répéter un test ; pas de garantie
-exactement-une-fois. Le succès signifie acceptation SMTP, pas arrivée garantie
-en boîte principale. Vérifier les sept champs, Reply-To, FR/EN, échecs et spam
-par réception réelle Gmail avant de lever le BLOCKER. Gmail peut imposer des
-quotas ou bloquer les connexions SMTP ; valider aussi depuis Cloudflare.
+Le succès exige un ID de message Gmail ; une réception réelle a également été
+vérifiée le 19 octobre 2026. Une erreur réseau après acceptation peut laisser un
+résultat incertain : vérifier la boîte avant de répéter un test. Aucun nouvel essai
+automatique ni garantie de livraison exactement une fois.
