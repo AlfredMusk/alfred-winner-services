@@ -1,28 +1,10 @@
-import type { OpenNextConfig } from "@opennextjs/aws/types/open-next.js";
+import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/static-assets-incremental-cache";
 
-const config: OpenNextConfig = {
-  edgeExternals: ["node:crypto"],
-  default: {
-    override: {
-      wrapper: "cloudflare-node",
-      converter: "edge",
-      proxyExternalRequest: "fetch",
-      incrementalCache: "dummy",
-      tagCache: "dummy",
-      queue: "dummy",
-    },
-  },
-  middleware: {
-    external: true,
-    override: {
-      wrapper: "cloudflare-edge",
-      converter: "edge",
-      proxyExternalRequest: "fetch",
-      incrementalCache: "dummy",
-      tagCache: "dummy",
-      queue: "dummy",
-    },
-  },
-};
-
-export default config;
+// Corporate pages are built ahead of time; no ISR or paid storage is needed.
+// OpenNext serves their cached HTML/RSC without rendering NextServer again.
+// Dynamic route handlers, including contact, keep their server execution.
+export default defineCloudflareConfig({
+  incrementalCache: staticAssetsIncrementalCache,
+  enableCacheInterception: true,
+});

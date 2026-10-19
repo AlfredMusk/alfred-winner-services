@@ -3639,3 +3639,10 @@ DONE:
 - Contrôle Google réel : renouvellement OAuth HTTP 200, portée gmail.send uniquement ; API Gmail activée. Probe négative volontaire avec message vide : HTTP 400, aucun email envoyé par cette probe.
 - Défaut Workers constaté sur prévisualisation : redirect:error provoque TypeError avant fetch. Documentation Cloudflare confirmée ; remplacé par manual + refus de toute réponse non-2xx, sans suivi de redirection/partage des jetons.
 - Régression couverte : huit tests PASS, dont redirections OAuth et Gmail refusées ; activation explicite gmail-api ajoutée à la configuration de release. Envoi/réception réels encore à confirmer après build corrigé.
+
+## 2026-10-19 — Validation Gmail réelle et cache statique gratuit
+- Test de formulaire sur version isolée corrigée : HTTP 200, livraison=envoye. Message réellement retrouvé en INBOX Gmail ; sept champs, Unicode et Reply-To contact professionnel vérifiés. Aucun mock utilisé pour cette confirmation.
+- Contrôle distant a détecté une limite de ressources Worker sur rendu de pages, malgré build/local valides. Production laissée intacte.
+- Cause de consommation : cache incrémental dummy oblige le runtime Next à traiter les pages SSG. Configuration remplacée par le helper officiel OpenNext avec staticAssetsIncrementalCache + enableCacheInterception. Pages déjà pré-rendues servies depuis Workers Static Assets ; route contact reste serveur.
+- Aucun R2/KV/DO, aucune carte/option payante, aucun DNS, aucun changement visuel. Tests distant/cache en cours, pas de déclaration de production réussie.
+- Référence : https://opennext.js.org/cloudflare/caching#ssg-site
