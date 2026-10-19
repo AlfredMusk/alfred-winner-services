@@ -3454,3 +3454,181 @@ DONE:
 - Qualite Hero : lint/typecheck/build Next/OpenNext PASS. Directive de typage du module Worker generee stabilisee pour passer avec ou sans `.open-next/worker.js` ; aucune logique Worker modifiee.
 - 2026-10-12 — Ajustement Hero après comparaison FR/EN : tracks texte/media élargis et titre FR aéré. À 1440/1920, les deux titres et paragraphes tiennent sur 3 lignes, sections 560/567 px, photo identique 480×360 aux mêmes coordonnées. À 375, 430, 768 et 1024, FR/EN mesurés sans overflow ; images de tailles identiques à largeur égale. Preview locale uniquement, aucune publication ni commit.
 - 2026-10-12 — Mise à jour officielle Hero publiée après validation : commit `d0f4352` poussé sur `codex/cloudflare-restore`, Worker `alfred-winner-services` déployé (version `64af91b9-baa2-47b0-ba78-54092a333d8c`). Domaine officiel : FR/EN HTTP 200, racine redirige vers `/fr`. Aucun DNS ni secret modifié.
+
+[AWS PREMIUM 2026] — PHASE TECHNIQUE + NAVIGATION — 2026-10-18
+- Branche locale isolée `codex/aws-premium-2026` ; production Cloudflare non touchée. Huit JPG non suivis conservés.
+- Next 16.4.2, OpenNext 1.20.12, Wrangler 4.151.1 ; audit production 0 vulnérabilité connue. Audit complet : 5 alertes hautes sur outils dev, sans correctif compatible disponible.
+- Next 16.4 : racine `/` passée de `page.tsx` à `route.ts` pour préserver la redirection `/fr` sans root layout supplémentaire. Build Next/OpenNext et dry-run Wrangler OK.
+- Formulaire : secret `GMAIL_APP_PASSWORD` absent du Worker ; pas d'envoi réel. Limite Cloudflare 12 POST/min/IP ajoutée ; 429 testé localement. HSTS ajouté ; CSP conservée pour compatibilité.
+- Netlify : `netlify.toml` conservé pour le 301 de l'ancien sous-domaine (vérifié par headers HTTP publics) ; hébergeur légal FR/EN corrigé vers Cloudflare ; vieux réglage badge retiré. Aucun hébergement Netlify ajouté.
+- Navigation seulement : section active indiquée ; bascule FR/EN conserve requête et ancre. Aperçu local à valider avant le Hero. Documentation : `docs/aws-premium-2026.md`.
+- Aucun secret affiché, aucun DNS changé, aucun commit/push/déploiement public de cette phase. ALFRED AI TRADER non touché.
+- Tests finaux locaux : lint PASS, TypeScript PASS, OpenNext/Next build PASS, Wrangler dry-run PASS ; audit prod 0, audit total 5 hautes dev-only. `/` 307 vers `/fr` avec HSTS ; `/fr`, `/en`, légales, robots et sitemap 200 avec HSTS.
+- Navigation FR/EN : menu mobile ouvert/fermé, lien Projets actif après clic, Services desktop ouvert/fermé avec Échap, bascule FR→EN conserve `?service=software-ia#contact` une fois la page hydratée. Console de l'aperçu sans erreur observée.
+- Largeurs testées : 320, 375, 390, 430, 768, 1024, 1280, 1440, 1920. À 320 EN, léger débordement de ~4 px provoqué par l'email du footer existant ; navigation elle-même tient. À partir de 375, aucun overflow observé. Footer à traiter lors de sa section, pas dans cette phase navigation.
+- Domaine public encore accessible : racine redirige vers `/fr`, FR et EN 200 HTTPS ; aucune modification de production.
+
+[AWS PREMIUM 2026] — SÉCURITÉ / CONFIDENTIALITÉ — 2026-10-18
+- Tableau Cloudflare lu : Workers Free + zone Free ; pas de carte ; Worker stable `64af91b9`, déploiement Wrangler manuel, 0 erreur Worker / 24 h. Pas de workflow GitHub.
+- Zone Cloudflare : HTTP servait 200, TLS min 1.0. Corrigé dans les réglages actifs : Always Use HTTPS ON, TLS min 1.2, HSTS 1 mois sans sous-domaines/preload, nosniff ON. Tests directs : HTTP racine/www → HTTPS 301 ; HTTPS FR/EN 200, HSTS présent ; TLS 1.0/1.1 refusé, 1.2 accepté.
+- Rate limit WAF `/api/contact` 5 POST/10 s/IP préparé et validé par l'interface mais ANNULÉ avant « Deploy rule to production » ; 0/1 règle active. Limite Worker 12/min/IP reste seulement dans la branche, non publiée.
+- Audit formulaire : lecture du JSON bornée à 32 Ko pendant le flux, plus après lecture complète. Tests locaux : origine interdite 403, type incorrect 415, JSON malformé 400, corps 33 Ko 413. Secret Gmail production absent ; aucun email prétendu envoyé.
+- Confidentialité : Cloudflare Web Analytics/RUM actif avec exclusion UE ; beacon externe observé hors UE, d'où injection variable. CSP actuelle le bloque ; source precise `beacon.min.js` autorisée dans la branche. Texte confidentialité FR/EN rectifié ; pas de bannière décorative, aucun cookie applicatif ou stockage local constaté. Durée de conservation et transferts à valider juridiquement.
+- Sécurité Git : .env ignorés, aucun motif courant de secret dans fichiers suivis. Protection main/Actions/Dependabot non vérifiables sans connexion GitHub (API 401). Rapport `docs/security-privacy-audit-2026.md`.
+- Aucun code de cette phase commité, poussé ou déployé. Huit JPG sources préservés. ALFRED AI TRADER non touché.
+- Validation finale : lint PASS, typecheck PASS, build Next PASS, build OpenNext PASS, Wrangler dry-run PASS, `git diff --check` PASS, npm audit prod 0. Preview Worker : `/` 307, FR/EN et confidentialité 200, HSTS 30 jours, CSP beacon ciblée, corps 33 Ko 413. Localhost :3100 FR/EN toujours 200.
+
+[AWS PREMIUM CORPORATE 2026] — REFONTE LOCALE COMPLÈTE — 2026-10-18
+- Nouveau master prompt : accord explicite pour toutes les sections en local jusqu'à validation finale. Branche `codex/aws-premium-2026`, aucune production/DNS modifiée pendant cette refonte.
+- Manrope auto-hébergée ; tokens/layouts dans premium.css. Header, Hero, piliers, timeline, expertises, portfolio, à propos/vision/fondateur, contact et footer recomposés. Coordonnées et textes métier conservés.
+- Portfolio : 6 axes, filtres Web/Finance/IA, détails clavier natifs ; aperçus CSS clairement conceptuels. Aucun client, résultat, technologie ou lien inventé.
+- Images : 64 WebP responsifs issus de 8 assets existants ; loader statique, pas de service Cloudflare Images payant. Originaux et 8 JPG racine préservés.
+- « 1 Issue » reproduit = React dev eval bloqué par CSP. unsafe-eval uniquement en développement ; absent du build prod. Indicateur local disparu.
+- Bug réel présélection contact corrigé : Software sélectionnait Immobilier. 3 services x FR/EN vérifiés, 7 champs conservés. Aucun email réel envoyé ; Gmail reste bloqué par secret absent.
+- Lint/typecheck/build Next+OpenNext/dry-run/diff PASS ; audit npm production 0, 5 alertes hautes outillage dev inchangées.
+- Playwright persistant : 9 tests PASS. FR/EN à 320/375/390/768/1024/1440/1920 sans overflow ; menus/clavier, langues+query, filtres/détails, images, carousel 2 transitions et reduced-motion PASS. API abus locale : 403/415/400/413/429 attendus, secret absent 503.
+- Lighthouse Worker local : mobile FR 94/100/100/100, mobile EN 94/100/100/100 ; desktop FR 100/100/100/100. CLS 0 ; LCP mobile 3,0 s (objectif 2,5 pas encore atteint), desktop 0,8 s. INP terrain non mesuré.
+- Rapports : docs/premium-2026-review.md + docs/premium-2026-qa.json. Reste : validation visuelle, secret SMTP/test réception, faits juridiques/retention et assets/statuts portfolio à confirmer. Aucun commit/push/déploiement.
+
+[RETOUR MODELE EN LIGNE] — 2026-10-18
+- Decision Alfred : conserver le modele visuel deja publie. Composants, police, styles et composition remis a la version stable Git 490a1a9.
+- Refonte Premium archivee avant restauration : /Users/mac/Documents/MES PROJETS WEB/AWS sauvegardes/premium-2026-20261018-195038 ; sources, assets, tests et patch conserves, sans .env.
+- Correctifs techniques conserves : dependances, CSP dev, HSTS, limite corps/formulaire et rate limit prepare. Mapping des 3 services corrige conserve. Aucun changement du site public, aucun push ni deploiement.
+
+## 2026-10-18 — Hero + navigation ciblés
+- Images conservées : finance 1448×1086 ; software 736×981. FR/EN identiques.
+- Hero : grille équilibrée, cadre fixe 16:10, visuel élargi, titre clamp, espaces ajustés. Textes/CTA inchangés.
+- Slider : fondu 700 ms conservé ; pause onglet masqué ; seconde image eager ; reduced-motion conservé.
+- Navbar : survol discret, cibles verticales affinées ; fermeture mobile au passage desktop.
+- Lint / TypeScript / build PASS. Aucun déploiement ni commit ; validation visuelle attendue.
+- Footer existant déborde légèrement à 320 px : hors périmètre, non modifié.
+- Métriques terrain LCP/INP/CLS non mesurées ; aucun score revendiqué.
+- Playwright : FR/EN × 320/375/390/768/1024/1280/1440/1920 PASS sur Hero/navbar ; menu mobile + Escape PASS ; séquence 0→1→0→1 PASS ; reduced-motion PASS ; aucune pageerror.
+
+## 2026-10-18 — Hero Enterprise Intelligence (aperçu)
+- Périmètre : Hero.tsx / HeroMedia.tsx / nouveau Hero.module.css. Navbar inchangée sur cette phase.
+- Bleu nuit multicouche, trame discrète, composition asymétrique, titre ample, boutons rectangulaires arrondis.
+- Photos existantes conservées ; finance plein cadre ; software portrait intégral, sans coupe du prototype.
+- Cadre architectural + légendes issues du dictionnaire ; aucune donnée ni fonctionnalité inventée.
+- CSS Module isolé ; autres sections/footer/textes/routes inchangés. Aucune dépendance ajoutée.
+- Lint / TypeScript / build PASS. Console contrôlée : aucune erreur/warning observée.
+- Core Web Vitals terrain non disponibles ; pas de promesse chiffrée.
+- Aucun commit/déploiement. Validation visuelle requise.
+- Playwright final : 16 combinaisons FR/EN × huit largeurs PASS (Hero/navigation), menus + Escape PASS, cycles 0→1→0→1 PASS, reduced-motion PASS, aucune pageerror.
+- Débordement footer préexistant à 320 px laissé intact (hors périmètre).
+
+## 2026-10-18 — Hero simplifié, refinement only
+- Retirés : barre AWS/slogan, légende, indicateurs, doubles cadres, trame et traits décoratifs.
+- Grande photo seule, rayon 16px, ombre discrète ; deux images identiques en dimensions, object-fit cover, position software 50% 65%.
+- Bleu AWS restauré ; titre 56px maximum ; boutons arrondis ; texte commercial inchangé.
+- Slideshow 7s / fondu 700ms ; pause onglet masqué, focus/survol et reduced-motion conservés.
+- Fichiers de cette phase : HeroMedia.tsx, Hero.module.css, journal. Navbar/autres sections inchangées.
+- Lint / TypeScript / build PASS ; liens #expertises et #projets avec cibles présentes.
+- Frames desktop mesurées : 600.98 × 522.59px pour les deux images. Aucun contrôle visuel restant.
+- Une capture avant hydratation a provoqué un avertissement caret-color injecté par Playwright ; contrôle frais sans capture FR/EN : aucune erreur console.
+- Aucun commit/push/déploiement ; aperçu local pour validation.
+- Playwright : FR/EN × huit largeurs (320→1920) PASS sur Hero/Navbar ; séquence 0→1→0→1 PASS ; reduced-motion PASS ; menus/Escape PASS ; aucune pageerror. Footer préexistant à 320px hors périmètre.
+
+## 2026-10-18 — Validation qualité finale Hero
+- Direction artistique, structure, dimensions, placement, images et fond inchangés.
+- Défauts AA constatés Navbar : bleu hover #0076c8 sur #f2f7fd = 4.406:1 ; numéros services #0082dc trop clairs.
+- Correction locale Navbar : hover/focus et numéros #0072c2. Mesure navigateur hover + numéros : 4.658:1. Autres textes navigation/blanc >=4.745:1 ; CTA primaire 13.847:1 ; CTA secondaire >7:1 sur borne claire du fond.
+- Playwright : FR/EN × 320/375/390/768/1024/1280/1440/1920 PASS Hero/Navbar ; menu mobile + Escape PASS ; alternance 0→1→0→1 ; reduced-motion PASS.
+- 18 échantillons pendant transition : opacités complémentaires, images chargées, dimensions identiques, bounding box Hero stable. Aucun clignotement observé.
+- Cadrage desktop/tablette/mobile vérifié : object-fit cover, finance 50%50%, software 50%65%. Recadrage vertical inhérent au cover conservé, sujet central visible.
+- CTA réellement cliqués FR/EN, cibles présentes ; retour Accueil vérifié. Aucune erreur console/pageerror dans le contrôle final.
+- Lint / TypeScript / build exécutés après correction : PASS.
+- Anomalie extérieure connue : léger débordement footer 320px, non modifié.
+- Fichiers de cette vérification : Navbar.tsx + journal. Aucun commit, push ou déploiement.
+
+## 2026-10-18 — Portfolio Enterprise (local)
+- Audit : six textes FR/EN conservés ; aucun screenshot app/demo dans dépôt ; huit JPG = photos/illustrations, préservés.
+- Six cartes : grille 2 colonnes desktop/tablette, 1 mobile ; hover discret ; apparition IntersectionObserver ; reduced-motion.
+- Filtres réels Tous/Web/Finance/IA : 6/3/2/2 ; boutons natifs aria-pressed + compteur annoncé.
+- Visuel réel : capture publique site AWS, WebP 1440×650, 67 336 octets, lazy/contain. Exemple conception web uniquement.
+- Cinq autres visuels : illustrations géométriques explicitement marquées capture à venir ; aucune fausse interface.
+- Statuts : tourisme/fitness/multi-actifs à confirmer ; marchés/IA expérimentation ; web exemple AWS en ligne. Aucun client ou résultat inventé.
+- Pas de bouton fictif ni étude de cas sans preuve. Un lien réel vers site AWS (noopener noreferrer).
+- Tests Playwright FR/EN × 320/375/390/768/1024/1280/1440/1920 PASS : grille, overflow section, filtres/comptes, clavier Tab/Entrée/Espace, image chargée, lien sécurisé, noJS contenu, reduced-motion. Aucune console error/pageerror.
+- Lint / TypeScript / build PASS ; diff --check PASS ; empreintes fichiers Hero/Navbar/footer/contact/services/apropos/dictionnaires inchangées.
+- Docs : docs/projects-showcase-2026.md = inventaire/preuves/limites. Cinq captures + maturité détaillée manquantes.
+- Modifications : Projets.tsx, projects/{ProjectCard.tsx,project-data.ts,Projects.module.css}, page.tsx (prop locale seulement), public/images/projets/aws-site-officiel.webp, inventaire et journal.
+- Aucune dépendance ajoutée ; aucun accès au projet AI Trader, DNS, secret ou déploiement. Aucun commit/push.
+
+## 2026-10-19 — Projets : restauration éditoriale
+- Direction catalogue refusée : restauration ciblée depuis HEAD:Projets.tsx, sans reset global.
+- Six textes/ordre/intro d'origine conservés ; fond blanc ; séparateurs 40→56px, transitions 200ms, titres légèrement affinés, descriptions renforcées.
+- Grille 1 colonne mobile, 2 dès 768px ; trois rangées desktop. Aucune carte, illustration, filtre, compteur ou mention provisoire.
+- Rendu serveur ; retrait du JS filtres/IntersectionObserver. Pas d'animation scroll supplémentaire (facultative) ; contenu toujours visible sans JS.
+- Un seul lien réel sur conception web : site AWS, traduction FR/EN, nouvel onglet sécurisé et focus visible ; autres blocs informatifs.
+- Contrastes sur blanc : titre 9.06:1, description 7.65:1, catégorie 4.75:1, numéro 5.83:1, lien 6.06:1.
+- Fichiers modifiés : Projets.tsx, projects/Projects.module.css, projects/project-data.ts, docs/projects-showcase-2026.md, journal.
+- Supprimé : projects/ProjectCard.tsx, introduit pour le catalogue uniquement.
+- Capture utile conservée : public/images/projets/aws-site-officiel.webp déplacée vers docs/projects-assets/aws-site-officiel.webp (archive hors section).
+- Tests Playwright FR/EN × 320/375/390/768/1024/1280/1440/1920 PASS : six projets/ordre, colonnes/rangées, pas d'overflow section, absence cartes/filtres/placeholders, hover 40→56px + nuance titre, focus clavier, lien ouvert réellement, reduced-motion, contenu sans JS. Aucune console error/pageerror.
+- Lint / TypeScript / build PASS ; diff --check PASS.
+- Empreintes Hero/HeroMedia/styles Hero/Navbar/Footer/Contact/Expertises/Apropos/dictionnaires/page inchangées.
+- Débordement footer préexistant 320px hors périmètre, non modifié. Aucun commit/push/déploiement.
+
+## 2026-10-19 — Projets : découverte documentée + contact
+- Grille éditoriale conservée : six noms/catégories/ordre et deux colonnes ; aucun catalogue/filtre/visuel principal ajouté.
+- Descriptions précisées en deux phrases sur la base des faits existants. Expérimentations conservées comme telles, pas de produit/client inventé.
+- Un panneau réel pour conception web : exemple site AWS, objectif, fonctionnalités vérifiées, stack source, capture publique authentique, lien officiel. Aucun panneau pour cinq projets insuffisamment documentés.
+- Invitation discrète sous grille avec bouton design system vers #contact existant.
+- Textes FR/EN centralisés dans dictionaries.ts, blocs projets uniquement ; ancien project-data.ts parallèle retiré.
+- Dialogue natif : showModal/inert, fermeture/Escape, focus initial/retour/boucle Tab, scroll interne + body bloqué/restauré, ouverture 180ms/reduced-motion.
+- Test a détecté une sortie du focus vers interface navigateur : boucle explicite ajoutée puis tests relancés PASS.
+- Playwright FR/EN × 320/375/390/768/1024/1440/1920 PASS : six projets/ordre/grille, overflow, dialogue/focus/fermeture, capture chargée, lien démo ouvert, contact cliqué, reduced-motion, contenu sans JS. Aucune console error/pageerror.
+- Lint / TypeScript / build PASS ; diff --check PASS.
+- Empreintes Hero/Navbar/footer/contact/services/apropos/page/configs/package inchangées ; traductions hors projets identiques.
+- Fichiers : Projets.tsx, projects/ProjectDetails.tsx (ajout), projects/Projects.module.css, projects/project-data.ts (suppression), dictionaries.ts (projets), public/images/projets/aws-site-officiel.webp (copie archive), docs/projects-editorial-details-2026.md, docs/projects-showcase-2026.md, journal.
+- Limites : cinq projets sans preuves détaillées/captures/démos/stack/maturité ; pas de panneau artificiel. Panneau non interactif sans JavaScript, textes/contact disponibles. Pas de mesure terrain CWV.
+- Aucun commit/push/déploiement ; aucun secret/paramètre hébergement touché ; aucun email envoyé. Chrome + aperçu local du panneau présentés pour validation.
+
+## 2026-10-19 — Projets : crédibilité finale
+- Retirés : lien Découvrir projet 05, ProjectDetails.tsx, styles/dialogue/focus associés, données et libellés de panneau FR/EN.
+- Capture publique inutilisée supprimée ; original identique conservé dans docs/projects-assets.
+- Six noms/catégories/numéros/ordre et grille/espacements conservés ; aucun visuel ou badge.
+- Descriptions 01/02/04 précisées comme projets/objectifs, sans affirmer la livraison ; 05 qualifié réalisation interne AWS en ligne ; 03/06 expérimentation inchangés.
+- Invitation existante #contact conservée : Vision suit immédiatement, pas de double CTA consécutif. Aucun formulaire modifié/testé en envoi.
+- Audit : site AWS seul exemple directement documenté comme réalisation interne en ligne ; maturité 01/02/04 non prouvée ; 03/06 expérimentaux.
+- Aucune réalisation immobilière/multiservices documentée identifiée : photos et textes de secteur ne constituent pas une preuve. Recommandation : conserver six axes, enrichir les preuves avant ajout.
+- Validation humaine : livraison/fonctions/captures/démos/contexte des cinq autres projets ; rôle exact AWS et droits de publication de toute future référence.
+- Playwright FR/EN × 320/375/390/768/1024/1440/1920 PASS : six projets/ordre/grille, overflow section, absence lien/panneau/visuel, CTA contact clavier, hover 40→56px, reduced-motion, contenu sans JS. Aucune console error/pageerror.
+- Contrastes existants conservés : titres 9.06:1, descriptions 7.65:1, catégories 4.75:1 sur blanc.
+- Empreintes autres sections/configuration identiques ; traductions hors projets et titres/catégories/IDs identiques. Aucun reset global.
+- Fichiers : Projets.tsx, projects/Projects.module.css, dictionaries.ts (projets), docs/projects-credibility-2026.md, notice docs/projects-editorial-details-2026.md, journal. Suppressions : projects/ProjectDetails.tsx, copie publique aws-site-officiel.webp.
+- Aucun commit/push/déploiement, aucun accès AI Trader ni configuration production.
+
+## 2026-10-19 — Préparation release : secret SMTP confirmé, blocage connexion
+- GMAIL_APP_PASSWORD présent comme Secret Cloudflare. Valeur jamais affichée/lue/committée.
+- Tests réels API autorisés : HTTP 502, aucun succès simulé ni réception confirmée.
+- Prévisualisations isolées : code SMTP ESOCKET / étape CONN ; échec avant authentification, ports 465 TLS et 587 STARTTLS obligatoire. Aucun fournisseur substitué.
+- Diagnostics temporaires dans bundle généré uniquement ; bundle restauré puis rebuild demandé. Aucun diagnostic détaillé ajouté au code source public.
+- Production laissée sur version post-secret dc1adbb5-40f5-4e00-99be-f76eb346da54. Aucun déploiement de la refonte sur domaines officiels.
+- Optimisations locales : variantes WebP statiques, pas de transformation payante ; préchargements de navigation inutiles retirés ; footer sans overflow 320px ; contraste numéros méthode corrigé.
+- CSP : autorise le beacon Cloudflare officiel et son chemin versionné, sans unsafe-eval en production.
+- Lighthouse mobile local FR/EN : performance 88, accessibilité 100, bonnes pratiques 100, SEO 100 ; CLS 0. Mesures labo, pas mesures terrain.
+- Blocage release : définir un envoi via API compatible Worker. Aucune modification DNS/MX, aucun nouveau service payant, aucun commit/push release.
+- Vérifications finales de cette étape : lint PASS, TypeScript PASS, build Next.js/OpenNext PASS. Tests responsive complets à relancer après build (serveur local rechargé pendant le test, résultat non validé).
+- Décision nécessaire : envoi HTTPS via API Gmail avec OAuth, pour conserver Gmail sans nouveau fournisseur. Pas de migration automatique ni paiement.
+
+## 2026-10-19 — Gmail API : configuration autorisée, préparation OAuth
+- Autorisation utilisateur reçue pour Gmail API. Projet Google dédié AWS Website Contact créé ; Gmail API activée. Aucune facturation activée.
+- Branding OAuth créé après validation personnelle des conditions par le propriétaire.
+- Client Web préparé : AWS Contact — Cloudflare Server, callback local localhost:8765/oauth2/callback, aucune origine JavaScript. Création des identifiants laissée au propriétaire ; aucun secret récupéré.
+- Envoi HTTPS serveur préparé dans gmail-api.server.ts, activable explicitement par CONTACT_EMAIL_TRANSPORT=gmail-api après validation réelle. Ancien SMTP/secret conservés.
+- Trois secrets prévus : GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN. Portée minimale prévue gmail.send, pas de lecture/suppression.
+- Tests unitaires avec données factices : 6 PASS (MIME Unicode, Reply-To, corps complet, absence configuration, injection en-tête, refus OAuth/envoi/non-confirmation). Aucun test mock assimilé à un envoi réel.
+- Aucun nouveau déploiement production, aucun commit/push. Test réel en attente autorisation OAuth et stockage sécurisé des secrets.
+- Client OAuth Web créé personnellement par le propriétaire, confirmé dans la liste Google. Portée gmail.send enregistrée ; aucune portée lecture/suppression.
+- Export JSON : plusieurs actions officielles de téléchargement tentées, aucun fichier local reçu. Aucun secret affiché ni nouveau secret créé/rotation tentée. Autorisation OAuth et réception réelle toujours en attente.
+- Documentation Gmail API ajoutée ; exports client_secret*.json et oauth-credentials*.json exclus de Git. Limite refresh token du mode Test documentée, pas assimilée à une configuration finale fiable.
+- Cause export précisée par Google : « affichage et téléchargement des codes secrets du client ne sont plus disponibles ». Secret créé non récupérable depuis cette vue. Bouton Add secret présenté au propriétaire ; aucun ajout/suppression/rotation exécuté par l'agent. Intervention personnelle requise pour sauvegarder le nouveau secret dès sa génération.
+- Nouveau secret OAuth généré personnellement par le propriétaire ; stockage local restreint dans .wrangler/gmail-setup/client.json, ignoré par Git. Valeur jamais affichée.
+- Branding Google confirmé enregistré : domaine officiel et politique de confidentialité ; déclaration gmail.send enregistrée.
+- Provisionnement OAuth local préparé : callback localhost:8765, état aléatoire + PKCE S256, échange HTTPS, sortie privée, aucune journalisation de code/jeton. Consentement personnel et passage en production OAuth encore attendus.
+- Suite responsive complète relancée après build stable : FR/EN × 320/375/390/430/768/1024/1280/1440/1920 PASS ; images, menus, CTA, contacts, pages légales, 404, SEO, reduced-motion, stockage vide ; aucune console error/pageerror/ressource en échec.
+- Logique Worker : 21 contrôles PASS (hôtes, chemins/query, absence boucle, aperçu noindex, limite contact). Handler Next simulé dans ce test, pas une preuve de production.
+- Tests Gmail API 6/6, lint, TypeScript et build Next/OpenNext PASS. Aucun envoi réel Gmail API confirmé à ce stade.
+- Commits locaux logiques créés : 5997df1 (Hero/Projets validés), c40a60e (sécurité runtime Cloudflare + images statiques). GitHub synchronisé après sauvegarde du transport API préparé ; publication production toujours conditionnée à l'autorisation OAuth et à l'envoi/réception réelle.

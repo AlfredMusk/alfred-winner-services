@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { createHash } from "node:crypto";
 import { getDictionary, locales } from "@/i18n/dictionaries";
+import { gmailApiConfigured, sendGmailApiMessage } from "@/lib/gmail-api.server";
 
 export const runtime = "nodejs";
 
 const DESTINATAIRE = "krodi2001@gmail.com";
 // Limite complementaire par instance, non distribuee : configurer aussi
-// une regle de limitation cote hebergeur (Netlify). Aucun email ni contenu de projet conserve ici.
+// une limite par requête dans le Worker Cloudflare. Aucun email ni contenu de projet conserve ici.
 const tentatives = new Map<string, { nombre: number; expiration: number }>();
 function limiter(email: string): boolean {
   const maintenant = Date.now();
@@ -63,6 +64,26 @@ function texte(valeur: unknown, max: number): string {
   return valeur.trim().slice(0, max);
 }
 
+// Refuser le corps avant de le charger entierement en memoire, meme si
+// Content-Length est absent ou mensonger (transfert par morceaux).
+async function lireCorpsLimite(requete: Request, limite: number): Promise<string | null> {
+  const lecteur = requete.body?.getReader();
+  if (!lecteur) return "";
+  const decodeur = new TextDecoder();
+  let octets = 0;
+  let contenu = "";
+  while (true) {
+    const { done, value } = await lecteur.read();
+    if (done) return contenu + decodeur.decode();
+    octets += value.byteLength;
+    if (octets > limite) {
+      await lecteur.cancel();
+      return null;
+    }
+    contenu += decodeur.decode(value, { stream: true });
+  }
+}
+
 export async function POST(requete: Request) {
   const origine = requete.headers.get("origin");
   const origines = process.env.CONTACT_ALLOWED_ORIGINS?.split(",").map((o) => o.trim()).filter(Boolean)
@@ -75,8 +96,8 @@ export async function POST(requete: Request) {
   }
   let corps: Corps;
   try {
-    const contenu = await requete.text();
-    if (contenu.length > 32_000) {
+    const contenu = await lireCorpsLimite(requete, 32_000);
+    if (contenu === null) {
       return NextResponse.json({ erreurGenerique: true }, { status: 413 });
     }
     const valeur: unknown = JSON.parse(contenu);
@@ -130,22 +151,22 @@ export async function POST(requete: Request) {
   }
 
   const motDePasse = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
-  if (!motDePasse) {
+  const utiliserApiGmail = process.env.CONTACT_EMAIL_TRANSPORT === "gmail-api";
+  if (utiliserApiGmail ? !gmailApiConfigured() : !motDePasse) {
     return NextResponse.json({ erreurGenerique: true }, { status: 503 });
   }
   if (!limiter(donnees.email)) {
     return NextResponse.json({ erreurGenerique: true }, { status: 429 });
   }
-  const transport = nodemailer.createTransport({
+  // Keep the existing SMTP configuration available until OAuth is really validated.
+  const transport = utiliserApiGmail ? null : nodemailer.createTransport({
     host: "smtp.gmail.com", port: 465, secure: true,
     auth: { user: DESTINATAIRE, pass: motDePasse },
     connectionTimeout: 10_000, greetingTimeout: 10_000, socketTimeout: 20_000,
     disableFileAccess: true, disableUrlAccess: true,
   });
   try {
-    const resultat = await transport.sendMail({
-      from: { name: "Alfred Winner Services", address: DESTINATAIRE },
-      to: DESTINATAIRE,
+    const message = {
       replyTo: donnees.email,
       subject: `Nouveau projet AWS — ${donnees.service}`,
       text: [
@@ -156,16 +177,31 @@ export async function POST(requete: Request) {
         `Type de projet : ${donnees.typeProjet || "—"}`,
         "", "Description du projet :", donnees.description,
       ].join("\n"),
-    });
-    if (!resultat.accepted.some((adresse) => String(adresse).toLowerCase() === DESTINATAIRE)) {
-      return NextResponse.json({ erreurGenerique: true }, { status: 502 });
+    };
+    if (utiliserApiGmail) {
+      await sendGmailApiMessage({ sender: DESTINATAIRE, ...message });
+    } else {
+      const resultat = await transport!.sendMail({
+        from: { name: "Alfred Winner Services", address: DESTINATAIRE },
+        to: DESTINATAIRE,
+        ...message,
+      });
+      if (!resultat.accepted.some((adresse) => String(adresse).toLowerCase() === DESTINATAIRE)) {
+        return NextResponse.json({ erreurGenerique: true }, { status: 502 });
+      }
     }
-    // Acceptation SMTP uniquement : la reception en boite doit etre verifiee.
+    // Acceptation transport uniquement : la reception en boite doit etre verifiee.
     return NextResponse.json({ livraison: "envoye" }, { status: 200 });
-  } catch {
+  } catch (erreur: unknown) {
+    // Only a bounded technical code is logged, never the SMTP response,
+    // visitor fields, credential or full error object.
+    const code = typeof erreur === "object" && erreur !== null && "code" in erreur
+      && typeof erreur.code === "string" && /^[A-Z0-9_]{1,48}$/.test(erreur.code)
+      ? erreur.code : "UNKNOWN";
+    console.error("AWS_CONTACT_DELIVERY_FAILURE", code);
     // Ne jamais exposer identifiants, reponse SMTP ou donnees personnelles.
     return NextResponse.json({ erreurGenerique: true }, { status: 502 });
   } finally {
-    transport.close();
+    transport?.close();
   }
 }

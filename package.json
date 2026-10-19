@@ -11,7 +11,8 @@
     "start": "next start -p 3100",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "images:prepare": "node scripts/prepare-images.mjs"
+    "images:prepare": "node scripts/prepare-images.mjs",
+    "test:gmail-api": "node --test scripts/test-gmail-api.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.12",
