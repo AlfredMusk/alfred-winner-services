@@ -3674,3 +3674,7 @@ DONE:
 - Hero/navbar/projets/formulaire inchangés. Aucun cookie publicitaire/CMP fictif.
 - Local : 14 formats PASS ; fermeture/rechargement/langue/ancienne version/onglets/stockage bloqué PASS ; aucun déplacement H1/erreur JS.
 - Lint/typecheck/build Next/OpenNext PASS. Validation preview avant publication.
+- Publication notice : commit 9d543b5 poussé main/branche ; Worker eaba6efa-b917-48bd-bda4-5658c4d4c165 à 100 %.
+- Preview puis production Chrome/WebKit : 14 formats chacun PASS ; clavier/persistance/stockage bloqué/onglets PASS.
+- WebKit émulation iPhone 13 FR/EN tactile PASS. Pas de test iPhone physique/VoiceOver annoncé.
+- Domaine public/politique/robots/sitemap 200 cache HIT. Secrets Gmail toujours chiffrés, aucun DNS touché.
