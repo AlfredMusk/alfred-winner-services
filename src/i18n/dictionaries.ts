@@ -458,6 +458,7 @@ const fr = {
     linkedinLabel: "Krodi Krotchaman Alfred Donald sur LinkedIn",
     mentionsLegales: "Mentions légales",
     confidentialite: "Politique de confidentialité",
+    privacySecurity: "Confidentialité & sécurité",
     reseaux: {
       linkedin: "https://www.linkedin.com/in/krotchaman-alfred-donald-krodi-38b684429",
       facebook: "https://www.facebook.com/share/19R1mBiHr6/?mibextid=wwXIfr",
@@ -496,6 +497,12 @@ const fr = {
       },
     ],
   },
+  privacyNotice: {
+    title: "Votre confidentialité, notre priorité.",
+    description: "Votre connexion à Alfred Winner Services est protégée par HTTPS et des mécanismes de sécurité Cloudflare. Nous ne déposons pas de cookies publicitaires sans votre consentement.",
+    learnMore: "En savoir plus",
+    close: "Fermer la notice de confidentialité et de sécurité",
+  },
   confidentialite: {
     titre: "Politique de confidentialité",
     sections: [
@@ -506,6 +513,23 @@ const fr = {
           "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à notre adresse professionnelle. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
           "Les pages et le formulaire sont hébergés sur Cloudflare Workers. Cloudflare, Inc. peut traiter des données de connexion techniques (adresse IP, date, page demandée) pour assurer le fonctionnement et la sécurité du service.",
+        ],
+      },
+      {
+        id: "privacy-security",
+        titre: "Confidentialité & sécurité",
+        paragraphes: [
+          "Nous appliquons des mesures techniques et organisationnelles destinées à protéger la navigation et les informations transmises via notre site. Ces mesures réduisent les risques sans garantir une sécurité absolue.",
+          "La connexion utilise HTTPS et un certificat TLS valide. HSTS indique aux navigateurs compatibles de privilégier HTTPS. Cloudflare assure l'hébergement et fournit des protections contre les attaques par déni de service (DDoS).",
+          "Le formulaire vérifie les données sur le serveur et limite les abus grâce à des contrôles d'origine, de taille, de fréquence et à un champ anti-spam. Les identifiants d'envoi restent exclusivement côté serveur. Aucun succès n'est affiché sans acceptation par le service de messagerie.",
+        ],
+      },
+      {
+        titre: "Mémorisation de la notice et technologies similaires",
+        paragraphes: [
+          "La notice est informative : sa fermeture ne constitue pas un consentement publicitaire. Lorsque vous la fermez ou choisissez « En savoir plus », le stockage local de votre navigateur conserve uniquement la clé aws:privacy-notice:dismissed et le numéro de version de la notice. Aucun nom, email, identifiant de visiteur ou date de visite n'y est enregistré.",
+          "Ce repère est partagé entre les pages et les langues sur le même domaine, jusqu'à la suppression des données du site par votre navigateur ou par vous-même. Une nouvelle version significative de la politique peut faire réapparaître la notice. Si le stockage local est bloqué, la fermeture reste possible mais peut ne pas être conservée après rechargement. Le lien « Confidentialité & sécurité » du footer reste accessible.",
+          "Nous n'utilisons actuellement aucun cookie publicitaire. Si des traceurs nécessitant un consentement sont ajoutés, ils devront rester bloqués avant votre choix et être accompagnés d'un dispositif permettant d'accepter, de refuser, de personnaliser et de retirer ce choix avec la même facilité.",
         ],
       },
       {
@@ -856,6 +880,7 @@ const en: Dictionary = {
     linkedinLabel: "Krodi Krotchaman Alfred Donald on LinkedIn",
     mentionsLegales: "Legal notice",
     confidentialite: "Privacy policy",
+    privacySecurity: "Privacy & security",
     reseaux: {
       linkedin: "https://www.linkedin.com/in/krotchaman-alfred-donald-krodi-38b684429",
       facebook: "https://www.facebook.com/share/19R1mBiHr6/?mibextid=wwXIfr",
@@ -893,6 +918,12 @@ const en: Dictionary = {
       },
     ],
   },
+  privacyNotice: {
+    title: "Your privacy is our priority.",
+    description: "Your connection to Alfred Winner Services is protected by HTTPS and Cloudflare security measures. We do not place advertising cookies without your consent.",
+    learnMore: "Learn more",
+    close: "Close the privacy and security notice",
+  },
   confidentialite: {
     titre: "Privacy policy",
     sections: [
@@ -903,6 +934,23 @@ const en: Dictionary = {
           "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to our professional address. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
           "The pages and form are hosted on Cloudflare Workers. Cloudflare, Inc. may process technical connection data (IP address, date, page requested) to operate and secure the service.",
+        ],
+      },
+      {
+        id: "privacy-security",
+        titre: "Privacy & security",
+        paragraphes: [
+          "We apply technical and organisational measures intended to protect browsing and the information submitted through our website. These measures reduce risks without guaranteeing absolute security.",
+          "The connection uses HTTPS and a valid TLS certificate. HSTS instructs compatible browsers to prefer HTTPS. Cloudflare hosts the website and provides protection against distributed denial-of-service (DDoS) attacks.",
+          "The form validates data on the server and limits abuse through origin, size and frequency checks and an anti-spam field. Delivery credentials remain exclusively on the server. No success is shown without acceptance by the email service.",
+        ],
+      },
+      {
+        titre: "Notice dismissal and similar technologies",
+        paragraphes: [
+          "The notice is informational: closing it does not give advertising consent. When you close it or select ‘Learn more’, your browser's local storage saves only the key aws:privacy-notice:dismissed and the notice version number. No name, email, visitor identifier or visit date is recorded in it.",
+          "This marker is shared across pages and languages on the same domain until you or your browser remove the website's stored data. A significant new version of the policy may display the notice again. If local storage is blocked, the notice can still be closed but dismissal may not persist after reloading. The footer's ‘Privacy & security’ link remains available.",
+          "We currently use no advertising cookies. If trackers requiring consent are added, they must remain blocked before your choice and be accompanied by a system that lets you accept, reject, customise and withdraw that choice with equal ease.",
         ],
       },
       {
@@ -934,6 +982,7 @@ export type CtaFinalDictionary = Dictionary["ctaFinal"];
 export type ContactDictionary = Dictionary["contact"];
 export type WhatsappDictionary = Dictionary["whatsapp"];
 export type FooterDictionary = Dictionary["footer"];
+export type PrivacyNoticeDictionary = Dictionary["privacyNotice"];
 export type LegalDictionary = Dictionary["mentionsLegales"];
 
 export const hasLocale = (value: string): value is Locale =>

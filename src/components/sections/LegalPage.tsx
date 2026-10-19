@@ -18,7 +18,7 @@ export default function LegalPage({ dict }: { dict: LegalDictionary }) {
 
           <div className="mt-10 space-y-10">
             {dict.sections.map((section) => (
-              <div key={section.titre}>
+              <div key={section.titre} id={"id" in section && typeof section.id === "string" ? section.id : undefined} className="scroll-mt-28">
                 <h2 className="text-[1.0625rem] font-semibold text-aws-hero desk:text-[1.1875rem]">
                   {section.titre}
                 </h2>

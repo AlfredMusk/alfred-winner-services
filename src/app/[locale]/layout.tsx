@@ -5,6 +5,7 @@ import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsappFlottant from "@/components/layout/WhatsappFlottant";
+import PrivacyNotice from "@/components/layout/PrivacyNotice";
 import { getDictionary, hasLocale, locales } from "@/i18n/dictionaries";
 import { isIndexable, organizationSchema, seoCopy } from "@/lib/seo";
 
@@ -76,6 +77,7 @@ export default async function LocaleLayout({
           whatsapp={dict.whatsapp}
         />
         <WhatsappFlottant dict={dict.whatsapp} />
+        <PrivacyNotice locale={locale} dict={dict.privacyNotice} />
       </body>
     </html>
   );

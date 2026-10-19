@@ -221,6 +221,9 @@ export default function Footer({
             <a href={`/${locale}/confidentialite`} className="text-white/85 hover:text-white">
               {dict.confidentialite}
             </a>
+            <a href={`/${locale}/confidentialite#privacy-security`} className="text-white/85 hover:text-white">
+              {dict.privacySecurity}
+            </a>
           </div>
           <p className="text-white/60">
             {dict.raisonSociale} — {dict.formeJuridique} — {dict.rccm}

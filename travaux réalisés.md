@@ -3656,3 +3656,21 @@ DONE:
 - OAuth Gmail production. Secrets serveur uniquement. App non vérifiée Google, révocation possible.
 - Lighthouse public mobile FR 82/100/100/100 ; EN 81/100/100/100. CLS zéro.
 - Docs actualisées. Aucun DNS/paiement. Huit JPG sources préservés hors Git.
+
+## 19 octobre 2026 — audit final sécurité / confidentialité / performance
+- Audit public + dashboard Cloudflare, lecture seule. Design/code inchangés.
+- TLS 1.2 minimum / TLS 1.3 / HTTPS / HSTS / DDoS confirmés. Bot Fight off, BIC on.
+- API : huit rejets invalides PASS. Gmail protocole huit PASS. Réception réelle du même code déjà confirmée.
+- Cookies/local/session/IndexedDB : aucun. RUM Cloudflare seul. Aucun bandeau artificiel.
+- Lint/typecheck/build Next/OpenNext PASS. Audit prod zéro ; dev cinq hautes braces sans correctif compatible.
+- Lighthouse mobile FR 71 puis 83 isolé ; EN 93. A11y/BP/SEO 100, CLS zéro. Perf FR perfectible.
+- Scan 242 fichiers/ressources : aucun secret OAuth exposé.
+- Rapport docs/audits/final-production-audit-2026-10-19.md. Docs locales, aucun commit/déploiement artificiel.
+
+## 19 octobre 2026 — notice visible confidentialité / sécurité
+- Notice informative FR/EN. Blanc/bleu, fixe, non modale, fermeture clavier/tactile.
+- Mémorisation version seule : aws:privacy-notice:dismissed. Aucun consentement marketing.
+- Footer : lien permanent ajouté. Politique : HTTPS/TLS/HSTS/Cloudflare/DDoS/formulaire + stockage documentés.
+- Hero/navbar/projets/formulaire inchangés. Aucun cookie publicitaire/CMP fictif.
+- Local : 14 formats PASS ; fermeture/rechargement/langue/ancienne version/onglets/stockage bloqué PASS ; aucun déplacement H1/erreur JS.
+- Lint/typecheck/build Next/OpenNext PASS. Validation preview avant publication.
