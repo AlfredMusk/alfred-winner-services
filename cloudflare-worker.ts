@@ -7,6 +7,8 @@ const LOCALES = new Set(["fr", "en"]);
 const NETLIFY_HOST = "alfred-winner-services.netlify.app";
 const OFFICIAL_HOST = "www.alfredwinnerservices.com";
 type WorkerExecutionContext = { waitUntil(promise: Promise<unknown>): void };
+type RateLimitBinding = { limit(input: { key: string }): Promise<{ success: boolean }> };
+type WorkerEnvironment = { CONTACT_RATE_LIMITER?: RateLimitBinding };
 
 function isStaticOrInternal(pathname: string): boolean {
   return pathname.startsWith("/_next/") || pathname.startsWith("/api/") || pathname.includes(".");
@@ -15,25 +17,63 @@ function isStaticOrInternal(pathname: string): boolean {
 function routeRequest(request: Request): Response | undefined {
   const url = new URL(request.url);
 
-  if (url.hostname === NETLIFY_HOST) {
+  if (url.hostname === NETLIFY_HOST || url.hostname === "alfredwinnerservices.com") {
     url.protocol = "https:";
     url.hostname = OFFICIAL_HOST;
     url.port = "";
-    return Response.redirect(url.toString(), 301);
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: url.toString(),
+        "Strict-Transport-Security": "max-age=2592000",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
   }
 
   if (request.method === "GET" && !isStaticOrInternal(url.pathname)) {
     const firstSegment = url.pathname.split("/").filter(Boolean)[0];
     if (!firstSegment || !LOCALES.has(firstSegment)) {
       url.pathname = `/${DEFAULT_LOCALE}${url.pathname === "/" ? "" : url.pathname}`;
-      return Response.redirect(url.toString(), 307);
+      return new Response(null, {
+        status: 307,
+        headers: {
+          Location: url.toString(),
+          "Strict-Transport-Security": "max-age=2592000",
+        },
+      });
     }
   }
 }
 
 const worker = {
   async fetch(request: Request, env: unknown, ctx: WorkerExecutionContext) {
-    return routeRequest(request) ?? nextWorker.fetch(request, env, ctx);
+    const redirect = routeRequest(request);
+    if (redirect) return redirect;
+
+    if (request.method === "POST" && new URL(request.url).pathname === "/api/contact") {
+      const limiter = (env as WorkerEnvironment).CONTACT_RATE_LIMITER;
+      if (!limiter) {
+        return Response.json({ erreurGenerique: true }, { status: 503, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+      }
+      // Cloudflare fixe cet en-tête en bordure ; la clé n'est ni conservée ni journalisée par l'app.
+      const cle = request.headers.get("CF-Connecting-IP") ?? "unknown";
+      const { success } = await limiter.limit({ key: cle });
+      if (!success) {
+        return Response.json(
+          { erreurGenerique: true },
+          { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } },
+        );
+      }
+    }
+
+    const response = await nextWorker.fetch(request, env, ctx);
+    if (new URL(request.url).hostname.endsWith(".workers.dev")) {
+      const headers = new Headers(response.headers);
+      headers.set("X-Robots-Tag", "noindex, nofollow");
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
+    return response;
   },
 };
 

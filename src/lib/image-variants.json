@@ -1,0 +1,230 @@
+{
+  "/images/apropos/qui-sommes-nous-v6.jpg": [
+    {
+      "width": 64,
+      "src": "/images/apropos/qui-sommes-nous-v6-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/apropos/qui-sommes-nous-v6-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/apropos/qui-sommes-nous-v6-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/apropos/qui-sommes-nous-v6-w480.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/apropos/qui-sommes-nous-v6-w768.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/apropos/qui-sommes-nous-v6-w1200.webp"
+    }
+  ],
+  "/images/brand/aws-emblem.png": [
+    {
+      "width": 64,
+      "src": "/images/brand/aws-emblem-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/brand/aws-emblem-w128.webp"
+    },
+    {
+      "width": 240,
+      "src": "/images/brand/aws-emblem-w240.webp"
+    }
+  ],
+  "/images/brand/aws-wordmark.png": [
+    {
+      "width": 64,
+      "src": "/images/brand/aws-wordmark-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/brand/aws-wordmark-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/brand/aws-wordmark-w256.webp"
+    },
+    {
+      "width": 472,
+      "src": "/images/brand/aws-wordmark-w472.webp"
+    }
+  ],
+  "/images/brand/logo.png": [
+    {
+      "width": 64,
+      "src": "/images/brand/logo-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/brand/logo-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/brand/logo-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/brand/logo-w480.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/brand/logo-w768.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/brand/logo-w1200.webp"
+    }
+  ],
+  "/images/expertises/finance-v5.jpg": [
+    {
+      "width": 64,
+      "src": "/images/expertises/finance-v5-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/expertises/finance-v5-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/expertises/finance-v5-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/expertises/finance-v5-w480.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/expertises/finance-v5-w768.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/expertises/finance-v5-w1200.webp"
+    }
+  ],
+  "/images/expertises/immobilier-v6.jpg": [
+    {
+      "width": 64,
+      "src": "/images/expertises/immobilier-v6-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/expertises/immobilier-v6-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/expertises/immobilier-v6-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/expertises/immobilier-v6-w480.webp"
+    },
+    {
+      "width": 687,
+      "src": "/images/expertises/immobilier-v6-w687.webp"
+    }
+  ],
+  "/images/expertises/software-ia-v5.jpg": [
+    {
+      "width": 64,
+      "src": "/images/expertises/software-ia-v5-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/expertises/software-ia-v5-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/expertises/software-ia-v5-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/expertises/software-ia-v5-w480.webp"
+    },
+    {
+      "width": 736,
+      "src": "/images/expertises/software-ia-v5-w736.webp"
+    }
+  ],
+  "/images/fondateur/krodi-krotchaman-fondateur.jpg": [
+    {
+      "width": 64,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w480.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w768.webp"
+    },
+    {
+      "width": 900,
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w900.webp"
+    }
+  ],
+  "/images/hero/finance-markets.jpg": [
+    {
+      "width": 64,
+      "src": "/images/hero/finance-markets-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/hero/finance-markets-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/hero/finance-markets-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/hero/finance-markets-w480.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/hero/finance-markets-w768.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/hero/finance-markets-w1200.webp"
+    }
+  ],
+  "/images/hero/software-lab.jpg": [
+    {
+      "width": 64,
+      "src": "/images/hero/software-lab-w64.webp"
+    },
+    {
+      "width": 128,
+      "src": "/images/hero/software-lab-w128.webp"
+    },
+    {
+      "width": 256,
+      "src": "/images/hero/software-lab-w256.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/hero/software-lab-w480.webp"
+    },
+    {
+      "width": 736,
+      "src": "/images/hero/software-lab-w736.webp"
+    }
+  ]
+}

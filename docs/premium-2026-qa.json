@@ -1,0 +1,64 @@
+{
+  "environment": "OpenNext Worker local localhost:8787, laboratoire",
+  "lighthouse": [
+    {
+      "name": "FR mobile",
+      "lighthouse": "13.5.0",
+      "date": "2026-10-18T19:27:52.491Z",
+      "url": "http://localhost:8787/fr",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 3014.19675,
+      "cls": 0,
+      "tbtMs": 47
+    },
+    {
+      "name": "EN mobile",
+      "lighthouse": "13.5.0",
+      "date": "2026-10-18T19:28:49.297Z",
+      "url": "http://localhost:8787/en",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 3011.1747000000005,
+      "cls": 0,
+      "tbtMs": 90
+    },
+    {
+      "name": "FR desktop",
+      "lighthouse": "13.5.0",
+      "date": "2026-10-18T19:33:25.383Z",
+      "url": "http://localhost:8787/fr",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 811.2068750000001,
+      "cls": 0,
+      "tbtMs": 0
+    }
+  ],
+  "playwright": {
+    "passed": 9,
+    "command": "npm run test:e2e"
+  },
+  "responsiveWidths": [
+    320,
+    375,
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "productionDeployed": false
+}

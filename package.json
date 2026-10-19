@@ -10,11 +10,12 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "start": "next start -p 3100",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "images:prepare": "node scripts/prepare-images.mjs"
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.19.0",
-    "next": "16.3.5",
+    "@opennextjs/cloudflare": "^1.20.12",
+    "next": "^16.4.2",
     "nodemailer": "^10.0.10",
     "react": "19.2.8",
     "react-dom": "19.2.8"
@@ -26,9 +27,14 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.5",
+    "eslint-config-next": "^16.4.2",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^4.65.0"
+    "wrangler": "^4.151.1"
+  },
+  "overrides": {
+    "@node-minify/core": {
+      "glob": "^10.5.0"
+    }
   }
 }

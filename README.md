@@ -1,4 +1,4 @@
-Site corporate bilingue d'Alfred Winner Services. Next.js 16.3.5, React 19, TypeScript strict et Tailwind CSS 4.
+Site corporate bilingue d'Alfred Winner Services. Next.js 16.4.2, React 19, TypeScript strict et Tailwind CSS 4.
 
 ## Développement
 
@@ -22,23 +22,24 @@ npm run typecheck
 
 Le build génère les types des routes. `npm run start` sert le build de production sur 3100, après libération du serveur **AWS uniquement**. Montserrat est téléchargée par `next/font` pendant le build puis servie localement.
 
-## Préparation Cloudflare Workers
+## Hébergement Cloudflare Workers
 
-La variante Cloudflare utilise Workers + OpenNext, car le formulaire `/api/contact`
+La production utilise Workers + OpenNext, car le formulaire `/api/contact`
 requiert un runtime serveur. `npm run preview` construit puis sert le Worker
 localement avec Wrangler ; `npm run deploy` construit et déploie après connexion
 Cloudflare. `cloudflare-worker.ts` porte les redirections d’hôte et de langue.
-Le domaine et les secrets ne sont pas configurés dans le dépôt. Avant le premier
-déploiement, définir dans Cloudflare les variables `AWS_SITE_URL`,
-`AWS_DEPLOYMENT_ENV`, `AWS_INDEXING_ENABLED`, `CONTACT_ALLOWED_ORIGINS` et
-`GMAIL_APP_PASSWORD`, sans jamais les committer.
+Le domaine officiel est rattaché au Worker existant ; les variables publiques sont
+dans `wrangler.jsonc`. `GMAIL_APP_PASSWORD` doit être ajouté comme secret du Worker
+dans Cloudflare, sans jamais le committer. La branche Premium 2026 reste en
+prévisualisation locale tant que sa publication n'est pas explicitement validée.
+Voir `docs/aws-premium-2026.md` pour les quotas, les vérifications et le rollback.
 
 ## Avant publication
 
-- **Contact** : `/api/contact` valide puis envoie via SMTP Gmail vers `krodi2001@gmail.com`. Sans configuration ou en cas de refus SMTP, le formulaire affiche une erreur, jamais un faux succès. La réception réelle reste à vérifier avant production. Voir la configuration ci-dessous.
-- Confirmer l'hébergeur et compléter les textes FR/EN des mentions légales et de confidentialité.
+- **Contact** : `/api/contact` valide puis utilise le transport serveur explicitement configuré, vers le Gmail AWS. SMTP historique conservé ; transport HTTPS Gmail API préparé mais non activé tant que son autorisation et sa réception réelle ne sont pas vérifiées. Aucun faux succès. Voir `docs/gmail-api-setup.md`.
+- Vérifier la cohérence des textes FR/EN des mentions légales et de confidentialité avec l'hébergement Cloudflare actif.
 - Confirmer les droits des images fournies et l'origine des visuels Hero : voir `ASSETS_SOURCES.md`.
-- Configurer `AWS_SITE_URL` avec l'origine HTTPS officielle confirmée, sans chemin, paramètres ou identifiants. Aucune URL de production n'est inventée dans le code.
+- Conserver `AWS_SITE_URL` sur l'origine HTTPS officielle confirmée, sans chemin, paramètres ou identifiants.
 - Pour activer l'indexation au **build de production public** : `AWS_DEPLOYMENT_ENV=production` et `AWS_INDEXING_ENABLED=true`. Sans ces valeurs, les pages restent `noindex`, le sitemap reste vide et les robots sont bloqués. Refaire le build après changement.
 - Vérifier le compte WhatsApp correspondant au numéro configuré dans `src/lib/contact.ts`. Aucun message de test n'est envoyé automatiquement.
 - Les URLs sociales absentes laissent les icônes non interactives. Les configurer uniquement avec les vraies URLs officielles.
@@ -50,8 +51,9 @@ Ne jamais versionner de secret : les fichiers `.env*` sont ignorés par Git.
 Serveur Node.js uniquement, Nodemailer, SMTP TLS `smtp.gmail.com:465`.
 Expéditeur et destinataire : `krodi2001@gmail.com`. Reply-To : email validé du visiteur.
 
-Variables privées à définir dans `.env.local` (ignoré par Git), puis dans les
-variables serveur de l’hébergeur du bon environnement :
+Secret à définir dans `.env.local` (ignoré par Git) pour le développement, puis
+comme secret du Worker Cloudflare du bon environnement. L'origine autorisée
+locale peut être définie séparément :
 
 ```dotenv
 GMAIL_APP_PASSWORD=REMPLACER_PAR_LE_MOT_DE_PASSE_APPLICATION_GOOGLE
@@ -64,7 +66,8 @@ le compte Google `krodi2001@gmail.com`, après activation de la validation en de
 étapes, si cette fonctionnalité est disponible :
 https://support.google.com/accounts/answer/185833
 
-En production, remplacer l'origine locale par l'origine HTTPS exacte du site.
+En production, `CONTACT_ALLOWED_ORIGINS` est déjà défini dans `wrangler.jsonc`
+avec les origines HTTPS officielles.
 Plusieurs origines autorisées peuvent être séparées par des virgules, sans slash
 final. Définir explicitement les URLs Preview si les tests y sont souhaités.
 Les POST sans origine ou provenant d'une autre origine sont refusés.
@@ -73,9 +76,10 @@ modification des variables. Aucun secret n'est nécessaire au build client.
 
 Anti-spam : honeypot, tailles et valeurs autorisées, contrôle Origin,
 limite de trois tentatives SMTP par email sur dix minutes **par instance**.
-Cette limite mémoire n'est pas distribuée et peut être contournée avec d'autres
-emails ou après redémarrage. Avant production, ajouter une limite WAF ou équivalente
-sur POST `/api/contact`, avec quotas/coûts à vérifier. Le délai client est un
+Une limite Cloudflare supplémentaire de 12 POST par minute et par IP est déclarée
+dans `wrangler.jsonc` pour la branche Premium 2026. La limite mémoire n'est pas
+distribuée ; la limite Cloudflare est distribuée par localisation, donc aucune des
+deux ne garantit seule l'arrêt de tout spam. Le délai client est un
 signal complémentaire contournable, pas une protection suffisante.
 
 Les champs sont conservés lors d'une erreur. Le bouton bloque la soumission

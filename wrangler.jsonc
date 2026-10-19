@@ -3,15 +3,39 @@
   "name": "alfred-winner-services",
   "main": "cloudflare-worker.ts",
   "compatibility_date": "2026-10-12",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "vars": {
     "AWS_SITE_URL": "https://www.alfredwinnerservices.com",
     "AWS_DEPLOYMENT_ENV": "production",
     "AWS_INDEXING_ENABLED": "true",
     "CONTACT_ALLOWED_ORIGINS": "https://www.alfredwinnerservices.com,https://alfredwinnerservices.com"
   },
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "20261018",
+      "simple": {
+        "limit": 12,
+        "period": 60
+      }
+    }
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "alfredwinnerservices.com",
+      "zone_name": "alfredwinnerservices.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.alfredwinnerservices.com",
+      "zone_name": "alfredwinnerservices.com",
+      "custom_domain": true
+    }
+  ]
 }
