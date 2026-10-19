@@ -303,48 +303,53 @@ const fr = {
     // noms de marque reels (Baby Tourism, Alfred Fitness, Alfred AI
     // Trader...) donnes en exemple par le fondateur servent a IDENTIFIER
     // le projet, pas a etre affiches tels quels sur la page publique.
+    invitation: {
+      titre: "Vous avez un projet en tête ?",
+      description: "Échangeons sur vos besoins et explorons ensemble les solutions adaptées à votre activité.",
+      cta: "Discuter de votre projet",
+    },
     liste: [
       {
         id: "baby-tourism",
         nom: "Plateforme de découverte touristique",
         categorie: "Tourisme · Web · Expérience numérique",
         texte:
-          "Plateforme digitale conçue autour de la découverte et de l'expérience touristique en Côte d'Ivoire.",
+          "Projet de plateforme numérique consacré à la découverte touristique en Côte d'Ivoire. Son objectif est de présenter le territoire à travers l'expérience touristique.",
       },
       {
         id: "alfred-fitness",
         nom: "Expérience web Fitness",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "Expérience web moderne développée autour de l'univers du fitness, de ses services et de son identité digitale.",
+          "Projet d'expérience web consacré aux services et à l'identité d'un univers fitness. Il explore leur présentation dans une interface numérique cohérente.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Plateforme d'analyse de marchés",
         categorie: "Finance · Software · IA",
         texte:
-          "Logiciel expérimental combinant analyse de marchés, automatisation et intelligence artificielle.",
+          "Logiciel expérimental associant analyse de marchés, automatisation et intelligence artificielle. Il explore leur intégration dans un même outil d'analyse.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Suivi & visualisation multi-actifs",
         categorie: "Finance · Data · Interface numérique",
         texte:
-          "Interface numérique conçue pour organiser, suivre et visualiser des données liées à différents actifs et opérations.",
+          "Projet d'interface pour le suivi et la visualisation de données multi-actifs. Son objectif est d'organiser les informations liées à différents actifs et opérations.",
       },
       {
         id: "conception-web-moderne",
         nom: "Conception de sites web modernes",
         categorie: "Web · UI/UX · Front-end",
         texte:
-          "Conception d'interfaces et de sites web modernes, responsives et pensés pour des usages professionnels.",
+          "Conception de sites et d'interfaces web pour des usages professionnels. Le site AWS est une réalisation interne en ligne, responsive et disponible en français et en anglais.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "Solutions & intelligence artificielle",
         categorie: "IA · Automatisation · Software",
         texte:
-          "Expérimentations et solutions numériques intégrant intelligence artificielle, automatisation et agents IA pour répondre à des besoins concrets.",
+          "Expérimentations logicielles associant intelligence artificielle, automatisation et agents IA. Elles explorent leur application à des besoins concrets.",
       },
     ],
   },
@@ -480,7 +485,7 @@ const fr = {
       {
         titre: "Hébergement",
         paragraphes: [
-          "Ce site est hébergé par Netlify, Inc. — www.netlify.com.",
+          "Ce site est hébergé sur Cloudflare Workers par Cloudflare, Inc. — www.cloudflare.com.",
         ],
       },
       {
@@ -497,10 +502,10 @@ const fr = {
       {
         titre: "Données collectées",
         paragraphes: [
-          "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse d'audience (Google Analytics, Meta Pixel ou équivalent).",
+          "Ce site n'utilise ni cookie de suivi, ni Google Analytics, ni Meta Pixel. Selon la région du visiteur, Cloudflare Web Analytics peut mesurer la fréquentation et les performances des pages à l'aide d'un script injecté par Cloudflare, sans déposer de cookie ni utiliser le stockage local du navigateur. Ces mesures sont transmises à Cloudflare.",
           "Le formulaire transmet votre nom, votre email, le service recherché, la description du projet et les coordonnées ou informations facultatives renseignées à notre serveur pour validation, puis à Gmail (Google) pour envoi à notre adresse professionnelle. Votre email sert d'adresse de réponse. Le site ne crée pas de base de données de ces demandes ; les messages sont conservés dans la messagerie AWS pour traiter votre demande. Le traitement par Google relève également de sa politique de confidentialité. Pour toute demande concernant vos données ou leur suppression, contactez-nous à cette adresse. Vous pouvez aussi nous contacter par téléphone, par email ou par WhatsApp.",
           "Si vous nous contactez par WhatsApp, l'échange se déroule dans cette application, selon les conditions et la politique de confidentialité de son éditeur, indépendantes de ce site.",
-          "Les pages et le formulaire sont hébergés par Netlify, Inc., qui peut conserver des journaux de connexion techniques (adresse IP, date, page demandée) pour assurer le fonctionnement et la sécurité du service.",
+          "Les pages et le formulaire sont hébergés sur Cloudflare Workers. Cloudflare, Inc. peut traiter des données de connexion techniques (adresse IP, date, page demandée) pour assurer le fonctionnement et la sécurité du service.",
         ],
       },
       {
@@ -722,48 +727,53 @@ const en: Dictionary = {
     titre: "Solutions designed for real-world use.",
     paragraphe:
       "Six axes of projects and experiments built within the AWS ecosystem, with a strong focus on software, artificial intelligence, automation and financial technologies.",
+    invitation: {
+      titre: "Have a project in mind?",
+      description: "Let's discuss your needs and explore solutions suited to your business.",
+      cta: "Discuss your project",
+    },
     liste: [
       {
         id: "baby-tourism",
         nom: "Tourism discovery platform",
         categorie: "Tourism · Web · Digital experience",
         texte:
-          "A digital platform built around tourism discovery and experience in Côte d'Ivoire.",
+          "A digital platform project focused on tourism discovery in Côte d'Ivoire. Its objective is to present the country through the lens of the visitor experience.",
       },
       {
         id: "alfred-fitness",
         nom: "Fitness web experience",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "A modern web experience built around the fitness world, its services and its digital identity.",
+          "A web experience project centred on fitness services and their digital identity. It explores their presentation through a consistent digital interface.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Market analysis platform",
         categorie: "Finance · Software · AI",
         texte:
-          "Experimental software combining market analysis, automation and artificial intelligence.",
+          "Experimental software combining market analysis, automation and artificial intelligence. It explores their integration within a single analysis tool.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset tracking & visualisation",
         categorie: "Finance · Data · Digital interface",
         texte:
-          "A digital interface designed to organise, track and visualise data linked to different assets and operations.",
+          "An interface project for tracking and visualising multi-asset data. Its objective is to organise information relating to different assets and operations.",
       },
       {
         id: "conception-web-moderne",
         nom: "Modern web design",
         categorie: "Web · UI/UX · Front-end",
         texte:
-          "Design of modern, responsive websites and interfaces built for professional use.",
+          "Design of websites and interfaces for professional use. The AWS website is an in-house project available online, responsive and offered in French and English.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "AI & intelligent solutions",
         categorie: "AI · Automation · Software",
         texte:
-          "Experiments and digital solutions integrating artificial intelligence, automation and AI agents to address real needs.",
+          "Software experiments combining artificial intelligence, automation and AI agents. They explore applications to concrete needs.",
       },
     ],
   },
@@ -872,7 +882,7 @@ const en: Dictionary = {
       {
         titre: "Hosting",
         paragraphes: [
-          "This site is hosted by Netlify, Inc. — www.netlify.com.",
+          "This site is hosted on Cloudflare Workers by Cloudflare, Inc. — www.cloudflare.com.",
         ],
       },
       {
@@ -889,10 +899,10 @@ const en: Dictionary = {
       {
         titre: "Data collected",
         paragraphes: [
-          "This site does not use any tracking cookies and does not use any audience-measurement tool (Google Analytics, Meta Pixel or equivalent).",
+          "This site uses no tracking cookies, Google Analytics or Meta Pixel. Depending on the visitor's region, Cloudflare Web Analytics may measure page traffic and performance through a script injected by Cloudflare, without setting cookies or using browser local storage. These measurements are sent to Cloudflare.",
           "The form sends your name, email, requested service, project description and any optional contact or project details to our server for validation, then to Gmail (Google) for delivery to our professional address. Your email is used as the reply address. The website does not create a database of these requests; messages are kept in the AWS mailbox to handle your request. Google's processing is also governed by its privacy policy. Contact us at this address for questions about your data or requests for deletion. You can also reach us by phone, email or WhatsApp.",
           "If you contact us on WhatsApp, the conversation takes place inside that application, under its publisher's own terms and privacy policy, which are independent of this site.",
-          "The pages and form are hosted by Netlify, Inc., which may keep technical connection logs (IP address, date, page requested) to operate and secure the service.",
+          "The pages and form are hosted on Cloudflare Workers. Cloudflare, Inc. may process technical connection data (IP address, date, page requested) to operate and secure the service.",
         ],
       },
       {

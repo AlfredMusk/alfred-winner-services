@@ -167,7 +167,7 @@ export default function Approach({ dict }: { dict: ApprocheDictionary }) {
                     {/* Le numero gagne en contraste au survol (70% -> 100%
                         d'opacite) : un signal supplementaire, discret,
                         que "cette colonne repond". */}
-                    <span className="tabular-nums opacity-70 transition-opacity duration-300 motion-reduce:transition-none desk:group-hover:opacity-100">
+                    <span className="tabular-nums">
                       {p.num}
                     </span>
                     <span aria-hidden="true" className="text-aws-ink/25">—</span>

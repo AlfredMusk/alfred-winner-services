@@ -140,7 +140,7 @@ export default function Footer({
               </li>
               <li className="flex gap-3">
                 <span className={iconeContact}>{IconeEmail}</span>
-                <a href={contact.emailMailtoHref} className={`${lienBase} pt-1.5`}>
+                <a href={contact.emailMailtoHref} className={`${lienBase} min-w-0 wrap-anywhere pt-1.5`}>
                   {contact.email}
                 </a>
               </li>

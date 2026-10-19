@@ -30,7 +30,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <Method dict={dict.methode} />
       <Apropos dict={dict.apropos} />
       <Expertises dict={dict.expertises} />
-      <Projets dict={dict.projets} />
+      <Projets dict={dict.projets} locale={locale} />
       <Vision dict={dict.vision} />
       <Fondateur dict={dict.fondateur} />
       <CtaFinal dict={dict.ctaFinal} />

@@ -33,9 +33,9 @@ const CHAMPS_VIDES: Champs = {
 // formulaire.serviceOptions — evite d'ajouter un champ de dictionnaire
 // rien que pour ce mapping.
 const INDEX_SERVICE_PAR_HASH: Record<string, number> = {
-  "bourse-finance": 0,
-  immobilier: 1,
-  "software-ia": 2,
+  "software-ia": 0,
+  "bourse-finance": 1,
+  immobilier: 2,
 };
 
 type Etat = "repos" | "envoi" | "succes-envoye" | "erreur";

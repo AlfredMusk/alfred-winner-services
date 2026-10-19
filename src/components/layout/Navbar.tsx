@@ -19,8 +19,8 @@ import { locales } from "@/i18n/dictionaries";
    ------------------------------------------------------------------ */
 
 const navLinkBase =
-  "rounded-md px-3 py-2 text-[0.875rem] font-medium tracking-[-0.01em] xl:text-[0.9375rem] " +
-  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  "rounded-md px-3 py-2.5 text-[0.875rem] font-medium tracking-[-0.01em] xl:text-[0.9375rem] " +
+  "transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-[#0072c2] focus-visible:text-[#0072c2] " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aws-blue " +
   "motion-reduce:transition-none";
 
@@ -39,7 +39,7 @@ const focusRing =
 
 const mobileLink =
   "flex min-h-11 items-center rounded-lg px-1 text-[0.9375rem] font-medium text-aws-ink " +
-  "transition-colors duration-200 hover:text-aws-blue-text focus-visible:text-aws-blue-text " +
+  "transition-colors duration-200 hover:text-[#0072c2] focus-visible:text-[#0072c2] " +
   `${focusRing} motion-reduce:transition-none`;
 
 type Props = { locale: Locale; dict: NavbarDictionary };
@@ -121,6 +121,13 @@ export default function Navbar({ locale, dict }: Props) {
     return () => document.removeEventListener("mousedown", onDown);
   }, [servicesOpen]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1100px)");
+    const closeMobile = () => { if (mq.matches) setMobileOpen(false); };
+    mq.addEventListener("change", closeMobile);
+    return () => mq.removeEventListener("change", closeMobile);
+  }, []);
+
   return (
     <header
       className={
@@ -153,6 +160,7 @@ export default function Navbar({ locale, dict }: Props) {
               calcul par le texte descendant — un lien-logo doit etre nomme
               sans ambiguite. */}
           <Link
+            prefetch={false}
             href={`/${locale}`}
             onClick={retourAccueil}
             aria-label={dict.a11y.brandHome}
@@ -301,9 +309,9 @@ export default function Navbar({ locale, dict }: Props) {
                             pinnedRef.current = false;
                             setServicesOpen(false);
                           }}
-                          className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-aws-blue-text motion-reduce:transition-none ${focusRing}`}
+                          className={`flex items-baseline gap-3 rounded-lg px-3 py-2.5 text-[0.9375rem] text-aws-ink transition-colors duration-200 hover:bg-[#f2f7fd] hover:text-[#0072c2] motion-reduce:transition-none ${focusRing}`}
                         >
-                          <span className="w-4 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
+                          <span className="w-4 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-[#0072c2]">
                             {s.num}
                           </span>
                           {s.label}
@@ -382,6 +390,7 @@ export default function Navbar({ locale, dict }: Props) {
           <ul className="flex flex-col">
             <li>
               <Link
+            prefetch={false}
                 href={`/${locale}`}
                 aria-current={estAccueil ? "page" : undefined}
                 className={`${mobileLink} font-semibold`}
@@ -405,7 +414,7 @@ export default function Navbar({ locale, dict }: Props) {
                       className={mobileLink}
                       onClick={() => setMobileOpen(false)}
                     >
-                      <span className="mr-2 text-[0.6875rem] font-semibold tabular-nums text-aws-blue">
+                      <span className="mr-2 text-[0.6875rem] font-semibold tabular-nums text-[#0072c2]">
                         {s.num}
                       </span>
                       {s.label}
@@ -460,6 +469,7 @@ function NavHome({
 }) {
   return (
     <Link
+            prefetch={false}
       href={`/${locale}`}
       onClick={onClick}
       aria-current={estAccueil ? "page" : undefined}
@@ -484,8 +494,8 @@ function LangSwitch({ locale, dict, onNavigate }: { locale: Locale; dict: Navbar
 
   const actif = "font-semibold text-aws-blue-text";
   const inactif =
-    "font-medium text-aws-ink/70 transition-colors duration-200 hover:text-aws-blue-text " +
-    `focus-visible:text-aws-blue-text ${focusRing} motion-reduce:transition-none`;
+    "font-medium text-aws-ink/70 transition-colors duration-200 hover:text-[#0072c2] " +
+    `focus-visible:text-[#0072c2] ${focusRing} motion-reduce:transition-none`;
 
   return (
     <div className="flex items-center gap-1.5 text-[0.8125rem]">
@@ -497,6 +507,7 @@ function LangSwitch({ locale, dict, onNavigate }: { locale: Locale; dict: Navbar
             </span>
           )}
           <Link
+            prefetch={false}
             href={hrefPour(l)}
             onClick={onNavigate}
             hrefLang={l}
