@@ -10,6 +10,7 @@
     "AWS_SITE_URL": "https://www.alfredwinnerservices.com",
     "AWS_DEPLOYMENT_ENV": "production",
     "AWS_INDEXING_ENABLED": "true",
+    "CONTACT_EMAIL_TRANSPORT": "gmail-api",
     "CONTACT_ALLOWED_ORIGINS": "https://www.alfredwinnerservices.com,https://alfredwinnerservices.com"
   },
   "ratelimits": [

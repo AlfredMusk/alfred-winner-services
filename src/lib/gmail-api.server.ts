@@ -36,7 +36,9 @@ export async function sendGmailApiMessage(message: GmailMessage): Promise<void> 
       grant_type: "refresh_token",
     }),
     cache: "no-store",
-    redirect: "error",
+    // Workers rejects redirect:"error". Manual + !ok below rejects redirects
+    // without forwarding OAuth credentials to another host.
+    redirect: "manual",
     signal: AbortSignal.timeout(10_000),
   });
   if (!tokenResponse.ok) throw new GmailApiError("GMAIL_TOKEN_REJECTED");
@@ -75,7 +77,7 @@ export async function sendGmailApiMessage(message: GmailMessage): Promise<void> 
     headers: { Authorization: `Bearer ${token.access_token}`, "Content-Type": "application/json" },
     body: JSON.stringify({ raw: Buffer.from(mime, "utf8").toString("base64url") }),
     cache: "no-store",
-    redirect: "error",
+    redirect: "manual",
     signal: AbortSignal.timeout(15_000),
   });
   if (!response.ok) throw new GmailApiError("GMAIL_SEND_REJECTED");

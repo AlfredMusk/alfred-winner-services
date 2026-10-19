@@ -34,7 +34,8 @@ test("Gmail HTTPS accepts only a confirmed message and preserves Unicode, body a
   assert.equal(calls[0].url, "https://oauth2.googleapis.com/token");
   assert.equal(calls[0].options.body.get("grant_type"), "refresh_token");
   assert.equal(calls[1].url, "https://gmail.googleapis.com/gmail/v1/users/me/messages/send");
-  assert.equal(calls[1].options.redirect, "error");
+  assert.equal(calls[0].options.redirect, "manual");
+  assert.equal(calls[1].options.redirect, "manual");
   assert.equal(calls[1].options.cache, "no-store");
   const mime = Buffer.from(JSON.parse(calls[1].options.body).raw, "base64url").toString("utf8");
   assert.ok(mime.includes("Reply-To: visitor@example.com\r\n"));
@@ -56,8 +57,10 @@ test("Missing configuration and header injection fail before any network request
 }));
 for (const [name, responses, expected] of [
   ["OAuth rejection", [new Response("Private provider error", { status: 401 })], "GMAIL_TOKEN_REJECTED"],
+  ["OAuth redirect", [new Response(null, { status: 302, headers: { Location: "https://untrusted.example" } })], "GMAIL_TOKEN_REJECTED"],
   ["Missing access token", [Response.json({})], "GMAIL_TOKEN_INVALID"],
   ["Send rejection", [Response.json({ access_token: "TEST_ONLY" }), new Response("Private provider error", { status: 403 })], "GMAIL_SEND_REJECTED"],
+  ["Send redirect", [Response.json({ access_token: "TEST_ONLY" }), new Response(null, { status: 302, headers: { Location: "https://untrusted.example" } })], "GMAIL_SEND_REJECTED"],
   ["Missing confirmation ID", [Response.json({ access_token: "TEST_ONLY" }), Response.json({})], "GMAIL_SEND_UNCONFIRMED"],
 ]) {
   test(`${name} never reports success or exposes the provider response`, () => isolated(async () => {

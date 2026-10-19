@@ -3632,3 +3632,10 @@ DONE:
 - Logique Worker : 21 contrôles PASS (hôtes, chemins/query, absence boucle, aperçu noindex, limite contact). Handler Next simulé dans ce test, pas une preuve de production.
 - Tests Gmail API 6/6, lint, TypeScript et build Next/OpenNext PASS. Aucun envoi réel Gmail API confirmé à ce stade.
 - Commits locaux logiques créés : 5997df1 (Hero/Projets validés), c40a60e (sécurité runtime Cloudflare + images statiques). GitHub synchronisé après sauvegarde du transport API préparé ; publication production toujours conditionnée à l'autorisation OAuth et à l'envoi/réception réelle.
+
+## 2026-10-19 — Gmail OAuth reçu, correction runtime Workers
+- Application OAuth en production, consentement gmail.send reçu après autorisation explicite du propriétaire. Jeton de rafraîchissement conservé hors Git, permissions locales 0600. Application non validée par Google ; révocation/réautorisation restent possibles.
+- Secrets ajoutés uniquement à une version isolée : types secret_text confirmés pour les trois clés Gmail OAuth ; ancien GMAIL_APP_PASSWORD préservé. Aucun secret exposé.
+- Contrôle Google réel : renouvellement OAuth HTTP 200, portée gmail.send uniquement ; API Gmail activée. Probe négative volontaire avec message vide : HTTP 400, aucun email envoyé par cette probe.
+- Défaut Workers constaté sur prévisualisation : redirect:error provoque TypeError avant fetch. Documentation Cloudflare confirmée ; remplacé par manual + refus de toute réponse non-2xx, sans suivi de redirection/partage des jetons.
+- Régression couverte : huit tests PASS, dont redirections OAuth et Gmail refusées ; activation explicite gmail-api ajoutée à la configuration de release. Envoi/réception réels encore à confirmer après build corrigé.
