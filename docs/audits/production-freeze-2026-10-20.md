@@ -69,4 +69,37 @@ Références : https://web.dev/articles/vitals ; https://developers.cloudflare.c
 
 ## Validation de la version corrigée
 
-Les résultats de prévisualisation et de publication sont consignés après exécution dans le journal du projet. Aucun résultat de déploiement n'est présumé ici.
+- Lint et TypeScript PASS ; build Next.js/OpenNext PASS, pages FR/EN statiques et indexables ; 8 tests Gmail API PASS.
+- Prévisualisation puis domaine public : présélection des trois services, conservation query/ancre FR↔EN, validation client et focus des erreurs PASS.
+- Responsive Chrome et WebKit : 320, 375, 393, 430, 768, 1024, 1280 (Chrome), 1440 et 1920 px. Aucun overflow détecté. Six projets et grille inchangés.
+- Axe automatisé sur les deux langues, avec notice mobile et sans notice desktop : aucune violation détectée dans les règles WCAG A/AA exécutées. Pas un audit humain exhaustif WCAG 2.2 AA.
+- Menu et sous-menu, Escape, CTA, focus, tactile et reduced-motion PASS. Contrastes du menu au survol : 4,658:1. Fondu Hero : 18 échantillons sans trou ni déplacement ; cadres et images chargés.
+- Comparaison de six captures FR/EN × 375/768/1440 px : dimensions identiques ; différences de pixels 0 à 0,003675 %, sans changement visuel constaté.
+- Images, WhatsApp, Facebook, LinkedIn, pages légales, 404, endpoint GET contact (405 attendu), robots, sitemap, canonical/hreflang et Open Graph PASS. Aucun nouveau mail réel envoyé après le test unique confirmé.
+- Type JSON-LD LocalBusiness valide constaté dans le build, la prévisualisation et le domaine publié ; anciennes valeurs SoftwareCompany retirées.
+- Dernières mesures Lighthouse mobile isolées sur la version publiée (un passage par langue, pas de données terrain) :
+
+| Langue | Performance | Accessibilité | Bonnes pratiques | SEO | LCP | CLS | TBT |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| FR | 81 | 100 | 100 | 100 | 4,4 s | 0,011 | 90 ms |
+| EN | 81 | 100 | 100 | 100 | 4,5 s | 0,009 | 100 ms |
+
+- Les audits nom accessible/libellé et lien descriptif passent après correction. Le LCP mobile de laboratoire reste un axe d'amélioration ; la variabilité des mesures n'est pas présentée comme une amélioration de performance.
+- Aucun secret exposé dans les fichiers suivis/assets publics contrôlés ; aucun changement DNS, règles de sécurité, abonnement ou photographie.
+
+## Release et fichiers
+
+- Commit demandé : acf96fc — chore: final production audit and polish AWS website 2026.
+- Correctif JSON-LD complémentaire : 82fcad1 — fix: use valid LocalBusiness structured data type.
+- Commits poussés normalement sur origin/main et codex/aws-premium-2026, sans force push.
+- Worker publié à 100 % : 2508cfa9-9f5a-4aac-b5c6-2ca368f3582d, tag git-82fcad1. Publication manuelle OpenNext upload → tests preview → Wrangler versions deploy ; le push seul n'est pas présenté comme un pipeline automatique.
+- Référence stable précédente conservée : 3209dbba-824b-4c66-8b86-5d5d09377d9a. Retour possible via Wrangler versions deploy de cette version à 100 %, sans toucher aux DNS.
+- Fichiers : src/components/layout/Navbar.tsx ; src/components/layout/PrivacyNotice.tsx ; src/i18n/dictionaries.ts ; src/lib/seo.ts ; travaux réalisés.md ; ce rapport.
+- Les huit JPG et l'ancien rapport non suivis restent intacts et hors commit.
+
+## Réserves de clôture
+
+- Surveiller un correctif compatible pour les cinq alertes de développement.
+- Mesurer les Core Web Vitals terrain au p75 et investiguer le LCP mobile sans remettre en cause le design validé ; aucun objectif terrain déclaré atteint.
+- Paramètres détaillés de zone/WAF non vérifiés faute de droits API ; pas de configuration sensible changée.
+- Aucun contrôle juridique exhaustif ni test sur appareil iOS physique ; WebKit est une émulation navigateur. Aucun problème fonctionnel bloquant constaté dans les contrôles exécutés.

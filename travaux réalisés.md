@@ -3735,3 +3735,9 @@ DONE:
 - Rapport : docs/audits/production-freeze-2026-10-20.md. Prévisualisation et validation finale en cours.
 - Contrôle final Schema.org : SoftwareCompany absent du vocabulaire officiel (HTTP 404). Retiré, LocalBusiness conservé. Aucun changement visible.
 - Première version acf96fc publiée et testée ; présélection FR/EN, axe, responsive, images et headers PASS. Correction JSON-LD complémentaire en préparation.
+- Dernier build Next/OpenNext, lint et TypeScript PASS. JSON-LD LocalBusiness confirmé en preview puis public FR/EN.
+- Prévisualisation et public : présélection 3 services, contexte FR/EN, erreurs/focus, axe 0 violation détectée, responsive 320–1920 px, six projets, menus et Hero PASS.
+- Visuels FR/EN avant/après : dimensions identiques, écart pixels < 0,004 %. Notice/WhatsApp et footer PASS. Aucun changement de design.
+- Publication 82fcad1 : Worker 2508cfa9-9f5a-4aac-b5c6-2ca368f3582d à 100 %, main et branche synchronisés. Aucun DNS ou secret modifié.
+- Lighthouse mobile final FR/EN : 81/100/100/100 ; LCP 4,4/4,5 s, CLS 0,011/0,009. Réserve performance labo ; p75 terrain non vérifié. Dev audit : 5 high non corrigées, prod : 0.
+- Rapport final complété. Référence stable fonctionnelle, réserves explicites. Chrome ouvert sur le domaine public.
