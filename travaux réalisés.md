@@ -3687,3 +3687,7 @@ DONE:
 - Audit traceurs public : aucun cookie/stockage initial, seul RUM Cloudflare. HTTPS confirmé séparément.
 - Tests locaux 14 formats FR/EN, fermeture clavier/persistance/langue/version/onglets/stockage bloqué PASS.
 - Lint/typecheck/build Next/OpenNext PASS. Aucun secret exposé détecté. Preview avant publication.
+- Contrôle non-régression : canonical absent/noindex/robots bloqués détectés sur première preview et ancien build public. Reconstruction avec variables SEO publiques existantes, sans changer src/lib/seo.ts.
+- Commit code 12fed15 poussé main/branche. Worker 681396f1-b5ea-4631-8592-c98bb88d66d8 publié 100 % après preview validée.
+- Production Chrome/WebKit : 14 formats FR/EN chacun PASS ; régression images/menus/CTA/légal/404/SEO PASS, console propre.
+- Domaine public : canonical/indexabilité/robots/sitemap rétablis et vérifiés. Chrome ouvert. Aucun DNS/secret/formulaire modifié.
