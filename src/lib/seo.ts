@@ -93,7 +93,7 @@ export function pageMetadata(
 export function organizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "SoftwareCompany"],
+    "@type": "LocalBusiness",
     name: business.name,
     legalName: business.legalName,
     telephone: business.telephone,

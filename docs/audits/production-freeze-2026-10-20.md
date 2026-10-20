@@ -8,6 +8,7 @@ Périmètre : audit ciblé de la version validée, sans refonte.
 - Liens de langue : nom accessible enrichi du libellé visible FR/EN (WCAG 2.5.3).
 - Changement de langue : conservation de la query et de l'ancre lors de la navigation client, notamment pour la présélection du service dans Contact.
 - Notice : complément de contexte FR/EN réservé aux lecteurs d'écran sur le lien vers la confidentialité. Texte visible, dimensions, fermeture et stockage inchangés.
+- JSON-LD : retrait du type inexistant SoftwareCompany, conservation de LocalBusiness. Vérification du vocabulaire officiel : https://schema.org/version/latest/schemaorg-current-https.jsonld ; SoftwareCompany répond HTTP 404.
 - Aucun changement de photographie, de style, de description de projet ni de logique d'envoi.
 
 ## Infrastructure et sécurité

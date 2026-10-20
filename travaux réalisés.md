@@ -3733,3 +3733,5 @@ DONE:
 - Trois défauts : nom accessible FR/EN, contexte service perdu au changement de langue, lien confidentialité anglais trop générique. Corrections invisibles, aucun style/projet/photo changé.
 - Lighthouse initial mobile : FR 87/100/100/100, EN 81/100/100/92. LCP labo > 2,5 s ; p75 terrain non vérifié. Pas de fausse conformité WCAG/CWV.
 - Rapport : docs/audits/production-freeze-2026-10-20.md. Prévisualisation et validation finale en cours.
+- Contrôle final Schema.org : SoftwareCompany absent du vocabulaire officiel (HTTP 404). Retiré, LocalBusiness conservé. Aucun changement visible.
+- Première version acf96fc publiée et testée ; présélection FR/EN, axe, responsive, images et headers PASS. Correction JSON-LD complémentaire en préparation.
