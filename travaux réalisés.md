@@ -3715,3 +3715,9 @@ DONE:
 - Public : images, liens sociaux, pages légales, robots, sitemap, canonical, HTTPS et redirection apex PASS. API contact GET 405 attendu ; 8 tests Gmail PASS, aucun nouvel email réel envoyé pour cette correction.
 - Commit fonctionnel 406ca5e poussé sur main et branche. Worker 3f43f1fa-ad03-49e5-9146-6d6ee854ff5d publié à 100 %. Aucune modification DNS/secrets/autres sections.
 - Chrome ouvert sur le site publié. Huit JPG et audit non suivis préservés. Aucun défaut constaté dans les contrôles exécutés.
+
+
+## 2026-10-20 — Projet immobilier 06
+- Ajout FR/EN : Acquisition & valorisation foncière, texte fourni.
+- Projets 01–05 inchangés. Composants et styles inchangés.
+- Lint, TypeScript, build Next/OpenNext et 8 tests Gmail API PASS. Contenu 01–05 inchangé confirmé. Prévisualisation en préparation.

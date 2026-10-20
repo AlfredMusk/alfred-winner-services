@@ -339,6 +339,13 @@ const fr = {
         texte:
           "Exploration et développement de solutions logicielles associant intelligence artificielle, agents IA et automatisation de processus.",
       },
+      {
+        id: "acquisition-valorisation-fonciere",
+        nom: "Acquisition & valorisation foncière",
+        categorie: "Immobilier · Foncier · Investissement",
+        texte:
+          "Projet immobilier axé sur l'acquisition, la valorisation et les opportunités de vente de terrains à Jacqueville et dans le Grand Abidjan, avec une attention particulière portée à la sécurisation foncière et au potentiel de développement des zones concernées.",
+      },
     ],
   },
 
@@ -774,6 +781,13 @@ const en: Dictionary = {
         categorie: "AI · Automation · Software",
         texte:
           "Exploration and development of software solutions combining artificial intelligence, AI agents and process automation.",
+      },
+      {
+        id: "acquisition-valorisation-fonciere",
+        nom: "Land Acquisition & Development",
+        categorie: "Real estate · Land · Investment",
+        texte:
+          "Real estate initiative focused on land acquisition, value enhancement and land sale opportunities in Jacqueville and Greater Abidjan, with particular attention to land title security and the development potential of these areas.",
       },
     ],
   },
