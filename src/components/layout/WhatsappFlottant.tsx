@@ -43,6 +43,9 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
       );
       const collision = Array.from(elements).some((element) => {
         if (!chevauche(element.getBoundingClientRect())) return false;
+        // The image-wide pause target is not text or a form field. It must
+        // not hide WhatsApp when the compact banner moves it over the photo.
+        if (element.matches("button") && element.closest('section[aria-labelledby="hero-titre"]')) return false;
         if (element.matches("input, select, textarea, button, a, label")) return true;
         // Les rectangles des lignes de texte excluent le blanc en fin de ligne.
         const texte = document.createRange();
@@ -54,6 +57,7 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
     const planifier = () => { if (!frame) frame = requestAnimationFrame(verifier); };
     const observer = new MutationObserver(planifier);
     observer.observe(document.body, { childList: true });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
     for (const zone of document.querySelectorAll("main, footer")) {
       observer.observe(zone, { childList: true, characterData: true, subtree: true });
     }
@@ -80,9 +84,9 @@ export default function WhatsappFlottant({ dict }: { dict: WhatsappDictionary })
       rel="noopener noreferrer"
       aria-label={`${dict.ariaLabel} — ${dict.verifieLabel}`}
       title={dict.verifieLabel}
-      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-whatsapp text-white shadow-[0_8px_24px_rgba(18,140,126,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-whatsapp-fonce hover:shadow-[0_12px_28px_rgba(18,140,126,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp-fonce motion-reduce:transition-none motion-reduce:hover:translate-y-0 desk:w-auto desk:pl-5 desk:pr-4"
+      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-whatsapp text-white shadow-[0_8px_24px_rgba(18,140,126,0.4)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-whatsapp-fonce hover:shadow-[0_12px_28px_rgba(18,140,126,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp-fonce motion-reduce:transition-none motion-reduce:hover:translate-y-0 desk:w-auto desk:pl-5 desk:pr-4"
       style={{
-        bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))",
+        bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px) + var(--aws-privacy-clearance, 0px))",
         right: "calc(1.25rem + env(safe-area-inset-right, 0px))",
       }}
     >

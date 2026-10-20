@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Locale, PrivacyNoticeDictionary } from "@/i18n/dictionaries";
 import { PRIVACY_NOTICE_STORAGE_KEY, PRIVACY_NOTICE_VERSION } from "@/lib/privacy-notice";
 import styles from "./PrivacyNotice.module.css";
@@ -51,24 +51,59 @@ export default function PrivacyNotice({ locale, dict }: {
   dict: PrivacyNoticeDictionary;
 }) {
   const dismissed = useSyncExternalStore(subscribe, isDismissed, serverSnapshot);
+  const [closing, setClosing] = useState(false);
+  const panelRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (dismissed || !panelRef.current) return;
+    const panel = panelRef.current;
+    const update = () => {
+      // Reserve room at the page end and lift WhatsApp clear of the banner.
+      document.documentElement.style.setProperty("--aws-privacy-clearance", `${Math.ceil(panel.getBoundingClientRect().height) + 24}px`);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(panel);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--aws-privacy-clearance");
+    };
+  }, [dismissed]);
+
+  useEffect(() => {
+    if (!closing) return;
+    const timer = window.setTimeout(() => {
+      dismiss();
+      setClosing(false);
+      document.getElementById("top")?.focus({ preventScroll: true });
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
+
   if (dismissed) return null;
 
   return (
-    <aside className={styles.panel} aria-labelledby="privacy-notice-title" aria-live="polite">
-      <div className={styles.heading}>
-        <h2 id="privacy-notice-title" className={styles.title}>{dict.title}</h2>
+    <>
+    <div className={styles.clearance} aria-hidden="true" />
+    <aside ref={panelRef} className={styles.panel} data-closing={closing} aria-labelledby="privacy-notice-title" aria-live="polite">
+      <div className={styles.message}>
+        <h2 id="privacy-notice-title" className={styles.title}>{dict.title}</h2>{" "}
+        <span>{dict.description}</span>{" "}
+        <a href={`/${locale}/confidentialite`} className={styles.link} onClick={dismiss}>
+          {dict.learnMore}
+        </a>
+      </div>
         <button type="button" className={styles.close} aria-label={dict.close}
+          disabled={closing}
           onClick={() => {
-            dismiss();
-            document.getElementById("top")?.focus({ preventScroll: true });
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+              dismiss();
+              document.getElementById("top")?.focus({ preventScroll: true });
+            } else setClosing(true);
           }}>
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <p className={styles.description}>{dict.description}</p>
-      <a href={`/${locale}/confidentialite`} className={styles.link} onClick={dismiss}>
-        {dict.learnMore}<span aria-hidden="true"> →</span>
-      </a>
     </aside>
+    </>
   );
 }

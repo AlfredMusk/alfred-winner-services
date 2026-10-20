@@ -49,3 +49,20 @@ Aucune modification du Hero, de la navbar, des projets ou du formulaire.
   Secret Gmail toujours secret_text ; formulaire et SMTP inchangés.
 - Production consultée dans Chrome et dans le navigateur Codex.
 - Retour arrière disponible : Worker `48569e67-717e-4c3e-b261-e09fe315ba6d`.
+
+## 20 octobre 2026 — bannière compacte
+
+Le panneau est remplacé par une bannière horizontale, ancrée à 12px du bas
+plus la safe area. Texte court FR/EN fourni par le propriétaire, sans promesse
+absolue de sécurité ni nouvelle demande de consentement. Apparition/disparition
+180ms, supprimées en mouvement réduit. Bouton de fermeture 44×44.
+
+La version de mémorisation reste 2026-10-19.1 : une modification visuelle ne doit
+pas réafficher l'information aux visiteurs qui l'ont déjà fermée. Aucun nouveau
+traceur ni préférence marketing ajouté. Le lien permanent du footer est conservé.
+
+Une réserve de fin de page permet de faire défiler le footer au-dessus de la
+bannière. Sa hauteur mesurée ajuste aussi l'espace de WhatsApp ; les animations
+de position du bouton sont exclues pour éviter une collision pendant le déplacement.
+Le contrôle invisible couvrant la photo Hero ne doit pas masquer WhatsApp ; les
+protections existantes contre les collisions avec les textes/champs sont conservées.

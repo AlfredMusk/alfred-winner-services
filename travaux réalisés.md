@@ -3678,3 +3678,12 @@ DONE:
 - Preview puis production Chrome/WebKit : 14 formats chacun PASS ; clavier/persistance/stockage bloqué/onglets PASS.
 - WebKit émulation iPhone 13 FR/EN tactile PASS. Pas de test iPhone physique/VoiceOver annoncé.
 - Domaine public/politique/robots/sitemap 200 cache HIT. Secrets Gmail toujours chiffrés, aucun DNS touché.
+
+## 20 octobre 2026 — ajustements ciblés UI/UX
+- Notice remplacée par bannière compacte FR/EN, bas + safe area. Texte fourni, fermeture 44px, animation 180ms/reduced-motion.
+- Même marqueur de fermeture/version : pas de nouveau consentement, pas de réapparition pour changement visuel.
+- Réserve en bas de page + dégagement WhatsApp. Pas de collision animée avec la bannière.
+- Historique projets 490a1a9/5997df1 consulté. Grille/CTA conservés ; bloc web auto-référentiel AWS retiré, cinq projets/expérimentations existants, textes raccourcis.
+- Audit traceurs public : aucun cookie/stockage initial, seul RUM Cloudflare. HTTPS confirmé séparément.
+- Tests locaux 14 formats FR/EN, fermeture clavier/persistance/langue/version/onglets/stockage bloqué PASS.
+- Lint/typecheck/build Next/OpenNext PASS. Aucun secret exposé détecté. Preview avant publication.

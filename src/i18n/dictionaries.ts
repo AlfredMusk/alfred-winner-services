@@ -298,7 +298,7 @@ const fr = {
     eyebrow: "PROJETS & RÉALISATIONS",
     titre: "Des solutions conçues pour des usages concrets.",
     paragraphe:
-      "Six axes de projets et d'expérimentations conçus au sein de l'écosystème AWS, avec un accent fort sur le software, l'intelligence artificielle, l'automatisation et les technologies financières.",
+      "Des projets et expérimentations en développement web, logiciels, intelligence artificielle et automatisation.",
     // NOMS PUBLICS DEPERSONNALISES (passe anterieure) : conserves — les
     // noms de marque reels (Baby Tourism, Alfred Fitness, Alfred AI
     // Trader...) donnes en exemple par le fondateur servent a IDENTIFIER
@@ -314,42 +314,35 @@ const fr = {
         nom: "Plateforme de découverte touristique",
         categorie: "Tourisme · Web · Expérience numérique",
         texte:
-          "Projet de plateforme numérique consacré à la découverte touristique en Côte d'Ivoire. Son objectif est de présenter le territoire à travers l'expérience touristique.",
+          "Projet de plateforme web consacré à la découverte touristique en Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Expérience web Fitness",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "Projet d'expérience web consacré aux services et à l'identité d'un univers fitness. Il explore leur présentation dans une interface numérique cohérente.",
+          "Projet d'interface web consacré aux services et à l'identité numérique d'un univers fitness.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Plateforme d'analyse de marchés",
         categorie: "Finance · Software · IA",
         texte:
-          "Logiciel expérimental associant analyse de marchés, automatisation et intelligence artificielle. Il explore leur intégration dans un même outil d'analyse.",
+          "Logiciel expérimental associant analyse de marchés, automatisation et intelligence artificielle.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Suivi & visualisation multi-actifs",
         categorie: "Finance · Data · Interface numérique",
         texte:
-          "Projet d'interface pour le suivi et la visualisation de données multi-actifs. Son objectif est d'organiser les informations liées à différents actifs et opérations.",
-      },
-      {
-        id: "conception-web-moderne",
-        nom: "Conception de sites web modernes",
-        categorie: "Web · UI/UX · Front-end",
-        texte:
-          "Conception de sites et d'interfaces web pour des usages professionnels. Le site AWS est une réalisation interne en ligne, responsive et disponible en français et en anglais.",
+          "Projet d'interface pour organiser, suivre et visualiser des données multi-actifs.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "Solutions & intelligence artificielle",
         categorie: "IA · Automatisation · Software",
         texte:
-          "Expérimentations logicielles associant intelligence artificielle, automatisation et agents IA. Elles explorent leur application à des besoins concrets.",
+          "Expérimentations logicielles associant intelligence artificielle, automatisation et agents IA.",
       },
     ],
   },
@@ -498,8 +491,8 @@ const fr = {
     ],
   },
   privacyNotice: {
-    title: "Votre confidentialité, notre priorité.",
-    description: "Votre connexion à Alfred Winner Services est protégée par HTTPS et des mécanismes de sécurité Cloudflare. Nous ne déposons pas de cookies publicitaires sans votre consentement.",
+    title: "Votre confidentialité compte.",
+    description: "Nous protégeons votre navigation et respectons vos choix en matière de cookies.",
     learnMore: "En savoir plus",
     close: "Fermer la notice de confidentialité et de sécurité",
   },
@@ -750,7 +743,7 @@ const en: Dictionary = {
     eyebrow: "PROJECTS & DELIVERABLES",
     titre: "Solutions designed for real-world use.",
     paragraphe:
-      "Six axes of projects and experiments built within the AWS ecosystem, with a strong focus on software, artificial intelligence, automation and financial technologies.",
+      "Projects and experiments in web development, software, artificial intelligence and automation.",
     invitation: {
       titre: "Have a project in mind?",
       description: "Let's discuss your needs and explore solutions suited to your business.",
@@ -762,42 +755,35 @@ const en: Dictionary = {
         nom: "Tourism discovery platform",
         categorie: "Tourism · Web · Digital experience",
         texte:
-          "A digital platform project focused on tourism discovery in Côte d'Ivoire. Its objective is to present the country through the lens of the visitor experience.",
+          "A web platform project focused on tourism discovery in Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Fitness web experience",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "A web experience project centred on fitness services and their digital identity. It explores their presentation through a consistent digital interface.",
+          "A web interface project focused on fitness services and their digital identity.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Market analysis platform",
         categorie: "Finance · Software · AI",
         texte:
-          "Experimental software combining market analysis, automation and artificial intelligence. It explores their integration within a single analysis tool.",
+          "Experimental software combining market analysis, automation and artificial intelligence.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset tracking & visualisation",
         categorie: "Finance · Data · Digital interface",
         texte:
-          "An interface project for tracking and visualising multi-asset data. Its objective is to organise information relating to different assets and operations.",
-      },
-      {
-        id: "conception-web-moderne",
-        nom: "Modern web design",
-        categorie: "Web · UI/UX · Front-end",
-        texte:
-          "Design of websites and interfaces for professional use. The AWS website is an in-house project available online, responsive and offered in French and English.",
+          "An interface project for organising, tracking and visualising multi-asset data.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "AI & intelligent solutions",
         categorie: "AI · Automation · Software",
         texte:
-          "Software experiments combining artificial intelligence, automation and AI agents. They explore applications to concrete needs.",
+          "Software experiments combining artificial intelligence, automation and AI agents.",
       },
     ],
   },
@@ -919,8 +905,8 @@ const en: Dictionary = {
     ],
   },
   privacyNotice: {
-    title: "Your privacy is our priority.",
-    description: "Your connection to Alfred Winner Services is protected by HTTPS and Cloudflare security measures. We do not place advertising cookies without your consent.",
+    title: "Your privacy matters.",
+    description: "We protect your browsing experience and respect your cookie preferences.",
     learnMore: "Learn more",
     close: "Close the privacy and security notice",
   },
