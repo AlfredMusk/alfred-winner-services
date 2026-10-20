@@ -3710,3 +3710,8 @@ DONE:
 - Bouton secondaire transparent ; hover blanc/bleu 200 ms, sans mouvement, réservé à la souris. Focus et reduced-motion conservés.
 - Lint, TypeScript, build Next/OpenNext : PASS. Gmail API : 8 tests PASS.
 - Chrome : FR/EN, 320–1920 px, cinq projets, menus et bouton Hero PASS. Publication en préparation.
+- Prévisualisation puis production : Chrome + WebKit, FR/EN × 8 largeurs (320/375/393/430/768/1024/1440/1920), PASS. Aucun débordement, erreur console ou ressource HTTP en échec.
+- Hero : hover fond identique au primaire, texte/flèche AWS, dimensions stables ; focus, reduced-motion et tactile PASS.
+- Public : images, liens sociaux, pages légales, robots, sitemap, canonical, HTTPS et redirection apex PASS. API contact GET 405 attendu ; 8 tests Gmail PASS, aucun nouvel email réel envoyé pour cette correction.
+- Commit fonctionnel 406ca5e poussé sur main et branche. Worker 3f43f1fa-ad03-49e5-9146-6d6ee854ff5d publié à 100 %. Aucune modification DNS/secrets/autres sections.
+- Chrome ouvert sur le site publié. Huit JPG et audit non suivis préservés. Aucun défaut constaté dans les contrôles exécutés.
