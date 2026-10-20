@@ -303,46 +303,48 @@ const fr = {
     // noms de marque reels (Baby Tourism, Alfred Fitness, Alfred AI
     // Trader...) donnes en exemple par le fondateur servent a IDENTIFIER
     // le projet, pas a etre affiches tels quels sur la page publique.
-    invitation: {
-      titre: "Vous avez un projet en tête ?",
-      description: "Échangeons sur vos besoins et explorons ensemble les solutions adaptées à votre activité.",
-      cta: "Discuter de votre projet",
-    },
     liste: [
       {
         id: "baby-tourism",
         nom: "Plateforme de découverte touristique",
         categorie: "Tourisme · Web · Expérience numérique",
         texte:
-          "Projet de plateforme web consacré à la découverte touristique en Côte d'Ivoire.",
+          "Conception d'une plateforme web dédiée à la découverte des destinations touristiques, du patrimoine culturel et des expériences locales en Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Expérience web Fitness",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "Projet d'interface web consacré aux services et à l'identité numérique d'un univers fitness.",
+          "Développement d'une interface web dédiée à l'univers du fitness, privilégiant une navigation intuitive, un design responsive et une expérience utilisateur fluide.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Plateforme d'analyse de marchés",
         categorie: "Finance · Software · IA",
         texte:
-          "Logiciel expérimental associant analyse de marchés, automatisation et intelligence artificielle.",
+          "Développement expérimental d'outils d'analyse des marchés financiers intégrant visualisation de données, automatisation et intelligence artificielle.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Suivi & visualisation multi-actifs",
         categorie: "Finance · Data · Interface numérique",
         texte:
-          "Projet d'interface pour organiser, suivre et visualiser des données multi-actifs.",
+          "Conception d'une interface numérique permettant d'organiser, de suivre et de visualiser différentes catégories d'actifs financiers.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "Solutions & intelligence artificielle",
         categorie: "IA · Automatisation · Software",
         texte:
-          "Expérimentations logicielles associant intelligence artificielle, automatisation et agents IA.",
+          "Exploration et développement de solutions logicielles associant intelligence artificielle, agents IA et automatisation de processus.",
+      },
+      {
+        id: "developpement-web-react",
+        nom: "Développement web moderne",
+        categorie: "Web · React · UI/UX",
+        texte:
+          "Conception de sites web et d'interfaces modernes avec React, privilégiant la performance, l'accessibilité, le responsive design et une expérience utilisateur soignée.",
       },
     ],
   },
@@ -744,46 +746,48 @@ const en: Dictionary = {
     titre: "Solutions designed for real-world use.",
     paragraphe:
       "Projects and experiments in web development, software, artificial intelligence and automation.",
-    invitation: {
-      titre: "Have a project in mind?",
-      description: "Let's discuss your needs and explore solutions suited to your business.",
-      cta: "Discuss your project",
-    },
     liste: [
       {
         id: "baby-tourism",
         nom: "Tourism discovery platform",
         categorie: "Tourism · Web · Digital experience",
         texte:
-          "A web platform project focused on tourism discovery in Côte d'Ivoire.",
+          "Design of a web platform dedicated to discovering tourist destinations, cultural heritage and local experiences in Côte d'Ivoire.",
       },
       {
         id: "alfred-fitness",
         nom: "Fitness web experience",
         categorie: "Web · Fitness · Front-end",
         texte:
-          "A web interface project focused on fitness services and their digital identity.",
+          "Development of a fitness-focused web interface, prioritising intuitive navigation, responsive design and a smooth user experience.",
       },
       {
         id: "alfred-ai-trader",
         nom: "Market analysis platform",
         categorie: "Finance · Software · AI",
         texte:
-          "Experimental software combining market analysis, automation and artificial intelligence.",
+          "Experimental development of financial market analysis tools combining data visualisation, automation and artificial intelligence.",
       },
       {
         id: "tableau-de-bord-multi-actifs",
         nom: "Multi-asset tracking & visualisation",
         categorie: "Finance · Data · Digital interface",
         texte:
-          "An interface project for organising, tracking and visualising multi-asset data.",
+          "Design of a digital interface for organising, tracking and visualising different categories of financial assets.",
       },
       {
         id: "solutions-intelligence-artificielle",
         nom: "AI & intelligent solutions",
         categorie: "AI · Automation · Software",
         texte:
-          "Software experiments combining artificial intelligence, automation and AI agents.",
+          "Exploration and development of software solutions combining artificial intelligence, AI agents and process automation.",
+      },
+      {
+        id: "developpement-web-react",
+        nom: "Modern web development",
+        categorie: "Web · React · UI/UX",
+        texte:
+          "Design of modern websites and interfaces with React, prioritising performance, accessibility, responsive design and a carefully crafted user experience.",
       },
     ],
   },

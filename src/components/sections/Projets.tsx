@@ -1,6 +1,5 @@
 import type { Locale, ProjetsDictionary, Projet } from "@/i18n/dictionaries";
 import styles from "./projects/Projects.module.css";
-import { boutonPrimaireClair } from "@/components/ui/boutons";
 
 function CarteProjet({ projet, numero }: { projet: Projet; numero: string }) {
   return (
@@ -51,15 +50,6 @@ export default function Projets({ dict }: { dict: ProjetsDictionary; locale: Loc
               <CarteProjet key={projet.id} projet={projet} numero={String(i + 1).padStart(2, "0")} />
             ))}
           </ul>
-          <div className={styles.invitation}>
-            <div>
-              <h3>{dict.invitation.titre}</h3>
-              <p>{dict.invitation.description}</p>
-            </div>
-            <a href="#contact" className={boutonPrimaireClair}>
-              {dict.invitation.cta}<span aria-hidden="true">↗</span>
-            </a>
-          </div>
         </div>
       </div>
     </section>

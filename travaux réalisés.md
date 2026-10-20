@@ -3691,3 +3691,9 @@ DONE:
 - Commit code 12fed15 poussé main/branche. Worker 681396f1-b5ea-4631-8592-c98bb88d66d8 publié 100 % après preview validée.
 - Production Chrome/WebKit : 14 formats FR/EN chacun PASS ; régression images/menus/CTA/légal/404/SEO PASS, console propre.
 - Domaine public : canonical/indexabilité/robots/sitemap rétablis et vérifiés. Chrome ouvert. Aucun DNS/secret/formulaire modifié.
+
+## 20 octobre 2026 — six projets, rédaction finale
+- Descriptions FR exactes fournies par le propriétaire ; traductions EN fidèles.
+- Ajout 06 Développement web moderne / React, sans référence au site AWS ni client inventé.
+- Grille/numéros/catégories/styles conservés. CTA de section supprimé : JSX, textes FR/EN et CSS dédiés.
+- Bannière/Hero/Navbar/formulaire inchangés. Tests/build/preview avant publication.

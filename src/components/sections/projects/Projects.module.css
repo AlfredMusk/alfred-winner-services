@@ -63,19 +63,3 @@
 @media (prefers-reduced-motion: reduce) {
   .separator, .title { transition: none; }
 }
-
-
-.invitation {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem 2rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e6ecf4;
-}
-
-.invitation h3 { color: #004a85; font-size: 1.125rem; font-weight: 650; }
-.invitation p { max-width: 58ch; margin-top: .5rem; color: #43556a; font-size: .9375rem; line-height: 1.7; }
-.invitation > a { flex-shrink: 0; }
