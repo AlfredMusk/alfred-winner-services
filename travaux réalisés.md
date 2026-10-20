@@ -3725,3 +3725,11 @@ DONE:
 - Texte FR et EN 06 exact ; 01–05 inchangés. Aucune erreur JavaScript ou ressource HTTP en échec détectée. Images, liens sociaux, pages légales, SEO et endpoint contact 405 attendu PASS. Aucun nouvel email envoyé.
 - Commit f17bb36 poussé sur main et branche. Cloudflare Workers/OpenNext : version 3209dbba-824b-4c66-8b86-5d5d09377d9a publiée à 100 %, vérifiée sur le domaine officiel. Chrome ouvert.
 - Aucun autre composant/style modifié. Huit JPG et audit non suivis préservés. Anomalies constatées : aucune.
+
+## 2026-10-20 — Audit final production freeze
+- Sécurité publique : TLS, redirections, headers, 404 privés, validation API PASS. Secrets présents et non exposés dans les fichiers contrôlés.
+- Un seul email réel : reçu en INBOX, 7 champs et Reply-To vérifiés. Gmail API 8 tests PASS. Panne réseau/double soumission testées sans envoi.
+- npm audit prod : 0. Dev : 5 high via braces sans version corrigée compatible ; documenté, aucune rétrogradation.
+- Trois défauts : nom accessible FR/EN, contexte service perdu au changement de langue, lien confidentialité anglais trop générique. Corrections invisibles, aucun style/projet/photo changé.
+- Lighthouse initial mobile : FR 87/100/100/100, EN 81/100/100/92. LCP labo > 2,5 s ; p75 terrain non vérifié. Pas de fausse conformité WCAG/CWV.
+- Rapport : docs/audits/production-freeze-2026-10-20.md. Prévisualisation et validation finale en cours.

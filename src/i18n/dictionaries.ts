@@ -496,6 +496,7 @@ const fr = {
     title: "Votre confidentialité compte.",
     description: "Nous protégeons votre navigation et respectons vos choix en matière de cookies.",
     learnMore: "En savoir plus",
+    learnMoreContext: " sur la politique de confidentialité",
     close: "Fermer la notice de confidentialité et de sécurité",
   },
   confidentialite: {
@@ -912,6 +913,7 @@ const en: Dictionary = {
     title: "Your privacy matters.",
     description: "We protect your browsing experience and respect your cookie preferences.",
     learnMore: "Learn more",
+    learnMoreContext: " about the privacy policy",
     close: "Close the privacy and security notice",
   },
   confidentialite: {

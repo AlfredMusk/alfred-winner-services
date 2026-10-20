@@ -90,7 +90,7 @@ export default function PrivacyNotice({ locale, dict }: {
         <h2 id="privacy-notice-title" className={styles.title}>{dict.title}</h2>{" "}
         <span>{dict.description}</span>{" "}
         <a href={`/${locale}/confidentialite`} className={styles.link} onClick={dismiss}>
-          {dict.learnMore}
+          {dict.learnMore}<span className="sr-only">{dict.learnMoreContext}</span>
         </a>
       </div>
         <button type="button" className={styles.close} aria-label={dict.close}

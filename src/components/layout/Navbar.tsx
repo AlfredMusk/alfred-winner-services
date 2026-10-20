@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Locale, NavbarDictionary } from "@/i18n/dictionaries";
 import { locales } from "@/i18n/dictionaries";
 
@@ -488,6 +488,7 @@ function NavHome({
    le visiteur reste donc sur LA MEME page en changeant de langue.
    ------------------------------------------------------------------ */
 function LangSwitch({ locale, dict, onNavigate }: { locale: Locale; dict: NavbarDictionary; onNavigate: () => void }) {
+  const router = useRouter();
   const pathname = usePathname() ?? `/${locale}`;
   const sansLangue = pathname.replace(/^\/(fr|en)(?=\/|$)/, "");
   const hrefPour = (l: Locale) => `/${l}${sansLangue}`;
@@ -509,10 +510,17 @@ function LangSwitch({ locale, dict, onNavigate }: { locale: Locale; dict: Navbar
           <Link
             prefetch={false}
             href={hrefPour(l)}
-            onClick={onNavigate}
+            onNavigate={(event) => {
+              const context = window.location.search + window.location.hash;
+              if (context) {
+                event.preventDefault();
+                router.push(hrefPour(l) + context);
+              }
+              onNavigate();
+            }}
             hrefLang={l}
             aria-current={l === locale ? "true" : undefined}
-            aria-label={l === "fr" ? dict.a11y.switchToFr : dict.a11y.switchToEn}
+            aria-label={`${l.toUpperCase()} — ${l === "fr" ? dict.a11y.switchToFr : dict.a11y.switchToEn}`}
             className={`inline-flex min-h-11 min-w-8 items-center justify-center rounded px-0.5 ${l === locale ? actif : inactif}`}
           >
             {l.toUpperCase()}
