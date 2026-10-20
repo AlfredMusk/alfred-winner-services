@@ -3697,3 +3697,9 @@ DONE:
 - Ajout 06 Développement web moderne / React, sans référence au site AWS ni client inventé.
 - Grille/numéros/catégories/styles conservés. CTA de section supprimé : JSX, textes FR/EN et CSS dédiés.
 - Bannière/Hero/Navbar/formulaire inchangés. Tests/build/preview avant publication.
+- Lint/typecheck/build Next/OpenNext PASS ; canonical/indexabilité vérifiés au build, scan secrets PASS.
+- Preview puis domaine public : Chrome/WebKit, FR/EN × 320/375/393/430/768/1024/1440/1920 PASS.
+- Six titres/descriptions (FR exact), ordre 01–06, grille 2×3 desktop/1 colonne mobile, absence de CTA de section PASS.
+- Menus, formulaire présent, lien confidentialité conservé, canonical/robots/sitemap PASS. Aucune erreur console/ressource en échec sur les parcours testés.
+- Commit code 3751c72 poussé main/branche ; Worker 5db99e09-34da-4558-b9a0-26fc1a9297ed publié à 100 % et contrôlé. Rollback précédent 681396f1 conservé.
+- Chrome ouvert sur /fr#projets, capture publique inspectée. Aucune modification hors dictionnaire projets/composant/CSS dédiés/journal.
