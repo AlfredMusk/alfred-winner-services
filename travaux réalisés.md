@@ -3721,3 +3721,7 @@ DONE:
 - Ajout FR/EN : Acquisition & valorisation foncière, texte fourni.
 - Projets 01–05 inchangés. Composants et styles inchangés.
 - Lint, TypeScript, build Next/OpenNext et 8 tests Gmail API PASS. Contenu 01–05 inchangé confirmé. Prévisualisation en préparation.
+- Prévisualisation puis domaine public : FR/EN, Chrome + WebKit, 320/375/393/430/768/1024/1440/1920 px PASS. Six projets, trois lignes desktop, 05 gauche/06 droite, une colonne mobile. Aucun CTA redondant ni débordement.
+- Texte FR et EN 06 exact ; 01–05 inchangés. Aucune erreur JavaScript ou ressource HTTP en échec détectée. Images, liens sociaux, pages légales, SEO et endpoint contact 405 attendu PASS. Aucun nouvel email envoyé.
+- Commit f17bb36 poussé sur main et branche. Cloudflare Workers/OpenNext : version 3209dbba-824b-4c66-8b86-5d5d09377d9a publiée à 100 %, vérifiée sur le domaine officiel. Chrome ouvert.
+- Aucun autre composant/style modifié. Huit JPG et audit non suivis préservés. Anomalies constatées : aucune.
