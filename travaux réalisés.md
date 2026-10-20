@@ -3703,3 +3703,10 @@ DONE:
 - Menus, formulaire présent, lien confidentialité conservé, canonical/robots/sitemap PASS. Aucune erreur console/ressource en échec sur les parcours testés.
 - Commit code 3751c72 poussé main/branche ; Worker 5db99e09-34da-4558-b9a0-26fc1a9297ed publié à 100 % et contrôlé. Rollback précédent 681396f1 conservé.
 - Chrome ouvert sur /fr#projets, capture publique inspectée. Aucune modification hors dictionnaire projets/composant/CSS dédiés/journal.
+
+
+## 2026-10-20 — Finalisation cinq projets et bouton Hero
+- Fusion 02/06 FR/EN. React confirmé dans le manifeste Fitness. Autres descriptions conservées.
+- Bouton secondaire transparent ; hover blanc/bleu 200 ms, sans mouvement, réservé à la souris. Focus et reduced-motion conservés.
+- Lint, TypeScript, build Next/OpenNext : PASS. Gmail API : 8 tests PASS.
+- Chrome : FR/EN, 320–1920 px, cinq projets, menus et bouton Hero PASS. Publication en préparation.

@@ -313,10 +313,10 @@ const fr = {
       },
       {
         id: "alfred-fitness",
-        nom: "Expérience web Fitness",
-        categorie: "Web · Fitness · Front-end",
+        nom: "Développement d'interfaces web modernes",
+        categorie: "Web · React · Fitness · UI/UX",
         texte:
-          "Développement d'une interface web dédiée à l'univers du fitness, privilégiant une navigation intuitive, un design responsive et une expérience utilisateur fluide.",
+          "Conception d'interfaces web modernes et responsives avec React, à travers des projets dédiés notamment au fitness, privilégiant la performance, l'accessibilité et l'expérience utilisateur.",
       },
       {
         id: "alfred-ai-trader",
@@ -338,13 +338,6 @@ const fr = {
         categorie: "IA · Automatisation · Software",
         texte:
           "Exploration et développement de solutions logicielles associant intelligence artificielle, agents IA et automatisation de processus.",
-      },
-      {
-        id: "developpement-web-react",
-        nom: "Développement web moderne",
-        categorie: "Web · React · UI/UX",
-        texte:
-          "Conception de sites web et d'interfaces modernes avec React, privilégiant la performance, l'accessibilité, le responsive design et une expérience utilisateur soignée.",
       },
     ],
   },
@@ -756,10 +749,10 @@ const en: Dictionary = {
       },
       {
         id: "alfred-fitness",
-        nom: "Fitness web experience",
-        categorie: "Web · Fitness · Front-end",
+        nom: "Modern Web Interface Development",
+        categorie: "Web · React · Fitness · UI/UX",
         texte:
-          "Development of a fitness-focused web interface, prioritising intuitive navigation, responsive design and a smooth user experience.",
+          "Design and development of modern, responsive web interfaces using React, including fitness-related projects, with a focus on performance, accessibility and user experience.",
       },
       {
         id: "alfred-ai-trader",
@@ -781,13 +774,6 @@ const en: Dictionary = {
         categorie: "AI · Automation · Software",
         texte:
           "Exploration and development of software solutions combining artificial intelligence, AI agents and process automation.",
-      },
-      {
-        id: "developpement-web-react",
-        nom: "Modern web development",
-        categorie: "Web · React · UI/UX",
-        texte:
-          "Design of modern websites and interfaces with React, prioritising performance, accessibility, responsive design and a carefully crafted user experience.",
       },
     ],
   },

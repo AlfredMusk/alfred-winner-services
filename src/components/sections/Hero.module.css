@@ -13,9 +13,9 @@
 .actions { display: flex; flex-direction: column; gap: .8rem; margin-top: 2rem; }
 .primary, .secondary { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 3.25rem; padding: .8rem 1.4rem; border-radius: 999px; font-size: .875rem; font-weight: 600; transition: background .2s, transform .2s, border-color .2s; }
 .primary { background: #f6fbff; color: #092b4a; border: 1px solid #f6fbff; box-shadow: 0 5px 25px #0002; }
-.secondary { color: #edf6ff; border: 1px solid #7995b466; background: #ffffff04; }
+.secondary { color: #fff; border: 1px solid #7995b466; background: transparent; transition: background-color .2s, color .2s, border-color .2s; }
 .primary:hover { background: #dcefff; transform: translateY(-2px); }
-.secondary:hover { background: #ffffff0d; border-color: #a6c6e5; transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .secondary:hover { background: #f6fbff; color: var(--color-aws-navy); border-color: #f6fbff; } }
 .primary:focus-visible, .secondary:focus-visible { outline: 2px solid #a2daff; outline-offset: 5px; }
 .primary:active, .secondary:active { transform: translateY(0); }
 .scene { position: relative; min-width: 0; width: 100%; }
