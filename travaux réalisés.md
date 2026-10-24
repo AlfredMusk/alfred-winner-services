@@ -3754,3 +3754,11 @@ DONE:
 - Cloture QA : lint/types/Next/OpenNext PASS ; 25 Node + 42 Playwright PASS ; audit npm 0.
 - GitHub CI 309eab8 SUCCESS. Cloudflare 27692190-881c-45b7-92e4-54c7ea37b163 actif a 100 %. DNS inchanges.
 - Prod FR desktop / EN mobile PASS. API negative 403/400. Aucun email envoye. Performance mobile labo 77, reserve documentee.
+
+
+## 2026-10-24 — Performance mobile et CSP
+- Meme design/photos/animations. AVIF et largeurs coherentes : variantes -12,8 %, page labo 529 -> 504 KiB.
+- Lighthouse isole avant 90 ; apres FR 91/91/91, EN 91. Historique 77 non directement comparable.
+- CSP : handlers HTML interdits, styles inline blocs interdits en prod, images limitees au site. Inline RSC et attributs style conserves et documentes.
+- 25 Node + 45 Playwright PASS. Lint/types/Next/OpenNext PASS. Audit npm 0.
+- Test mail unique autorise vers krodi2001@gmail.com ; resultat dans rapport performance-csp.

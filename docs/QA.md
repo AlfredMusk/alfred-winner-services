@@ -23,6 +23,7 @@ Le serveur QA utilise le build Next et un certificat HTTPS éphémère : Safari 
 ## Ce qui est testé
 
 - 25 tests Node : véritable logique des handlers, validation, payloads, limites, origine, honeypot, erreurs Gmail/SMTP, MIME/Reply-To, routage Worker, rate limiter, dictionnaires et assets Git.
+- Tests CSP réels : handlers inline, blocs de style injectés et images distantes bloqués sur les trois moteurs.
 - Suite navigateur FR/EN sur Chromium, Firefox et WebKit mobile : pages, métadonnées, six projets, images, menus/clavier, changement de langue avec chemin/query/ancre, présélection des trois services, ancres et coordonnées.
 - Dix largeurs : 320, 375, 390, 393, 430, 768, 1024, 1280, 1440 et 1920 px ; captures et contrôle d'overflow.
 - Axe WCAG 2 A/AA, 2.1 AA et 2.2 AA sur accueil et confidentialité ; contrôle automatisé, pas certification ni remplacement d'un audit humain.

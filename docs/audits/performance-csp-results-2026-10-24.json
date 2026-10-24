@@ -1,0 +1,99 @@
+{
+  "scope": "Production build over local HTTPS; sequential mobile lab runs, not field data. Same machine/Chrome/Lighthouse/settings.",
+  "historicalPreviousAuditPerformance": 77,
+  "isolatedBefore": {
+    "url": "https://127.0.0.1:3100/fr",
+    "lighthouseVersion": "13.5.0",
+    "categories": {
+      "performance": 0.9,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "total-byte-weight": 541664,
+      "largest-contentful-paint": 3474.5989999999993,
+      "total-blocking-time": 94.5,
+      "cumulative-layout-shift": 0.01078685901118137
+    }
+  },
+  "after": [
+    {
+      "url": "https://127.0.0.1:3100/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "total-byte-weight": 515717,
+        "largest-contentful-paint": 3459.983,
+        "total-blocking-time": 84,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://127.0.0.1:3100/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "total-byte-weight": 515717,
+        "largest-contentful-paint": 3453.892999999999,
+        "total-blocking-time": 85.5,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://127.0.0.1:3100/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "total-byte-weight": 515717,
+        "largest-contentful-paint": 3459.195,
+        "total-blocking-time": 87.5,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://127.0.0.1:3100/en",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "total-byte-weight": 514905,
+        "largest-contentful-paint": 3452.9010000000007,
+        "total-blocking-time": 83,
+        "cumulative-layout-shift": 0.008801590977994418
+      }
+    }
+  ],
+  "playwright": {
+    "startTime": "2026-10-24T15:44:38.101Z",
+    "duration": 89288.393,
+    "expected": 45,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "nodeTests": {
+    "passed": 25,
+    "failed": 0
+  },
+  "realFormTest": "PENDING_APPROVED_UNIQUE_ATTEMPT_TO_krodi2001@gmail.com"
+}

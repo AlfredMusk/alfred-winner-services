@@ -210,4 +210,35 @@ test("root, 404, robots, sitemap, API methods and production headers", async ({ 
   expect(page.headers()["x-content-type-options"]).toBe("nosniff");
   expect(page.headers()["content-security-policy"]).toContain("object-src 'none'");
   expect(page.headers()["content-security-policy"]).not.toContain("unsafe-eval");
+  expect(page.headers()["content-security-policy"]).toContain("script-src-attr 'none'");
+  expect(page.headers()["content-security-policy"]).toContain("style-src-elem 'self'");
+});
+
+test("CSP blocks inline event handlers, injected style blocks and remote images", async ({ page }) => {
+  await page.goto("/fr");
+  await dismissPrivacy(page, "fr");
+  await page.evaluate(() => {
+    const violations: string[] = [];
+    document.addEventListener("securitypolicyviolation", event => {
+      violations.push(event.effectiveDirective);
+      document.documentElement.dataset.qaViolations = JSON.stringify(violations);
+    });
+    const button = document.createElement("button");
+    button.id = "qa-csp-probe";
+    button.textContent = "Local security probe";
+    button.setAttribute("onclick", "document.documentElement.dataset.qaExecuted='yes'");
+    document.body.append(button);
+    button.click();
+    const style = document.createElement("style");
+    style.textContent = "#qa-csp-probe { display: none !important; }";
+    document.head.append(style);
+    const image = document.createElement("img");
+    image.src = "https://example.invalid/blocked-by-local-test-csp.png";
+    document.body.append(image);
+  });
+  await expect.poll(() => page.locator("html").getAttribute("data-qa-violations")).toContain("script-src-attr");
+  await expect.poll(() => page.locator("html").getAttribute("data-qa-violations")).toContain("style-src-elem");
+  await expect.poll(() => page.locator("html").getAttribute("data-qa-violations")).toContain("img-src");
+  expect(await page.locator("html").getAttribute("data-qa-executed")).toBeNull();
+  await expect(page.locator("#qa-csp-probe")).toBeVisible();
 });
