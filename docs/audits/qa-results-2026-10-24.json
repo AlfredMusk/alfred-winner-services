@@ -375,5 +375,175 @@
       "cumulative-layout-shift": 0.01078685901118137,
       "total-blocking-time": 158.92500000000018
     }
+  },
+  "baselineNpmAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 4,
+    "high": 3,
+    "critical": 0,
+    "total": 7
+  },
+  "release": {
+    "gitCommit": "309eab88810827d399853ec13f8125ded39319b4",
+    "branch": "codex/qa-hardening-2026-10-24",
+    "githubActions": "https://github.com/AlfredMusk/alfred-winner-services/actions/runs/40104767553",
+    "ciConclusion": "success",
+    "cloudflareVersion": "27692190-881c-45b7-92e4-54c7ea37b163",
+    "trafficPercent": 100,
+    "publicBrowserChecks": [
+      {
+        "locale": "fr",
+        "width": 1440,
+        "status": 200,
+        "canonical": "https://www.alfredwinnerservices.com/fr",
+        "lang": "fr",
+        "projects": 6,
+        "overflow": false,
+        "brokenImages": [],
+        "newContactBundle": 1,
+        "errors": [],
+        "failed": []
+      },
+      {
+        "locale": "en",
+        "width": 390,
+        "status": 200,
+        "canonical": "https://www.alfredwinnerservices.com/en",
+        "lang": "en",
+        "projects": 6,
+        "overflow": false,
+        "brokenImages": [],
+        "newContactBundle": 1,
+        "errors": [],
+        "failed": []
+      }
+    ],
+    "publicApiValidationChecks": [
+      {
+        "origin": "https://not-aws.example",
+        "status": 403,
+        "response": {
+          "erreurGenerique": true
+        }
+      },
+      {
+        "origin": "https://www.alfredwinnerservices.com",
+        "status": 400,
+        "response": {
+          "erreurs": {
+            "nom": true,
+            "email": true,
+            "service": true,
+            "description": true
+          }
+        }
+      }
+    ],
+    "publicHttpChecks": [
+      {
+        "path": "/",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/fr",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/fr"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/fr",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/fr",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/fr"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/en",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/en",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/en"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/fr/mentions-legales",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/fr/mentions-legales",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/fr/mentions-legales"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/en/mentions-legales",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/en/mentions-legales",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/en/mentions-legales"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/fr/confidentialite",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/fr/confidentialite",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/fr/confidentialite"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/en/confidentialite",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/en/confidentialite",
+        "canonical": [
+          "https://www.alfredwinnerservices.com/en/confidentialite"
+        ],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/robots.txt",
+        "canonical": [],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "destination": "https://www.alfredwinnerservices.com/sitemap.xml",
+        "canonical": [],
+        "sitemapOfficial": true
+      },
+      {
+        "path": "/fr/qa-not-a-page",
+        "status": 404,
+        "destination": "https://www.alfredwinnerservices.com/fr/qa-not-a-page",
+        "canonical": [],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/api/contact",
+        "status": 405,
+        "destination": "https://www.alfredwinnerservices.com/api/contact",
+        "canonical": [],
+        "sitemapOfficial": null
+      },
+      {
+        "path": "/favicon.ico",
+        "status": 404,
+        "destination": "https://www.alfredwinnerservices.com/favicon.ico",
+        "canonical": [],
+        "sitemapOfficial": null
+      }
+    ],
+    "configuredFavicon": {
+      "path": "/images/brand/aws-emblem.png",
+      "status": 200
+    },
+    "realEmailsSent": 0
   }
 }

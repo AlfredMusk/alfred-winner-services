@@ -72,4 +72,15 @@ La version est consolidée pour les parcours vérifiés. La livraison réelle d'
 
 ## Relevé de clôture
 
-À compléter après les derniers contrôles et opérations Git/Cloudflare.
+- Correctifs : commit `495d770`. Suite/CI : commit `309eab88810827d399853ec13f8125ded39319b4`, poussé sur `origin/codex/qa-hardening-2026-10-24`.
+- [GitHub Actions de la version déployée](https://github.com/AlfredMusk/alfred-winner-services/actions/runs/40104767553) : **SUCCESS**, y compris npm ci, audit, lint, types, tests Node, build, Playwright et OpenNext sur runner Linux neuf.
+- Cloudflare : version `27692190-881c-45b7-92e4-54c7ea37b163`, tag `git-309eab8`, déployée à **100 %** le 24 octobre 2026 à 15:01 UTC. Aucune modification de triggers/DNS ou de paramètres non versionnés.
+- Prévisualisation testée en FR/EN, HTTP 200, noindex, six projets, aucune erreur JavaScript : https://27692190-alfred-winner-services.alfred-winner-services.workers.dev/fr
+- Après activation : six pages publiques en 200 ; racine vers FR ; vraie 404 ; robots/sitemap 200 ; favicon réellement configuré `/images/brand/aws-emblem.png` en 200. `/favicon.ico` n'est pas configuré et renvoie normalement 404.
+- Contrôle navigateur du domaine officiel : FR 1440 px et EN 390 px, six projets, canonical/langue exacts, nouveau bundle du formulaire présent, aucune image cassée après chargement, aucun overflow, aucune erreur console ni ressource en échec.
+- API publique : origine étrangère → 403 ; payload incomplet avec `<qa@example.com>` → 400 avec erreur email. Les autres champs obligatoires sont volontairement absents : ces requêtes ne peuvent jamais transmettre d'email, même avec un ancien validateur.
+- Livraison réelle : **NON RETESTÉE**, aucun email envoyé. Action distincte : soumettre une demande depuis une adresse contrôlée et confirmer réception/Reply-To auprès du propriétaire.
+- Performance restante : score mobile local 77, LCP simulé 4,0 s ; aucune mesure terrain ou note Lighthouse publique valide. La publication ne vaut pas validation de ces métriques.
+- Uniquement les modifications QA ont été commitées. Le journal préexistant (217 lignes), l'ancien rapport non suivi et les huit JPG restent préservés hors commit.
+- Aucun navigateur Chrome personnel connecté ; version publiée ouverte et conservée dans le navigateur Codex. Chromium a servi aux tests automatisés.
+- Les derniers changements du rapport et des preuves sont documentaires ; le code publié correspond exactement au commit `309eab8`.
