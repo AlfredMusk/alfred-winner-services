@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-24",
+  "playwright": {
+    "stats": {
+      "startTime": "2026-10-24T14:50:21.412Z",
+      "duration": 181773.187,
+      "expected": 42,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "scenario": "fr: pages, images, six projects, metadata and JavaScript",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: responsive 320–1920 without overflow and accessible pages",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: navigation, language, secure official contact links",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: privacy notice persists and never implies marketing consent",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: form validation, provider error and confirmed mocked success",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: pages, images, six projects, metadata and JavaScript",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: responsive 320–1920 without overflow and accessible pages",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: navigation, language, secure official contact links",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: privacy notice persists and never implies marketing consent",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: form validation, provider error and confirmed mocked success",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "form timeout releases submission without displaying success",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "privacy notice remains dismissible when browser storage is unavailable",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "carousel cycles without layout shift and respects reduced motion",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "root, 404, robots, sitemap, API methods and production headers",
+        "browser": "chromium",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: pages, images, six projects, metadata and JavaScript",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: responsive 320–1920 without overflow and accessible pages",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: navigation, language, secure official contact links",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: privacy notice persists and never implies marketing consent",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: form validation, provider error and confirmed mocked success",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: pages, images, six projects, metadata and JavaScript",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: responsive 320–1920 without overflow and accessible pages",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: navigation, language, secure official contact links",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: privacy notice persists and never implies marketing consent",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: form validation, provider error and confirmed mocked success",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "form timeout releases submission without displaying success",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "privacy notice remains dismissible when browser storage is unavailable",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "carousel cycles without layout shift and respects reduced motion",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "root, 404, robots, sitemap, API methods and production headers",
+        "browser": "firefox",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: pages, images, six projects, metadata and JavaScript",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: responsive 320–1920 without overflow and accessible pages",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: navigation, language, secure official contact links",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: privacy notice persists and never implies marketing consent",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "fr: form validation, provider error and confirmed mocked success",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: pages, images, six projects, metadata and JavaScript",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: responsive 320–1920 without overflow and accessible pages",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: navigation, language, secure official contact links",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: privacy notice persists and never implies marketing consent",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "en: form validation, provider error and confirmed mocked success",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "form timeout releases submission without displaying success",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "privacy notice remains dismissible when browser storage is unavailable",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "carousel cycles without layout shift and respects reduced motion",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      },
+      {
+        "scenario": "root, 404, robots, sitemap, API methods and production headers",
+        "browser": "webkit-mobile",
+        "status": "expected",
+        "attempts": [
+          "passed"
+        ]
+      }
+    ]
+  },
+  "nodeTests": {
+    "passed": 25,
+    "failed": 0,
+    "externalMailDelivery": "MOCKED_ONLY"
+  },
+  "npmAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "lighthouse": {
+    "scope": "Local HTTPS production build, FR, mobile laboratory; not field measurements",
+    "version": "13.5.0",
+    "categories": {
+      "performance": 0.77,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "largest-contentful-paint": 4016.0250000000005,
+      "cumulative-layout-shift": 0.01078685901118137,
+      "total-blocking-time": 158.92500000000018
+    }
+  }
+}

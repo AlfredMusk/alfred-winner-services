@@ -10,9 +10,14 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "start": "next start -p 3100",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "images:prepare": "node scripts/prepare-images.mjs",
-    "test:gmail-api": "node --test scripts/test-gmail-api.mjs"
+    "test:gmail-api": "node --test scripts/test-gmail-api.mjs",
+    "test": "node --test scripts/test-gmail-api.mjs scripts/test-contact-route.mjs scripts/test-cloudflare-worker.mjs scripts/test-site-contracts.mjs",
+    "test:e2e": "playwright test",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build:qa && npm run test:e2e",
+    "build:qa": "node scripts/build-qa.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.12",

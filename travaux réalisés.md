@@ -3741,3 +3741,12 @@ DONE:
 - Publication 82fcad1 : Worker 2508cfa9-9f5a-4aac-b5c6-2ca368f3582d à 100 %, main et branche synchronisés. Aucun DNS ou secret modifié.
 - Lighthouse mobile final FR/EN : 81/100/100/100 ; LCP 4,4/4,5 s, CLS 0,011/0,009. Réserve performance labo ; p75 terrain non vérifié. Dev audit : 5 high non corrigées, prod : 0.
 - Rapport final complété. Référence stable fonctionnelle, réserves explicites. Chrome ouvert sur le domaine public.
+
+
+## 2026-10-24 — QA et sécurité
+- Branche isolee codex/qa-hardening-2026-10-24. Modifications precedentes et huit JPG preserves.
+- Audit dependances : 7 alertes initiales -> 0. Mises a jour compatibles, override Undici cible.
+- Formulaire : validation mailbox unique partagee ; abandon client apres 30 s. Pas de changement visuel.
+- 25 tests Node ; suite Playwright FR/EN Chromium, Firefox, WebKit ; serveur QA HTTPS local.
+- CI qualite sans secrets ni deploiement automatique. Docs QA ajoutees.
+- Verification finale et publication : voir docs/audits/qa-security-2026-10-24.md.
