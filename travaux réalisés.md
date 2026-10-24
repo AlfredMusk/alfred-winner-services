@@ -3762,3 +3762,8 @@ DONE:
 - CSP : handlers HTML interdits, styles inline blocs interdits en prod, images limitees au site. Inline RSC et attributs style conserves et documentes.
 - 25 Node + 45 Playwright PASS. Lint/types/Next/OpenNext PASS. Audit npm 0.
 - Test mail unique autorise vers krodi2001@gmail.com ; resultat dans rapport performance-csp.
+
+- Cloture : CI 68da2c0 SUCCESS ; Cloudflare 679a8706-9562-4a0f-89b0-879b9d68d6f9 actif 100 %.
+- Test reel unique autorise : succes formulaire, recu dans Gmail krodi2001@gmail.com ; 7 champs et Reply-To verifies. Aucun second envoi.
+- Prod FR desktop / EN mobile : AVIF, canonical, CSP, images, console et overflow PASS.
+- Mesures publiques Lighthouse : FR 86/91/80, EN 75. Seuil 90 non stabilise en production ; mesures locales 91x4. Essai de chargement differe sans gain, retire avant publication.

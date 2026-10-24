@@ -95,5 +95,139 @@
     "passed": 25,
     "failed": 0
   },
-  "realFormTest": "PENDING_APPROVED_UNIQUE_ATTEMPT_TO_krodi2001@gmail.com"
+  "realFormTest": {
+    "date": "2026-10-24",
+    "uniqueToken": "AWS-QA-20261024-PERF-CSP",
+    "approvedRecipient": "krodi2001@gmail.com",
+    "submissions": 1,
+    "uiSuccess": true,
+    "gmailInboxReceived": true,
+    "matchingConversations": 1,
+    "sevenFieldsVerified": true,
+    "replyToObserved": "contact@alfredwinnerservices.com",
+    "fromObserved": "Alfred Winner Services <krodi2001@gmail.com>",
+    "toObserved": "krodi2001@gmail.com",
+    "subjectObserved": "Nouveau projet AWS — Software & IA",
+    "screenshots": "Local ignored test-results/contact-real-before.png, contact-real-success.png, contact-real-received.png; mailbox capture is not published to Git."
+  },
+  "release": {
+    "sourceCommit": "68da2c0284306b3bff0511abcac56b780a7170a7",
+    "branch": "codex/performance-csp-2026-10-24",
+    "githubActions": "https://github.com/AlfredMusk/alfred-winner-services/actions/runs/40108696963",
+    "ciConclusion": "success",
+    "workerVersion": "679a8706-9562-4a0f-89b0-879b9d68d6f9",
+    "trafficPercent": 100,
+    "productionChecks": [
+      {
+        "locale": "fr",
+        "width": 1440,
+        "status": 200,
+        "canonical": "https://www.alfredwinnerservices.com/fr",
+        "csp": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com/beacon.min.js https://static.cloudflareinsights.com/beacon.min.js/; script-src-attr 'none'; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self'; manifest-src 'self'; upgrade-insecure-requests",
+        "overflow": false,
+        "photos": [
+          "https://www.alfredwinnerservices.com/images/hero/finance-markets-w768.avif",
+          "https://www.alfredwinnerservices.com/images/hero/software-lab-w736.avif",
+          "https://www.alfredwinnerservices.com/images/apropos/qui-sommes-nous-v6-w768.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/software-ia-v5-w736.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/finance-v5-w768.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/immobilier-v6-w687.avif"
+        ],
+        "errors": [],
+        "failed": []
+      },
+      {
+        "locale": "en",
+        "width": 390,
+        "status": 200,
+        "canonical": "https://www.alfredwinnerservices.com/en",
+        "csp": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com/beacon.min.js https://static.cloudflareinsights.com/beacon.min.js/; script-src-attr 'none'; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self'; manifest-src 'self'; upgrade-insecure-requests",
+        "overflow": false,
+        "photos": [
+          "https://www.alfredwinnerservices.com/images/hero/finance-markets-w480.avif",
+          "https://www.alfredwinnerservices.com/images/hero/software-lab-w480.avif",
+          "https://www.alfredwinnerservices.com/images/apropos/qui-sommes-nous-v6-w480.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/software-ia-v5-w480.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/finance-v5-w480.avif",
+          "https://www.alfredwinnerservices.com/images/expertises/immobilier-v6-w480.avif"
+        ],
+        "errors": [],
+        "failed": []
+      }
+    ],
+    "rollbackVersion": "27692190-881c-45b7-92e4-54c7ea37b163"
+  },
+  "publicLighthouse": [
+    {
+      "url": "https://www.alfredwinnerservices.com/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.86,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 2392.304,
+        "largest-contentful-paint": 3526.0385,
+        "total-blocking-time": 110.5,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://www.alfredwinnerservices.com/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.91,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 2370.5580000000004,
+        "largest-contentful-paint": 3035.2940000000003,
+        "total-blocking-time": 84.5,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://www.alfredwinnerservices.com/fr",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.8,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 2437.564,
+        "largest-contentful-paint": 4490.289499999999,
+        "total-blocking-time": 103.5,
+        "cumulative-layout-shift": 0.01078685901118137
+      }
+    },
+    {
+      "url": "https://www.alfredwinnerservices.com/en",
+      "lighthouseVersion": "13.5.0",
+      "categories": {
+        "performance": 0.75,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 2323.611,
+        "largest-contentful-paint": 4860.9439999999995,
+        "total-blocking-time": 104,
+        "cumulative-layout-shift": 0
+      }
+    }
+  ],
+  "publicPerformanceTarget": "REACHED_IN_ONE_RUN_NOT_STABLE: FR 86/91/80, median 86; EN 75",
+  "discardedTrial": {
+    "change": "Defer second hero photo until first decodes, gate transition on readiness",
+    "localPerformance": 90,
+    "reason": "No measured gain against 91 baseline; reverted before publication",
+    "published": false
+  }
 }

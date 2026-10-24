@@ -21,7 +21,9 @@ Les mêmes photographies possèdent désormais des variantes AVIF, qualité 70, 
 
 Les variantes photo comparables passent de 1 155 082 à 1 006 712 octets, soit environ **12,8 %** de moins. Le poids total d'une page baisse d'environ 5 %, pas de 13 %. Les images AVIF sont testées sur Chromium, Firefox et WebKit ; aucune promesse pour des navigateurs anciens non pris en charge par Next.
 
-Le seuil demandé est atteint dans les quatre mesures laboratoire. Ce n'est pas une garantie universelle de score : réseau, appareil, charge CPU et script Analytics injecté en production peuvent changer le résultat. Le LCP simulé reste au-dessus de 2,5 s ; les Core Web Vitals terrain ne sont pas validés par ce test. Animations et transitions sont conservées.
+Le seuil demandé est atteint dans les quatre mesures laboratoire. **Il n'est pas stabilisé sur Internet** : quatre passages publics supplémentaires, sans changement de configuration, donnent **FR 86 / 91 / 80 (médiane 86), EN 75**. Accessibilité, bonnes pratiques et SEO restent à 100 dans tous ces passages. Les mesures publiques font varier le LCP simulé de 3,0 à 4,9 s et le temps de réponse du document ; Cloudflare Web Analytics est également injecté sur le domaine public. Aucun de ces résultats n'est écarté pour embellir le bilan.
+
+Un essai local retardant la seconde photo du Hero jusqu'au décodage de la première a donné 90 contre 91 précédemment, sans gain mesuré. Il a été retiré avant publication. Les animations et le chargement initial validés restent donc conservés. Le site atteint 90 dans certaines mesures, mais aucune garantie globale à 90 n'est revendiquée. Il reste une réserve de performance sur le domaine public. Ce n'est pas une garantie universelle de score : réseau, appareil, charge CPU et script Analytics injecté en production peuvent changer le résultat. Le LCP simulé reste au-dessus de 2,5 s ; les Core Web Vitals terrain ne sont pas validés par ce test. Animations et transitions sont conservées.
 
 ## CSP
 
@@ -50,9 +52,17 @@ La vérification automatisée des abus reste locale : origine, JSON, tailles, in
 
 ## Formulaire réel et publication
 
-Le propriétaire a explicitement autorisé **un seul envoi** vers `krodi2001@gmail.com`. Les sept champs seront remplis avec des données AWS de test et un identifiant unique `AWS-QA-20261024-PERF-CSP`. Aucun prospect n'est contacté. Aucune modification du destinataire ou des secrets.
+Le propriétaire a explicitement autorisé **un seul envoi** vers `krodi2001@gmail.com`. Les sept champs ont été remplis avec des données AWS de test et un identifiant unique `AWS-QA-20261024-PERF-CSP`. Aucun prospect n'est contacté. Aucune modification du destinataire ou des secrets.
 
-État de la publication et preuve de réception : à compléter après la CI et le test unique. Une réponse HTTP positive seule ne sera pas assimilée à une réception en boîte.
+**PASS réel, réception confirmée dans Gmail.** Un seul clic de soumission, formulaire public FR, sept champs renseignés. L'interface a affiché son succès. La recherche Gmail du jeton unique était vide avant le test puis a trouvé exactement une conversation, libellée **Boîte de réception**. Le message a été ouvert : les sept champs sont présents et les détails Gmail affichent `répondre à : contact@alfredwinnerservices.com`, exactement la valeur saisie. Expéditeur observé : Alfred Winner Services <krodi2001@gmail.com> ; destinataire : krodi2001@gmail.com ; objet : Nouveau projet AWS — Software & IA.
+
+La réception en boîte est ainsi vérifiée indépendamment du succès HTTP. Aucun second envoi, aucune réponse automatique ni message à un prospect. Le backend n'a pas été modifié. Captures locales privées sous `test-results/contact-real-*.png`, non commitées ; données de test uniquement.
+
+GitHub : commits `3737794` (performance) et `68da2c0` (CSP/tests), poussés sur `codex/performance-csp-2026-10-24`. [CI complète de la version publiée](https://github.com/AlfredMusk/alfred-winner-services/actions/runs/40108696963) : **SUCCESS**, y compris les 70 tests et les deux builds sur runner neuf.
+
+Cloudflare : version **679a8706-9562-4a0f-89b0-879b9d68d6f9**, tag `git-68da2c0`, active à **100 %**. La prévisualisation puis le domaine officiel ont été vérifiés en FR desktop et EN mobile : HTTP 200, canonical exact, photos AVIF chargées, aucun overflow ni erreur JavaScript/console ni ressource critique en échec. Le type image/avif et la nouvelle CSP sont observés dans les réponses publiques. Aucun DNS, secret ou paramètre non versionné modifié.
+
+Retour arrière disponible vers **27692190-881c-45b7-92e4-54c7ea37b163**, version QA précédente. Les derniers ajouts au rapport sont documentaires ; le code réellement déployé correspond à `68da2c0`.
 
 ## Fichiers
 
