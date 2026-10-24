@@ -31,3 +31,9 @@ export const telephoneHref = `tel:${telephoneE164}`;
     Le message pre-rempli, lui, depend de la langue et vit dans le
     dictionnaire. */
 export const whatsappBase = `https://wa.me/${INDICATIF}${NUMERO_NATIONAL}`;
+
+/** A single mailbox, not an address list, display name or MIME header. */
+export function isValidContactEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    && !/[<>,;:"\\()[\]]/.test(value);
+}

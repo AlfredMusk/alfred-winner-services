@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import { createHash } from "node:crypto";
 import { getDictionary, locales } from "@/i18n/dictionaries";
 import { gmailApiConfigured, sendGmailApiMessage } from "@/lib/gmail-api.server";
+import { isValidContactEmail } from "@/lib/contact";
 
 export const runtime = "nodejs";
 
@@ -32,8 +33,6 @@ function limiter(email: string): boolean {
 const SERVICES_AUTORISES = new Set(
   locales.flatMap((l) => getDictionary(l).contact.formulaire.serviceOptions),
 );
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Longueurs raisonnables : empechent un payload abusif sans jamais
 // gener une description de projet longue et legitime.
@@ -142,7 +141,7 @@ export async function POST(requete: Request) {
     if (typeof valeur === "string" && valeur.trim().length > max) erreurs[champ] = true;
   }
   if (!donnees.nom) erreurs.nom = true;
-  if (!donnees.email || !EMAIL_RE.test(donnees.email) || /[\r\n]/.test(donnees.email)) erreurs.email = true;
+  if (!isValidContactEmail(donnees.email)) erreurs.email = true;
   if (!donnees.service || !SERVICES_AUTORISES.has(donnees.service)) erreurs.service = true;
   if (!donnees.description) erreurs.description = true;
 

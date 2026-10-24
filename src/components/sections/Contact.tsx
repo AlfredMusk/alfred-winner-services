@@ -4,6 +4,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import type { ContactDictionary } from "@/i18n/dictionaries";
 import { boutonPrimaireClair } from "@/components/ui/boutons";
+import { isValidContactEmail } from "@/lib/contact";
 
 type Champs = {
   nom: string;
@@ -96,7 +97,7 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
     const e: Erreurs = {};
     if (!champs.nom.trim()) e.nom = f.champObligatoire;
     if (!champs.email.trim()) e.email = f.champObligatoire;
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(champs.email.trim())) e.email = f.champEmailInvalide;
+    else if (!isValidContactEmail(champs.email.trim())) e.email = f.champEmailInvalide;
     if (!champs.service.trim()) e.service = f.champObligatoire;
     if (!champs.description.trim()) e.description = f.champObligatoire;
     return e;
@@ -122,9 +123,12 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
 
     soumissionEnCours.current = true;
     setEtat("envoi");
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 30_000);
     try {
       const reponse = await fetch("/api/contact", {
         method: "POST",
+        signal: controller.signal,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...champs, site: piege, chargeA: chargeA.current }),
       });
@@ -152,6 +156,7 @@ export default function Contact({ dict }: { dict: ContactDictionary }) {
     } catch {
       setEtat("erreur");
     } finally {
+      window.clearTimeout(timeout);
       soumissionEnCours.current = false;
     }
   };
