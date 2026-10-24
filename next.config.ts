@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  images: { loader: "custom", loaderFile: "./src/lib/image-loader.ts" },
+  images: {
+    loader: "custom", loaderFile: "./src/lib/image-loader.ts",
+    // Match the pre-generated widths instead of advertising rounded-up assets.
+    deviceSizes: [480, 768, 1200], imageSizes: [64, 128, 256],
+  },
   async headers() {
     return [
       {

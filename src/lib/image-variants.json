@@ -2,27 +2,27 @@
   "/images/apropos/qui-sommes-nous-v6.jpg": [
     {
       "width": 64,
-      "src": "/images/apropos/qui-sommes-nous-v6-w64.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/apropos/qui-sommes-nous-v6-w128.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/apropos/qui-sommes-nous-v6-w256.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/apropos/qui-sommes-nous-v6-w480.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w480.avif"
     },
     {
       "width": 768,
-      "src": "/images/apropos/qui-sommes-nous-v6-w768.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w768.avif"
     },
     {
       "width": 1200,
-      "src": "/images/apropos/qui-sommes-nous-v6-w1200.webp"
+      "src": "/images/apropos/qui-sommes-nous-v6-w1200.avif"
     }
   ],
   "/images/brand/aws-emblem.png": [
@@ -86,145 +86,145 @@
   "/images/expertises/finance-v5.jpg": [
     {
       "width": 64,
-      "src": "/images/expertises/finance-v5-w64.webp"
+      "src": "/images/expertises/finance-v5-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/expertises/finance-v5-w128.webp"
+      "src": "/images/expertises/finance-v5-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/expertises/finance-v5-w256.webp"
+      "src": "/images/expertises/finance-v5-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/expertises/finance-v5-w480.webp"
+      "src": "/images/expertises/finance-v5-w480.avif"
     },
     {
       "width": 768,
-      "src": "/images/expertises/finance-v5-w768.webp"
+      "src": "/images/expertises/finance-v5-w768.avif"
     },
     {
       "width": 1200,
-      "src": "/images/expertises/finance-v5-w1200.webp"
+      "src": "/images/expertises/finance-v5-w1200.avif"
     }
   ],
   "/images/expertises/immobilier-v6.jpg": [
     {
       "width": 64,
-      "src": "/images/expertises/immobilier-v6-w64.webp"
+      "src": "/images/expertises/immobilier-v6-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/expertises/immobilier-v6-w128.webp"
+      "src": "/images/expertises/immobilier-v6-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/expertises/immobilier-v6-w256.webp"
+      "src": "/images/expertises/immobilier-v6-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/expertises/immobilier-v6-w480.webp"
+      "src": "/images/expertises/immobilier-v6-w480.avif"
     },
     {
       "width": 687,
-      "src": "/images/expertises/immobilier-v6-w687.webp"
+      "src": "/images/expertises/immobilier-v6-w687.avif"
     }
   ],
   "/images/expertises/software-ia-v5.jpg": [
     {
       "width": 64,
-      "src": "/images/expertises/software-ia-v5-w64.webp"
+      "src": "/images/expertises/software-ia-v5-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/expertises/software-ia-v5-w128.webp"
+      "src": "/images/expertises/software-ia-v5-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/expertises/software-ia-v5-w256.webp"
+      "src": "/images/expertises/software-ia-v5-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/expertises/software-ia-v5-w480.webp"
+      "src": "/images/expertises/software-ia-v5-w480.avif"
     },
     {
       "width": 736,
-      "src": "/images/expertises/software-ia-v5-w736.webp"
+      "src": "/images/expertises/software-ia-v5-w736.avif"
     }
   ],
   "/images/fondateur/krodi-krotchaman-fondateur.jpg": [
     {
       "width": 64,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w64.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w128.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w256.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w480.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w480.avif"
     },
     {
       "width": 768,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w768.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w768.avif"
     },
     {
       "width": 900,
-      "src": "/images/fondateur/krodi-krotchaman-fondateur-w900.webp"
+      "src": "/images/fondateur/krodi-krotchaman-fondateur-w900.avif"
     }
   ],
   "/images/hero/finance-markets.jpg": [
     {
       "width": 64,
-      "src": "/images/hero/finance-markets-w64.webp"
+      "src": "/images/hero/finance-markets-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/hero/finance-markets-w128.webp"
+      "src": "/images/hero/finance-markets-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/hero/finance-markets-w256.webp"
+      "src": "/images/hero/finance-markets-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/hero/finance-markets-w480.webp"
+      "src": "/images/hero/finance-markets-w480.avif"
     },
     {
       "width": 768,
-      "src": "/images/hero/finance-markets-w768.webp"
+      "src": "/images/hero/finance-markets-w768.avif"
     },
     {
       "width": 1200,
-      "src": "/images/hero/finance-markets-w1200.webp"
+      "src": "/images/hero/finance-markets-w1200.avif"
     }
   ],
   "/images/hero/software-lab.jpg": [
     {
       "width": 64,
-      "src": "/images/hero/software-lab-w64.webp"
+      "src": "/images/hero/software-lab-w64.avif"
     },
     {
       "width": 128,
-      "src": "/images/hero/software-lab-w128.webp"
+      "src": "/images/hero/software-lab-w128.avif"
     },
     {
       "width": 256,
-      "src": "/images/hero/software-lab-w256.webp"
+      "src": "/images/hero/software-lab-w256.avif"
     },
     {
       "width": 480,
-      "src": "/images/hero/software-lab-w480.webp"
+      "src": "/images/hero/software-lab-w480.avif"
     },
     {
       "width": 736,
-      "src": "/images/hero/software-lab-w736.webp"
+      "src": "/images/hero/software-lab-w736.avif"
     }
   ]
 }

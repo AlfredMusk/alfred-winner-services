@@ -18,8 +18,13 @@ async function visit(dir) {
     manifest[source] = [];
     for (const width of widths) {
       const target = file.replace(/\.(jpe?g|png)$/i, `-w${width}.webp`);
+      // Regenerate derivatives when their source changes; never edit originals.
       await sharp(file).resize({ width, withoutEnlargement: true }).webp({ quality: source.includes("/brand/") ? 90 : 85 }).toFile(target);
-      manifest[source].push({ width, src: "/images/" + path.relative(root, target).split(path.sep).join("/") });
+      const optimized = source.includes("/brand/") ? target : target.replace(/\.webp$/, ".avif");
+      if (optimized !== target) {
+        await sharp(file).resize({ width, withoutEnlargement: true }).avif({ quality: 70, effort: 6 }).toFile(optimized);
+      }
+      manifest[source].push({ width, src: "/images/" + path.relative(root, optimized).split(path.sep).join("/") });
     }
   }
 }
